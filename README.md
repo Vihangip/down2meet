@@ -69,7 +69,7 @@ Pick 2 of your minimal requirements and break each of them down into ~2-5 smalle
 
 Finally, draw 2-3 rough sketch prototypes of some key tasks of your app. Sketch these physically on paper and then scan and add to your repo. 
 
-![pic1](./Prototypes/LoFi PLLOW.png)
+![pic1](https://github.com/Vihangip/down2meet/Prototypes/LoFi PLLOW.png)
 
 
 
