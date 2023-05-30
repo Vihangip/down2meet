@@ -1,7 +1,7 @@
 # down2meet
 
 Group Name: 
-**PLLOW**
+**down2meet**
 
 Group Members:
 - Johnny Lau
