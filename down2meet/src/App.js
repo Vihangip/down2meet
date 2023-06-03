@@ -1,23 +1,33 @@
 import logo from './logo.svg';
 import './App.css';
+import SocialGroups from './components/SocialGroups';
+import Navigation from './components/Navigation';
+import ButtonAvailable from './components/ButtonAvailable';
+import SocialFeed from './components/SocialFeed';
+import ActiveUsers from './components/ActiveUsers';
+import PostBar from './components/PostBar';
+import SearchBar from './components/SearchBar';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <nav>
+        <Navigation />
+      </nav>
+      <div className="Body">
+        <div className="Body-Left">
+          <SocialGroups />
+        </div>
+        <div className="Body-Middle">
+          <PostBar />
+          <SocialFeed />
+        </div>
+        <div className="Body-Right">
+          <ButtonAvailable />
+          <SearchBar />
+          <ActiveUsers />
+        </div>
+      </div>
     </div>
   );
 }

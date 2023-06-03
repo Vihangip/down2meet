@@ -1,0 +1,292 @@
+* {
+    height: 100% auto;
+    width: 100% auto;
+}
+
+html, body, #app, #app>div {
+    height: 100%
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.App {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.Body {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    height: 100%;
+    padding-top: 80px;
+}
+
+/* Navbar */
+
+
+/* .navbar {
+  z-index: 1000;
+  background-color: rgb(98, 166, 15);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+} */
+
+.navbar {
+  height: 60px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  padding: 0.5rem 0rem;
+  background-color: rgb(53, 177, 53);
+  color: white;
+  box-shadow: 0 2px 2px 2px rgba(9, 9, 9, 0.23);
+}
+
+.navigation-menu {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.navigation-menu a {
+  display: flex;
+  align-items: center;
+  color: white;
+  font-size: large;
+  text-decoration: none;
+}
+
+.navigation-menu ul {
+  display: flex;
+  padding: 0;
+  align-items: center;
+}
+.navigation-menu li {
+  list-style-type: none;
+  margin: 0 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo-image {
+  width: 25%; /* Adjust the width as needed */
+  max-height: 100%; /* Adjust the height as needed */
+  margin-right: 10px; /* Add some spacing between the logo and the text */
+  margin-left: 20px;
+}
+
+
+
+/*  ~~~~~~~~~~~~~~~~~~ LEFT SIDE  ~~~~~~~~~~~~~~~~~~ */
+.Body-Left {
+    width: 15%;
+    height: 100%;
+}
+
+/* Social Groups */
+.SocialGroups {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    height: 100%;
+    background-color: grey;
+    font-size: 40px;
+    color: black;
+    padding-top: 30px;
+    padding-left: 20px;
+}
+
+.HomePage {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.HomePage:hover {
+    color: white;
+}
+
+.Friends {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.Friends:hover {
+    color: white;
+}
+
+.CurrentEvents {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.CurrentEvents:hover {
+    color: white;
+}
+
+.Groups {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.Groups:hover {
+    color: white;
+}
+
+.SGButton {
+    text-decoration: none;
+    background-color: grey;
+    align-self: center;
+    color: black;
+    padding: 10px;
+    cursor: pointer;   
+    border: 0;
+    font-size: 20px;
+}
+
+.SGButton:hover {
+    color: white;
+}
+  
+
+/*  ~~~~~~~~~~~~~~~~~~ MIDDLE SIDE  ~~~~~~~~~~~~~~~~~~ */
+.Body-Middle {
+    width: 60%;
+    height: 100%;
+    background-color: rgb(188, 188, 188);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+}  
+
+
+/* PostBar */
+.PostBar{
+    margin-top: 30px;
+    height: 20%;
+    width: 95%;
+    align-self: center;
+    background-color: white;
+    font-size: 40px auto;
+    color: black;
+}
+
+/* Social Feed */
+.SocialFeed {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    height: 100%;
+    font-size: 40px;
+    color: black;
+    padding-top: 30px;
+    padding-left: 20px;
+}
+
+
+/*  ~~~~~~~~~~~~~~~~~~ RIGHT SIDE  ~~~~~~~~~~~~~~~~~~ */
+.Body-Right {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    height: 100%;
+    background-color: rgb(160, 160, 160);
+} 
+
+/* status button */
+  
+.button {
+    width: 100%;
+    height: 100%;
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 10px;
+  }
+  
+  .button.available {
+    background-color: #35985a;
+  }
+  
+  .button.busy {
+    background-color: red;
+  }
+
+  /* SearchBar */
+
+  .SearchBar {
+    width: 100%;
+    height: 10%;
+    color: black;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+  }
+
+/* ActiveUsers */
+.activeUsers-list {
+    width: 80%;
+    background-color: #EBE9E9;
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 10px;
+}
+  
+.activeUsers-list li {
+    flex: 0 0 100%;
+    text-align: left;
+    margin-bottom: 10px;
+}
+.activeUsers-list li::before{
+    content: "\2022";
+    font-weight: bold;
+    display: inline-block; 
+    width: 1em;
+    font-size: 2.5em;
+}
+
+.activeUser{
+    color:black;
+    font-weight: bold;
+}
+
+.activeUsers::before{
+    color: #35985a;
+}
+
+.inactiveUser {
+    color: #888;
+  }
+
+ .inactiveUser::before{
+    color: #888; /* Inactive user color */
+}
