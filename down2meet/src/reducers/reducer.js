@@ -1,6 +1,7 @@
-// import data from '../assets/dataseed.json';
+import data from '../tests/fillerData.json';
+
 const initialState = {
-    posts: [],
+    posts: data,
   };
   
 

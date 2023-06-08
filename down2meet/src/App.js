@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import SocialGroups from './components/SocialGroups';
 import Navigation from './components/Navigation';

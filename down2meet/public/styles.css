@@ -194,6 +194,19 @@ html, body, #app, #app>div {
     background-color: white;
     font-size: 40px auto;
     color: black;
+    display: flex;
+    flex-direction: row;
+}
+
+.PostBar-Image {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+
+.PostBar-InputBar{
+    width: 80%;
+    height: 100px;
 }
 
 /* Social Feed */
@@ -202,12 +215,38 @@ html, body, #app, #app>div {
     flex-direction: column;
     gap: 30px;
     height: 100%;
+    width: 100%;
     font-size: 40px;
     color: black;
     padding-top: 30px;
     padding-left: 20px;
 }
 
+/* Post */
+.Post {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    width: 100%;
+}
+
+.Post-UserInfo p {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.Post-UserInfo {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.Post-UserInfo-Image {
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    align-self: center;
+}
 
 /*  ~~~~~~~~~~~~~~~~~~ RIGHT SIDE  ~~~~~~~~~~~~~~~~~~ */
 .Body-Right {
