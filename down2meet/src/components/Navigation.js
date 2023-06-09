@@ -19,8 +19,8 @@ export default function Navigation() {
       <img src={logo} alt="Logo" className="logo-image" />
       </a>
       <div className="navigation-menu"> 
-        <li><a href="/"><i class="fa-regular fa-user"></i></a></li>
-        <li><a href="/"><i class="fa-regular fa-bell"></i></a></li>
+        <li><a href="/"><i className="fa-regular fa-user"></i></a></li>
+        <li><a href="/"><i className="fa-regular fa-bell"></i></a></li>
        
         {/* using tutorial for GoogleLogin from: https://blog.logrocket.com/guide-adding-google-login-react-app/ */}
         <GoogleLogin onSuccess={responseMessage} onError={errorMessage} className="google-login-button" // Apply the CSS class here
