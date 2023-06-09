@@ -1,6 +1,8 @@
 import React from 'react';
 import logo from '../assets/D2MLogo.png';
 import { GoogleLogin } from '@react-oauth/google';
+import '../css/navigation.css';
+
 
 export default function Navigation() {
     // when users successfully login
@@ -21,7 +23,8 @@ export default function Navigation() {
         <li><a href="/"><i class="fa-regular fa-bell"></i></a></li>
        
         {/* using tutorial for GoogleLogin from: https://blog.logrocket.com/guide-adding-google-login-react-app/ */}
-        <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
+        <GoogleLogin onSuccess={responseMessage} onError={errorMessage} className="google-login-button" // Apply the CSS class here
+/>
 
 
       </div>
