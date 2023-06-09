@@ -8,7 +8,7 @@ import reportWebVitals from './reportWebVitals';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // using GoogleOAuthProvider tutorial from: https://blog.logrocket.com/guide-adding-google-login-react-app/
-  <GoogleOAuthProvider clientId="706629371824-b2ospvjqbq8aj4chscor9gsta5rm86l6.apps.googleusercontent.com">
+  <GoogleOAuthProvider clientId="1011482531322-6d1dp35f941hr37vnn7cvjdstntunnru.apps.googleusercontent.com">
     <React.StrictMode>
       <App />
     </React.StrictMode>
