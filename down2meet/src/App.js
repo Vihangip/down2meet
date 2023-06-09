@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import SocialGroups from './components/SocialGroups';
 import Navigation from './components/Navigation';
@@ -7,6 +6,7 @@ import SocialFeed from './components/SocialFeed';
 import ActiveUsers from './components/ActiveUsers';
 import PostBar from './components/PostBar';
 import SearchBar from './components/SearchBar';
+import React from 'react';
 
 function App() {
   return (
