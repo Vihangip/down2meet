@@ -8,7 +8,9 @@ const Post = ({post}) => {
                 <img className="Post-UserInfo-Image" src={post.profilepic} alt=""></img>
                 <p>{post.name}</p>
             </div>
-            <p>{post.status}</p>
+            <div className="Post-Content">
+                <p>{post.status}</p>
+            </div>
         </div>
     )
 }

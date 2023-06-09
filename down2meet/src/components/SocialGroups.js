@@ -11,9 +11,9 @@ export default function SocialGroups() {
                 <i class="fa-solid fa-user"></i>
                 <button className="SGButton">Friends</button>
             </div>
-            <div className="CurrentEvents">
+            <div className="Events">
                 <i class="fa-solid fa-calendar-days"></i>
-                <button className="SGButton">Current Events</button> 
+                <button className="SGButton">Events</button> 
             </div>
             <div className="Groups">
                 <i class="fa-solid fa-people-group"></i>

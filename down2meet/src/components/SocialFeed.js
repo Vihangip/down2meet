@@ -5,7 +5,7 @@ export default function SocialFeed() {
     const posts = useSelector((state) => (state.posts));
     
     return (
-        <div>
+        <div className="SocialFeed">
             {posts.length === 0 ? (
             <p>No posts yet.</p>
           ) : (

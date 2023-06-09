@@ -16,7 +16,7 @@ function PostBar() {
   return (
     <div className="PostBar">
         <img className="PostBar-Image" src="https://upload.wikimedia.org/wikipedia/en/c/c6/Jesse_Pinkman_S5B.png" alt=""></img>
-      <form onSubmit={handleSubmit}>
+      <form className="PostBar-Form" onSubmit={handleSubmit}>
         <input
           type="text"
           className="PostBar-InputBar"
@@ -24,7 +24,7 @@ function PostBar() {
           onChange={(e) => setPostContent(e.target.value)}
           placeholder="Enter your post"
         />
-        <button type="submit">Add Post</button>
+        <button className="PostBar-Button" type="submit">Post</button>
       </form>
       
     </div>
