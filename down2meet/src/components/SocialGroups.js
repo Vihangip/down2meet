@@ -1,26 +1,26 @@
-
+import { NavLink } from "react-router-dom";
 
 export default function SocialGroups() {
     return (
-        <div className="SocialGroups">
-            <div className="HomePage">
+        <nav className="SocialGroups">
+            <NavLink className="HomePage" to="/">
                 <i className="fa-solid fa-house"></i>
                 <button className="SGButton">Home</button>
-            </div>
-            <div className="Friends">
+            </NavLink>
+            <NavLink className="Friends" to="/Friends">
                 <i className="fa-solid fa-user"></i>
                 <button className="SGButton">Friends</button>
-            </div>
+            </NavLink>
 
-            <div className="Events">
+            <NavLink className="Events" to="/Events">
                 <i class="fa-solid fa-calendar-days"></i>
                 <button className="SGButton">Events</button> 
-            </div>
+            </NavLink>
       
-            <div className="Groups">
+            <NavLink className="Groups" to="/Groups">
                 <i class="fa-solid fa-people-group"></i>
                 <button className="SGButton">Groups</button>
-            </div>
-        </div>
+            </NavLink>
+        </nav>
     );
 }
