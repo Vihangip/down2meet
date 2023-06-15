@@ -7,6 +7,7 @@ const Post = ({post}) => {
             <div className="Post-UserInfo">
                 <img className="Post-UserInfo-Image" src={post.profilepic} alt=""></img>
                 <p>{post.name}</p>
+                <p>{post.availability ? "available" : "busy"}</p>
             </div>
             <div className="Post-Content">
                 <p>{post.status}</p>

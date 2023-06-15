@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
@@ -12,7 +11,11 @@ import Home from './pages/Home';
 import Events from './pages/Events';
 import Friends from './pages/Friends';
 import Groups from './pages/Groups';
+import Navigation from './components/Navigation';
 import SocialGroups from './components/SocialGroups';
+import ButtonAvailable from './components/ButtonAvailable';
+import SearchBar from './components/SearchBar';
+import ActiveUsers from './components/ActiveUsers';
 
 const store = createStore(reducer);
 
@@ -22,12 +25,26 @@ ReactDOM.render(<>
     <React.StrictMode>
       <Router>
       <Provider store={store}>
+        <Navigation />
+        <div className='Body'>
+        <div className="Body-Left">
+        <SocialGroups />
+        </div>
+        <div className='Body-Middle'>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/Friends" element={<Friends />} />
           <Route path="/Groups" element={<Groups />} />
           <Route path="/Events" element={<Events />} />
         </Routes>
+        </div>
+
+        <div className="Body-Right">
+        <ButtonAvailable />
+          <SearchBar />
+          <ActiveUsers />
+        </div>
+        </div>
       </Provider>
       </Router>
     </React.StrictMode>

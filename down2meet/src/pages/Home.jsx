@@ -10,23 +10,23 @@ import React from 'react';
 function Home() {
   return (
     <div className="Home">
-      <nav>
+      {/* <nav>
         <Navigation />
       </nav>
       <div className="Body">
         <div className="Body-Left">
           <SocialGroups />
-        </div>
+        </div> */}
         <div className="Body-Middle">
           <PostBar />
           <SocialFeed />
         </div>
-        <div className="Body-Right">
+        {/* <div className="Body-Right">
           <ButtonAvailable />
           <SearchBar />
           <ActiveUsers />
-        </div>
-      </div>
+        </div> */}
+      {/* </div> */}
     </div>
   );
 }
