@@ -1,3 +1,5 @@
+
+
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import addPost from '../actions/actions';
@@ -32,3 +34,4 @@ function PostBar() {
 }
 
 export default PostBar;
+

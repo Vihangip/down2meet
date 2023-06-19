@@ -3,6 +3,7 @@ import logo from '../assets/D2MLogo.png';
 import { GoogleLogin } from '@react-oauth/google';
 import '../css/navigation.css';
 import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 
 export default function Navigation() {
@@ -30,7 +31,10 @@ export default function Navigation() {
       <img src={logo} alt="Logo" className="logo-image" />
       </a>
       <div className="navigation-menu"> 
-        <li><a href="/"><i className="fa-regular fa-user"></i></a></li>
+       {/* <li><a href="./Profile.js"><i className="fa-regular fa-user"></i></a></li> */}
+        <NavLink className="Profile" to="/Profile">
+                <i className="fa-regular fa-user"></i>
+        </NavLink>
         <li><a href="/"><i className="fa-regular fa-bell"></i></a></li>
        
         {/* using tutorial for GoogleLogin from: https://blog.logrocket.com/guide-adding-google-login-react-app/ */}
