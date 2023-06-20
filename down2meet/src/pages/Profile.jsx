@@ -4,7 +4,8 @@ import React from 'react';
 function Profile() {
   return (
     <div className="ProfilePage">
-        <h1>Profile</h1>
+        <h2>Profile</h2>
+        {/*<img className="Post-UserInfo-Image" src={post.profilepic} alt="profile picture"></img> */}
     </div>
   );
 }

@@ -6,7 +6,7 @@ import ActiveUsers from '../components/ActiveUsers';
 import PostBar from '../components/PostBar';
 import SearchBar from '../components/SearchBar';
 import React from 'react';
-import Profile from '../components/Profile';
+
 
 function Home() {
   return (
@@ -21,7 +21,6 @@ function Home() {
         <div className="Body-Middle">
           <PostBar />
           <SocialFeed />
-          <Profile />
         </div>
         {/* <div className="Body-Right">
           <ButtonAvailable />
