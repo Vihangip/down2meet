@@ -336,6 +336,10 @@ html, body, #Home, #Home>div {
     margin-right: 10%;
 }
 
+.timetable-container {
+    width: 95%; 
+}
+
 /*  ~~~~~~~~~~~~~~~~~~ RIGHT SIDE  ~~~~~~~~~~~~~~~~~~ */
 .Body-Right {
     display: flex;

@@ -159,12 +159,12 @@ export default class ProdileSchedule extends Component {
 
   render() {
     return (
-      <div>
+      <div className='timetable-container'>
         <TimeTable
           events={this.state.events}
           renderHour={this.renderHour}
           renderEvent={this.renderEvent}
-          hoursInterval={[7, 24]}
+          hoursInterval={[7, 19]}
           timeLabel="Time :)"
         />
       </div>
