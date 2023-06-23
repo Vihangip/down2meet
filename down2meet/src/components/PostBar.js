@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import addPost from '../actions/actions';
+import { addPost } from '../actions/actions';
 
 function PostBar() {
   const posts = useSelector((state) => (state.posts));

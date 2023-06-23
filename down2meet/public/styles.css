@@ -316,6 +316,26 @@ html, body, #Home, #Home>div {
     font-size: 40px;
 }
 
+.ProfilePicture {
+    width: 30%;
+    max-width: 300px;
+    margin-right: 10%;
+}
+
+.ProfilePage .in-line {
+    position: relative;
+    display: flex;
+    flex-direction: flex-start;
+    margin-right: 10%;
+}
+
+.ProfilePage .column {
+    position: relative;
+    display: table-column;
+    margin-bottom: 100px;
+    margin-right: 10%;
+}
+
 /*  ~~~~~~~~~~~~~~~~~~ RIGHT SIDE  ~~~~~~~~~~~~~~~~~~ */
 .Body-Right {
     display: flex;

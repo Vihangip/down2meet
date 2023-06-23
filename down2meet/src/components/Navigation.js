@@ -2,23 +2,35 @@ import React from 'react';
 import logo from '../assets/D2MLogo.png';
 import { GoogleLogin } from '@react-oauth/google';
 import '../css/navigation.css';
-import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { updateUserProfile } from '../actions/actions';
 
 
 export default function Navigation() {
 
-    const [username, setUsername] = useState("");
+    const dispatch = useDispatch();
+
 
     // when users successfully login
     const responseMessage = (response) => {
       const idToken = response.credential;
       const encodedPayload = idToken.split('.')[1];
       const decodedPayload = JSON.parse(atob(encodedPayload));
-      setUsername(decodedPayload.name); //doesn't get updated until outside responseMessage, for rendering page after
-      const updated_name = decodedPayload.name;
-      console.log("Hey, " + updated_name);
-      console.log(response);
+
+      const name = decodedPayload.name;
+      const email = decodedPayload.email;
+      const picture = decodedPayload.picture;
+
+      console.log("Hey, " + name);
+
+      const user = {
+        name: name,
+        email: email,
+        picture: picture
+      }
+      dispatch(updateUserProfile(user));
+      //console.log(response);
     };
     // when users don't successfully login
     const errorMessage = (error) => {
