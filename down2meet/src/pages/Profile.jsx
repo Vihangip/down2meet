@@ -1,12 +1,11 @@
 
 import React from 'react';
 import { useSelector } from 'react-redux';
+import ProfileSchedule from '../components/ProfileSchedule';
 
 function Profile() {
 
   const user = useSelector(state => state.user);
-  console.log(user);
-  console.log(user.name);
 
   return (
     <div className="ProfilePage">
@@ -19,6 +18,7 @@ function Profile() {
           </div>
         </div>
         <h3> Schedule</h3>
+        <ProfileSchedule/>
 
     </div>
   );
