@@ -18,7 +18,7 @@ function Profile() {
           </div>
         </div>
         <h3> Schedule</h3>
-        <ProfileSchedule/>
+        {/*<ProfileSchedule/>*/}
 
     </div>
   );
