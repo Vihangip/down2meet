@@ -1,10 +1,10 @@
-
+import Calendar from '../components/calendar/Calendar';
 import React from 'react';
 
 function Events() {
   return (
-    <div className="EventsPage">
-        <h1>Events</h1>
+    <div className='Events'>
+      <Calendar />
     </div>
   );
 }
