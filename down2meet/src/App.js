@@ -8,6 +8,8 @@ import PostBar from './components/PostBar';
 import SearchBar from './components/SearchBar';
 import React from 'react';
 import Availability from './components/Availability';
+import { userData } from './tests/usersData';
+
 
 
 
@@ -33,7 +35,7 @@ function App() {
         <div className="Body-Right">
           <ButtonAvailable />
           <SearchBar />
-          <ActiveUsers />
+          <ActiveUsers friends={userData}/>
         </div>
       </div>
     </div>
