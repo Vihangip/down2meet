@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getUserAsync, addUserAsync, deleteUserAsync } from "./thunks";
+import { getUsersAsync, addUsersAsync, deleteUsersAsync } from "./thunks";
 
 
 const INITIAL_STATE = {
     userList: [],
+    friendsList: [],
 };
 
 const userSlice = createSlice({
@@ -12,13 +13,14 @@ const userSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(getUserAsync.fulfilled, (state, action) => {
+            .addCase(getUsersAsync.fulfilled, (state, action) => {
                 state.userList = action.payload;
+                state.friendsList = action.payload[0].friends;
             })
-            .addCase(addUserAsync.fulfilled, (state, action) => {
+            .addCase(addUsersAsync.fulfilled, (state, action) => {
                 state.userList.push(action.payload);
             })
-            .addCase(deleteUserAsync.fulfilled, (state, action) => {
+            .addCase(deleteUsersAsync.fulfilled, (state, action) => {
                 state.userList = state.userList.filter((user) => user.id !== action.payload);
             });
     },

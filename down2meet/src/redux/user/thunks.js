@@ -1,23 +1,22 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import service from "./service";
 
-export const getUserAsync = createAsyncThunk(
-    'users/getUserAsync',
+export const getUsersAsync = createAsyncThunk(
+    'users/getUsersAsync',
     async () => {
-        return await service.getUser();
+        return await service.getUsers();
     }
 );
 
-export const addUserAsync = createAsyncThunk(
-    'users/addUserAsync',
+export const addUsersAsync = createAsyncThunk(
+    'users/addUsersAsync',
     async (user) => {
-        return await service.addUser(user);
-    }
-);
+        return await service.addUsers(user);
+    });
 
-export const deleteUserAsync = createAsyncThunk(
-    'users/deleteUserAsync',
+export const deleteUsersAsync = createAsyncThunk(
+    'users/deleteUsersAsync',
     async (userID) => {
-        return await service.deleteUser(userID);
+        return await service.deleteUsers(userID);
     }
 );

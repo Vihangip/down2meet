@@ -1,5 +1,5 @@
-const getUser = async () => {
-    const res = await fetch(`http://localhost:3001/user`,
+const getUsers = async () => {
+    const res = await fetch(`http://localhost:3001/users`,
     {
         method: "GET",
     });
@@ -7,8 +7,8 @@ const getUser = async () => {
     return data;
 }
 
-const addUser = async (user) => {
-    const res = await fetch(`http://localhost:3001/user`,
+const addUsers = async (user) => {
+    const res = await fetch(`http://localhost:3001/users`,
     {
         method: "POST",
         headers: {
@@ -23,8 +23,8 @@ const addUser = async (user) => {
     return data;
 }
 
-const deleteUser = async (userID) => {
-    const res = await fetch(`http://localhost:3001/user/${userID}`,
+const deleteUsers = async (userID) => {
+    const res = await fetch(`http://localhost:3001/users/${userID}`,
     {
         method: "DELETE",
     });
@@ -33,5 +33,5 @@ const deleteUser = async (userID) => {
 }
 
 export default {
-    getUser, addUser, deleteUser
+    getUsers, addUsers, deleteUsers
 }

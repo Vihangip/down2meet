@@ -3,13 +3,21 @@ import Friend from '../components/Friend';
 import SortingComponent from '../components/Sorting';
 import {useDispatch, useSelector} from 'react-redux';
 import { removeFriend } from '../actions/actions';
+import { useEffect } from 'react';
+import { getUsersAsync } from '../redux/user/thunks';
+
 
 
 
 function Friends() {
   const [sortOrder, setSortOrder] = useState('default');
-  const friendsList = useSelector((state) => state.friendsList);
+  const friendsList = useSelector((state) => (state.users.friendsList));
   const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    dispatch(getUsersAsync());
+  }, [dispatch]);
 
   const handleSortChange = (event) => {
     setSortOrder(event.target.value);

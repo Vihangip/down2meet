@@ -1,10 +1,20 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { getUsersAsync } from '../redux/user/thunks';
 
 export default function ActiveUsers({friends}){
-    const friendsList = useSelector((state) => state.friendsList);
-    const activeUsers = friendsList.filter((friend) => friend);
+  const friendsList = useSelector((state) => (state.users.friendsList));
+    const dispatch = useDispatch();
 
+    
+  useEffect(() => {
+    dispatch(getUsersAsync());
+  }, [dispatch]);
+
+
+  const activeUsers = friendsList.filter((friend) => friend);
     return (
         <div>
           <h2>Active Users</h2>

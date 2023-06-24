@@ -18,7 +18,7 @@ export default function SocialGroups() {
             </NavLink>
       
             <NavLink className="Groups" to="/Groups">
-                <i class="fa-solid fa-people-group"></i>
+                <i className="fa-solid fa-people-group"></i>
                 <button className="SGButton">Groups</button>
             </NavLink>
         </nav>
