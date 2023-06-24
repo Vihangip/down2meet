@@ -290,3 +290,18 @@ html, body, #app, #app>div {
  .inactiveUser::before{
     color: #888; /* Inactive user color */
 }
+
+
+/* AVAILABILITY STYLES */
+.availability-page {
+    margin-bottom: 5vh;
+}
+
+.availability-page.button {
+    background-color: blue;
+}
+
+.add-availability-form-div {
+    margin-bottom: 5vh;
+
+}
