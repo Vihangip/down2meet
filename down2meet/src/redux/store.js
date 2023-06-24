@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
-import eventReducer from './events/eventReducer';
-import friendReducer from './friends/reducers';
-import groupReducer from './groups/reducers';
+import userReducer from './user/reducer';
+import postReducer from './posts/reducer';
+import friendReducer from './friends/reducer';
+import groupReducer from './groups/reducer';
 
 const store = configureStore({
     reducer: {
-        events: eventReducer,
+        user: userReducer,
+        posts: postReducer,
         friends: friendReducer,
         groups: groupReducer,
     },

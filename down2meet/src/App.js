@@ -8,6 +8,7 @@ import PostBar from './components/PostBar';
 import SearchBar from './components/SearchBar';
 import React from 'react';
 import Availability from './components/Availability';
+import {store} from './redux/store';
 
 
 function App() {

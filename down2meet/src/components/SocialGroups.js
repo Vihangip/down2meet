@@ -13,7 +13,7 @@ export default function SocialGroups() {
             </NavLink>
 
             <NavLink className="Events" to="/Events">
-                <i class="fa-solid fa-calendar-days"></i>
+                <i className="fa-solid fa-calendar-days"></i>
                 <button className="SGButton">Events</button> 
             </NavLink>
       

@@ -1,17 +1,16 @@
 
 
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { addPost } from '../actions/actions';
+import { useDispatch } from 'react-redux';
+import { addPostAsync } from '../redux/posts/thunks';
 
 function PostBar() {
-  const posts = useSelector((state) => (state.posts));
   const dispatch = useDispatch();
   const [postContent, setPostContent] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addPost({"name": "John Smith", "profilepic": "https://upload.wikimedia.org/wikipedia/en/c/c6/Jesse_Pinkman_S5B.png", "status": postContent}));
+    dispatch(addPostAsync({"name": "John Smith", "profilepic": "https://upload.wikimedia.org/wikipedia/en/c/c6/Jesse_Pinkman_S5B.png", "status": postContent}));
     setPostContent('');
   };
 
