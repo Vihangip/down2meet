@@ -1,7 +1,8 @@
 
 import React from 'react';
 import { useSelector } from 'react-redux';
-import ProfileSchedule from '../components/ProfileSchedule';
+//import ProfileSchedule from '../components/ProfileSchedule';
+import Availability from '../components/Availability';
 
 function Profile() {
 
@@ -18,7 +19,7 @@ function Profile() {
           </div>
         </div>
         <h3> Schedule</h3>
-        {/*<ProfileSchedule/>*/}
+        <Availability/>
 
     </div>
   );
