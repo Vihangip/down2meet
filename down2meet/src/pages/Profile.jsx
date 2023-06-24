@@ -1,12 +1,20 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 //import ProfileSchedule from '../components/ProfileSchedule';
 import Availability from '../components/Availability';
+import { useDispatch } from 'react-redux';
+import { getUsersAsync } from '../redux/user/thunks';
+
 
 function Profile() {
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.users.userList[0]);
 
-  const user = useSelector(state => state.user);
+  useEffect(() => {
+    dispatch(getUsersAsync());
+  }, [dispatch]);
+
 
   return (
     <div className="ProfilePage">
