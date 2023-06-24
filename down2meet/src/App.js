@@ -10,8 +10,13 @@ import React from 'react';
 import Availability from './components/Availability';
 
 
+
+
+/////////////////////  THIS FILE IS NOT USED, USE INDEX.JS
 function App() {
   return (
+
+ 
     <div className="App">
       <nav>
         <Navigation />
