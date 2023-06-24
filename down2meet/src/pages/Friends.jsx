@@ -1,4 +1,3 @@
-
 import React, {useState} from 'react';
 import {userData} from '../tests/usersData';
 import Friend from '../components/Friend';
@@ -22,7 +21,7 @@ function Friends() {
       return a.availability === b.availability ? 0 : a.availability ? 1 : -1;
     });
   }
-  
+
   return (
     <div className="FriendsPage">
         <h1>Friends</h1>
