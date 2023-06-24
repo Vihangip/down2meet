@@ -23,6 +23,7 @@ function Friends() {
     });
   }
   
+  
   return (
     <div className="FriendsPage">
         <h1>Friends</h1>
