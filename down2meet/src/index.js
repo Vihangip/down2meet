@@ -11,11 +11,13 @@ import Home from './pages/Home';
 import Events from './pages/Events';
 import Friends from './pages/Friends';
 import Groups from './pages/Groups';
+import Profile from './pages/Profile';
 import Navigation from './components/Navigation';
 import SocialGroups from './components/SocialGroups';
 import ButtonAvailable from './components/ButtonAvailable';
 import SearchBar from './components/SearchBar';
 import ActiveUsers from './components/ActiveUsers';
+
 
 const store = createStore(reducer);
 
@@ -36,6 +38,7 @@ ReactDOM.render(<>
           <Route path="/Friends" element={<Friends />} />
           <Route path="/Groups" element={<Groups />} />
           <Route path="/Events" element={<Events />} />
+          <Route path="/Profile" element={<Profile />} />
         </Routes>
         </div>
 

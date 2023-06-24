@@ -1,7 +1,8 @@
 export const ADD_POST = 'ADD_POST';
+export const UPDATE_USER_PROFILE = 'UPDATE_USER_PROFILE';
 
 
-const addPost = (object) => ({
+export const addPost = (object) => ({
   type: ADD_POST,
   payload: {
     object,
@@ -9,8 +10,10 @@ const addPost = (object) => ({
 });
 
 
-export default addPost;
-
+export const updateUserProfile = (user) => ({
+  type: UPDATE_USER_PROFILE,
+  payload: user
+});
 
 // export const ADD_POST = 'ADD_POST';
 

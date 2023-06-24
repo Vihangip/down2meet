@@ -3,8 +3,8 @@ import React from 'react';
 
 function Events() {
   return (
-    <div className="EventsPage">
-        <h1>Events</h1>
+    <div className='Events'>
+      <h1>event</h1>
     </div>
   );
 }

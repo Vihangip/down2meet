@@ -300,6 +300,46 @@ html, body, #Home, #Home>div {
     align-self: left;
 }
 
+.ProfilePage {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    height: 100%;
+    width: 95%;
+    color: rgb(255, 255, 255);
+    background-color: #2c2c2c;
+    padding-top: 10px;
+    padding-left: 60px;
+}
+
+.ProfilePage h2 {
+    font-size: 40px;
+}
+
+.ProfilePicture {
+    width: 30%;
+    max-width: 300px;
+    margin-right: 10%;
+}
+
+.ProfilePage .in-line {
+    position: relative;
+    display: flex;
+    flex-direction: flex-start;
+    margin-right: 10%;
+}
+
+.ProfilePage .column {
+    position: relative;
+    display: table-column;
+    margin-bottom: 100px;
+    margin-right: 10%;
+}
+
+.timetable-container {
+    width: 95%; 
+}
+
 /*  ~~~~~~~~~~~~~~~~~~ RIGHT SIDE  ~~~~~~~~~~~~~~~~~~ */
 .Body-Right {
     display: flex;
@@ -383,59 +423,58 @@ html, body, #Home, #Home>div {
 }
 
 
-/* Friends */
-.FriendsPage {
+/*  ~~~~~~~~~~~~~~~~~~ Calendar  ~~~~~~~~~~~~~~~~~~ */
+.Events {
     display: flex;
-    flex-direction: column;
-    gap: 30px;
-    height: 100%;
-    width: 95%;
-    font-size: 40px;
-    color: rgb(255, 255, 255);
-    background-color: #2c2c2c;
-    padding-top: 30px;
-    padding-left: 20px;
-    padding-right: 20px;
-    overflow: auto;
-}
-
-.friend-image{
-    width:150px;
-    height: 150px;
-    object-fit: contain;
-}
-
-.friend-container {
-    display: flex;
+    flex-direction: row;
     align-items: center;
-    margin-bottom: 20px;
+    text-align: center;
+    width: 100%;
+    text-decoration: none;
+    color: white;
+}
+
+.Calendar-table {
+    width: 100%;
+}
+
+.Calendar-thead {
+    width: 100px;
+}
+
+.Calendar-tbody {
+    width: 100px;
+}
+
+.Event {
+    width: 100%;
+}
+
+.Event-Button {
+    text-decoration: none;
+    width: 100%;
+    align-self: center;
+    justify-content: center;
+    background-color: blue;
+    padding: 10px;
+    cursor: pointer;   
+    border: 0;
     font-size: 20px;
-  }
-  
-  .friend-info {
+}
+
+.EmptyEvent {
+    width: 120px;
+    height: 80px;
     display: flex;
     flex-direction: column;
-    margin-left: 10px;
-    text-align: right;
-  }
-  
-  .friend-name {
-    font-weight: bold;
-  }
-  
-  .friend-available {
-    color: green;
-  }
+    border: 1px solid black;
+}
 
-  .friend-busy {
-    color: gray;
-  }
-
-  /* SortingContainer */
-  .sorting-container {
-    flex: 0 0 200px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-start;
+.Calendar {
+    width: 100%;
+    height: 100%;
+    color: white;
+    background-color: #2c2c2c;
+    margin: 10px;
     padding: 10px;
-  }
+}
