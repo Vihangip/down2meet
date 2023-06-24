@@ -300,6 +300,46 @@ html, body, #Home, #Home>div {
     align-self: left;
 }
 
+.ProfilePage {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    height: 100%;
+    width: 95%;
+    color: rgb(255, 255, 255);
+    background-color: #2c2c2c;
+    padding-top: 10px;
+    padding-left: 60px;
+}
+
+.ProfilePage h2 {
+    font-size: 40px;
+}
+
+.ProfilePicture {
+    width: 30%;
+    max-width: 300px;
+    margin-right: 10%;
+}
+
+.ProfilePage .in-line {
+    position: relative;
+    display: flex;
+    flex-direction: flex-start;
+    margin-right: 10%;
+}
+
+.ProfilePage .column {
+    position: relative;
+    display: table-column;
+    margin-bottom: 100px;
+    margin-right: 10%;
+}
+
+.timetable-container {
+    width: 95%; 
+}
+
 /*  ~~~~~~~~~~~~~~~~~~ RIGHT SIDE  ~~~~~~~~~~~~~~~~~~ */
 .Body-Right {
     display: flex;

@@ -7,6 +7,7 @@ import PostBar from '../components/PostBar';
 import SearchBar from '../components/SearchBar';
 import React from 'react';
 
+
 function Home() {
   return (
     <div className="Home">
