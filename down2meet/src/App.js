@@ -9,10 +9,17 @@ import SearchBar from './components/SearchBar';
 import React from 'react';
 import Availability from './components/Availability';
 import {store} from './redux/store';
+import { userData } from './tests/usersData';
 
 
+
+
+
+/////////////////////  THIS FILE IS NOT USED, USE INDEX.JS
 function App() {
   return (
+
+ 
     <div className="App">
       <nav>
         <Navigation />
@@ -29,7 +36,7 @@ function App() {
         <div className="Body-Right">
           <ButtonAvailable />
           <SearchBar />
-          <ActiveUsers />
+          <ActiveUsers friends={userData}/>
         </div>
       </div>
     </div>

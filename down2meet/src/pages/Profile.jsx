@@ -19,7 +19,7 @@ function Profile() {
           </div>
         </div>
         <h3> Schedule</h3>
-        <Availability/>
+        <div className="Calendar"> <Availability/> </div>
 
     </div>
   );

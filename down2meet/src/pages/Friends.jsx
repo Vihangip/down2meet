@@ -1,16 +1,25 @@
 import React, {useState} from 'react';
-import {userData} from '../tests/usersData';
 import Friend from '../components/Friend';
 import SortingComponent from '../components/Sorting';
+import {useDispatch, useSelector} from 'react-redux';
+import { removeFriend } from '../actions/actions';
+
+
 
 function Friends() {
   const [sortOrder, setSortOrder] = useState('default');
+  const friendsList = useSelector((state) => state.friendsList);
+  const dispatch = useDispatch();
 
   const handleSortChange = (event) => {
     setSortOrder(event.target.value);
   };
 
-  const sortedData = [...userData];
+  const handleRemoveFriend = (index) => {
+    dispatch(removeFriend(index));
+  };
+
+  const sortedData = [...friendsList];
 
   if (sortOrder === 'availability') {
     sortedData.sort((a, b) => {
@@ -33,6 +42,7 @@ function Friends() {
           name={friend.name}
           profilepic={friend.profilepic}
           availability={friend.availability}
+          onRemove={() => handleRemoveFriend(index)}
         />
       ))}
     </div>
