@@ -7,6 +7,8 @@ import ActiveUsers from './components/ActiveUsers';
 import PostBar from './components/PostBar';
 import SearchBar from './components/SearchBar';
 import React from 'react';
+import Availability from './components/Availability';
+
 
 function App() {
   return (
@@ -21,6 +23,7 @@ function App() {
         <div className="Body-Middle">
           <PostBar />
           <SocialFeed />
+          <Availability/>
         </div>
         <div className="Body-Right">
           <ButtonAvailable />

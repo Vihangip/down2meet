@@ -422,7 +422,6 @@ html, body, #Home, #Home>div {
     color: #888; /* Inactive user color */
 }
 
-
 /* Friends */
 .FriendsPage {
     display: flex;
@@ -479,3 +478,18 @@ html, body, #Home, #Home>div {
     align-items: flex-start;
     padding: 10px;
   }
+
+/* AVAILABILITY STYLES */
+.availability-page {
+    margin-bottom: 5vh;
+}
+
+.availability-page.button {
+    background-color: blue;
+}
+
+.add-availability-form-div {
+    margin-bottom: 5vh;
+
+}
+
