@@ -24,10 +24,12 @@ function Profile() {
         </div>
         <h3> Schedule</h3>
        
+        <div className="Calendar"> <Availability/> </div>
+
         <div className="Calendar"> <Calendar/> </div>
 
 
-        {/*<div className="Calendar"> <Availability/> </div>*/}
+        {/* <div className="Calendar"> <Availability/> </div> */}
 
     </div>
   );

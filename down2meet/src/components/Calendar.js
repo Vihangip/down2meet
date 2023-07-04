@@ -1,6 +1,8 @@
 
 import { useState } from 'react';
 import ApiCalendar from 'react-google-calendar-api';
+import {endDate, startDate, details} from "./addAvailability";
+
 
 
 const config = {
@@ -36,16 +38,16 @@ const Calendar = () => {
         <button
           onClick={(e) => {
             const startDate = new Date();
-            startDate.setFullYear(2023);
-            startDate.setMonth(6); //month is 0 indexing *eg. 6 = July)
-            startDate.setDate(5); //day is 1 indexing
+            startDate.setFullYear(startDate[0]);
+            startDate.setMonth(startDate[1]); //month is 0 indexing *eg. 6 = July)
+            startDate.setDate(startDate[2]); //day is 1 indexing
             startDate.setHours(10);
             startDate.setMinutes(0);
 
             const endDate = new Date();
-            endDate.setFullYear(2023);
-            endDate.setMonth(6);
-            endDate.setDate(5);
+            endDate.setFullYear(endDate[0]);
+            endDate.setMonth(endDate[1]);
+            endDate.setDate(endDate[2]);
             endDate.setHours(11);
             endDate.setMinutes(30);
 
