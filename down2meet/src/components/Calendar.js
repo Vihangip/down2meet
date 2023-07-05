@@ -1,7 +1,10 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ApiCalendar from 'react-google-calendar-api';
 
+//import EventsList from '../assets/eventsList.json'; //store all events (for now; have to be moved to server eventually)
+
+const fs = require('fs');
 
 const config = {
   clientId: "1011482531322-6d1dp35f941hr37vnn7cvjdstntunnru.apps.googleusercontent.com",//process.env.REACT_APP_CLIENT_ID,
@@ -26,6 +29,25 @@ const Calendar = () => {
     }
   };
 
+  useEffect(() => {
+    //write to calendar to be displayed
+
+    const eventsData = require('../assets/eventsList.json');
+    const available2Event = eventsData.find(event => event.title === 'Available 2');
+    if (available2Event) {
+      available2Event.start = '2023-06-25T15:30:00';
+    }
+    fs.writeFile('../assets/eventsList.json', JSON.stringify(eventsData, null, 2), (err) => {
+      if (err) {
+        console.error('Error writing JSON file:', err);
+      } else {
+        console.log('events.json has been updated.');
+      }
+    });
+  }, [events]); //when google calendar is updated
+
+
+    
   return (
     <div>
       <div style={{ padding: '0.5em' }}>
