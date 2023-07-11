@@ -3,7 +3,16 @@
 var express = require('express');
 var router = express.Router();
 
-var posts = [{name: "Johnny Lau", id: "1", status: "I'm gonna be in Richmond at 8pm, anyone want to hang out", profilepic: "https://upload.wikimedia.org/wikipedia/en/c/c6/Jesse_Pinkman_S5B.png", availability: true}]
+var posts = [
+  {name: "Johnny Lau", 
+  id: "1", 
+  status: "I'm gonna be in Richmond at 8pm, anyone want to hang out", 
+  profilepic: "https://upload.wikimedia.org/wikipedia/en/c/c6/Jesse_Pinkman_S5B.png", 
+  availability: true,
+  time: "8pm",
+  date: "July 12",
+  location: "Richmond"
+}]
 
 /* GET posts listing. */
 router.get('/', function(req, res, next) {
