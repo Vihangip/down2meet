@@ -1,6 +1,7 @@
 export const actionTypes = {
-    GET_POSTS: 'users/getUsers',
-    ADD_POST: 'users/addUsers',
-    DELETE_POST: 'users/deleteUsers',
-    UPDATE_POST: 'users/updateUsers',
+    GET_USERS: 'users/getUsers',
+    GET_ONE_USERS: 'users/getOneUsers',
+    ADD_USER: 'users/addUsers',
+    DELETE_USER: 'users/deleteUsers',
+    UPDATE_USER: 'users/updateUsers',
 }

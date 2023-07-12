@@ -1,6 +1,8 @@
 
 
 var express = require('express');
+const Post = require('../mongoDB/Post');
+const { randomUUID } = require('crypto');
 var router = express.Router();
 
 var posts = [
@@ -15,43 +17,63 @@ var posts = [
 }]
 
 /* GET posts listing. */
-router.get('/', function(req, res, next) {
-  return res.send(posts);
+router.get('/', async(req, res, next) => {
+  let allposts = await Post.find();
+  return res.send(allposts);
 });
 
 /* GET posts by id. */
-router.get('/:postId', function(req, res, next) {
-  const postId = req.params.postId;
-  const foundPost = posts.find(post => post.id === postId);
+router.get('/:postId', async(req, res, next) => {
+  const foundPost = await Post.findOne({id: req.params.postId})
+  if(!foundPost) return res.status(404).send({message: 'Item not found'})
+  // const postId = req.params.postId;
+  // const foundPost = posts.find(post => post.id === postId);
   return res.send(foundPost);
 });
 
 /* POST post. */
-router.post('/', function(req, res, next) {
-  const post = req.body;
-  posts.push(post);
-
+router.post('/', async(req, res, next) =>{
+  const post = new Post(
+    { 
+      // id: randomUUID, 
+      content: req.body.status, 
+      date: req.body.date, 
+      time: req.body.time,
+      location: req.body.location
+      // userId:  req.body.userId,
+      // viewers: req.body.viewers 
+    })
+  // const post = req.body;
+  // posts.push(post);
+  await post.save()
   res.status(201);
   return res.send(post);
 });
 
 /* DELETE post. */
-router.delete('/:postId', function(req, res, next) {
-  const postId = req.params.postId;
-  console.log(postId);
-  const postIndex = posts.findIndex(post => post.id === postId);
-  posts.splice(postIndex, 1);
-
-  if (postIndex === -1) {
+router.delete('/:postId', async(req, res, next) => {
+  const postId = req.params.id;
+  try {
+    await Post.deleteOne({id: postId})
+    res.status(200).send(postId)
+  } catch {
     return res.status(404).send('Post not found');
   }
+  // const postId = req.params.postId;
+  // console.log(postId);
+  // const postIndex = posts.findIndex(post => post.id === postId);
+  // posts.splice(postIndex, 1);
 
-  res.status(200);
-  return res.send(postId);
+  // if (postIndex === -1) {
+  //   return res.status(404).send('Post not found');
+  // }
+
+  // res.status(200);
+  // return res.send(postId);
 });
 
 /* PUT post. */
-router.put('/:postId', function(req, res, next) {
+router.put('/:postId', async(req, res, next) =>{
   const postId = req.params.postId;
   const post = req.body;
   const postIndex = posts.findIndex(post => post.id === postId);
