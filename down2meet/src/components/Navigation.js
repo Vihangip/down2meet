@@ -11,7 +11,6 @@ export default function Navigation() {
 
     const dispatch = useDispatch();
 
-
     // when users successfully login
     const responseMessage = (response) => {
       const idToken = response.credential;
@@ -43,7 +42,7 @@ export default function Navigation() {
       <img src={logo} alt="Logo" className="logo-image" />
       </a>
       <div className="navigation-menu"> 
-       {/* <li><a href="./Profile.js"><i className="fa-regular fa-user"></i></a></li> */}
+       {/* <li><a href="./pages/Profilenp"><i className="fa-regular fa-user"></i></a></li> */}
         <NavLink className="Profile" to="/Profile">
                 <i className="fa-regular fa-user"></i>
         </NavLink>

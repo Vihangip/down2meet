@@ -11,7 +11,9 @@ import moment from "moment";
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import EventsList from '../assets/eventsList.json';
-import AddAvailability from "./addAvailability";
+import {AddAvailability} from "./addAvailability";
+// import {endDateRef, startDateRef, detailsRef} from "./addAvailability";
+
 
 const localizer = momentLocalizer(moment);
 
