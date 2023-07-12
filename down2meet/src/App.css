@@ -28,6 +28,12 @@
   color: #61dafb;
 }
 
+.Body-Middle{
+  height: fit-content;
+  margin-top: 25vh;;
+
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

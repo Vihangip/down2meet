@@ -1,10 +1,12 @@
 * {
     height: 100% auto;
     width: 100% auto;
-}
 
-html, body, #app, #app>div {
-    height: 100%
+}
+html, body, #Home, #Home>div {
+    height: 100%;
+
+    background-color: #121212;
 }
 
 #root {
@@ -14,7 +16,7 @@ html, body, #app, #app>div {
     width: 100%;
 }
 
-.App {
+.Home {
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -27,6 +29,7 @@ html, body, #app, #app>div {
     align-items: center;
     gap: 10px;
     height: 100%;
+    margin-top: 10px;
     padding-top: 80px;
 }
 
@@ -49,9 +52,8 @@ html, body, #app, #app>div {
   align-items: center;
   position: fixed;
   padding: 0.5rem 0rem;
-  background-color: rgb(53, 177, 53);
+  background-color: #2c2c2c;
   color: white;
-  box-shadow: 0 2px 2px 2px rgba(9, 9, 9, 0.23);
 }
 
 .navigation-menu {
@@ -106,17 +108,21 @@ html, body, #app, #app>div {
     flex-direction: column;
     gap: 30px;
     height: 100%;
-    background-color: grey;
+    background-color: #2c2c2c;
     font-size: 40px;
-    color: black;
+    color: white;
     padding-top: 30px;
     padding-left: 20px;
+    text-decoration: none;
 }
 
 .HomePage {
     display: flex;
     flex-direction: row;
     align-items: center;
+    text-align: center;
+    text-decoration: none;
+    color: white;
     gap: 10px;
 }
 
@@ -128,21 +134,28 @@ html, body, #app, #app>div {
     display: flex;
     flex-direction: row;
     align-items: center;
+    text-align: center;
     gap: 10px;
+
+    text-decoration: none;
+    color: white;
 }
 
 .Friends:hover {
     color: white;
 }
 
-.CurrentEvents {
+.Events {
     display: flex;
     flex-direction: row;
     align-items: center;
+    text-align: center;
     gap: 10px;
+    text-decoration: none;
+    color: white;
 }
 
-.CurrentEvents:hover {
+.Events:hover {
     color: white;
 }
 
@@ -150,7 +163,10 @@ html, body, #app, #app>div {
     display: flex;
     flex-direction: row;
     align-items: center;
+    text-align: center;
     gap: 10px;
+    text-decoration: none;
+    color: white;
 }
 
 .Groups:hover {
@@ -159,9 +175,10 @@ html, body, #app, #app>div {
 
 .SGButton {
     text-decoration: none;
-    background-color: grey;
+    background-color: #2c2c2c;
     align-self: center;
-    color: black;
+    justify-content: center;
+    color: white;
     padding: 10px;
     cursor: pointer;   
     border: 0;
@@ -175,26 +192,79 @@ html, body, #app, #app>div {
 
 /*  ~~~~~~~~~~~~~~~~~~ MIDDLE SIDE  ~~~~~~~~~~~~~~~~~~ */
 .Body-Middle {
-    width: 60%;
+    width: 98%;
     height: 100%;
-    background-color: rgb(188, 188, 188);
+    background-color:#121212;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 10px;
+    gap: 15px;
 }  
 
 
 /* PostBar */
-.PostBar{
+
+.PostBar {
     margin-top: 30px;
-    height: 20%;
+    height: 80%;
     width: 95%;
-    align-self: center;
-    background-color: white;
+    align-items: center;
+    background-color: #2c2c2c;
     font-size: 40px auto;
+    color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding: 10px;
+  }
+  
+  .PostBar-Image {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+  }
+  
+  .PostBar-Form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+    width: 80%;
+    height: 90%;
+  }
+  
+  .PostBar-InputContainer {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .PostBar-InputLabel {
+    font-size: 20px;
+    color: white;
+    margin-bottom: 5px;
+  }
+  
+  .PostBar-InputBar {
+    width: 80%;
+    height: 40px;
+    color: white;
+    border: 1px solid #121212;
+    background-color: #2c2c2c;
+  }
+  
+  .PostBar-Button {
+    border: none;
+    background-color: white;
     color: black;
-}
+    margin-top: 10px;
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+
+  .PostBar button:hover {
+    opacity: 0.8;
+  }
+  
 
 /* Social Feed */
 .SocialFeed {
@@ -202,12 +272,131 @@ html, body, #app, #app>div {
     flex-direction: column;
     gap: 30px;
     height: 100%;
+    width: 95%;
     font-size: 40px;
-    color: black;
+    color: rgb(255, 255, 255);
+    background-color: #2c2c2c;
     padding-top: 30px;
     padding-left: 20px;
 }
 
+/* Post */
+.Post {
+    display: flex;
+    flex-direction: column;
+    background-color: #2c2c2c;
+    align-content: center;
+    color: white;
+    width: 100%;
+    height: 80%;
+    border-bottom:1px solid #121212;
+}
+
+.Post-UserInfo p {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.Post-UserInfo {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+}
+
+.Post-UserInfo-Image {
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    align-self: center;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+.Post-Content {
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    align-items: center;
+}
+
+.Post-Content p {
+    margin-bottom: 5px; /* Adjust the value to your desired spacing */
+ }
+
+.Post-Content button.accept-button {
+    margin-right: 20px;
+    padding: 8px 16px;
+    border: none;
+    background-color: #32CD32;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+  
+.Post-Content button.reject-button {
+    margin-right: 10px;
+    padding: 8px 16px;
+    border: none;
+    background-color: #FF6347;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+  
+.Post-Content button:hover {
+    background-color: #555555;
+}
+  
+
+.Post p {
+    font-size: 20px;
+    align-self: left;
+}
+
+/* Profile page */
+
+.ProfilePage {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    height: 100%;
+    width: 95%;
+    color: rgb(255, 255, 255);
+    background-color: #2c2c2c;
+    padding-top: 10px;
+    padding-left: 60px;
+}
+
+.ProfilePage h2 {
+    font-size: 40px;
+}
+
+.ProfilePicture {
+    width: 30%;
+    max-width: 300px;
+    margin-right: 10%;
+}
+
+.ProfilePage .in-line {
+    position: relative;
+    display: flex;
+    flex-direction: flex-start;
+    margin-right: 10%;
+}
+
+.ProfilePage .column {
+    position: relative;
+    display: table-column;
+    margin-bottom: 100px;
+    margin-right: 10%;
+}
+
+.timetable-container {
+    width: 95%; 
+}
 
 /*  ~~~~~~~~~~~~~~~~~~ RIGHT SIDE  ~~~~~~~~~~~~~~~~~~ */
 .Body-Right {
@@ -290,3 +479,130 @@ html, body, #app, #app>div {
  .inactiveUser::before{
     color: #888; /* Inactive user color */
 }
+
+/*  ~~~~~~~~~~~~~~~~~~ Calendar  ~~~~~~~~~~~~~~~~~~ */
+.Events {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    text-decoration: none;
+    color: white;
+}
+
+.Calendar-table {
+    width: 100%;
+}
+
+.Calendar-thead {
+    width: 100px;
+}
+
+.Calendar-tbody {
+    width: 100px;
+}
+
+.Event {
+    width: 100%;
+}
+
+.Event-Button {
+    text-decoration: none;
+    width: 100%;
+    align-self: center;
+    justify-content: center;
+    background-color: blue;
+    padding: 10px;
+    cursor: pointer;   
+    border: 0;
+    font-size: 20px;
+}
+
+.EmptyEvent {
+    width: 120px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+}
+
+.Calendar {
+    width: 90%;
+    color: #2c2c2c;
+    background-color: white;
+    margin: 10px;
+    padding: 10px;
+}
+
+/* Friends */
+.FriendsPage {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    height: 100%;
+    width: 95%;
+    font-size: 40px;
+    color: rgb(255, 255, 255);
+    background-color: #2c2c2c;
+    padding-top: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    overflow: auto;
+}
+
+.friend-image{
+    width:150px;
+    height: 150px;
+    object-fit: contain;
+}
+
+.friend-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 20px;
+  }
+  
+  .friend-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    text-align: right;
+  }
+  
+  .friend-name {
+    font-weight: bold;
+  }
+  
+  .friend-available {
+    color: green;
+  }
+
+  .friend-busy {
+    color: gray;
+  }
+
+  /* SortingContainer */
+  .sorting-container {
+    flex: 0 0 200px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: 10px;
+  }
+
+/* AVAILABILITY STYLES */
+.availability-page {
+    margin-bottom: 5vh;
+}
+
+.availability-page.button {
+    background-color: blue;
+}
+
+.add-availability-form-div {
+    margin-bottom: 5vh;
+
+}
+
