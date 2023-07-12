@@ -18,7 +18,7 @@ import {AddAvailability} from "./addAvailability";
 const localizer = momentLocalizer(moment);
 
 // Convert start and end values to Date objects
-const processedEvents = EventsList.list.map(event => ({
+const processedEvents = EventsList.map(event => ({
   ...event,
   start: moment(event.start).toDate(),
   end: moment(event.end).toDate()
