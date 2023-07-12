@@ -16,7 +16,7 @@ export default function ActiveUsers({friends}){
 
   const activeUsers = friendsList.filter((friend) => friend);
     return (
-        <div>
+        <div className='ActiveUsers'>
           <h2>Active Users</h2>
           <ul className="activeUsers-list">
             {activeUsers && activeUsers.length > 0 ? (

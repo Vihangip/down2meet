@@ -41,7 +41,7 @@ function Friends() {
 
   return (
     <div className="FriendsPage">
-        <h1>Friends</h1>
+      <h1 className='middle-text'>Friends</h1>
         <SortingComponent sortOrder={sortOrder} handleSortChange={handleSortChange} />
         <div>
       {sortedData.map((friend, index) => (

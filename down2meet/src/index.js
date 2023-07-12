@@ -10,8 +10,7 @@ import Events from './pages/Events';
 import Friends from './pages/Friends';
 import Groups from './pages/Groups';
 import Profile from './pages/Profile';
-import Navigation from './components/Navigation';
-import SocialGroups from './components/SocialGroups';
+import Navbar from './components/Navbar';
 import ButtonAvailable from './components/ButtonAvailable';
 import SearchBar from './components/SearchBar';
 import ActiveUsers from './components/ActiveUsers';
@@ -25,10 +24,9 @@ root.render(<>
     <React.StrictMode>
       <Router>
       <Provider store={store}>
-        <Navigation />
         <div className='Body'>
         <div className="Body-Left">
-        <SocialGroups />
+        <Navbar />
         </div>
         <div className='Body-Middle'>
         <Routes>

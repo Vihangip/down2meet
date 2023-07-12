@@ -6,6 +6,7 @@ import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { updateUserProfile } from '../actions/actions';
 
+// UNUSED //
 
 export default function Navigation() {
 
@@ -43,11 +44,12 @@ export default function Navigation() {
       <img src={logo} alt="Logo" className="logo-image" />
       </a>
       <div className="navigation-menu"> 
-       {/* <li><a href="./Profile.js"><i className="fa-regular fa-user"></i></a></li> */}
-        <NavLink className="Profile" to="/Profile">
+        <NavLink className="navigation-logo" to="/Profile">
                 <i className="fa-regular fa-user"></i>
         </NavLink>
-        <li><a href="/"><i className="fa-regular fa-bell"></i></a></li>
+        <NavLink className="navigation-logo" to="">
+                <i className="fa-regular fa-bell"></i>
+        </NavLink>
        
         {/* using tutorial for GoogleLogin from: https://blog.logrocket.com/guide-adding-google-login-react-app/ */}
         <GoogleLogin onSuccess={responseMessage} onError={errorMessage} className="google-login-button" // Apply the CSS class here

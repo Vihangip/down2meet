@@ -1,5 +1,5 @@
 import './App.css';
-import SocialGroups from './components/SocialGroups';
+import SocialGroups from './components/Navbar';
 import Navigation from './components/Navigation';
 import ButtonAvailable from './components/ButtonAvailable';
 import SocialFeed from './components/SocialFeed';
@@ -21,12 +21,8 @@ function App() {
 
  
     <div className="App">
-      <nav>
-        <Navigation />
-      </nav>
       <div className="Body">
         <div className="Body-Left">
-          <SocialGroups />
         </div>
         <div className="Body-Middle">
           <PostBar />

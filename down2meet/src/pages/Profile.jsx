@@ -18,7 +18,7 @@ function Profile() {
 
   return (
     <div className="ProfilePage">
-        <h2>Profile</h2>
+        <h1 className='middle-text'>Profile</h1>
         <div className="in-line">
           <img className="ProfilePicture" src={user.picture} alt="profile"/> 
           <div className="column">
