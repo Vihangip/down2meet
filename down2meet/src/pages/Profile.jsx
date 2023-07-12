@@ -1,6 +1,7 @@
 
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useEffect, useState} from 'react';
 //import ProfileSchedule from '../components/ProfileSchedule';
 import Availability from '../components/Availability';
 import { useDispatch } from 'react-redux';
@@ -16,6 +17,8 @@ function Profile() {
   }, [dispatch]);
 
 
+
+
   return (
     <div className="ProfilePage">
         <h1 className='middle-text'>Profile</h1>
@@ -27,7 +30,13 @@ function Profile() {
           </div>
         </div>
         <h3> Schedule</h3>
+       
         <div className="Calendar"> <Availability/> </div>
+
+        {/* <div className="Calendar"> <Calendar/> </div> */}
+
+
+        {/* <div className="Calendar"> <Availability/> </div> */}
 
     </div>
   );

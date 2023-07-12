@@ -12,7 +12,6 @@ export default function Navigation() {
 
     const dispatch = useDispatch();
 
-
     // when users successfully login
     const responseMessage = (response) => {
       const idToken = response.credential;
