@@ -2,9 +2,9 @@
 import { useState, useEffect } from 'react';
 import ApiCalendar from 'react-google-calendar-api';
 
-//import EventsList from '../assets/eventsList.json'; //store all events (for now; have to be moved to server eventually)
+import { eventsList } from '../assets/eventsList';
 
-const fs = require('fs');
+//import EventsList from '../assets/eventsList.json'; //store all events (for now; have to be moved to server eventually)
 
 const config = {
   clientId: "1011482531322-6d1dp35f941hr37vnn7cvjdstntunnru.apps.googleusercontent.com",//process.env.REACT_APP_CLIENT_ID,
@@ -29,21 +29,23 @@ const Calendar = () => {
     }
   };
 
+
   useEffect(() => {
     //write to calendar to be displayed
 
-    const eventsData = require('../assets/eventsList.json');
+   // localStorage.setItem('eventsList', JSON.stringify(eventsList));
+    //const eventsData = JSON.parse(localStorage.getItem('eventsList'));
+
+    const eventsData = eventsList.list;
+
     const available2Event = eventsData.find(event => event.title === 'Available 2');
     if (available2Event) {
       available2Event.start = '2023-06-25T15:30:00';
     }
-    fs.writeFile('../assets/eventsList.json', JSON.stringify(eventsData, null, 2), (err) => {
-      if (err) {
-        console.error('Error writing JSON file:', err);
-      } else {
-        console.log('events.json has been updated.');
-      }
-    });
+
+    //write to server
+    //eventsList.list.available2Event
+
   }, [events]); //when google calendar is updated
 
 
@@ -152,284 +154,3 @@ const Calendar = () => {
 };
 
 export default Calendar;
-
-
-
-
-///////////////
-
-
-/* global gapi, google */
-
-/*
-
-import { useState, useEffect } from 'react';
-
-const scriptSrcGoogle = "https://accounts.google.com/gsi/client";
-const scriptSrcGapi = "https://apis.google.com/js/api.js";
-
-class ApiCalendar {
-  constructor(config) {
-    this.config = config;
-    this.tokenClient = null;
-    this.onLoadCallback = null;
-    this.calendar = "primary";
-
-    try {
-      this.initGapiClient = this.initGapiClient.bind(this);
-      this.handleSignoutClick = this.handleSignoutClick.bind(this);
-      this.handleAuthClick = this.handleAuthClick.bind(this);
-      this.createEvent = this.createEvent.bind(this);
-      this.listUpcomingEvents = this.listUpcomingEvents.bind(this);
-      this.listEvents = this.listEvents.bind(this);
-      this.createEventFromNow = this.createEventFromNow.bind(this);
-      this.onLoad = this.onLoad.bind(this);
-      this.setCalendar = this.setCalendar.bind(this);
-      this.updateEvent = this.updateEvent.bind(this);
-      this.deleteEvent = this.deleteEvent.bind(this);
-      this.getEvent = this.getEvent.bind(this);
-      this.handleClientLoad();
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
-  get sign() {
-    return !!this.tokenClient;
-  }
-
-  initGapiClient() {
-    gapi.client
-      .init({
-        apiKey: this.config.apiKey,
-        discoveryDocs: this.config.discoveryDocs,
-        hosted_domain: this.config.hosted_domain,
-      })
-      .then(() => {
-        if (this.onLoadCallback) {
-          this.onLoadCallback();
-        }
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }
-
-  handleClientLoad() {
-    const scriptGoogle = document.createElement("script");
-    const scriptGapi = document.createElement("script");
-    scriptGoogle.src = scriptSrcGoogle;
-    scriptGoogle.async = true;
-    scriptGoogle.defer = true;
-    scriptGapi.src = scriptSrcGapi;
-    scriptGapi.async = true;
-    scriptGapi.defer = true;
-    document.body.appendChild(scriptGapi);
-    document.body.appendChild(scriptGoogle);
-    scriptGapi.onload = () => {
-      gapi.load("client", this.initGapiClient);
-    };
-    scriptGoogle.onload = async () => {
-      this.tokenClient = await google.accounts.oauth2.initTokenClient({
-        client_id: this.config.clientId,
-        scope: this.config.scope,
-        prompt: "",
-        callback: () => {},
-      });
-    };
-  }
-
-  handleAuthClick() {
-    if (gapi && this.tokenClient) {
-      if (gapi.client.getToken() === null) {
-        this.tokenClient.requestAccessToken({ prompt: "consent" });
-      } else {
-        this.tokenClient.requestAccessToken({
-          prompt: "",
-        });
-      }
-    } else {
-      console.error("Error: this.gapi not loaded");
-      new Error("Error: this.gapi not loaded");
-    }
-  }
-
-  setCalendar(newCalendar) {
-    this.calendar = newCalendar;
-  }
-
-  onLoad(callback) {
-    if (gapi) {
-      callback();
-    } else {
-      this.onLoadCallback = callback;
-    }
-  }
-
-  handleSignoutClick() {
-    if (gapi) {
-      const token = gapi.client.getToken();
-      if (token !== null) {
-        google.accounts.id.disableAutoSelect();
-        google.accounts.oauth2.revoke(token.access_token, () => {});
-        gapi.client.setToken(null);
-      }
-    } else {
-      console.error("Error: this.gapi not loaded");
-    }
-  }
-
-  listUpcomingEvents(maxResults, calendarId = this.calendar) {
-    if (gapi) {
-      return gapi.client.calendar.events.list({
-        calendarId: calendarId,
-        timeMin: new Date().toISOString(),
-        showDeleted: false,
-        singleEvents: true,
-        maxResults: maxResults,
-        orderBy: "startTime",
-      });
-    } else {
-      console.error("Error: this.gapi not loaded");
-      return false;
-    }
-  }
-
-  listEvents(queryOptions, calendarId = this.calendar) {
-    if (gapi) {
-      return gapi.client.calendar.events.list({
-        calendarId,
-        ...queryOptions,
-      });
-    } else {
-      console.error("Error: gapi not loaded");
-      return false;
-    }
-  }
-
-  createEventFromNow(
-    { time, summary, description = "" },
-    calendarId = this.calendar,
-    timeZone = "Europe/Paris"
-  ) {
-    const event = {
-      summary,
-      description,
-      start: {
-        dateTime: new Date().toISOString(),
-        timeZone: timeZone,
-      },
-      end: {
-        dateTime: new Date(new Date().getTime() + time * 60000).toISOString(),
-        timeZone: timeZone,
-      },
-    };
-
-    return this.createEvent(event, calendarId);
-  }
-
-  createEvent(
-    event,
-    calendarId = this.calendar,
-    sendUpdates = "none"
-  ) {
-    if (gapi.client.getToken()) {
-      return gapi.client.calendar.events.insert({
-        calendarId: calendarId,
-        resource: event,
-        sendUpdates,
-        conferenceDataVersion: 1,
-      });
-    } else {
-      console.error("Error: this.gapi not loaded");
-      return false;
-    }
-  }
-
-  createEventWithVideoConference(
-    event,
-    calendarId = this.calendar,
-    sendUpdates = "none"
-  ) {
-    return this.createEvent(
-      {
-        ...event,
-        conferenceData: {
-          createRequest: {
-            requestId: crypto.randomUUID(),
-            conferenceSolutionKey: {
-              type: "hangoutsMeet",
-            },
-          },
-        },
-      },
-      calendarId,
-      sendUpdates
-    );
-  }
-
-  deleteEvent(eventId, calendarId = this.calendar) {
-    if (gapi) {
-      return gapi.client.calendar.events.delete({
-        calendarId: calendarId,
-        eventId: eventId,
-      });
-    } else {
-      console.error("Error: gapi is not loaded use onLoad before please.");
-      return null;
-    }
-  }
-
-  updateEvent(
-    event,
-    eventId,
-    calendarId = this.calendar,
-    sendUpdates = "none"
-  ) {
-    if (gapi) {
-      return gapi.client.calendar.events.patch({
-        calendarId: calendarId,
-        eventId: eventId,
-        resource: event,
-        sendUpdates: sendUpdates,
-      });
-    } else {
-      console.error("Error: gapi is not loaded use onLoad before please.");
-      return null;
-    }
-  }
-
-  getEvent(eventId, calendarId = this.calendar) {
-    if (gapi) {
-      return gapi.client.calendar.events.get({
-        calendarId: calendarId,
-        eventId: eventId,
-      });
-    } else {
-      console.error("Error: gapi is not loaded use onLoad before please.");
-      return null;
-    }
-  }
-
-  listCalendars() {
-    if (gapi) {
-      return gapi.client.calendar.calendarList.list();
-    } else {
-      console.error("Error: gapi is not loaded use onLoad before please.");
-      return null;
-    }
-  }
-
-  createCalendar(summary) {
-    if (gapi) {
-      return gapi.client.calendar.calendars.insert({ summary: summary });
-    } else {
-      console.error("Error: gapi is not loaded use onLoad before please.");
-      return null;
-    }
-  }
-}
-
-export default ApiCalendar;
-
-*/

@@ -1,4 +1,6 @@
-[
+//will be stored in server
+
+export const eventsList = {list: [
     {
       "title": "Available 1",
       "start": "2023-06-24T10:00:00",
@@ -15,4 +17,4 @@
       "end": "2023-06-25T16:00:00"
     }
   ]
-  
+};
