@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { useEffect, useState} from 'react';
 //import ProfileSchedule from '../components/ProfileSchedule';
 import Availability from '../components/Availability';
-import Calendar from '../components/Calendar';
+// import Calendar from '../components/Calendar';
 
 function Profile() {
 
@@ -26,7 +26,7 @@ function Profile() {
        
         <div className="Calendar"> <Availability/> </div>
 
-        <div className="Calendar"> <Calendar/> </div>
+        {/* <div className="Calendar"> <Calendar/> </div> */}
 
 
         {/* <div className="Calendar"> <Availability/> </div> */}
