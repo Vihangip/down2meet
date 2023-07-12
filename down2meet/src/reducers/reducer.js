@@ -1,6 +1,6 @@
-import data from '../tests/fillerData.json';
-import dummyUser from '../tests/dummyUser.json';
-import { userData } from '../tests/usersData';
+import data from '../../../tests/fillerData.json';
+import dummyUser from '../../../tests/dummyUser.json';
+import { userData } from '../../../tests/usersData';
 
 const initialState = {
     posts: data,

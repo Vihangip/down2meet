@@ -4,7 +4,7 @@ import React from 'react';
 function Events() {
   return (
     <div className='Events'>
-      <h1>event</h1>
+      <h1 className='middle-text'>Events</h1>
     </div>
   );
 }

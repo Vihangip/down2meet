@@ -1,20 +1,27 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useEffect, useState} from 'react';
 //import ProfileSchedule from '../components/ProfileSchedule';
 import Availability from '../components/Availability';
-// import Calendar from '../components/Calendar';
+import { useDispatch } from 'react-redux';
+import { getUsersAsync } from '../redux/user/thunks';
+
 
 function Profile() {
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.users.userList[0]);
 
-  const user = useSelector(state => state.user);
+  useEffect(() => {
+    dispatch(getUsersAsync());
+  }, [dispatch]);
+
 
 
 
   return (
     <div className="ProfilePage">
-        <h2>Profile</h2>
+        <h1 className='middle-text'>Profile</h1>
         <div className="in-line">
           <img className="ProfilePicture" src={user.picture} alt="profile"/> 
           <div className="column">
