@@ -1,4 +1,8 @@
+
+
 var express = require('express');
+const User = require('../mongoDB/User');
+const { randomUUID } = require('crypto');
 var router = express.Router();
 
 var users = [
@@ -30,21 +34,34 @@ var users = [
 ]
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  return res.send(users);
+router.get('/', async(req, res, next) =>{
+  let allUsers = await User.find();
+  return res.send(allUsers);
 });
 
 /* GET user by ID. */
-router.get('/:userId', function(req, res, next) {
-  const user = users.find((user) => user.id === req.params.id);
-  return res.send(user);
+router.get('/:userId', async(req, res, next) => {
+  const foundUser = await User.findOne({user_id: req.params.user_id})
+  if(!foundUser) {}
+  return res.status(404).send({message: 'Item not found'})
+  return res.send(foundUser);
 });
 
 /* POST user. */
-router.post('/', function(req, res, next) {
-  const user = req.body;
-  users.push(user);
-
+router.post('/', async(req, res, next) => {
+  const user = new User(
+    { 
+      user_id: req.body.user_id,
+      name: req.body.name,
+      picture: req.body.picture,
+      friends: req.body.friends,
+      groups: req.body.groups,
+      events: req.body.events,
+      availability: req.body.availability
+    })
+  // const post = req.body;
+  // posts.push(post);
+  await user.save()
   res.status(201);
   return res.send(user);
 });

@@ -5,6 +5,7 @@ import '../css/navigation.css';
 import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { updateUserProfile } from '../actions/actions';
+import { addUsersAsync } from '../redux/user/thunks';
 
 // UNUSED //
 
@@ -29,7 +30,10 @@ export default function Navigation() {
         email: email,
         picture: picture
       }
+
+      dispatch(addUsersAsync(user));
       dispatch(updateUserProfile(user));
+
       //console.log(response);
     };
     // when users don't successfully login

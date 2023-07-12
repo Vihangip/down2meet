@@ -7,6 +7,19 @@ const getUsers = async () => {
     return data;
 }
 
+const getOneUser = async ({userID}) => {
+    const res = await fetch(`http://localhost:3001/users/${userID}`,
+    {
+        method: "GET",
+    });
+    const data = await res.json();
+    //TODO !!!!!!!!!!
+    if (res.status >= 400) {
+        throw new Error(data.errors);
+    }
+    return data;
+}
+
 const addUsers = async (user) => {
     const res = await fetch(`http://localhost:3001/users`,
     {
@@ -33,5 +46,5 @@ const deleteUsers = async (userID) => {
 }
 
 export default {
-    getUsers, addUsers, deleteUsers
+    getUsers, addUsers, deleteUsers, getOneUser
 }

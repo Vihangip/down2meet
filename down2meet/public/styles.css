@@ -39,7 +39,7 @@ html, body, #Home, #Home>div {
 }
 
 .Body-Left {
-    width: 22%;
+    width: 25%;
     height: 100%;
     margin: 0;
     border-right: 1px solid #dcdcdc;
@@ -74,6 +74,7 @@ html, body, #Home, #Home>div {
 .Navbar {
     display: flex;
     flex-direction: column;
+    justify-content: space-evenly;
     gap: 10px;
     height: 100%;
     text-decoration: none;
@@ -81,9 +82,11 @@ html, body, #Home, #Home>div {
 }
 
 .brand-logo {
+    padding: 0;
     padding-top: 20px;
     background-color: var(--active-color);
     border: 1px solid grey;
+    margin: 0;
 }
 
 .logo-image {
@@ -103,7 +106,7 @@ html, body, #Home, #Home>div {
 .Navbar-Links {
     display: flex;
     flex-direction: column;
-    height: 85%;
+    height: 60%;
     padding-left: 15%;
 }
 
@@ -174,51 +177,138 @@ html, body, #Home, #Home>div {
 }
 
 /* PostBar */
-.PostBar{
+.PostBar {
     margin-top: 30px;
-    height: 20%;
+    height: 250px;
     width: 95%;
-    align-items: center;
-    background-color: #2c2c2c;
     font-size: 40px auto;
     display: flex;
     flex-direction: row;
     gap: 10px;
     padding: 10px;
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #dcdcdc;
   }
   
   .PostBar-Image {
     width: 70px;
     height: 70px;
     border-radius: 50%;
-}
+    margin: 1%;
+  }
+  
+  .PostBar-Form {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    height: 90%;
+  }
 
-.PostBar-InputBar{
+  .PostBar-DropdownContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .PostBar-DropdownButton {
+    text-decoration: none;
+    height: 40px;
+    border: 1px solid #dcdcdc;
+    border-radius: 20px;
+    font-size: 17px;
+    font-weight: bold;
+    color: var(--active-color);
+    padding: 10px;
+    background-color: white;
+    margin-bottom: 5px;
+  }
+
+  .PostBar-DropdownButtonSelect {
+    text-decoration: none;
+    height: 40px;
+    border: 1px solid #dcdcdc;
+    border-radius: 20px;
+    font-size: 17px;
+    color: var(--active-color);
+    padding: 10px;
+    background-color: white;;
+    margin-bottom: 5px;
+  }
+
+  .PostBar-DropdownText {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .PostBar-PostContainer {
+    border-bottom: 1px solid #dcdcdc;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .PostBar-PostInput {
+    height: 100px;
     width: 100%;
-    height: 100%;
+    border: none;
+    font-size: 20px;
+  }
+
+  .PostBar-AdditionalInfo {
+    text-decoration: none;
+    border: none;
+    background-color: white;
+    color: var(--active-color);
+    font-size: 25px;
+  }
+
+  .PostBar-BottomPost {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .PostBar-IconContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+  
+  .PostBar-InputContainer {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .PostBar-InputLabel {
+    font-size: 20px;
     color: white;
-    border: 1px solid #121212;
-    background-color: #2c2c2c;
+    margin-bottom: 5px;
+  }
+  
+  .PostBar-InputBar {
+    width: 350px;
+    height: 40px;
+    border: 1px solid #8f8f8f;
+    border-radius: 15px;
   }
   
   .PostBar-Button {
     border: none;
-    background-color: #2c2c2c;
+    background-color: var(--active-color);
+    border-radius: 25px;
+    margin-top: 10px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
     color: white;
-}
+  }
 
-/* Social Feed */
-.SocialFeed {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    height: 100%;
-    width: 95%;
-    font-size: 40px;
-    padding-left: 20px;
-    margin-top: 30px;
-    border: 1px solid #dcdcdc;
-}
+  .PostBar button:hover {
+    opacity: 0.8;
+  }
+  
 
 /* Post */
 .Post {

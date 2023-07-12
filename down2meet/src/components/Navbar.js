@@ -5,6 +5,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import '../css/navigation.css';
 import { useDispatch } from 'react-redux';
 import { updateUserProfile } from '../actions/actions';
+import { addUsersAsync, getOneUserAsync } from '../redux/user/thunks';
 
 
 export default function Navbar() {
@@ -24,10 +25,16 @@ export default function Navbar() {
       console.log("Hey, " + name);
 
       const user = {
+        user_id: email,
         name: name,
-        email: email,
-        picture: picture
+        picture: picture,
+        friends: [],
+        groups: [],
+        events: [],
+        availability: "busy",
       }
+
+      dispatch(getOneUserAsync(email));
       dispatch(updateUserProfile(user));
       //console.log(response);
     };
