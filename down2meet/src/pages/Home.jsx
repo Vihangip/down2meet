@@ -7,6 +7,7 @@ function Home() {
   return (
     <div className="Home">
         <h1 className='middle-text'>My Feed</h1>
+        <div className='middle-line'></div>
         <div className="Body-Middle">
           <PostBar />
           <SocialFeed />
