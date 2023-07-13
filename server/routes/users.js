@@ -47,6 +47,20 @@ router.get('/:userId', async(req, res, next) => {
   return res.send(foundUser);
 });
 
+/* GET users by name (search). */
+router.get('/search', async (req, res, next) => {
+  const searchQuery = req.query.q; // Get the search query from the query parameter
+
+  try {
+    const users = await User.find({ name: { $regex: searchQuery, $options: 'i' } }); // Perform a case-insensitive search for users by name
+    res.send(users);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
 /* POST user. */
 router.post('/', async(req, res, next) => {
   const user = new User(

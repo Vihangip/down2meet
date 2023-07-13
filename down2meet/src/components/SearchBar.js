@@ -7,9 +7,12 @@ export default function SearchBar({ onSearch }) {
     setSearchQuery(event.target.value);
   };
 
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
-    onSearch(searchQuery);
+    const searchResults = await fetch(`/users/search?q=${searchQuery}`).then((response) =>
+      response.json()
+    );
+    onSearch(searchResults);
   };
 
   return (
