@@ -13,7 +13,6 @@ import Profile from './pages/Profile';
 import Navbar from './components/Navbar';
 import ButtonAvailable from './components/ButtonAvailable';
 import SearchBar from './components/SearchBar';
-import ActiveUsers from './components/ActiveUsers';
 import store from './redux/store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
