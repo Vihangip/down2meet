@@ -14,11 +14,11 @@ router.get('/', async(req, res, next) =>{
 /* GET users by name (search). */
 router.get('/search', async (req, res, next) => {
   const searchQuery = req.query.q; // Get the search query from the query parameter
-  console.log('Searching user')
+  console.log(searchQuery);
+
   try {
     const users = await User.find({ name: { $regex: searchQuery, $options: 'i' } }); // Perform a case-insensitive search for users by name
     res.send(users);
-    console.log('User found')
   } catch (err) {
     console.error(err);
     res.status(500).send('Internal Server Error');
@@ -28,7 +28,8 @@ router.get('/search', async (req, res, next) => {
 /* GET user by ID. */
 router.get('/:userId', async(req, res, next) => {
   const foundUser = await User.findOne({user_id: req.params.userId})
-  if(!foundUser){ return res.status(404).send({message: 'Item not found'})};
+  console.log('User ID:', req.params.userId);
+  if(!foundUser || foundUser === null){ return res.status(404).send({message: 'Item not found'})};
   return res.send(foundUser);
 });
 
