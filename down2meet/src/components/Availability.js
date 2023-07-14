@@ -18,16 +18,30 @@ const localizer = momentLocalizer(moment);
 
 
 export default function Availability(props) {
-  const eventsList = useSelector(state =>state.availability.availabilityList);
+  let eventsList = useSelector(state =>state.availability.availabilityList);
+  let processedEvents;
 
-  if (props.formLocation === "profile");
+  if (props.formLocation === "profile") {
+    // iterate through each event and replace the title with "Busy"
+    const profileEvents = eventsList.map(event => ({
+      ...event,
+      title: "Busy",
+      description: "",
+      start: moment(event.start).toDate(),
+      end: moment(event.end).toDate()
+    }));
 
-  // Convert start and end values to Date objects
-  const processedEvents = eventsList.map(event => ({
-    ...event,
-    start: moment(event.start).toDate(),
-    end: moment(event.end).toDate()
-  }));
+    processedEvents = profileEvents;
+  } else {
+    // Convert start and end values to Date objects
+    processedEvents = eventsList.map(event => ({
+      ...event,
+      start: moment(event.start).toDate(),
+      end: moment(event.end).toDate()
+    }));
+  }
+
+ 
   return (
     <div className="calendar-page">
       <Calendar

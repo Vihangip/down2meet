@@ -25,7 +25,6 @@ export function AddAvailability() {
   
   useEffect (() => {
     dispatch(getAvailabilityAsync());
-    console.log("called get");
   },[dispatch]);
 
     let formattedStartDate;
