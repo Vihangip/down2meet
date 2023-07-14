@@ -8,8 +8,8 @@ const initialState = {
     user: dummyUser,
     friendsList: userData,
     activeUsers: userData,
-    availability: [],
-    events: [],
+    event: [],
+    // events: [],
   };
 
   
@@ -33,23 +33,23 @@ const reducer = (state = initialState, action) => {
         const updatedActiveUsers = updatedFriendsList.filter((friend) => friend.availability);
 
 
-        // calendar Availability
-        case 'ADD_AVAILABILITY':
+        // calendar Event
+        case 'ADD_EVENT':
           return {
             ...state,
-            availability: [...state.posts, action.payload.object],
+            event: [...state.posts, action.payload.object],
           };
-        case 'UPDATE_AVAILABILITY': //for profile, not storing all users yet
+        case 'UPDATE_EVENT': //for profile, not storing all users yet
           return {
             ...state,
-            availability: action.payload
+            event: action.payload
           };
-        case 'REMOVE_AVAILABILITY':
-          const updatedAvailabilityList = state.availability.filter(
-            (availability, index) => index !== action.payload
+        case 'REMOVE_EVENT':
+          const updatedEventList = state.event.filter(
+            (event, index) => index !== action.payload
           );
-          const updatedAvailability = updatedAvailabilityList;
-          //updatedAvailabilityList.filter((availability) => friend.availability);
+          const updatedEvent = updatedEventList;
+          //updatedEventList.filter((event) => friend.event);
 
 
         // calendar Events
@@ -64,18 +64,18 @@ const reducer = (state = initialState, action) => {
             events: action.payload
           };
         case 'REMOVE_EVENT':
-          const updatedEventList = state.events.filter(
+          const updatedEventRemoveList = state.events.filter(
             (events, index) => index !== action.payload
           );
-          const updatedEvents = updatedEventList;
-          // updatedFriendsList.filter((friend) => friend.availability);
+          const updatedEvents = updatedEventRemoveList;
+          // updatedFriendsList.filter((friend) => friend.event);
         
       
         return {
           ...state,
           friendsList: updatedFriendsList,
           activeUsers: updatedActiveUsers,
-          availability: updatedAvailability,
+          event: updatedEvent,
           events: updatedEvents,
         };
 

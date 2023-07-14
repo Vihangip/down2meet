@@ -17,8 +17,8 @@ const localizer = momentLocalizer(moment);
 
 
 
-export default function Availability(props) {
-  let eventsList = useSelector(state =>state.availability.availabilityList);
+export default function Event(props) {
+  let eventsList = useSelector(state =>state.event.eventList);
   let processedEvents;
 
   if (props.formLocation === "profile") {

@@ -1,7 +1,7 @@
 
 // import { useState, useEffect } from 'react';
 // import ApiCalendar from 'react-google-calendar-api';
-// import {endDate, startDate, details} from "./addAvailability";
+// import {endDate, startDate, details} from "./addEvent";
 
 
 // import { eventsList } from '../assets/eventsList';

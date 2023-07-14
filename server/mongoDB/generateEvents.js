@@ -1,4 +1,4 @@
-const Item = require('./availabilityModel');
+const Item = require('./Event');
 
 function generateEvents() {
     // make a event

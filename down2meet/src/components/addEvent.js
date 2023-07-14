@@ -2,7 +2,7 @@ import React from "react";
 import EventsList from '../assets/eventsList.json';
 import { useEffect } from 'react';
 import { useDispatch} from 'react-redux';
-import { addAvailabilityAsync, getAvailabilityAsync, deleteAvailabilityAsync, updateAvailabilityAsync} from '../redux/availability/thunks';
+import { addEventAsync, getEventAsync, deleteEventAsync, updateEventAsync} from '../redux/event/thunks';
 const { v4: uuid } = require('uuid');
 
 
@@ -11,7 +11,7 @@ const { v4: uuid } = require('uuid');
 // export let detailsRef = [];
 
 
-export function AddAvailability() {
+export function AddEvent() {
   const dispatch = useDispatch();
 
 
@@ -24,7 +24,7 @@ export function AddAvailability() {
   const itemEndTimeRef = React.useRef(null);
   
   useEffect (() => {
-    dispatch(getAvailabilityAsync());
+    dispatch(getEventAsync());
   },[dispatch]);
 
     let formattedStartDate;
@@ -48,7 +48,7 @@ export function AddAvailability() {
 
       // the id value here gets replaces in when the post request is made. 
       // but it is used as a key? todo; check if it can just be a constant
-      dispatch(addAvailabilityAsync({"id": uuid(), "title": itemNameRef.current.value,
+      dispatch(addEventAsync({"id": uuid(), "title": itemNameRef.current.value,
       "description": itemDescRef.current.value,  "start": formattedStartDate, "end": formattedEndDate}));
     
       // Your form submit logic here
@@ -63,14 +63,14 @@ export function AddAvailability() {
     // Your update button logic here
 
     // find a way to just update one of the items in the form not have to replace all the event's details
-    const updatedAvailability =  { 
+    const updatedEvent =  { 
       "id": uuid(), "title": itemNameRef.current.value,
       "description": itemDescRef.current.value,  "start": formattedStartDate, "end": formattedEndDate
     };
 
-    console.log(updatedAvailability);
+    console.log(updatedEvent);
 
-    dispatch(updateAvailabilityAsync(updatedAvailability));
+    dispatch(updateEventAsync(updatedEvent));
   };
 
   const handleDeleteButton = () => {
@@ -78,15 +78,15 @@ export function AddAvailability() {
     //idea:
     // by the title of the event, add the id. have the person input the id of the event to delete it.
     // todo:
-    dispatch(deleteAvailabilityAsync(itemIDRef.current.value));
+    dispatch(deleteEventAsync(itemIDRef.current.value));
 
   };
 
 
   return (
-    <div className="add-availability-form-div">
+    <div className="add-event-form-div">
       <h1>Add your Event</h1>
-      <form className="availability-form" onSubmit={handleFormSubmit}>
+      <form className="event-form" onSubmit={handleFormSubmit}>
         {/* <label htmlFor="iName">Event ID (for updates):</label>
         <br />
         <input type="text" id="iID" name="iID" ref={itemIDRef} />

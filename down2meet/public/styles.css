@@ -627,7 +627,7 @@ html, body, #Home, #Home>div {
     padding: 10px;
   }
 
-/* AVAILABILITY STYLES */
+/* EVENT STYLES */
 .calendar-page {
     margin-bottom: 5vh;
     /* margin-top: 0; */
@@ -637,12 +637,12 @@ html, body, #Home, #Home>div {
     /* background-color: blue; */
 }
 
-.add-availability-form-div {
+.add-event-form-div {
     margin-bottom: 5vh;
 
 }
 
-.availability-form {
+.event-form {
   width: 100vw;
   height:fit-content;
 }

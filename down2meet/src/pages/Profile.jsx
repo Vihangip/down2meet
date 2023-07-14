@@ -3,7 +3,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState} from 'react';
 //import ProfileSchedule from '../components/ProfileSchedule';
-import Availability from '../components/Availability';
+import Event from '../components/Event';
 // import Calendar from '../components/Calendar';
 
 
@@ -29,12 +29,12 @@ function Profile() {
         </div>
           <h3> Schedule</h3>
         
-          <div className="Calendar"> <Availability formLocation="profile"/> </div>
+          <div className="Calendar"> <Event formLocation="profile"/> </div>
 
           {/* <div className="Calendar"> <Calendar/> </div> */}
 
 
-          {/* <div className="Calendar"> <Availability/> </div> */}
+          {/* <div className="Calendar"> <Event/> </div> */}
 
     </div>
   );

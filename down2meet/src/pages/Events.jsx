@@ -1,7 +1,7 @@
 
 import React from 'react';
-import Availability from '../components/Availability';
-import {AddAvailability} from "../components/addAvailability";
+import Event from '../components/Event';
+import {AddEvent} from "../components/addEvent";
 
 
 function Events() {
@@ -9,8 +9,8 @@ function Events() {
     <div className='Events'>
       {/* <h2>Events</h2> */}
       {/* <div><h1 className='middle-text'>Events</h1></div><br/><br/> */}
-      <div><AddAvailability/></div> 
-      <div className="Calendar"> <Availability/> </div>
+      <div><AddEvent/></div> 
+      <div className="Calendar"> <Event/> </div>
     </div>
   );
 }

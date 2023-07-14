@@ -1,5 +1,5 @@
-const getAvailability = async () => {
-    const res = await fetch(`http://localhost:3001/availability`,
+const getEvent = async () => {
+    const res = await fetch(`http://localhost:3001/event`,
     {
         method: "GET",
     });
@@ -7,26 +7,26 @@ const getAvailability = async () => {
     return data;
 }
 
-const addAvailability = async (availability) => {
-    const res = await fetch(`http://localhost:3001/availability`,
+const addEvent = async (event) => {
+    const res = await fetch(`http://localhost:3001/event`,
     {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(availability),
+        body: JSON.stringify(event),
     });
     const data = await res.json();
     if (res.status >= 400) {
         throw new Error(data.errors);
     }
-    console.log("service: addAvailability");
+    console.log("service: addEvent");
     console.log(data);
     return data;
 }
 
-const deleteAvailability = async (availabilityID) => {
-    const res = await fetch(`http://localhost:3001/availability/${availabilityID}`,
+const deleteEvent = async (eventID) => {
+    const res = await fetch(`http://localhost:3001/event/${eventID}`,
     {
         method: "DELETE",
     });
@@ -34,13 +34,13 @@ const deleteAvailability = async (availabilityID) => {
     return data;
 }
 
-const updateAvailability = async (availability) => {
-    const response = await fetch('http://localhost:3001/availability/' + availability.title, {
+const updateEvent = async (event) => {
+    const response = await fetch('http://localhost:3001/event/' + event.title, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(availability)
+      body: JSON.stringify(event)
     });
     const data = await response.json();
     if (!response.status.ok) {
@@ -54,5 +54,5 @@ const updateAvailability = async (availability) => {
   
 
 export default {
-    getAvailability, addAvailability, deleteAvailability, updateAvailability
+    getEvent, addEvent, deleteEvent, updateEvent
 }

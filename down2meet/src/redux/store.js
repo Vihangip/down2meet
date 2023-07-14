@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import userReducer from './user/reducer';
 import postReducer from './posts/reducer';
 import groupReducer from './groups/reducer';
-import availabilityReducer from './availability/reducer';
+import eventReducer from './event/reducer';
 
 
 const store = configureStore({
@@ -10,7 +10,7 @@ const store = configureStore({
         users: userReducer,
         posts: postReducer,
         groups: groupReducer,
-        availability: availabilityReducer
+        event: eventReducer
     },
 });
 
