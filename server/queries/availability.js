@@ -1,4 +1,4 @@
-const Availability = require('./availabilityModel');
+const Availability = require('../model/availabilityModel');
 
 const queries = {
     getAllAvailability: async function (filter) {

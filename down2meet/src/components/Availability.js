@@ -10,25 +10,26 @@ import React from "react";
 import moment from "moment";
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import EventsList from '../assets/eventsList.json';
-import {AddAvailability} from "./addAvailability";
-// import {endDateRef, startDateRef, detailsRef} from "./addAvailability";
+import { useSelector } from 'react-redux';
 
 
 const localizer = momentLocalizer(moment);
 
-// Convert start and end values to Date objects
-const processedEvents = EventsList.map(event => ({
-  ...event,
-  start: moment(event.start).toDate(),
-  end: moment(event.end).toDate()
-}));
+
 
 export default function Availability(props) {
+  const eventsList = useSelector(state =>state.availability.availabilityList);
+
+  if (props.formLocation === "profile");
+
+  // Convert start and end values to Date objects
+  const processedEvents = eventsList.map(event => ({
+    ...event,
+    start: moment(event.start).toDate(),
+    end: moment(event.end).toDate()
+  }));
   return (
-    <div className="availability-page">
-      <AddAvailability/> <br/><br/>
-      <hr/> <br/><br/>
+    <div className="calendar-page">
       <Calendar
         localizer={localizer}
         events={processedEvents}

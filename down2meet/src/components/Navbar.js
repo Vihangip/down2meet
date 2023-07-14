@@ -24,7 +24,8 @@ export default function Navbar() {
 
       const name = decodedPayload.name;
       const email = decodedPayload.email;
-      const picture = decodedPayload.picture;
+      const picture = "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60";
+      // decodedPayload.picture;
 
       console.log("Hey, " + name);
 

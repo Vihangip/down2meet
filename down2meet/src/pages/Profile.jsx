@@ -11,26 +11,30 @@ function Profile() {
 
   const user = useSelector(state => state.user);
 
+  // todo: remove this img const later
+  const picture = "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60";
 
 
   return (
     <div className="ProfilePage">
         <h2>Profile</h2>
         <div className="in-line">
-          <img className="ProfilePicture" src={user.picture} alt="profile"/> 
-          <div className="column">
-            <p> Name:   {user.name} </p>
-            <p> Email:   {user.user_id} </p>
-          </div>
+          <img className="ProfilePicture" src={picture} alt="profile"/> 
+          {/* todo: uncomment the code line below later */}
+            {/* <img className="ProfilePicture" src={user.picture} alt="profile"/>  */}
+            <div className="column">
+              {/* <p> Name:   {user.name} </p> */}
+              {/* <p> Email:   {user.user_id} </p> */}
+            </div>
         </div>
-        <h3> Schedule</h3>
-       
-        <div className="Calendar"> <Availability/> </div>
+          <h3> Schedule</h3>
+        
+          <div className="Calendar"> <Availability formLocation="profile"/> </div>
 
-        {/* <div className="Calendar"> <Calendar/> </div> */}
+          {/* <div className="Calendar"> <Calendar/> </div> */}
 
 
-        {/* <div className="Calendar"> <Availability/> </div> */}
+          {/* <div className="Calendar"> <Availability/> </div> */}
 
     </div>
   );

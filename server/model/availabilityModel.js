@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 // create schema
 const availabilitySchema = new mongoose.Schema({
-    availability_id: String,
+    id: String,
     title: String,
     description: String,
     start: Date,
@@ -10,6 +10,6 @@ const availabilitySchema = new mongoose.Schema({
 });
 
 // create model
-const Item = mongoose.model('Availability', availabilitySchema);
+const Availability = mongoose.model('Availability', availabilitySchema);
 
-module.exports = Item;
+module.exports = Availability;

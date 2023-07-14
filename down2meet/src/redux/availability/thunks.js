@@ -22,3 +22,10 @@ export const deleteAvailabilityAsync = createAsyncThunk(
         return await service.deleteAvailability(groupID);
     }
 );
+
+export const updateAvailabilityAsync = createAsyncThunk(
+    actionTypes.UPDATE_AVAILABILITY,
+    async (item) => {
+      return await service.updateAvailability(item);
+    }
+  );

@@ -20,6 +20,8 @@ const addAvailability = async (availability) => {
     if (res.status >= 400) {
         throw new Error(data.errors);
     }
+    console.log("service: addAvailability");
+    console.log(data);
     return data;
 }
 
@@ -32,6 +34,25 @@ const deleteAvailability = async (availabilityID) => {
     return data;
 }
 
+const updateAvailability = async (availability) => {
+    const response = await fetch('http://localhost:3001/availability/' + availability.title, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(availability)
+    });
+    const data = await response.json();
+    if (!response.status.ok) {
+    const errorMsg = data?.message;
+    throw new Error(errorMsg)
+    }
+
+    return data;
+
+  };
+  
+
 export default {
-    getAvailability, addAvailability, deleteAvailability
+    getAvailability, addAvailability, deleteAvailability, updateAvailability
 }

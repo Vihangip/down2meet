@@ -1,4 +1,5 @@
-const queries = require ('../database/queries');
+const queries = require ('../queries/availability');
+const { v4: uuid } = require('uuid');
 
 
 var express = require('express');
@@ -23,13 +24,15 @@ router.get('/:availabilityId', async(req, res, next) => {
 /* POST availability. */
 router.post('/', async(req, res, next) => {
   const availability =  { 
-      availability_id: req.body.availability_id,
-      title: req.body.title,
-      description: req.body.description,
-      start: req.body.start,
-      end: req.body.end
-    };
-  const addedAvailability = await queries.addedAvailability(availability);
+    id: uuid(),
+    title: req.body.title,
+    description: req.body.description,
+    start: req.body.start,
+    end: req.body.end
+  };
+  const addedAvailability = await queries.addAvailability(availability);
+  // console.log(availability);
+  // console.log(addedAvailability);
   res.status(201);
   return res.send(addedAvailability);
 });
@@ -48,7 +51,9 @@ router.delete('/:availabilityId', function(req, res, next) {
 });
 
 
-// can edit the description of the availability
+// TODO: STRECTCH REQ TO IMPLEMENT UPDATE
+// // can edit the description of the availability
+/*
 router.put('/:availabilitydesc', async function(req, res, next) {
   const availabilitydesc = req.params.availabilitydesc;
   const editedAvailability = await queries.editAvailability(availabilitydesc);
@@ -61,4 +66,5 @@ router.put('/:availabilitydesc', async function(req, res, next) {
   return res.status(200);
 
 });
+*/
 module.exports = router;

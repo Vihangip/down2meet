@@ -517,13 +517,18 @@ html, body, #Home, #Home>div {
 
 /*  ~~~~~~~~~~~~~~~~~~ Calendar  ~~~~~~~~~~~~~~~~~~ */
 .Events {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    text-align: center;
-    width: 100%;
-    text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  text-decoration: none;
+  height: 100vh; /* Added to give the container full height */
+  margin-top: 35vh;
 }
+
+
 
 .Calendar-table {
     width: 100%;
@@ -623,8 +628,9 @@ html, body, #Home, #Home>div {
   }
 
 /* AVAILABILITY STYLES */
-.availability-page {
+.calendar-page {
     margin-bottom: 5vh;
+    /* margin-top: 0; */
 }
 
 .availability-page.button {
@@ -634,6 +640,11 @@ html, body, #Home, #Home>div {
 .add-availability-form-div {
     margin-bottom: 5vh;
 
+}
+
+.availability-form {
+  width: 100vw;
+  height:fit-content;
 }
 
 @media screen and (max-width: 1265px) {
