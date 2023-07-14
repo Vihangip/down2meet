@@ -6,6 +6,9 @@
 * {
     height: 100% auto;
     width: 100% auto;
+    max-height: 100%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 html, body, #Home, #Home>div {
@@ -32,10 +35,13 @@ html, body, #Home, #Home>div {
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
+    max-width: 1265px;
     gap: 10px;
     height: 100%;
     padding-left: 0px;
     padding-right: 15px;
+    margin: auto;
 }
 
 .Body-Left {
@@ -55,6 +61,7 @@ html, body, #Home, #Home>div {
     margin: 0;
     padding: 0px;
     border-right: 1px solid #dcdcdc;
+    overflow: auto;
 }  
 
 .Body-Right {
@@ -62,9 +69,10 @@ html, body, #Home, #Home>div {
     flex-direction: column;
     width: 25%;
     height: 100%;
+    max-height: 100%;
     margin: 0;
-    margin-top: 100px;
-    padding: 25px;
+    margin-top: 0;
+    margin-bottom: 0;
     gap: 20px;
 } 
 
@@ -74,14 +82,26 @@ html, body, #Home, #Home>div {
 .Navbar {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-between;
     gap: 10px;
     height: 100%;
     text-decoration: none;
     padding: 10px 10px 10px 10px;
 }
 
+.topnav {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
 .brand-logo {
+    display: block;
     padding: 0;
     padding-top: 20px;
     background-color: var(--active-color);
@@ -90,9 +110,26 @@ html, body, #Home, #Home>div {
 }
 
 .logo-image {
-    width: 94%; /* Adjust the width as needed */
+    width: 100%; /* Adjust the width as needed */
     max-height: 100%; /* Adjust the height as needed */
     padding: 10px;
+}
+
+.logo-image2 {
+  width: 100%;
+  max-height: 100%;
+  padding: 0px;
+}
+
+.brand-logo2 {
+  display: none;
+  padding: 0;
+  padding: 7px;
+  background-color: var(--active-color);
+  border: 1px solid grey;
+  margin: 0;
+  width: 100px;
+  height: 60px;
 }
 
 .Navbar-line {
@@ -100,14 +137,13 @@ html, body, #Home, #Home>div {
     border-bottom: 1px solid #dcdcdc;
     padding: 0;
     margin-top: 0px;
-    margin-bottom: 40px;
 }
 
 .Navbar-Links {
     display: flex;
     flex-direction: column;
     height: 60%;
-    padding-left: 15%;
+    padding-left: 0;
 }
 
 .Social-Option {
@@ -116,10 +152,12 @@ html, body, #Home, #Home>div {
     align-items: center;
     text-align: center;
     text-decoration: none;
-    gap: 15px;
+    gap: 10px;
     color: black;
-    font-size: 25px;
+    font-size: 22px;
     width: 100%;
+    padding: 0;
+    margin: 0;
 }
 
 .Social-Option-Active {
@@ -131,7 +169,7 @@ html, body, #Home, #Home>div {
     font-weight: bold;
     gap: 15px;
     color: var(--active-color);
-    font-size: 25px;
+    font-size: 22px;
     width: 100%;
 }
 
@@ -169,11 +207,15 @@ html, body, #Home, #Home>div {
 }
 
 .middle-text {
-    font-size: 50px;
+    font-size: 40px;
     font-weight: 400;
     margin-top: 30px;
     margin-left: 50px;
     margin-bottom: 10px;
+}
+
+.middle-line {
+    border-bottom: 1px solid #dcdcdc;
 }
 
 /* PostBar */
@@ -420,6 +462,11 @@ html, body, #Home, #Home>div {
     background-color: #f3f3f3;
   }
 
+  .SearchBar h1 {
+
+    font-size: 20px;
+  }
+
 /* ActiveUsers */
 .ActiveUsers {
     padding: 10px 20px;
@@ -588,3 +635,49 @@ html, body, #Home, #Home>div {
     margin-bottom: 5vh;
 
 }
+
+@media screen and (max-width: 1265px) {
+  .Body {
+    margin: 0;
+  }
+
+  .Body-Left {
+    width: 15%;
+  }
+
+  .Body-Middle {
+    max-width: 100%;
+  }
+
+  .Body-Right {
+    width: 20%
+  }
+
+  .brand-logo {
+    display: none;
+  }
+
+  .brand-logo2 {
+    display: block;
+  }
+
+  .Navbar-Links{
+    gap: 25px;
+  }
+
+  .Social-Option p {
+    display: none;
+  }
+
+
+}
+
+@media screen and (max-width: 995px) {
+
+
+}
+
+@media screen and (max-width: 360px) {
+
+}
+  
