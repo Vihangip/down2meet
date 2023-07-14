@@ -22,6 +22,8 @@ html, body, #Home, #Home>div {
     flex-direction: column;
     height: 100%;
     width: 100%;
+
+    min-width: 500px;
 }
 
 .Body-Header {
@@ -32,11 +34,26 @@ html, body, #Home, #Home>div {
 .Body-Header-Container {
   display: flex;
   flex-direction: row;
-  align-items: space-between;
-  gap: 40px;
-  margin-top: 30px;
-  margin-left: 20px;
-  margin-bottom: 10px;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px;
+}
+
+.Body-Header-Left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+
+.Body-Header-Mobile {
+  display: none;
+}
+
+.Landing {
+  background-color: #dcdcdc;
 }
 
 .Home {
@@ -69,7 +86,7 @@ html, body, #Home, #Home>div {
     gap: 10px;
     height: 100%;
     padding-left: 0px;
-    padding-right: 15px;
+    padding-right: 0px;
     margin: auto;
 }
 
@@ -103,6 +120,7 @@ html, body, #Home, #Home>div {
     margin-top: 0;
     margin-bottom: 0;
     gap: 20px;
+    padding-right: 15px;
 } 
 
 /*  ~~~~~~~~~~~~~~~~~~ LEFT SIDE  ~~~~~~~~~~~~~~~~~~ */
@@ -221,6 +239,11 @@ html, body, #Home, #Home>div {
     justify-content: center;
     cursor: pointer;   
     border: 0;
+}
+
+.botnav {
+  display: flex;
+  flex-direction: column;
 }
   
 
@@ -744,13 +767,38 @@ html, body, #Home, #Home>div {
     z-index: 9999;
   }
 
+  .Body-Right {
+    display: none;
+  }
+
+  .Body-Header-Mobile {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+  }
+
   .Menu-Popup {
     display: block;
   }
 
+  .button {
+    font-size: 20px;
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .SearchBar {
+    margin: 0;
+    width: 100%;
+  }
+
 }
 
-@media screen and (max-width: 360px) {
-
-}
+@media screen and (max-width: 700px) {
+  .brand-logo2 {
+    display: none;
+  }
   
+}
+

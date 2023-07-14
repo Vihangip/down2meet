@@ -58,9 +58,6 @@ export default function Navbar() {
         setAccountCreated(true);
       };
     
-    const mobileButton = () => {
-      console.log("hi");
-    };
     
 
     return (
@@ -69,7 +66,7 @@ export default function Navbar() {
                         <a href="/" className="brand-logo">
                             <img src={logo} alt="Logo" className="logo-image" />
                         </a>
-                        <a onClick={mobileButton} className="brand-logo2">
+                        <a href="/" className="brand-logo2">
                             <img src={logo1265} alt="Logo" className="logo-image2" />
                         </a>
                         
