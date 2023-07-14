@@ -7,15 +7,12 @@ function Home() {
   return (
     <div className="Home">
       <div className="Body-Header">
-        <h1 className='middle-text'>My Feed</h1>
-        <div className='middle-line'></div>
-      </div>
-        <div className="Body-Middle">
-          <PostBar />
-          <SocialFeed />
+        <div className="Page-Header">
+          <button className='Menu-Popup'><i class="fa-solid fa-bars"></i></button>
         </div>
+      </div>
     </div>
   );
 }
 
-export default Home;
+export default Home;    
