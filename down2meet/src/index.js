@@ -15,6 +15,7 @@ import ButtonAvailable from './components/ButtonAvailable';
 import SearchBar from './components/SearchBar';
 import ActiveUsers from './components/ActiveUsers';
 import store from './redux/store';
+import Search from './components/Search';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -40,7 +41,7 @@ root.render(<>
 
         <div className="Body-Right">
         <ButtonAvailable />
-          <SearchBar />
+          <Search />
           {/* <ActiveUsers /> */}
         </div>
         </div>
