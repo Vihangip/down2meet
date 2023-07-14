@@ -9,7 +9,13 @@ import Calendar from '../components/Calendar';
 
 function Profile() {
 
-  const user = useSelector(state => state?.user);
+  const defaultValue =  {
+    user_id: "thisisanemail@gmail.com",
+    name: "John Smith",
+    picture: "https://wallpapers.com/images/hd/basic-default-pfp-pxi77qv5o0zuz8j3.jpg"
+  };
+
+  const user = useSelector(state => state?.user) || defaultValue;
 
 
 
@@ -17,11 +23,11 @@ function Profile() {
     <div className="ProfilePage">
         <h2>Profile</h2>
         <div className="in-line">
-          {/*
-          <img className="ProfilePicture" src={user.picture} alt="profile"/>   */}
+          
+          <img className="ProfilePicture" src={user.picture} alt="profile"/>   
           <div className="column">
-            {/*<p> Name:   {user.name} </p> */}
-            {/*<p> Email:   {user.user_id} </p>*/}
+            <p> Name:   {user.name} </p> 
+            <p> Email:   {user.user_id} </p>
 
           </div>
         </div>
