@@ -1,4 +1,5 @@
 
+import BodyHeader from '../components/BodyHeader';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState} from 'react';
@@ -15,10 +16,7 @@ function Profile() {
 
   return (
     <div className="ProfilePage">
-      <div className="Body-Header">
-        <h1 className='middle-text'>My Feed</h1>
-        <div className='middle-line'></div>
-      </div>
+      <BodyHeader />
         <div className="in-line">
           <img className="ProfilePicture" src={user.picture} alt="profile"/> 
           <div className="column">

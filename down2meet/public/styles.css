@@ -29,6 +29,16 @@ html, body, #Home, #Home>div {
   flex-direction: column;
 }
 
+.Body-Header-Container {
+  display: flex;
+  flex-direction: row;
+  align-items: space-between;
+  gap: 40px;
+  margin-top: 30px;
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
 .Home {
     display: flex;
     flex-direction: column;
@@ -704,7 +714,7 @@ html, body, #Home, #Home>div {
   .brand-logo2 {
     display: block;
   }
-
+  
   .Navbar-Links{
     gap: 25px;
   }
@@ -718,7 +728,20 @@ html, body, #Home, #Home>div {
 
 @media screen and (max-width: 755px) {
   .Body-Left {
-    display: none;
+    left: -1000px;
+    position: absolute;
+    opacity: 0;
+    transition: all 0.5 ease;
+    z-index: -1;
+  }
+
+  .Body-Left.active {
+    left: 0;
+    background-color: white;
+    position: relative;
+    opacity: 1;
+    transition: all 0.5 ease;
+    z-index: 9999;
   }
 
   .Menu-Popup {

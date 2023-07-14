@@ -1,13 +1,11 @@
 
+import BodyHeader from '../components/BodyHeader';
 import React from 'react';
 
 function Groups() {
   return (
     <div className="Groups">
-      <div className="Body-Header">
-        <h1 className='middle-text'>My Feed</h1>
-        <div className='middle-line'></div>
-      </div>
+    <BodyHeader />
       <div className="Groupspage">
 
       </div>

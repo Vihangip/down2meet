@@ -1,16 +1,14 @@
-
+import BodyHeader from "../components/BodyHeader";
 import React from 'react';
 
 function Events() {
+
   return (
     <div className='Events'>
-      <div className="Body-Header">
-        <h1 className='middle-text'>My Feed</h1>
-        <div className='middle-line'></div>
-      </div>
+      <BodyHeader />
       <div className="EventPage">
 
-        
+
       </div>
     </div>
   );

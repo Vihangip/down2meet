@@ -9,10 +9,16 @@ export default function SearchBar({ onSearch }) {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    const searchResults = await fetch(`/users/search?q=${searchQuery}`).then((response) =>
-      response.json()
-    );
-    onSearch(searchResults);
+    try {
+      const response = await fetch(`http://localhost:3001/users/search?q=${searchQuery}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const searchResults = await response.json();
+      onSearch(searchResults);
+    } catch (error) {
+      console.error('A problem occurred fetching the data:', error);
+    }
   };
 
   return (

@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import Friend from '../components/Friend';
+import BodyHeader from '../components/BodyHeader';
 import SortingComponent from '../components/Sorting';
 import {useDispatch, useSelector} from 'react-redux';
 import { removeFriend } from '../actions/actions';
@@ -41,10 +42,7 @@ function Friends() {
 
   return (
     <div className="Friends">
-      <div className="Body-Header">
-        <h1 className='middle-text'>My Feed</h1>
-        <div className='middle-line'></div>
-      </div>
+    <BodyHeader />
 
       <div className="FriendsPage">
         <SortingComponent sortOrder={sortOrder} handleSortChange={handleSortChange} />

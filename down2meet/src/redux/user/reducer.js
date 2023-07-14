@@ -11,7 +11,10 @@ const INITIAL_STATE = {
 const userSlice = createSlice({
     name: "users",
     initialState: INITIAL_STATE,
-    reducers: {},
+    reducers: { setUserNotFound: (state, action) => {
+        state.isUserNotFound = action.payload;
+    }  
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getUsersAsync.fulfilled, (state, action) => {
@@ -33,5 +36,5 @@ const userSlice = createSlice({
             });
     },
 });
-
+export const { setUserNotFound } = userSlice.actions;
 export default userSlice.reducer;

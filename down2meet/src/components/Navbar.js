@@ -7,6 +7,7 @@ import '../css/navigation.css';
 import { useDispatch, useSelector } from 'react-redux';
 //import { updateUserProfile } from '../actions/actions';
 import { addUsersAsync, getOneUserAsync } from '../redux/user/thunks';
+import { setUserNotFound } from '../redux/user/reducer';
 
 
 export default function Navbar() {
@@ -47,19 +48,11 @@ export default function Navbar() {
 
       setUserEmail(email);
       setDummyUser(user);
-      dispatch(getOneUserAsync(userEmail))
-      .then(() => {
-        setAccountCreated(false);
-      })
-      .catch(() => {
-        dispatch(addUsersAsync(dummyUser))
-          .then(() => {
-            setAccountCreated(true);
-            setTimeout(() => {
-              setAccountCreated(false);
-            }, 5000);
-          });
+      dispatch(getOneUserAsync(userEmail)).then(() => {
+        console.log(isUserNotFound);
       });
+      
+      
       //dispatch(updateUserProfile(user));
       //console.log(response);
     };
@@ -73,18 +66,21 @@ export default function Navbar() {
       const handleCreateAccount = () => {
         const user = dummyUser;
     
-        dispatch(addUsersAsync(user))
-          .then(() => {
-            setAccountCreated(true);
-            setTimeout(() => {
-              setAccountCreated(false);
-            }, 5000);
-          })
-          .catch(() => {
-            setAccountCreated(false);
-          });
+        dispatch(addUsersAsync(user));
+        dispatch(setUserNotFound(false));
+        setAccountCreated(true);
+        // .then(() => {
+        //   dispatch(getOneUserAsync(userEmail));
+        //   setAccountCreated(true);
+        //   setTimeout(() => {
+        //     setAccountCreated(false);
+        //   }, 5000); // Set the timer for 5 seconds
+        // });
       };
     
+    const mobileButton = () => {
+      console.log("hi");
+    };
     
 
     return (
@@ -93,7 +89,7 @@ export default function Navbar() {
                         <a href="/" className="brand-logo">
                             <img src={logo} alt="Logo" className="logo-image" />
                         </a>
-                        <a href="/" className="brand-logo2">
+                        <a onClick={mobileButton} className="brand-logo2">
                             <img src={logo1265} alt="Logo" className="logo-image2" />
                         </a>
                         
@@ -170,8 +166,7 @@ export default function Navbar() {
                 {/* using tutorial for GoogleLogin from: https://blog.logrocket.com/guide-adding-google-login-react-app/ */}
                 <GoogleLogin onSuccess={responseMessage} onError={errorMessage} className="google-login-button"/>
             </div>
-            {/* {dummyUser && !accountCreated && ( */}
-            {dummyUser && (
+            {dummyUser && !accountCreated && (
       <div className="popup">
         <div className="popup-content">
           <h2>Create Account</h2>
