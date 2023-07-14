@@ -15,7 +15,10 @@ function Profile() {
 
   return (
     <div className="ProfilePage">
-        <h2>Profile</h2>
+      <div className="Body-Header">
+        <h1 className='middle-text'>My Feed</h1>
+        <div className='middle-line'></div>
+      </div>
         <div className="in-line">
           <img className="ProfilePicture" src={user.picture} alt="profile"/> 
           <div className="column">

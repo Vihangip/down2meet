@@ -47,7 +47,19 @@ export default function Navbar() {
 
       setUserEmail(email);
       setDummyUser(user);
-      dispatch(getOneUserAsync(userEmail));
+      dispatch(getOneUserAsync(userEmail))
+      .then(() => {
+        setAccountCreated(false);
+      })
+      .catch(() => {
+        dispatch(addUsersAsync(dummyUser))
+          .then(() => {
+            setAccountCreated(true);
+            setTimeout(() => {
+              setAccountCreated(false);
+            }, 5000);
+          });
+      });
       //dispatch(updateUserProfile(user));
       //console.log(response);
     };
@@ -61,13 +73,16 @@ export default function Navbar() {
       const handleCreateAccount = () => {
         const user = dummyUser;
     
-        dispatch(addUsersAsync(user)).then(() => {
-          dispatch(getOneUserAsync(userEmail));
-          setAccountCreated(true);
-          setTimeout(() => {
+        dispatch(addUsersAsync(user))
+          .then(() => {
+            setAccountCreated(true);
+            setTimeout(() => {
+              setAccountCreated(false);
+            }, 5000);
+          })
+          .catch(() => {
             setAccountCreated(false);
-          }, 10000);
-        });
+          });
       };
     
     
@@ -155,7 +170,8 @@ export default function Navbar() {
                 {/* using tutorial for GoogleLogin from: https://blog.logrocket.com/guide-adding-google-login-react-app/ */}
                 <GoogleLogin onSuccess={responseMessage} onError={errorMessage} className="google-login-button"/>
             </div>
-            {dummyUser && !accountCreated && (
+            {/* {dummyUser && !accountCreated && ( */}
+            {dummyUser && (
       <div className="popup">
         <div className="popup-content">
           <h2>Create Account</h2>

@@ -40,8 +40,13 @@ function Friends() {
   }
 
   return (
-    <div className="FriendsPage">
-      <h1 className='middle-text'>Friends</h1>
+    <div className="Friends">
+      <div className="Body-Header">
+        <h1 className='middle-text'>My Feed</h1>
+        <div className='middle-line'></div>
+      </div>
+
+      <div className="FriendsPage">
         <SortingComponent sortOrder={sortOrder} handleSortChange={handleSortChange} />
         <div>
       {sortedData.map((friend, index) => (
@@ -53,6 +58,7 @@ function Friends() {
           onRemove={() => handleRemoveFriend(index)}
         />
       ))}
+      </div>
     </div>
     </div>
   );
