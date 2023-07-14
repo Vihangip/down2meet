@@ -6,11 +6,11 @@
 // figure out how to stlye the events.
 // need to give events a title so that we can call delete and put requests
 
-//import React from "react";
+import React from "react";
 import moment from "moment";
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import { eventsList } from '../assets/eventsList';
+import {eventsList} from '../assets/eventsList';
 import {AddAvailability} from "./addAvailability";
 // import {endDateRef, startDateRef, detailsRef} from "./addAvailability";
 
@@ -18,8 +18,6 @@ import {AddAvailability} from "./addAvailability";
 const localizer = momentLocalizer(moment);
 
 // Convert start and end values to Date objects
-console.log(eventsList);
-console.log(eventsList.events);
 const processedEvents = eventsList.events.map(event => ({
   ...event,
   start: moment(event.start).toDate(),
@@ -27,7 +25,6 @@ const processedEvents = eventsList.events.map(event => ({
 }));
 
 export default function Availability(props) {
-  /*
   return (
     <div className="availability-page">
       <AddAvailability/> <br/><br/>
@@ -41,5 +38,4 @@ export default function Availability(props) {
       />
     </div>
   );
-  */
 }

@@ -1,5 +1,6 @@
 import React from "react";
-import EventsList from '../assets/eventsList';
+import {eventsList} from '../assets/eventsList';
+import { useState } from "react";
 // import writeJSONToFile from "../utility/writeJSONToFile";
 
 
@@ -7,6 +8,10 @@ import EventsList from '../assets/eventsList';
 // export let startDateRef =  [0,0,0];
 // export let detailsRef = [];
 
+export const availabilityDates = {
+  startingDate: new Date(),
+  endingDate: new Date()
+};
 
 export function AddAvailability() {
   const itemIDRef = React.useRef(null);
@@ -40,10 +45,13 @@ export function AddAvailability() {
       const startDate = new Date(
         itemStartRef.current.value + 'T' + itemStartTimeRef.current.value
       ).toISOString();
+      availabilityDates.startingDate = (startDate);
+
       const endDate = new Date(
         itemEndRef.current.value + 'T' + itemEndTimeRef.current.value
       ).toISOString();
-
+      availabilityDates.endingDate = (endDate);
+      
       // removes the Z at the end of the date (may not need to do this)
       //
       const formattedStartDate = startDate.slice(0, -1); // Remove the last character (Z)

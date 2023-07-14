@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import ApiCalendar from 'react-google-calendar-api';
-import {endDate, startDate, details} from "./addAvailability";
+import {availabilityDates, details} from "./addAvailability";
 
 
 import { eventsList } from '../assets/eventsList';
@@ -40,7 +40,7 @@ const Calendar = () => {
 
     const eventsData = eventsList.list;
 
-    const available2Event = eventsData.find(event => event.title === 'Available 2');
+    const available2Event = eventsData?.find(event => event.title === 'Available 2');
     if (available2Event) {
       available2Event.start = '2023-06-25T15:30:00';
     }
@@ -62,16 +62,16 @@ const Calendar = () => {
         <button
           onClick={(e) => {
             const startDate = new Date();
-            startDate.setFullYear(startDate[0]);
-            startDate.setMonth(startDate[1]); //month is 0 indexing *eg. 6 = July)
-            startDate.setDate(startDate[2]); //day is 1 indexing
+            startDate.setFullYear(availabilityDates.startingDate.getFullYear());
+            startDate.setMonth(availabilityDates.startingDate.getMonth()); //month is 0 indexing *eg. 6 = July)
+            startDate.setDate(availabilityDates.startingDate.getDate()); //day is 1 indexing
             startDate.setHours(10);
             startDate.setMinutes(0);
 
             const endDate = new Date();
-            endDate.setFullYear(endDate[0]);
-            endDate.setMonth(endDate[1]);
-            endDate.setDate(endDate[2]);
+            endDate.setFullYear(availabilityDates.endingDate.getFullYear());
+            endDate.setMonth(availabilityDates.endingDate.getMonth());
+            endDate.setDate(availabilityDates.endingDate.getDate());
             endDate.setHours(11);
             endDate.setMinutes(30);
 

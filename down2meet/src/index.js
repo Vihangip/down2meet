@@ -16,10 +16,7 @@ import SearchBar from './components/SearchBar';
 import ActiveUsers from './components/ActiveUsers';
 import store from './redux/store';
 
-import { createRoot } from 'react-dom/client';
-const root = createRoot(document.getElementById('root'));
-
-//const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root'));
 
   // using GoogleOAuthProvider tutorial from: https://blog.logrocket.com/guide-adding-google-login-react-app/
 root.render(<>
