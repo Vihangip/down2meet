@@ -5,7 +5,7 @@ import logo1265 from '../assets/logo-notext.png';
 import { GoogleLogin } from '@react-oauth/google';
 import '../css/navigation.css';
 import { useDispatch } from 'react-redux';
-//import { updateUserProfile } from '../actions/actions';
+import { updateUserProfile } from '../actions/actions';
 import { addUsersAsync, getOneUserAsync } from '../redux/user/thunks';
 
 
@@ -41,7 +41,7 @@ export default function Navbar() {
       setEmail(email);
       setDummyUser(user);
       dispatch(getOneUserAsync(email));
-      //dispatch(updateUserProfile(user));
+      dispatch(updateUserProfile(user));
       //console.log(response);
     };
     // when users don't successfully login
@@ -79,8 +79,8 @@ export default function Navbar() {
 
                         <div className="Navbar-Links">
                         <NavLink className="Social-Option"
-                        activeClassName="Social-Option-Active"
-                        exact
+                        activeclassname="Social-Option-Active"
+                        exact="true"
                         to="/">
                             <div className="Social-Icon">
                                 <i className="fa-solid fa-house"></i>
@@ -89,8 +89,8 @@ export default function Navbar() {
                         </NavLink>
 
                         <NavLink className="Social-Option"
-                        activeClassName="Social-Option-Active"
-                        exact
+                        activeclassname="Social-Option-Active"
+                        exact="true"
                         to="/Profile">
                             <div className="Social-Icon">
                                 <i className="fa-solid fa-user"></i>
@@ -99,8 +99,8 @@ export default function Navbar() {
                         </NavLink>
                         
                         <NavLink className="Social-Option"
-                        activeClassName="Social-Option-Active"
-                        exact
+                        activeclassname="Social-Option-Active"
+                        exact="true"
                         to="/Friends">
                             <div className="Social-Icon">
                             <i class="fa-solid fa-user-group"></i>
@@ -109,7 +109,7 @@ export default function Navbar() {
                         </NavLink>
 
                         <NavLink className="Social-Option"
-                        activeClassName="Social-Option-Active"
+                        activeclassname="Social-Option-Active"
                         exact
                         to="/Events">
                             <div className="Social-Icon">
@@ -119,8 +119,8 @@ export default function Navbar() {
                         </NavLink>
                 
                         <NavLink className="Social-Option"
-                        activeClassName="Social-Option-Active"
-                        exact
+                        activeclassname="Social-Option-Active"
+                        exact="true"
                         to="/Groups">
                             <div className="Social-Icon">
                                 <i className="fa-solid fa-people-group"></i>
@@ -129,8 +129,8 @@ export default function Navbar() {
                         </NavLink>
 
                         <NavLink className="Social-Option"
-                        activeClassName="Social-Option-Active"
-                        exact
+                        activeclassname="Social-Option-Active"
+                        exact="true"
                         to="">
                             <div className="Social-Icon">
                                 <i className="fa-solid fa-bell"></i>

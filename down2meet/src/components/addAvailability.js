@@ -1,5 +1,5 @@
 import React from "react";
-import EventsList from '../assets/eventsList.json';
+import EventsList from '../assets/eventsList';
 // import writeJSONToFile from "../utility/writeJSONToFile";
 
 
