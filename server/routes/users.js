@@ -41,9 +41,8 @@ router.get('/', async(req, res, next) =>{
 
 /* GET user by ID. */
 router.get('/:userId', async(req, res, next) => {
-  const foundUser = await User.findOne({user_id: req.params.user_id})
-  if(!foundUser) {}
-  return res.status(404).send({message: 'Item not found'})
+  const foundUser = await User.findOne({user_id: req.params.userId})
+  if(!foundUser) return res.status(404).send({message: 'Item not found'})
   return res.send(foundUser);
 });
 

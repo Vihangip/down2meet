@@ -10,10 +10,10 @@ export const getUsersAsync = createAsyncThunk(
 
 export const getOneUserAsync = createAsyncThunk(
     'users/getOneUserAsync',
-    async () => {
-        return await service.getOneUser();
+    async (userID) => {
+      return await service.getOneUser(userID);
     }
-);
+  );
 
 export const addUsersAsync = createAsyncThunk(
     'users/addUsersAsync',

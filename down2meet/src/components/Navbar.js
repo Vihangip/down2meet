@@ -1,23 +1,30 @@
 import { NavLink } from "react-router-dom";
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import logo from '../assets/D2MLogo.png';
 import logo1265 from '../assets/logo-notext.png';
 import { GoogleLogin } from '@react-oauth/google';
 import '../css/navigation.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 //import { updateUserProfile } from '../actions/actions';
 import { addUsersAsync, getOneUserAsync } from '../redux/user/thunks';
 
 
 export default function Navbar() {
     const dispatch = useDispatch();
-    const [showPopup, setShowPopup] = useState(false);
-    const [email, setEmail] = useState('');
+    const [userEmail, setUserEmail] = useState('');
     const [dummyUser, setDummyUser] = useState('');
+    const [accountCreated, setAccountCreated] = useState(false);
 
+    const isUserNotFound = useSelector(state => state.isUserNotFound);
+  
+    useEffect(() => {
+      if (isUserNotFound) {
+        setUserEmail('');
+      }
+    }, [isUserNotFound]);
 
     // when users successfully login
-    const responseMessage = (response) => {
+    const responseMessage = async(response) => {
       const idToken = response.credential;
       const encodedPayload = idToken.split('.')[1];
       const decodedPayload = JSON.parse(atob(encodedPayload));
@@ -38,29 +45,31 @@ export default function Navbar() {
         availability: false,
       }
 
-      setEmail(email);
+      setUserEmail(email);
       setDummyUser(user);
-      dispatch(getOneUserAsync(email));
+      dispatch(getOneUserAsync(userEmail));
       //dispatch(updateUserProfile(user));
       //console.log(response);
     };
     // when users don't successfully login
     const errorMessage = (error) => {
         console.log(error);
-        setShowPopup(true); // Show the pop-up when there's an error
+         // Show the pop-up when there's an error
       };
 
-    const handleSignInClick = () => {
-        setShowPopup(false); // Hide the pop-up when user clicks on "Sign In"
-      };
 
-    const handleCreateAccountClick = () => {
-        dispatch(addUsersAsync(dummyUser)).then(() => {
-            dispatch(getOneUserAsync(email));
-        }); // Dispatch the action to create the user account
-        setShowPopup(false); // Hide the pop-up when user clicks on "Create Account"
+      const handleCreateAccount = () => {
+        const user = dummyUser;
+    
+        dispatch(addUsersAsync(user)).then(() => {
+          dispatch(getOneUserAsync(userEmail));
+          setAccountCreated(true);
+          setTimeout(() => {
+            setAccountCreated(false);
+          }, 10000);
+        });
       };
-
+    
     
 
     return (
@@ -140,21 +149,29 @@ export default function Navbar() {
                         </div>
 
                             {/* Pop-up */}
-                {showPopup && (
-                    <div className="popup">
-                    <div className="popup-content">
-                        <h2>User Not Found</h2>
-                        <p>No user account found. Please create an account.</p>
-                        <button onClick={handleSignInClick}>Sign In</button>
-                        <button onClick={handleCreateAccountClick}>Create Account</button>
-                    </div>
-                    </div>
-                )}
+
             </div>
             <div className="botnav">
                 {/* using tutorial for GoogleLogin from: https://blog.logrocket.com/guide-adding-google-login-react-app/ */}
                 <GoogleLogin onSuccess={responseMessage} onError={errorMessage} className="google-login-button"/>
             </div>
+            {dummyUser && !accountCreated && (
+      <div className="popup">
+        <div className="popup-content">
+          <h2>Create Account</h2>
+          <p>No user account found. Please create an account.</p>
+          <button onClick={handleCreateAccount}>Create Account</button>
+        </div>
+      </div>
+    )}
+    {accountCreated && (
+      <div className="popup">
+        <div className="popup-content">
+          <h2>Account is created and Signed in</h2>
+          <p>Your account has been successfully created and signed in.</p>
+        </div>
+      </div>
+    )}
          </nav>
     );
 }

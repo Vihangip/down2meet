@@ -7,7 +7,8 @@ const getUsers = async () => {
     return data;
 }
 
-const getOneUser = async ({userID}) => {
+const getOneUser = async (userID) => {
+    console.log();
     const res = await fetch(`http://localhost:3001/users/${userID}`,
     {
         method: "GET",
