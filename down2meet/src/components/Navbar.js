@@ -7,22 +7,14 @@ import '../css/navigation.css';
 import { useDispatch, useSelector } from 'react-redux';
 //import { updateUserProfile } from '../actions/actions';
 import { addUsersAsync, getOneUserAsync } from '../redux/user/thunks';
-import { setUserNotFound } from '../redux/user/reducer';
+
 
 
 export default function Navbar() {
     const dispatch = useDispatch();
-    const [userEmail, setUserEmail] = useState('');
+    let userEmail = "";
     const [dummyUser, setDummyUser] = useState('');
     const [accountCreated, setAccountCreated] = useState(false);
-
-    const isUserNotFound = useSelector(state => state.isUserNotFound);
-  
-    useEffect(() => {
-      if (isUserNotFound) {
-        setUserEmail('');
-      }
-    }, [isUserNotFound]);
 
     // when users successfully login
     const responseMessage = async(response) => {
@@ -46,15 +38,11 @@ export default function Navbar() {
         availability: false,
       }
 
-      setUserEmail(email);
+      userEmail = email;
       setDummyUser(user);
-      dispatch(getOneUserAsync(userEmail)).then(() => {
-        console.log(isUserNotFound);
-      });
-      
-      
+      console.log(userEmail);
+      dispatch(getOneUserAsync(userEmail));
       //dispatch(updateUserProfile(user));
-      //console.log(response);
     };
     // when users don't successfully login
     const errorMessage = (error) => {
@@ -67,15 +55,7 @@ export default function Navbar() {
         const user = dummyUser;
     
         dispatch(addUsersAsync(user));
-        dispatch(setUserNotFound(false));
         setAccountCreated(true);
-        // .then(() => {
-        //   dispatch(getOneUserAsync(userEmail));
-        //   setAccountCreated(true);
-        //   setTimeout(() => {
-        //     setAccountCreated(false);
-        //   }, 5000); // Set the timer for 5 seconds
-        // });
       };
     
     const mobileButton = () => {
@@ -172,14 +152,6 @@ export default function Navbar() {
           <h2>Create Account</h2>
           <p>No user account found. Please create an account.</p>
           <button onClick={handleCreateAccount}>Create Account</button>
-        </div>
-      </div>
-    )}
-    {accountCreated && (
-      <div className="popup">
-        <div className="popup-content">
-          <h2>Account is created and Signed in</h2>
-          <p>Your account has been successfully created and signed in.</p>
         </div>
       </div>
     )}

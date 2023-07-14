@@ -11,10 +11,7 @@ const INITIAL_STATE = {
 const userSlice = createSlice({
     name: "users",
     initialState: INITIAL_STATE,
-    reducers: { setUserNotFound: (state, action) => {
-        state.isUserNotFound = action.payload;
-    }  
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(getUsersAsync.fulfilled, (state, action) => {
@@ -23,10 +20,8 @@ const userSlice = createSlice({
             })
             .addCase(getOneUserAsync.fulfilled, (state, action) => {
                 state.user = action.payload;
-                state.isUserNotFound = false;
             })
             .addCase(getOneUserAsync.rejected, (state, action) => {
-                state.isUserNotFound = true; // User not found in the database
               })
             .addCase(addUsersAsync.fulfilled, (state, action) => {
                 state.userList.push(action.payload);
@@ -36,5 +31,4 @@ const userSlice = createSlice({
             });
     },
 });
-export const { setUserNotFound } = userSlice.actions;
 export default userSlice.reducer;
