@@ -7,7 +7,7 @@ import ActiveUsers from './components/ActiveUsers';
 import PostBar from './components/PostBar';
 import SearchBar from './components/SearchBar';
 import React from 'react';
-import Availability from './components/Availability';
+import Event from './components/Event';
 import {store} from './redux/store';
 import { userData } from './tests/usersData';
 
@@ -27,7 +27,7 @@ function App() {
         <div className="Body-Middle">
           <PostBar />
           <SocialFeed />
-          <Availability/>
+          <Event/>
         </div>
         <div className="Body-Right">
           <ButtonAvailable />
