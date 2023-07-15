@@ -66,4 +66,22 @@ router.delete('/:userId', function(req, res, next) {
   return res.send(userId);
 });
 
+router.get('/:userID/addPost/:postID', async (req, res) => {
+  try {
+    const userID = req.params.userID;
+    const postID = req.params.postID;
+    console.log(userID);
+    console.log(postID);
+    const user = await User.updateOne(
+      { user_id: userID },
+      { $push: { events: postID } }
+    );
+    return res.json(user);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Server Error' });
+  }
+});
+
 module.exports = router;
+

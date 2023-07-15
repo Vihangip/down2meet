@@ -399,7 +399,8 @@ html, body, #Home, #Home>div {
   }
   
   .PostBar-InputBar {
-    width: 350px;
+    /* width: 350px; */
+    width: 100px;
     height: 40px;
     border: 1px solid #8f8f8f;
     border-radius: 15px;

@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Post = ({ post }) => {
-  const user = useSelector((state) => state.users.user);
+  // const user = useSelector((state) => state.users.user);
 
     const dispatch = useDispatch();
 
@@ -26,6 +26,7 @@ const Post = ({ post }) => {
           </div>
         <div className="Post-Content">
           <p>{post.status}</p>
+          <br></br>
           <p>
             Meet at {post.location} on {post.date} at {post.time}
           </p>
