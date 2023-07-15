@@ -5,7 +5,13 @@ import { useDispatch } from 'react-redux';
 import { getPostsAsync } from '../redux/posts/thunks';
 
 export default function SocialFeed() {
+
+  const test = useSelector((state) => state);
+
+  console.log(test);
+
     const posts = useSelector((state) => (state.posts.postList));
+
     const dispatch = useDispatch();
     
     useEffect(() => {

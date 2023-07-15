@@ -19,12 +19,23 @@ import reducer from './reducers/reducer';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
+
+import userReducer from './redux/user/reducer';
+import postReducer from './redux/posts/reducer';
+import groupReducer from './redux/groups/reducer';
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const rootReducer = combineReducers({
-  store,
-  reducer,
+  users: userReducer,
+  posts: postReducer,
+  groups: groupReducer,
+  reducer: reducer,
 });
+
+console.log("index");
+console.log(rootReducer.store);
 
 const combinedStore =  createStore(rootReducer, applyMiddleware(thunk));
 
