@@ -3,6 +3,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import { useDispatch } from 'react-redux';
 import { getOneUserAsync, addUsersAsync } from '../redux/user/thunks';
 import { useNavigate } from 'react-router-dom';
+import { setUser } from '../redux/user/reducer';
 
 export default function LoginPage() {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ export default function LoginPage() {
           // User information retrieval successful
           const existingUser = action.payload;
           console.log('Existing user found:', existingUser);
+          dispatch(setUser(existingUser));
           navigate('/Home');
           // Proceed with sign-in or other necessary logic
         } else if (action.type === 'users/getOneUserAsync/rejected') {

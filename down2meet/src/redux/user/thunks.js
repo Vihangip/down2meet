@@ -32,6 +32,7 @@ export const addUsersAsync = createAsyncThunk(
     async (user) => {
         return await service.addUsers(user);
     });
+    
 
 export const deleteUsersAsync = createAsyncThunk(
     'users/deleteUsersAsync',
@@ -39,3 +40,9 @@ export const deleteUsersAsync = createAsyncThunk(
         return await service.deleteUsers(userID);
     }
 );
+
+export const addUserPostAsync = createAsyncThunk(
+    'users/addUserPostAsync',
+    async (userID, postID) => {
+        return await service.addUserPost(userID, postID);
+    });

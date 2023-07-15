@@ -1,5 +1,4 @@
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
 
 const getUsers = async () => {
     const res = await fetch(`http://localhost:3001/users`,
@@ -57,6 +56,23 @@ const deleteUsers = async (userID) => {
     return data;
 }
 
+const addUserPost = async (userID, postID) => {
+    const res = await fetch(`http://localhost:3001/users/${userID}/posts/${postID}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({}),
+    });
+  
+    if (res.status >= 400) {
+      const data = await res.json();
+      throw new Error(data.errors);
+    }
+  
+    console.log("Post added successfully");
+  };
+
 export default {
-    getUsers, addUsers, deleteUsers, getOneUser
+    getUsers, addUsers, deleteUsers, getOneUser, addUserPost
 }
