@@ -3,6 +3,9 @@ import React from "react";
 import { useEffect } from 'react';
 import { useDispatch} from 'react-redux';
 import { addEventAsync, getEventAsync, deleteEventAsync, updateEventAsync} from '../redux/event/thunks';
+
+import { handleCreateEvent } from './Calendar'
+
 const { v4: uuid } = require('uuid');
 
 
@@ -73,6 +76,7 @@ export function AddEvent() {
       googleEvent.startingDate = (startDate);//startDate);
       googleEvent.endingDate = (endDate);//endDate);
 
+      handleCreateEvent();
       //console.log("addEvent new event");
       //console.log(googleEvent.startingDate);
 
