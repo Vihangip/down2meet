@@ -23,6 +23,7 @@ import thunk from 'redux-thunk';
 import userReducer from './redux/user/reducer';
 import postReducer from './redux/posts/reducer';
 import groupReducer from './redux/groups/reducer';
+import eventReducer from './event/reducer';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -32,6 +33,7 @@ const rootReducer = combineReducers({
   posts: postReducer,
   groups: groupReducer,
   reducer: reducer,
+  event: eventReducer
 });
 
 console.log("index");
