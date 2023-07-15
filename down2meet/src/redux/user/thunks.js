@@ -8,10 +8,22 @@ export const getUsersAsync = createAsyncThunk(
     }
 );
 
+// export const getOneUserAsync = createAsyncThunk(
+//     'users/getOneUserAsync',
+//     async (userID) => {
+//       return await service.getOneUser(userID);
+//     }
+//   );
 export const getOneUserAsync = createAsyncThunk(
     'users/getOneUserAsync',
-    async (userID) => {
-      return await service.getOneUser(userID);
+    async (userID, { rejectWithValue }) => {
+      try {
+        const user = await service.getOneUser(userID);
+        return user;
+      } catch (error) {
+        // Use rejectWithValue to include the error message in the action payload
+        return rejectWithValue(error.message);
+      }
     }
   );
 

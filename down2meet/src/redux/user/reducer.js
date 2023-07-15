@@ -4,8 +4,7 @@ import { getUsersAsync, addUsersAsync, deleteUsersAsync, getOneUserAsync } from 
 
 const INITIAL_STATE = {
     userList: [],
-    friendsList: [],
-    isUserNotFound: false,
+    friendsList: []
 };
 
 const userSlice = createSlice({
@@ -22,6 +21,8 @@ const userSlice = createSlice({
                 state.user = action.payload;
             })
             .addCase(getOneUserAsync.rejected, (state, action) => {
+                state.error = action.error.message;
+                console.log(action.error);
               })
             .addCase(addUsersAsync.fulfilled, (state, action) => {
                 state.userList.push(action.payload);
