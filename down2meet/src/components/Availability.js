@@ -10,7 +10,7 @@ import React from "react";
 import moment from "moment";
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import EventsList from '../assets/eventsList.json';
+import {eventsList} from '../assets/eventsList';
 import {AddAvailability} from "./addAvailability";
 // import {endDateRef, startDateRef, detailsRef} from "./addAvailability";
 
@@ -18,7 +18,7 @@ import {AddAvailability} from "./addAvailability";
 const localizer = momentLocalizer(moment);
 
 // Convert start and end values to Date objects
-const processedEvents = EventsList.map(event => ({
+const processedEvents = eventsList.events.map(event => ({
   ...event,
   start: moment(event.start).toDate(),
   end: moment(event.end).toDate()
