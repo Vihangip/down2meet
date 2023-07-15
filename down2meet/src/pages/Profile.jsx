@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState} from 'react';
 //import ProfileSchedule from '../components/ProfileSchedule';
 //import Availability from '../components/Availability';
-import Calendar from '../components/Calendar';
+
 import { getUsersAsync } from '../redux/user/thunks';
 import Event from '../components/Event';
 // import Calendar from '../components/Calendar';
@@ -34,7 +34,7 @@ function Profile() {
         <h3> Schedule</h3>
        
         <div className="Calendar"> <Event formLocation="profile"/> </div>
-      <div className="Calendar"> <Calendar/> </div> 
+
 
        {/* <div className="Calendar"> <Availability/> </div> */}
 

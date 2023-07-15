@@ -11,6 +11,16 @@ const { v4: uuid } = require('uuid');
 // export let detailsRef = [];
 
 
+//for adding to Google Calendar, does not need to be stored anywhere
+export const googleEvent = {
+  title: '',
+  description: '',
+  startingDate: new Date(),
+  endingDate: new Date(),
+
+};
+
+
 export function AddEvent() {
   const dispatch = useDispatch();
 
@@ -54,8 +64,18 @@ export function AddEvent() {
       // Your form submit logic here
       console.log("title", itemNameRef.current.value);
       console.log("description", itemDescRef.current.value);
-      console.log("start date", formattedStartDate);
-      console.log("end date", formattedEndDate);
+      console.log("start date", startDate);
+      console.log("end date", endDate);
+
+
+      googleEvent.title = (itemNameRef.current.value);
+      googleEvent.description = (itemDescRef.current.value);
+      googleEvent.startingDate = (startDate);//startDate);
+      googleEvent.endingDate = (endDate);//endDate);
+
+      //console.log("addEvent new event");
+      //console.log(googleEvent.startingDate);
+
     };
     
 
