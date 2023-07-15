@@ -8,6 +8,7 @@ const store = configureStore({
         users: userReducer,
         posts: postReducer,
         groups: groupReducer,
+        
     },
 });
 

@@ -5,7 +5,7 @@ import logo1265 from '../assets/logo-notext.png';
 import { GoogleLogin } from '@react-oauth/google';
 import '../css/navigation.css';
 import { useDispatch } from 'react-redux';
-//import { updateUserProfile } from '../actions/actions';
+import { updateUserProfile } from '../actions/actions';
 import { addUsersAsync, getOneUserAsync } from '../redux/user/thunks';
 
 
@@ -41,8 +41,9 @@ export default function Navbar() {
       setEmail(email);
       setDummyUser(user);
       dispatch(getOneUserAsync(email));
-      //dispatch(updateUserProfile(user));
-      //console.log(response);
+
+      dispatch(updateUserProfile(user));
+
     };
     // when users don't successfully login
     const errorMessage = (error) => {
