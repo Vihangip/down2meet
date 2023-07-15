@@ -102,8 +102,8 @@ const Calendar = () => {
   return (
     <div>
       <div style={{ padding: '0.5em' }}>
-        <button onClick={(e) => handleItemClick(e, 'sign-in')}>sign-in</button>
-        <button onClick={(e) => handleItemClick(e, 'sign-out')}>sign-out</button>
+        <button onClick={(e) => handleItemClick(e, 'sign-in')}>Connect to Google Calendar</button>
+       
       </div>
 
       {/*
