@@ -1,10 +1,12 @@
 
+import BodyHeader from '../components/BodyHeader';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState} from 'react';
 //import ProfileSchedule from '../components/ProfileSchedule';
 import Availability from '../components/Availability';
 // import Calendar from '../components/Calendar';
+
 
 
 function Profile() {
@@ -15,7 +17,7 @@ function Profile() {
 
   return (
     <div className="ProfilePage">
-        <h2>Profile</h2>
+      <BodyHeader />
         <div className="in-line">
           <img className="ProfilePicture" src={user.picture} alt="profile"/> 
           <div className="column">

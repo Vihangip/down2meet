@@ -35,13 +35,14 @@ router.get('/:postId', async(req, res, next) => {
 router.post('/', async(req, res, next) =>{
   const post = new Post(
     { 
-      // id: randomUUID, 
-      content: req.body.status, 
-      date: req.body.date, 
+      post_id: req.body.post_id, 
+      user_id:  req.body.user_id,
+      profilepic: user.picture,
+      status: req.body.status, 
       time: req.body.time,
-      location: req.body.location
-      // userId:  req.body.userId,
-      // viewers: req.body.viewers 
+      date: req.body.date, 
+      location: req.body.location,
+      viewers: req.body.viewers 
     })
   // const post = req.body;
   // posts.push(post);

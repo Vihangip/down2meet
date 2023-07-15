@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import Friend from '../components/Friend';
+import BodyHeader from '../components/BodyHeader';
 import SortingComponent from '../components/Sorting';
 import {useDispatch, useSelector} from 'react-redux';
 import { removeFriend } from '../actions/actions';
@@ -40,8 +41,10 @@ function Friends() {
   }
 
   return (
-    <div className="FriendsPage">
-      <h1 className='middle-text'>Friends</h1>
+    <div className="Friends">
+    <BodyHeader />
+
+      <div className="FriendsPage">
         <SortingComponent sortOrder={sortOrder} handleSortChange={handleSortChange} />
         <div>
       {sortedData.map((friend, index) => (
@@ -53,6 +56,7 @@ function Friends() {
           onRemove={() => handleRemoveFriend(index)}
         />
       ))}
+      </div>
     </div>
     </div>
   );

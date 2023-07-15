@@ -1,7 +1,8 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Post = ({ post }) => {
+  const user = useSelector((state) => state.users.user);
 
     const dispatch = useDispatch();
 

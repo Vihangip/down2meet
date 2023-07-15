@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addPost } from '../actions/actions';
 import { addPostAsync } from '../redux/posts/thunks';
+import { addUserPostAsync } from '../redux/user/thunks';
+import { v4 as uuidv4 } from 'uuid';
 
 function PostBar() {
   // const posts = useSelector((state) => state.posts);
@@ -15,19 +17,26 @@ function PostBar() {
   const [location, setLocation] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedOption, setSelectedOption] = useState("Everyone"); // Controls which group
+  const user = useSelector((state) => state.users.user);
 
+  console.log(user.picture);
   const handleSubmit = (e) => {
     e.preventDefault();
+    const randomUUID = uuidv4();
     const post = {
-      name: 'John Smith',
-      profilepic:
-        'https://upload.wikimedia.org/wikipedia/en/c/c6/Jesse_Pinkman_S5B.png',
+      post_id: randomUUID,
+      name: user.name,
+      user_id: user.user_id,
+      profilepic: user.picture,
       status: postContent,
       time: time,
       date: date,
       location: location
     };
     dispatch(addPostAsync(post));
+    console.log(user.id);
+    dispatch(addUserPostAsync(user.user_id, post.post_id));
+
     setPostContent('');
     setTime('');
     setDate('');
@@ -63,8 +72,8 @@ function PostBar() {
     <div className="PostBar">
       <img
         className="PostBar-Image"
-        src="https://upload.wikimedia.org/wikipedia/en/c/c6/Jesse_Pinkman_S5B.png"
-        alt=""
+        src={user.picture}
+        alt="profile picture"
       />
       <form className="PostBar-Form" onSubmit={handleSubmit}>
         <div className="PostBar-PostContainer">
