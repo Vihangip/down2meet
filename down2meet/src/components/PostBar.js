@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addPost } from '../actions/actions';
 import { addPostAsync } from '../redux/posts/thunks';
+import { addUserPostAsync } from '../redux/user/thunks';
+import { v4 as uuidv4 } from 'uuid';
 
 function PostBar() {
   // const posts = useSelector((state) => state.posts);
@@ -15,19 +17,26 @@ function PostBar() {
   const [location, setLocation] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedOption, setSelectedOption] = useState("Everyone"); // Controls which group
+  const user = useSelector((state) => state.users.user);
 
+  console.log(user.picture);
   const handleSubmit = (e) => {
+    const useruser = user;
     e.preventDefault();
+    const randomUUID = uuidv4();
     const post = {
-      name: 'John Smith',
-      profilepic:
-        'https://upload.wikimedia.org/wikipedia/en/c/c6/Jesse_Pinkman_S5B.png',
+      post_id: randomUUID,
+      name: useruser.name,
+      user_id: useruser.user_id,
+      profilepic: useruser.picture,
       status: postContent,
       time: time,
       date: date,
       location: location
     };
+    console.log(post);
     dispatch(addPostAsync(post));
+    // dispatch(addUserPostAsync(user.user_id, post.post_id));
     setPostContent('');
     setTime('');
     setDate('');
@@ -61,11 +70,13 @@ function PostBar() {
 
   return (
     <div className="PostBar">
+    {user && user.picture && (
       <img
         className="PostBar-Image"
-        src="https://upload.wikimedia.org/wikipedia/en/c/c6/Jesse_Pinkman_S5B.png"
-        alt=""
+        src={user.picture}
+        alt="profile picture"
       />
+    )}
       <form className="PostBar-Form" onSubmit={handleSubmit}>
         <div className="PostBar-PostContainer">
           <div className='PostBar-DropdownContainer'>
@@ -102,7 +113,7 @@ function PostBar() {
             <button onClick={handleTimeToggle} className='PostBar-AdditionalInfo'>
               <i class="fa-regular fa-clock"></i>
             </button>
-            {showTimeInput && (
+            {/* {showTimeInput && ( */}
               <input
                 type="text"
                 id="time"
@@ -112,11 +123,11 @@ function PostBar() {
                 onBlur={() => setShowTimeInput(false)}
                 placeholder=" Enter a time to hang out!"
               />
-            )}
+            {/* )} */}
             <button onClick={handleDateToggle} className='PostBar-AdditionalInfo'>
               <i class="fa-regular fa-calendar-days"></i>
             </button>
-            {showDateInput && (
+            {/* {showDateInput && ( */}
               <input
                 type="date"
                 id="date"
@@ -126,11 +137,11 @@ function PostBar() {
                 onBlur={() => setShowDateInput(false)}
                 placeholder=" Enter the date you're free!"
               />
-            )}
+            {/* )} */}
             <button onClick={handleLocationToggle} className='PostBar-AdditionalInfo'>
               <i class="fa-solid fa-location-dot"></i>
             </button>
-            {showLocationInput && (
+            {/* {showLocationInput && ( */}
               <input
                 type="text"
                 id="location"
@@ -140,7 +151,7 @@ function PostBar() {
                 onBlur={() => setShowLocationInput(false)}
                 placeholder=" Enter a location you'd want to go to!"
               />
-            )}
+            {/* )} */}
             </div>
             <button className="PostBar-Button" type="submit">
               Post

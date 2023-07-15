@@ -2,12 +2,14 @@ const mongoose = require('mongoose');
 
 // create schema
 const postSchema = new mongoose.Schema({
-    // id: String,
-    content: String,
-    date: String,
+    post_id: String,
+    user_id:  String,
+    profilepic: String,
+    status: String, 
     time: String,
-    location: String
-    // userId: String,
+    date: String,
+    location: String,
+    viewers: [String],
 });
 
 // create model

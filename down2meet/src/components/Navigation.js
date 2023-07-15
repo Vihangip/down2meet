@@ -43,7 +43,7 @@ export default function Navigation() {
 
   return (
     <nav className="navbar">
-      <a href="/" className="brand-logo">
+      <a href="/Home" className="brand-logo">
       <img src={logo} alt="Logo" className="logo-image" />
       </a>
       <div className="navigation-menu"> 

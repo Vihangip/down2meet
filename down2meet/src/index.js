@@ -11,9 +11,9 @@ import Friends from './pages/Friends';
 import Groups from './pages/Groups';
 import Profile from './pages/Profile';
 import Navbar from './components/Navbar';
+import LoginPage from './pages/Login';
 import ButtonAvailable from './components/ButtonAvailable';
 import SearchBar from './components/SearchBar';
-import ActiveUsers from './components/ActiveUsers';
 import store from './redux/store';
 import reducer from './reducers/reducer';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
@@ -54,7 +54,8 @@ root.render(<>
         </div>
         <div className='Body-Middle'>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/Home" element={<Home />} />
           <Route path="/Friends" element={<Friends />} />
           <Route path="/Groups" element={<Groups />} />
           <Route path="/Events" element={<Events />} />
@@ -64,7 +65,7 @@ root.render(<>
 
         <div className="Body-Right">
         <ButtonAvailable />
-          <SearchBar />
+          <Search />
           {/* <ActiveUsers /> */}
         </div>
         </div>
