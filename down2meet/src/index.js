@@ -15,15 +15,39 @@ import ButtonAvailable from './components/ButtonAvailable';
 import SearchBar from './components/SearchBar';
 import ActiveUsers from './components/ActiveUsers';
 import store from './redux/store';
+import reducer from './reducers/reducer';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+
+
+import userReducer from './redux/user/reducer';
+import postReducer from './redux/posts/reducer';
+import groupReducer from './redux/groups/reducer';
+import eventReducer from './redux/event/reducer';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+const rootReducer = combineReducers({
+  users: userReducer,
+  posts: postReducer,
+  groups: groupReducer,
+  reducer: reducer,
+  event: eventReducer
+});
+
+console.log("index");
+console.log(rootReducer.store);
+
+const combinedStore =  createStore(rootReducer, applyMiddleware(thunk));
+
 
   // using GoogleOAuthProvider tutorial from: https://blog.logrocket.com/guide-adding-google-login-react-app/
 root.render(<>
   <GoogleOAuthProvider clientId="1011482531322-6d1dp35f941hr37vnn7cvjdstntunnru.apps.googleusercontent.com">
     <React.StrictMode>
       <Router>
-      <Provider store={store}>
+      <Provider store={combinedStore}>
         <div className='Body'>
         <div className="Body-Left">
         <Navbar />

@@ -5,7 +5,7 @@ import logo1265 from '../assets/logo-notext.png';
 import { GoogleLogin } from '@react-oauth/google';
 import '../css/navigation.css';
 import { useDispatch } from 'react-redux';
-//import { updateUserProfile } from '../actions/actions';
+import { updateUserProfile } from '../actions/actions';
 import { addUsersAsync, getOneUserAsync } from '../redux/user/thunks';
 
 
@@ -24,7 +24,8 @@ export default function Navbar() {
 
       const name = decodedPayload.name;
       const email = decodedPayload.email;
-      const picture = decodedPayload.picture;
+      const picture = "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60";
+      // decodedPayload.picture;
 
       console.log("Hey, " + name);
 
@@ -41,8 +42,9 @@ export default function Navbar() {
       setEmail(email);
       setDummyUser(user);
       dispatch(getOneUserAsync(email));
-      //dispatch(updateUserProfile(user));
-      //console.log(response);
+
+      dispatch(updateUserProfile(user));
+
     };
     // when users don't successfully login
     const errorMessage = (error) => {
@@ -79,8 +81,8 @@ export default function Navbar() {
 
                         <div className="Navbar-Links">
                         <NavLink className="Social-Option"
-                        activeClassName="Social-Option-Active"
-                        exact
+                        activeclassname="Social-Option-Active"
+                        exact="true"
                         to="/">
                             <div className="Social-Icon">
                                 <i className="fa-solid fa-house"></i>
@@ -89,8 +91,8 @@ export default function Navbar() {
                         </NavLink>
 
                         <NavLink className="Social-Option"
-                        activeClassName="Social-Option-Active"
-                        exact
+                        activeclassname="Social-Option-Active"
+                        exact="true"
                         to="/Profile">
                             <div className="Social-Icon">
                                 <i className="fa-solid fa-user"></i>
@@ -99,8 +101,8 @@ export default function Navbar() {
                         </NavLink>
                         
                         <NavLink className="Social-Option"
-                        activeClassName="Social-Option-Active"
-                        exact
+                        activeclassname="Social-Option-Active"
+                        exact="true"
                         to="/Friends">
                             <div className="Social-Icon">
                             <i class="fa-solid fa-user-group"></i>
@@ -109,8 +111,8 @@ export default function Navbar() {
                         </NavLink>
 
                         <NavLink className="Social-Option"
-                        activeClassName="Social-Option-Active"
-                        exact
+                        activeclassname="Social-Option-Active"
+                        exact="true"
                         to="/Events">
                             <div className="Social-Icon">
                                 <i className="fa-solid fa-calendar-days"></i>
@@ -119,8 +121,8 @@ export default function Navbar() {
                         </NavLink>
                 
                         <NavLink className="Social-Option"
-                        activeClassName="Social-Option-Active"
-                        exact
+                        activeclassname="Social-Option-Active"
+                        exact="true"
                         to="/Groups">
                             <div className="Social-Icon">
                                 <i className="fa-solid fa-people-group"></i>
@@ -129,8 +131,8 @@ export default function Navbar() {
                         </NavLink>
 
                         <NavLink className="Social-Option"
-                        activeClassName="Social-Option-Active"
-                        exact
+                        activeclassname="Social-Option-Active"
+                        exact="true"
                         to="">
                             <div className="Social-Icon">
                                 <i className="fa-solid fa-bell"></i>
