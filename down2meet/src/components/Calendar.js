@@ -45,7 +45,7 @@ const Calendar = () => {
 
       const startDate = new Date();
       startDate.setFullYear(year);
-      startDate.setMonth(month);
+      startDate.setMonth(month-1);
       startDate.setDate(day);
       startDate.setHours(hour);
       startDate.setMinutes(minute);
@@ -61,7 +61,7 @@ const Calendar = () => {
 
       const endDate = new Date();
       endDate.setFullYear(year);
-      endDate.setMonth(month);
+      endDate.setMonth(month-1);
       endDate.setDate(day);
       endDate.setHours(hour);
       endDate.setMinutes(minute);
