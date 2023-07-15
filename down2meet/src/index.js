@@ -23,7 +23,7 @@ import thunk from 'redux-thunk';
 import userReducer from './redux/user/reducer';
 import postReducer from './redux/posts/reducer';
 import groupReducer from './redux/groups/reducer';
-import eventReducer from './event/reducer';
+import eventReducer from './redux/event/reducer';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

@@ -2,9 +2,10 @@
 import { useState, useEffect } from 'react';
 import ApiCalendar from 'react-google-calendar-api';
 import {availabilityDates, details} from "./addAvailability";
+import { useSelector } from 'react-redux';
 
 
-import { eventsList } from '../assets/eventsList';
+//import { eventsList } from '../assets/eventsList';
 
 //import EventsList from '../assets/eventsList.json'; //store all events (for now; have to be moved to server eventually)
 
@@ -19,9 +20,13 @@ const apiCalendar = new ApiCalendar(config);
 // Use the `apiCalendar` instance to interact with the Google Calendar API
 
 
+
+
 const Calendar = () => {
   const [events, setEvents] = useState([]);
   const [calendars, setCalendars] = useState([]);
+
+  const eventsList = useSelector(state =>state.event.eventList);
 
   const handleItemClick = (event, name) => {
     if (name === 'sign-in') {
@@ -31,14 +36,14 @@ const Calendar = () => {
     }
   };
 
-
+/*
   useEffect(() => {
     //write to calendar to be displayed
 
    // localStorage.setItem('eventsList', JSON.stringify(eventsList));
     //const eventsData = JSON.parse(localStorage.getItem('eventsList'));
 
-    const eventsData = eventsList.events;
+    const eventsData = eventsList//.events;
 
     const available2Event = eventsData.find(event => event.title === 'Available 2');
     if (available2Event) {
@@ -49,7 +54,7 @@ const Calendar = () => {
     //eventsList.list.available2Event
 
   }, [events]); //when google calendar is updated
-
+*/
 
     
   return (

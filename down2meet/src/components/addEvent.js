@@ -1,5 +1,5 @@
 import React from "react";
-import EventsList from '../assets/eventsList.json';
+//import EventsList from '../assets/eventsList';
 import { useEffect } from 'react';
 import { useDispatch} from 'react-redux';
 import { addEventAsync, getEventAsync, deleteEventAsync, updateEventAsync} from '../redux/event/thunks';

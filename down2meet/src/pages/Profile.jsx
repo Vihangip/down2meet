@@ -3,7 +3,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState} from 'react';
 //import ProfileSchedule from '../components/ProfileSchedule';
-import Availability from '../components/Availability';
+//import Availability from '../components/Availability';
 import Calendar from '../components/Calendar';
 import { getUsersAsync } from '../redux/user/thunks';
 import Event from '../components/Event';
@@ -12,7 +12,7 @@ import Event from '../components/Event';
 
 function Profile() {
 
-  const user = useSelector(state => state.user);
+  const user = useSelector(state => state.reducer.user);
 
   // todo: remove this img const later
   //const picture = "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60";
@@ -33,11 +33,10 @@ function Profile() {
         </div>
         <h3> Schedule</h3>
        
+        <div className="Calendar"> <Event formLocation="profile"/> </div>
+      <div className="Calendar"> <Calendar/> </div> 
 
-       <div className="Calendar"> <Calendar/> </div>
-
-       <div className="Calendar"> <Event formLocation="profile"/> </div>
-        <div className="Calendar"> <Availability/> </div> 
+       {/* <div className="Calendar"> <Availability/> </div> */}
 
     </div>
   );

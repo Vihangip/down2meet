@@ -1,4 +1,4 @@
-
+/*
 export const eventsList = {
   events: [
     {
@@ -27,7 +27,8 @@ export const eventsList = {
       "title": "Available 4",
       "description": "description 4",
       "start": "2023-06-26T14:00:00",
-      "end": "2023-06-27T16:00:00"
+      "end": "2023-06-26T16:00:00"
     }
   ]
 }
+*/
