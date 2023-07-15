@@ -22,6 +22,38 @@ html, body, #Home, #Home>div {
     flex-direction: column;
     height: 100%;
     width: 100%;
+
+    min-width: 500px;
+}
+
+.Body-Header {
+  display: flex;
+  flex-direction: column;
+}
+
+.Body-Header-Container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px;
+}
+
+.Body-Header-Left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+
+.Body-Header-Mobile {
+  display: none;
+}
+
+.Landing {
+  background-color: #dcdcdc;
 }
 
 .Home {
@@ -29,6 +61,20 @@ html, body, #Home, #Home>div {
     flex-direction: column;
     height: 100%;
     width: 100%;
+}
+
+.Friends {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.Groups {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
 }
 
 .Body {
@@ -40,7 +86,7 @@ html, body, #Home, #Home>div {
     gap: 10px;
     height: 100%;
     padding-left: 0px;
-    padding-right: 15px;
+    padding-right: 0px;
     margin: auto;
 }
 
@@ -74,6 +120,7 @@ html, body, #Home, #Home>div {
     margin-top: 0;
     margin-bottom: 0;
     gap: 20px;
+    padding-right: 15px;
 } 
 
 /*  ~~~~~~~~~~~~~~~~~~ LEFT SIDE  ~~~~~~~~~~~~~~~~~~ */
@@ -193,6 +240,11 @@ html, body, #Home, #Home>div {
     cursor: pointer;   
     border: 0;
 }
+
+.botnav {
+  display: flex;
+  flex-direction: column;
+}
   
 
 /*  ~~~~~~~~~~~~~~~~~~ MIDDLE SIDE  ~~~~~~~~~~~~~~~~~~ */
@@ -206,12 +258,30 @@ html, body, #Home, #Home>div {
     width: 100%;
 }
 
+.Page-Header {
+  display: flex;
+  flex-direction: row;
+  align-items: space-between;
+  gap: 40px;
+  margin-top: 30px;
+  margin-left: 20px;
+  margin-bottom: 10px;
+
+}
+
+.Menu-Popup {
+  text-decoration: none;
+  border: none;
+  background-color: transparent;
+  font-size: 40px;
+  cursor: pointer;
+  color: var(--active-color);
+  display: none;
+}
+
 .middle-text {
     font-size: 40px;
     font-weight: 400;
-    margin-top: 30px;
-    margin-left: 50px;
-    margin-bottom: 10px;
 }
 
 .middle-line {
@@ -519,13 +589,17 @@ html, body, #Home, #Home>div {
 .Events {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.EventPage {
+  display: flex;
+  flex-direction: row;
   align-items: center;
   text-align: center;
   width: 100%;
   text-decoration: none;
-  height: 100vh; /* Added to give the container full height */
-  margin-top: 35vh;
 }
 
 
@@ -671,7 +745,7 @@ html, body, #Home, #Home>div {
   .brand-logo2 {
     display: block;
   }
-
+  
   .Navbar-Links{
     gap: 25px;
   }
@@ -683,12 +757,56 @@ html, body, #Home, #Home>div {
 
 }
 
-@media screen and (max-width: 995px) {
+@media screen and (max-width: 755px) {
+  .Body-Left {
+    left: -1000px;
+    position: absolute;
+    opacity: 0;
+    transition: all 0.5 ease;
+    z-index: -1;
+  }
 
+  .Body-Left.active {
+    left: 0;
+    background-color: white;
+    position: relative;
+    opacity: 1;
+    transition: all 0.5 ease;
+    z-index: 9999;
+  }
+
+  .Body-Right {
+    display: none;
+  }
+
+  .Body-Header-Mobile {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+  }
+
+  .Menu-Popup {
+    display: block;
+  }
+
+  .button {
+    font-size: 20px;
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .SearchBar {
+    margin: 0;
+    width: 100%;
+  }
 
 }
 
-@media screen and (max-width: 360px) {
-
-}
+@media screen and (max-width: 700px) {
+  .brand-logo2 {
+    display: none;
+  }
   
+}
+

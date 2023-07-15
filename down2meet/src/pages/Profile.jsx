@@ -1,4 +1,5 @@
 
+import BodyHeader from '../components/BodyHeader';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState} from 'react';
@@ -8,6 +9,7 @@ import { useEffect, useState} from 'react';
 import { getUsersAsync } from '../redux/user/thunks';
 import Event from '../components/Event';
 // import Calendar from '../components/Calendar';
+
 
 
 function Profile() {
@@ -21,7 +23,7 @@ function Profile() {
   //there's a problem with HTTP GET picture right now
   return (
     <div className="ProfilePage">
-        <h2>Profile</h2>
+      <BodyHeader />
         <div className="in-line">
           
           {/*<img className="ProfilePicture" src={user.picture} alt="profile"/>   */}
