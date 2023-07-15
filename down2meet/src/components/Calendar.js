@@ -56,7 +56,8 @@ export function handleCreateEvent() {
     console.log(minute);
 
     const event = {
-      summary: 'Down2Meet: Event',
+      summary: googleEvent.title,
+      desciption: googleEvent.description,
       start: {
         dateTime: startDate.toISOString(),
         timeZone: 'America/Vancouver',
