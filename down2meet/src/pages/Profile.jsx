@@ -22,7 +22,7 @@ function Profile() {
 
   //there's a problem with HTTP GET picture right now
   return (
-    <div className="ProfilePage">
+    <div >
       <BodyHeader />
         <div className="in-line">
           
