@@ -37,7 +37,7 @@ router.post('/', async(req, res, next) =>{
     { 
       post_id: req.body.post_id, 
       user_id:  req.body.user_id,
-      profilepic: user.picture,
+      profilepic: req.body.profilepic,
       status: req.body.status, 
       time: req.body.time,
       date: req.body.date, 

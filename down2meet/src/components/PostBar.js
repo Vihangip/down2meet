@@ -21,22 +21,22 @@ function PostBar() {
 
   console.log(user.picture);
   const handleSubmit = (e) => {
+    const useruser = user;
     e.preventDefault();
     const randomUUID = uuidv4();
     const post = {
       post_id: randomUUID,
-      name: user.name,
-      user_id: user.user_id,
-      profilepic: user.picture,
+      name: useruser.name,
+      user_id: useruser.user_id,
+      profilepic: useruser.picture,
       status: postContent,
       time: time,
       date: date,
       location: location
     };
+    console.log(post);
     dispatch(addPostAsync(post));
-    console.log(user.id);
-    dispatch(addUserPostAsync(user.user_id, post.post_id));
-
+    // dispatch(addUserPostAsync(user.user_id, post.post_id));
     setPostContent('');
     setTime('');
     setDate('');
@@ -70,11 +70,13 @@ function PostBar() {
 
   return (
     <div className="PostBar">
+    {user && user.picture && (
       <img
         className="PostBar-Image"
         src={user.picture}
         alt="profile picture"
       />
+    )}
       <form className="PostBar-Form" onSubmit={handleSubmit}>
         <div className="PostBar-PostContainer">
           <div className='PostBar-DropdownContainer'>
@@ -111,7 +113,7 @@ function PostBar() {
             <button onClick={handleTimeToggle} className='PostBar-AdditionalInfo'>
               <i class="fa-regular fa-clock"></i>
             </button>
-            {showTimeInput && (
+            {/* {showTimeInput && ( */}
               <input
                 type="text"
                 id="time"
@@ -121,11 +123,11 @@ function PostBar() {
                 onBlur={() => setShowTimeInput(false)}
                 placeholder=" Enter a time to hang out!"
               />
-            )}
+            {/* )} */}
             <button onClick={handleDateToggle} className='PostBar-AdditionalInfo'>
               <i class="fa-regular fa-calendar-days"></i>
             </button>
-            {showDateInput && (
+            {/* {showDateInput && ( */}
               <input
                 type="date"
                 id="date"
@@ -135,11 +137,11 @@ function PostBar() {
                 onBlur={() => setShowDateInput(false)}
                 placeholder=" Enter the date you're free!"
               />
-            )}
+            {/* )} */}
             <button onClick={handleLocationToggle} className='PostBar-AdditionalInfo'>
               <i class="fa-solid fa-location-dot"></i>
             </button>
-            {showLocationInput && (
+            {/* {showLocationInput && ( */}
               <input
                 type="text"
                 id="location"
@@ -149,7 +151,7 @@ function PostBar() {
                 onBlur={() => setShowLocationInput(false)}
                 placeholder=" Enter a location you'd want to go to!"
               />
-            )}
+            {/* )} */}
             </div>
             <button className="PostBar-Button" type="submit">
               Post
