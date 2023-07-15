@@ -57,7 +57,7 @@ export function handleCreateEvent() {
 
     const event = {
       summary: googleEvent.title,
-      desciption: googleEvent.description,
+      description: googleEvent.description,
       start: {
         dateTime: startDate.toISOString(),
         timeZone: 'America/Vancouver',
@@ -105,6 +105,8 @@ const Calendar = () => {
         <button onClick={(e) => handleItemClick(e, 'sign-in')}>sign-in</button>
         <button onClick={(e) => handleItemClick(e, 'sign-out')}>sign-out</button>
       </div>
+
+      {/*
       <div style={{ padding: '0.5em' }}>
         <button
           onClick={(e) => {
@@ -125,6 +127,7 @@ const Calendar = () => {
           ))}
         </div>
       </div>
+          */}
     </div>
   );
 };

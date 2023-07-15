@@ -33,7 +33,7 @@ function Profile() {
         </div>
         <h3> Schedule</h3>
        
-        <div className="Calendar"> <Event formLocation="profile"/> </div>
+        <div > <Event formLocation="profile"/> </div>
 
 
        {/* <div className="Calendar"> <Availability/> </div> */}
