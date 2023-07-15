@@ -38,9 +38,9 @@ const Calendar = () => {
    // localStorage.setItem('eventsList', JSON.stringify(eventsList));
     //const eventsData = JSON.parse(localStorage.getItem('eventsList'));
 
-    const eventsData = eventsList.list;
+    const eventsData = eventsList.events;
 
-    const available2Event = eventsData?.find(event => event.title === 'Available 2');
+    const available2Event = eventsData.find(event => event.title === 'Available 2');
     if (available2Event) {
       available2Event.start = '2023-06-25T15:30:00';
     }
@@ -65,14 +65,14 @@ const Calendar = () => {
             startDate.setFullYear(availabilityDates.startingDate.getFullYear());
             startDate.setMonth(availabilityDates.startingDate.getMonth()); //month is 0 indexing *eg. 6 = July)
             startDate.setDate(availabilityDates.startingDate.getDate()); //day is 1 indexing
-            startDate.setHours(10);
-            startDate.setMinutes(0);
+            startDate.setHours(15);//(availabilityDates.startingDate.getHours());
+            startDate.setMinutes(0);//(availabilityDates.startingDate.getMinutes());
 
             const endDate = new Date();
             endDate.setFullYear(availabilityDates.endingDate.getFullYear());
             endDate.setMonth(availabilityDates.endingDate.getMonth());
             endDate.setDate(availabilityDates.endingDate.getDate());
-            endDate.setHours(11);
+            endDate.setHours(16);
             endDate.setMinutes(30);
 
             const newEvent = {
@@ -86,6 +86,8 @@ const Calendar = () => {
                 timeZone: 'America/Vancouver',
               },
             };
+
+            console.log(newEvent);
 
             apiCalendar
               .createEvent(newEvent)
@@ -121,6 +123,8 @@ const Calendar = () => {
           ))}
         </div>
       </div>
+
+      {/*
       <div style={{ padding: '0.5em' }}>
         <button
           onClick={(e) => {
@@ -151,6 +155,7 @@ const Calendar = () => {
           Create calendar
         </button>
       </div>
+        */}
     </div>
   );
 };

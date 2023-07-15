@@ -107,7 +107,7 @@ export function AddAvailability() {
 
   return (
     <div className="add-availability-form-div">
-      <h1>Add your Availability</h1>
+      <h3>Add your Availability</h3>
       <form className="availability-form" onSubmit={handleFormSubmit}>
         <label htmlFor="iName">Event ID (for updates):</label>
         <br />
