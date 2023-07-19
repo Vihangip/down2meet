@@ -11,6 +11,8 @@ import moment from "moment";
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { useSelector } from 'react-redux';
+import { useState } from 'react';
+
 
 
 const localizer = momentLocalizer(moment);
@@ -19,6 +21,8 @@ const localizer = momentLocalizer(moment);
 
 export default function Event(props) {
   let eventsList = useSelector(state =>state.event.eventList);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+
   let processedEvents;
 
   if (props.formLocation === "profile") {
@@ -41,7 +45,7 @@ export default function Event(props) {
     }));
   }
 
- 
+
   return (
     <div className="calendar-page">
       <Calendar
@@ -50,7 +54,76 @@ export default function Event(props) {
         startAccessor="start"
         endAccessor="end"
         style={{ height: 500 }}
+        onSelectEvent={(event) => setSelectedEvent(event)}
       />
+      {selectedEvent && (
+        <div className="event-popup">
+          <h3>{selectedEvent.title}</h3>
+          <p>{selectedEvent.description}</p>
+          {/* Additional event details can be displayed here */}
+          <button onClick={() => setSelectedEvent(null)}>Close</button>
+        </div>
+      )}
     </div>
   );
 }
+
+
+
+
+// /** Citations:
+//  * - This page is inpired by: https://github.com/jquense/react-big-calendar/tree/master
+//  */
+
+// // To add events to the calendar, we would use a post request to appen the local variable
+// // figure out how to stlye the events.
+// // need to give events a title so that we can call delete and put requests
+
+// import React from "react";
+// import moment from "moment";
+// import { Calendar, momentLocalizer } from 'react-big-calendar';
+// import 'react-big-calendar/lib/css/react-big-calendar.css';
+// import { useSelector } from 'react-redux';
+
+
+// const localizer = momentLocalizer(moment);
+
+
+
+// export default function Event(props) {
+//   let eventsList = useSelector(state =>state.event.eventList);
+//   let processedEvents;
+
+//   if (props.formLocation === "profile") {
+//     // iterate through each event and replace the title with "Busy"
+//     const profileEvents = eventsList.map(event => ({
+//       ...event,
+//       title: "Busy",
+//       description: "",
+//       start: moment(event.start).toDate(),
+//       end: moment(event.end).toDate()
+//     }));
+
+//     processedEvents = profileEvents;
+//   } else {
+//     // Convert start and end values to Date objects
+//     processedEvents = eventsList.map(event => ({
+//       ...event,
+//       start: moment(event.start).toDate(),
+//       end: moment(event.end).toDate()
+//     }));
+//   }
+
+ 
+//   return (
+//     <div className="calendar-page">
+//       <Calendar
+//         localizer={localizer}
+//         events={processedEvents}
+//         startAccessor="start"
+//         endAccessor="end"
+//         style={{ height: 500 }}
+//       />
+//     </div>
+//   );
+// }
