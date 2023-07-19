@@ -5,6 +5,8 @@ import groupReducer from './groups/reducer';
 import eventReducer from './event/reducer';
 
 
+
+//not used, each reducer is added in rootReducer/store in index.js
 const store = configureStore({
     reducer: {
         users: userReducer,

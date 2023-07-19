@@ -1,10 +1,14 @@
 
+import BodyHeader from '../components/BodyHeader';
 import React from 'react';
 
 function Groups() {
   return (
-    <div className="GroupsPage">
-        <h1 className='middle-text'>Groups</h1>
+    <div className="Groups">
+    <BodyHeader />
+      <div className="Groupspage">
+
+      </div>
     </div>
   );
 }

@@ -1,14 +1,27 @@
 import React from "react";
-import EventsList from '../assets/eventsList.json';
+//import EventsList from '../assets/eventsList';
 import { useEffect } from 'react';
 import { useDispatch} from 'react-redux';
 import { addEventAsync, getEventAsync, deleteEventAsync, updateEventAsync} from '../redux/event/thunks';
+
+import { handleCreateEvent } from './Calendar'
+
 const { v4: uuid } = require('uuid');
 
 
 // export let endDateRef = [0,0,0];
 // export let startDateRef =  [0,0,0];
 // export let detailsRef = [];
+
+
+//for adding to Google Calendar, does not need to be stored anywhere
+export const googleEvent = {
+  title: '',
+  description: '',
+  startingDate: new Date(),
+  endingDate: new Date(),
+
+};
 
 
 export function AddEvent() {
@@ -54,8 +67,19 @@ export function AddEvent() {
       // Your form submit logic here
       console.log("title", itemNameRef.current.value);
       console.log("description", itemDescRef.current.value);
-      console.log("start date", formattedStartDate);
-      console.log("end date", formattedEndDate);
+      console.log("start date", startDate);
+      console.log("end date", endDate);
+
+
+      googleEvent.title = (itemNameRef.current.value);
+      googleEvent.description = (itemDescRef.current.value);
+      googleEvent.startingDate = (startDate);//startDate);
+      googleEvent.endingDate = (endDate);//endDate);
+
+      handleCreateEvent();
+      //console.log("addEvent new event");
+      //console.log(googleEvent.startingDate);
+
     };
     
 

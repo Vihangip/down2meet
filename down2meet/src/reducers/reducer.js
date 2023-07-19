@@ -1,10 +1,8 @@
-import data from '../../../tests/fillerData.json';
-import dummyUser from '../../../tests/dummyUser.json';
-import { userData } from '../../../tests/usersData';
-// import {events}
+
+import dummyUser from '../tests/dummyUser.json';
+import { userData } from '../tests/usersData';
 
 const initialState = {
-    posts: data,
     user: dummyUser,
     friendsList: userData,
     activeUsers: userData,
@@ -12,16 +10,12 @@ const initialState = {
     // events: [],
   };
 
-  
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-      case 'ADD_POST':
-        return {
-          ...state,
-          posts: [...state.posts, action.payload.object],
-        };
       case 'UPDATE_USER_PROFILE': //for profile, not storing all users yet
+        console.log(dummyUser);
+        console.log(action.payload);
         return {
           ...state,
           user: action.payload

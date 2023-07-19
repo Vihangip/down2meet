@@ -11,26 +11,52 @@ import Friends from './pages/Friends';
 import Groups from './pages/Groups';
 import Profile from './pages/Profile';
 import Navbar from './components/Navbar';
+import LoginPage from './pages/Login';
 import ButtonAvailable from './components/ButtonAvailable';
 import SearchBar from './components/SearchBar';
-import ActiveUsers from './components/ActiveUsers';
 import store from './redux/store';
+import reducer from './reducers/reducer';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+
+
+import userReducer from './redux/user/reducer';
+import postReducer from './redux/posts/reducer';
+import groupReducer from './redux/groups/reducer';
+import eventReducer from './redux/event/reducer';
+
+import Search from './components/Search';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+const rootReducer = combineReducers({
+  users: userReducer,
+  posts: postReducer,
+  groups: groupReducer,
+  reducer: reducer,
+  event: eventReducer
+});
+
+console.log("index");
+console.log(rootReducer.store);
+
+const combinedStore =  createStore(rootReducer, applyMiddleware(thunk));
+
 
   // using GoogleOAuthProvider tutorial from: https://blog.logrocket.com/guide-adding-google-login-react-app/
 root.render(<>
   <GoogleOAuthProvider clientId="1011482531322-6d1dp35f941hr37vnn7cvjdstntunnru.apps.googleusercontent.com">
     <React.StrictMode>
       <Router>
-      <Provider store={store}>
+      <Provider store={combinedStore}>
         <div className='Body'>
         <div className="Body-Left">
         <Navbar />
         </div>
         <div className='Body-Middle'>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/Home" element={<Home />} />
           <Route path="/Friends" element={<Friends />} />
           <Route path="/Groups" element={<Groups />} />
           <Route path="/Events" element={<Events />} />
@@ -40,7 +66,7 @@ root.render(<>
 
         <div className="Body-Right">
         <ButtonAvailable />
-          <SearchBar />
+          <Search />
           {/* <ActiveUsers /> */}
         </div>
         </div>

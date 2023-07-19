@@ -8,18 +8,31 @@ export const getUsersAsync = createAsyncThunk(
     }
 );
 
+// export const getOneUserAsync = createAsyncThunk(
+//     'users/getOneUserAsync',
+//     async (userID) => {
+//       return await service.getOneUser(userID);
+//     }
+//   );
 export const getOneUserAsync = createAsyncThunk(
     'users/getOneUserAsync',
-    async () => {
-        return await service.getOneUser();
+    async (userID, { rejectWithValue }) => {
+      try {
+        const user = await service.getOneUser(userID);
+        return user;
+      } catch (error) {
+        // Use rejectWithValue to include the error message in the action payload
+        return rejectWithValue(error.message);
+      }
     }
-);
+  );
 
 export const addUsersAsync = createAsyncThunk(
     'users/addUsersAsync',
     async (user) => {
         return await service.addUsers(user);
     });
+    
 
 export const deleteUsersAsync = createAsyncThunk(
     'users/deleteUsersAsync',
@@ -27,3 +40,9 @@ export const deleteUsersAsync = createAsyncThunk(
         return await service.deleteUsers(userID);
     }
 );
+
+export const addUserPostAsync = createAsyncThunk(
+    'users/addUserPostAsync',
+    async (userID, postID) => {
+        return await service.addUserPost(userID, postID);
+    });
