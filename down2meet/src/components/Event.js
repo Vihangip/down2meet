@@ -59,6 +59,7 @@ export default function Event(props) {
 
   const handleDelete = () => {
     dispatch(deleteEventAsync(selectedEvent.id));
+    removePopUp();
   };
 
   const removePopUp = () => {
@@ -99,6 +100,7 @@ export default function Event(props) {
                 <div className="card-body">
                   <h3>{selectedEvent.title}</h3>
                   <p>{selectedEvent.description}</p>
+                  <button className="event-delete-button" onClick={handleDelete}>Delete</button>
                   <button className="minimize-button" onClick={removePopUp}>X</button>
                 </div>
               </div>
