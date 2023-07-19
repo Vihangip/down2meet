@@ -722,6 +722,31 @@ html, body, #Home, #Home>div {
   height:fit-content;
 }
 
+.event-popup-card {
+  width:80vw;
+  height:50vh;
+  background-color: lightblue;
+}
+
+.event-popup {
+  position: fixed;
+  top: 20vh;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  width: 30vw;
+  height: 30vh;
+  background-color: #32CD32;
+  margin: auto;
+  text-align: center; /* Center the text horizontally */
+
+}
+
+
 @media screen and (max-width: 1265px) {
   .Body {
     margin: 0;
