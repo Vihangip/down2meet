@@ -9,6 +9,7 @@ var usersRouter = require('./routes/users');
 var eventRouter = require('./routes/events');
 // var calendarRouter = require('./routes/calendar');
 const generateEvent = require('./mongoDB/generateEvents');
+const generateGroups = require('./mongoDB/generateGroups');
 
 
 var app = express();
@@ -17,16 +18,21 @@ var cors = require('cors');
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 const mongoDB = "mongodb+srv://PLLOW:down2meet@Down2meet.8i1q7am.mongodb.net/UserData?retryWrites=true&w=majority"
-const queries = require('./mongoDB/EventQueries');
+const eventQueries = require('./mongoDB/EventQueries');
+const groupsQueries = require('./mongoDB/GroupQueries');
 
 main().catch((err) => console.log(err));
 async function main(){
     await mongoose.connect(mongoDB);
     console.log("database connected");
     // generateEvent();
+    // generateGroups();
     // Get all events
-    const all = await queries.getAllEvent({});
-    console.log("All events:", all);
+    // const all = await eventQueries.getAllEvent({});
+    // console.log("All events:", all);
+
+    const allGroups = await groupsQueries.getAllGroup({});
+    console.log("All groups:", allGroups);
 
 app.use(cors());
 app.use(logger('dev'));

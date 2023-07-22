@@ -4,7 +4,6 @@ const { v4: uuid } = require('uuid');
 
 var express = require('express');
 // const Calendar = require('../mongoDB/Calendar');
-const { randomUUID } = require('crypto');
 var router = express.Router();
 
 /* GET event listing. */
@@ -15,20 +14,24 @@ router.get('/', async(req, res, next) =>{
 
 /* GET event by ID. */
 router.get('/:eventId', async(req, res, next) => {
-  const foundEvent = await User.getOneEvent({event_id: req.params.event_id})
-  if(!foundEvent) {}
-  return res.status(404).send({message: 'Event not found'})
-  // return res.send(foundEvent);
+  const foundEvent = await User.getOneEvent({id: req.params.eventId})
+  if(!foundEvent) {
+    return res.status(404).send({message: 'Event not found'})
+  }
+
+  return res.send(foundEvent);
 });
 
 /* POST event. */
 router.post('/', async(req, res, next) => {
   const event =  { 
     id: uuid(),
+    userID: uuid(), // TODO: adding dummy var now, will populate with actual userID
     title: req.body.title,
     description: req.body.description,
     start: req.body.start,
-    end: req.body.end
+    end: req.body.end,
+    groups: req.body.groups, // TODO: adding dummy var now, will populate with actual group names
   };
   const addedEvent = await queries.addEvent(event);
   // console.log(event);

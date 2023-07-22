@@ -1,18 +1,11 @@
 import React from "react";
-//import EventsList from '../assets/eventsList';
-import { useEffect } from 'react';
-import { useDispatch} from 'react-redux';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector} from 'react-redux';
 import { addEventAsync, getEventAsync, deleteEventAsync, updateEventAsync} from '../redux/event/thunks';
 
 import { handleCreateEvent } from './Calendar'
 
 const { v4: uuid } = require('uuid');
-
-
-// export let endDateRef = [0,0,0];
-// export let startDateRef =  [0,0,0];
-// export let detailsRef = [];
-
 
 //for adding to Google Calendar, does not need to be stored anywhere
 export const googleEvent = {
@@ -20,12 +13,13 @@ export const googleEvent = {
   description: '',
   startingDate: new Date(),
   endingDate: new Date(),
-
 };
 
 
 export function AddEvent() {
   const dispatch = useDispatch();
+  const events = useSelector(state => state.event.eventList);
+  const groups = events.map((event) => (event.groups));
 
 
   const itemIDRef = React.useRef(null);
@@ -35,6 +29,9 @@ export function AddEvent() {
   const itemEndRef = React.useRef(null);
   const itemStartTimeRef = React.useRef(null);
   const itemEndTimeRef = React.useRef(null);
+
+  // Add selectedGroup state and setSelectedGroup function
+  const [selectedGroup, setSelectedGroup] = useState("");
   
   useEffect (() => {
     dispatch(getEventAsync());
@@ -45,57 +42,54 @@ export function AddEvent() {
 
     const handleFormSubmit = (event) => {
       event.preventDefault(); // Prevents the default form submission behavior
-    
-      // Format the date and time values to match the JSON format
+  
       const startDate = new Date(
         itemStartRef.current.value + 'T' + itemStartTimeRef.current.value
       ).toISOString();
       const endDate = new Date(
         itemEndRef.current.value + 'T' + itemEndTimeRef.current.value
       ).toISOString();
-
-      // removes the Z at the end of the date (may not need to do this)
-      //
-      formattedStartDate = startDate.slice(0, -1); // Remove the last character (Z)
-      formattedEndDate = endDate.slice(0, -1); // Remove the last character (Z)
-
-      // the id value here gets replaces in when the post request is made. 
-      // but it is used as a key? todo; check if it can just be a constant
-      dispatch(addEventAsync({"id": uuid(), "title": itemNameRef.current.value,
-      "description": itemDescRef.current.value,  "start": formattedStartDate, "end": formattedEndDate}));
-    
+  
+      formattedStartDate = startDate.slice(0, -1);
+      formattedEndDate = endDate.slice(0, -1);
+  
+      dispatch(addEventAsync({
+        "id": uuid(),
+        "title": itemNameRef.current.value,
+        "description": itemDescRef.current.value,
+        "start": formattedStartDate,
+        "end": formattedEndDate,
+        "groups": selectedGroup, // Include the selected group in the dispatched action
+      }));
+  
       // Your form submit logic here
       console.log("title", itemNameRef.current.value);
       console.log("description", itemDescRef.current.value);
       console.log("start date", startDate);
       console.log("end date", endDate);
-
-
+  
       googleEvent.title = (itemNameRef.current.value);
       googleEvent.description = (itemDescRef.current.value);
-      googleEvent.startingDate = (startDate);//startDate);
-      googleEvent.endingDate = (endDate);//endDate);
-
+      googleEvent.startingDate = (startDate);
+      googleEvent.endingDate = (endDate);
+  
       handleCreateEvent();
-      //console.log("addEvent new event");
-      //console.log(googleEvent.startingDate);
-
-    };
-    
-
-  const handleUpdateButton = () => {
-    // Your update button logic here
-
-    // find a way to just update one of the items in the form not have to replace all the event's details
-    const updatedEvent =  { 
-      "id": uuid(), "title": itemNameRef.current.value,
-      "description": itemDescRef.current.value,  "start": formattedStartDate, "end": formattedEndDate
     };
 
-    console.log(updatedEvent);
+  // TODO: Part of strech req
+  // const handleUpdateButton = () => {
+  //   // Your update button logic here
 
-    dispatch(updateEventAsync(updatedEvent));
-  };
+  //   // find a way to just update one of the items in the form not have to replace all the event's details
+  //   const updatedEvent =  { 
+  //     "id": uuid(), "title": itemNameRef.current.value,
+  //     "description": itemDescRef.current.value,  "start": formattedStartDate, "end": formattedEndDate
+  //   };
+
+  //   console.log(updatedEvent);
+
+  //   dispatch(updateEventAsync(updatedEvent));
+  // };
 
   const handleDeleteButton = () => {
     
@@ -106,22 +100,20 @@ export function AddEvent() {
 
   };
 
+  // replace this array with names of the created groups
+  // const groups = ['groupss', 'family', 'work'];
 
   return (
     <div className="add-event-form-div">
       <h1>Add your Event</h1>
       <form className="event-form" onSubmit={handleFormSubmit}>
-        {/* <label htmlFor="iName">Event ID (for updates):</label>
-        <br />
-        <input type="text" id="iID" name="iID" ref={itemIDRef} />
-        <br /> <br /> */}
         <hr /> <br />
         <label htmlFor="iTitle">Title:</label>
         <br />
         <input type="text" id="iTitle" name="iTitle" ref={itemNameRef} />
         <br />
         <br />
-        <label htmlFor="iDes">Description (optional?):</label>
+        <label htmlFor="iDes">Description (optional):</label>
         <br />
         <input type="text" id="iDes" name="iDes" ref={itemDescRef} />
         <br />
@@ -135,10 +127,24 @@ export function AddEvent() {
         <input type="date" id="iDes" name="iDes" ref={itemEndRef} /><br />
         <input type="time" id="iEndTime" name="iEndTime" ref={itemEndTimeRef} /><br /><br />
 
-        {/* add selector for which friends can see it. */}
-        <div style={{justifyContent: "left"}}>
+        {/* add selector for which groups can see it. */}
+        <label htmlFor="groupsSelector">Select Group:</label>
+        <select
+          id="groupsSelector"
+          name="groupsSelector"
+          value={selectedGroup}
+          onChange={(e) => setSelectedGroup(e.target.value)}
+        >
+          <option value="">-- Select Group --</option>
+          {groups.map((group) => (
+            <option key={group} value={group}>
+              {group}
+            </option>
+          ))}
+        </select>
+
+        <div style={{ justifyContent: "left" }}>
           <input type="submit" id="submitButton" value="Add" />
-          {/* <input type="button" id="updateButton" value="Update" onClick={handleUpdateButton} /> */}
           <input type="button" id="deleteButton" value="Delete" onClick={handleDeleteButton} />
           <input type="reset" id="resetButton" value="Clear Form" />
         </div>
