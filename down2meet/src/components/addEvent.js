@@ -1,8 +1,7 @@
 import React from "react";
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector} from 'react-redux';
-import { addEventAsync, getEventAsync, deleteEventAsync, updateEventAsync} from '../redux/event/thunks';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { addEventAsync, getEventAsync, deleteEventAsync, updateEventAsync } from '../redux/event/thunks';
 import { handleCreateEvent } from './Calendar'
 
 const { v4: uuid } = require('uuid');
@@ -15,12 +14,18 @@ export const googleEvent = {
   endingDate: new Date(),
 };
 
-
 export function AddEvent() {
   const dispatch = useDispatch();
   const events = useSelector(state => state.event.eventList);
-  const groups = events.map((event) => (event.groups));
+    // Extract unique groups from the 'events' array
+    const uniqueGroups = Array.from(new Set(events.flatMap(event => event.groups)));
 
+  // const allGroups = events.map((event) => event.groups);
+
+  //convert to a set to remove duplicates, then convert back to array to use .map()
+  // const SetOfGroups = new Set(allGroups);
+  // const uniqueGroups = Array.from(SetOfGroups);
+  console.log(uniqueGroups);
 
   const itemIDRef = React.useRef(null);
   const itemNameRef = React.useRef(null);
@@ -30,78 +35,55 @@ export function AddEvent() {
   const itemStartTimeRef = React.useRef(null);
   const itemEndTimeRef = React.useRef(null);
 
-  // Add selectedGroup state and setSelectedGroup function
-  const [selectedGroup, setSelectedGroup] = useState("");
-  
-  useEffect (() => {
+  // Add selectedGroups state and setSelectedGroups function
+  const [selectedGroups, setSelectedGroups] = useState([]);
+
+  useEffect(() => {
     dispatch(getEventAsync());
-  },[dispatch]);
+  }, [dispatch]);
 
-    let formattedStartDate;
-    let formattedEndDate;
+  let formattedStartDate;
+  let formattedEndDate;
 
-    const handleFormSubmit = (event) => {
-      event.preventDefault(); // Prevents the default form submission behavior
-  
-      const startDate = new Date(
-        itemStartRef.current.value + 'T' + itemStartTimeRef.current.value
-      ).toISOString();
-      const endDate = new Date(
-        itemEndRef.current.value + 'T' + itemEndTimeRef.current.value
-      ).toISOString();
-  
-      formattedStartDate = startDate.slice(0, -1);
-      formattedEndDate = endDate.slice(0, -1);
-  
-      dispatch(addEventAsync({
-        "id": uuid(),
-        "title": itemNameRef.current.value,
-        "description": itemDescRef.current.value,
-        "start": formattedStartDate,
-        "end": formattedEndDate,
-        "groups": selectedGroup, // Include the selected group in the dispatched action
-      }));
-  
-      // Your form submit logic here
-      console.log("title", itemNameRef.current.value);
-      console.log("description", itemDescRef.current.value);
-      console.log("start date", startDate);
-      console.log("end date", endDate);
-  
-      googleEvent.title = (itemNameRef.current.value);
-      googleEvent.description = (itemDescRef.current.value);
-      googleEvent.startingDate = (startDate);
-      googleEvent.endingDate = (endDate);
-  
-      handleCreateEvent();
-    };
+  const handleFormSubmit = (event) => {
+    event.preventDefault(); // Prevents the default form submission behavior
 
-  // TODO: Part of strech req
-  // const handleUpdateButton = () => {
-  //   // Your update button logic here
+    const startDate = new Date(
+      itemStartRef.current.value + 'T' + itemStartTimeRef.current.value
+    ).toISOString();
+    const endDate = new Date(
+      itemEndRef.current.value + 'T' + itemEndTimeRef.current.value
+    ).toISOString();
 
-  //   // find a way to just update one of the items in the form not have to replace all the event's details
-  //   const updatedEvent =  { 
-  //     "id": uuid(), "title": itemNameRef.current.value,
-  //     "description": itemDescRef.current.value,  "start": formattedStartDate, "end": formattedEndDate
-  //   };
+    formattedStartDate = startDate.slice(0, -1);
+    formattedEndDate = endDate.slice(0, -1);
 
-  //   console.log(updatedEvent);
+    dispatch(addEventAsync({
+      "id": uuid(),
+      "title": itemNameRef.current.value,
+      "description": itemDescRef.current.value,
+      "start": formattedStartDate,
+      "end": formattedEndDate,
+      "groups": selectedGroups,
+    }));
 
-  //   dispatch(updateEventAsync(updatedEvent));
-  // };
+    // Your form submit logic here
+    console.log("title", itemNameRef.current.value);
+    console.log("description", itemDescRef.current.value);
+    console.log("start date", startDate);
+    console.log("end date", endDate);
 
-  const handleDeleteButton = () => {
-    
-    //idea:
-    // by the title of the event, add the id. have the person input the id of the event to delete it.
-    // todo:
-    dispatch(deleteEventAsync(itemIDRef.current.value));
+    googleEvent.title = (itemNameRef.current.value);
+    googleEvent.description = (itemDescRef.current.value);
+    googleEvent.startingDate = (startDate);
+    googleEvent.endingDate = (endDate);
 
+    handleCreateEvent();
   };
 
-  // replace this array with names of the created groups
-  // const groups = ['groupss', 'family', 'work'];
+  const handleDeleteButton = () => {
+    dispatch(deleteEventAsync(itemIDRef.current.value));
+  };
 
   return (
     <div className="add-event-form-div">
@@ -118,8 +100,8 @@ export function AddEvent() {
         <input type="text" id="iDes" name="iDes" ref={itemDescRef} />
         <br />
         <br />
-        
-        <label htmlFor="iName">Event start:</label><br />     
+
+        <label htmlFor="iName">Event start:</label><br />
         <input type="date" id="iName" name="iName" ref={itemStartRef} /><br />
         <input type="time" id="iStartTime" name="iStartTime" ref={itemStartTimeRef} /><br /><br />
 
@@ -127,21 +109,29 @@ export function AddEvent() {
         <input type="date" id="iDes" name="iDes" ref={itemEndRef} /><br />
         <input type="time" id="iEndTime" name="iEndTime" ref={itemEndTimeRef} /><br /><br />
 
-        {/* add selector for which groups can see it. */}
-        <label htmlFor="groupsSelector">Select Group:</label>
-        <select
-          id="groupsSelector"
-          name="groupsSelector"
-          value={selectedGroup}
-          onChange={(e) => setSelectedGroup(e.target.value)}
-        >
-          <option value="">-- Select Group --</option>
-          {groups.map((group) => (
-            <option key={group} value={group}>
+         {/* add checkboxes for selecting groups */}
+         <div>
+          <label>Select Group:</label>
+          <br />
+          {/* ChatGPT helped with the checkboxes */}
+          {uniqueGroups.map((group) => (
+            <label key={group}>
+              <input
+                type="checkbox"
+                value={group}
+                onChange={(e) => {
+                  const { checked, value } = e.target;
+                  setSelectedGroups(prevSelectedGroups => (
+                    checked ? [...prevSelectedGroups, value] : prevSelectedGroups.filter(group => group !== value)
+                  ));
+                }}
+              />
               {group}
-            </option>
+              <br />
+            </label>
           ))}
-        </select>
+        </div>
+        <br /><br />
 
         <div style={{ justifyContent: "left" }}>
           <input type="submit" id="submitButton" value="Add" />
@@ -155,3 +145,4 @@ export function AddEvent() {
     </div>
   );
 }
+

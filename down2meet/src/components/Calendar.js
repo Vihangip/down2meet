@@ -70,13 +70,13 @@ export function handleCreateEvent() {
 
     console.log(event);
 
-    apiCalendar.createEvent(event)
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    // apiCalendar.createEvent(event)
+    //   .then((result) => {
+    //     console.log(result);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
   }
 };
 
