@@ -31,8 +31,8 @@ async function main(){
     // const all = await eventQueries.getAllEvent({});
     // console.log("All events:", all);
 
-    const allGroups = await groupsQueries.getAllGroup({});
-    console.log("All groups:", allGroups);
+    // const allGroups = await groupsQueries.getAllGroup({});
+    // console.log("All groups:", allGroups);
 
 app.use(cors());
 app.use(logger('dev'));

@@ -10,7 +10,6 @@ const localizer = momentLocalizer(moment);
 
 export default function Event(props) {
   let eventsList = useSelector(state => state.event.eventList);
-  console.log(eventsList);
   const [selectedEvent, setSelectedEvent] = useState(null);
 
   let processedEvents;
