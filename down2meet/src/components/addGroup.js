@@ -1,6 +1,6 @@
   import React from "react";
-  import { useEffect } from 'react';
-  import { useDispatch} from 'react-redux';
+  import { useEffect, useState } from 'react';
+  import { useDispatch, useSelector} from 'react-redux';
   import { addGroupsAsync, getGroupsAsync, deleteGroupsAsync} from '../redux/groups/thunks';
 
   import { handleCreateEvent } from "./Calendar";
@@ -19,8 +19,12 @@
 
   export function AddGroup() {
     const dispatch = useDispatch();
+    const [selectedFriends, setSelectedFriends] = useState([]);
 
-
+    const accountUser = useSelector(state => state.users.friendsList);
+    // Extract unique friends from the 'friendsOfUser' array
+    const uniqueFriends = Array.from(new Set(accountUser));
+    
     const itemNameRef = React.useRef(null);
     const itemMemRef = React.useRef(null);
     
@@ -31,21 +35,18 @@
     const handleFormSubmit = (event) => {
       event.preventDefault(); // Prgroups the default form submission behavior
 
-
       // the id value here gets replaces in when the post request is made. 
       // but it is used as a key? todo; check if it can just be a constant
       dispatch(addGroupsAsync({"id": uuid(), "name": itemNameRef.current.value,
-      "members": itemMemRef.current.value}));
+      "members": selectedFriends}));
     
       // Your form submit logic here
       console.log("name", itemNameRef.current.value);
       console.log("members", itemMemRef.current.value);
-  
 
       // googleGroup.name = (itemNameRef.current.value);
       // googleGroup.members= (itemMemRef.current.value);
       // handleCreateEvent();
-
 
     };
       
@@ -82,8 +83,31 @@
           <br />
           <input type="text" id="iTitle" name="iTitle" ref={itemNameRef} />
           <br />  <br />
-          <label htmlFor="iDes">Members :</label>
+         
+
+           {/* add checkboxes for selecting friends */}
+         <div>
+          <label>Select Group Members:</label>
           <br />
+          {/* ChatGPT helped with the checkboxes */}
+          {uniqueFriends.map((friend) => (
+            <label key={friend}>
+              <input
+                className="add-friend-checkbox"
+                type="checkbox"
+                value={friend}
+                onChange={(e) => {
+                  const { checked, value } = e.target;
+                  setSelectedFriends(prevSelectedFriends => (
+                    checked ? [...prevSelectedFriends, value] : prevSelectedFriends.filter(friend => friend !== value)
+                  ));
+                }}
+              />
+              {friend}
+              {/* <br /> */}
+            </label>
+          ))}
+        </div> <br/>
 
           <div style={{ justifyContent: "left" }}>
             <input type="submit" id="submitButton" value="Add" />

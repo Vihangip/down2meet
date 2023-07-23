@@ -19,7 +19,7 @@ const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 const mongoDB = "mongodb+srv://PLLOW:down2meet@Down2meet.8i1q7am.mongodb.net/UserData?retryWrites=true&w=majority"
 const eventQueries = require('./mongoDB/EventQueries');
-const groupsQueries = require('./mongoDB/GroupQueries');
+// const groupsQueries = require('./mongoDB/GroupQueries');
 
 main().catch((err) => console.log(err));
 async function main(){

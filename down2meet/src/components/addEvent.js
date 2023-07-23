@@ -25,7 +25,6 @@ export function AddEvent() {
   //convert to a set to remove duplicates, then convert back to array to use .map()
   // const SetOfGroups = new Set(allGroups);
   // const uniqueGroups = Array.from(SetOfGroups);
-  console.log(uniqueGroups);
 
   const itemIDRef = React.useRef(null);
   const itemNameRef = React.useRef(null);
@@ -68,10 +67,10 @@ export function AddEvent() {
     }));
 
     // Your form submit logic here
-    console.log("title", itemNameRef.current.value);
-    console.log("description", itemDescRef.current.value);
-    console.log("start date", startDate);
-    console.log("end date", endDate);
+    // console.log("title", itemNameRef.current.value);
+    // console.log("description", itemDescRef.current.value);
+    // console.log("start date", startDate);
+    // console.log("end date", endDate);
 
     googleEvent.title = (itemNameRef.current.value);
     googleEvent.description = (itemDescRef.current.value);
@@ -117,6 +116,7 @@ export function AddEvent() {
           {uniqueGroups.map((group) => (
             <label key={group}>
               <input
+                className="add-events-checkbox"
                 type="checkbox"
                 value={group}
                 onChange={(e) => {
@@ -127,7 +127,7 @@ export function AddEvent() {
                 }}
               />
               {group}
-              <br />
+              {/* <br /> */}
             </label>
           ))}
         </div>
