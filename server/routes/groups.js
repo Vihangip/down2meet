@@ -10,13 +10,13 @@ var router = express.Router();
 
 
 /* GET groups listing. */
-router.get('/', async (req, res, next) {
+router.get('/', async (req, res, next) => {
     let allGroups = await queries.getAllGroup();
   return res.send(allGroups);
 });
 
 /* GET group by ID. */
-router.get('/:id', async (req, res, next) {
+router.get('/:id', async (req, res, next) => {
   const group = await queries.getOneGroup({id: req.params.groupId});
   if(!foundGroup) {
     return res.status(404).send({message: 'Group not found'})

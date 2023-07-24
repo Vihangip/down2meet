@@ -41,9 +41,9 @@ router.post('/', async(req, res, next) => {
 });
 
 /* DELETE event. */
-router.delete('/:eventId', function(req, res, next) {
+router.delete('/:eventId', async(req, res, next) => {
   const eventId = req.params.eventId;
-  const deletedEvent = queries.deleteEvent(eventId);
+  const deletedEvent = await queries.deleteEvent(eventId);
 
   if (!deletedEvent) {
     return res.status(404).send('Event not found');

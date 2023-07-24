@@ -19,12 +19,15 @@
 
   export function AddGroup() {
     const dispatch = useDispatch();
-    const [selectedFriends, setSelectedFriends] = useState([]);
 
-    const accountUser = useSelector(state => state.users.friendsList);
+    const accountUser = useSelector(state => state.users.userList);
+    console.log(accountUser);
     // Extract unique friends from the 'friendsOfUser' array
     const uniqueFriends = Array.from(new Set(accountUser));
+    // console.log(uniqueFriends);
     
+    const [selectedFriends, setSelectedFriends] = useState([]);
+
     const itemNameRef = React.useRef(null);
     const itemMemRef = React.useRef(null);
     
@@ -93,7 +96,7 @@
           {uniqueFriends.map((friend) => (
             <label key={friend}>
               <input
-                className="add-friend-checkbox"
+                className="add-events-checkbox"
                 type="checkbox"
                 value={friend}
                 onChange={(e) => {
@@ -115,6 +118,7 @@
             <input type="button" id="deleteButton" value="Delete" onClick={handleDeleteButton} />
             <input type="reset" id="resetButton" value="Clear Form" />
           </div>
+          
           <br /> <br /> <br />
           <hr /> <br />
         </form>

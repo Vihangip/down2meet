@@ -7,6 +7,8 @@ var indexRouter = require('./routes/index');
 var postsRouter = require('./routes/posts');
 var usersRouter = require('./routes/users');
 var eventRouter = require('./routes/events');
+var groupsRouter = require('./routes/groups');
+
 // var calendarRouter = require('./routes/calendar');
 const generateEvent = require('./mongoDB/generateEvents');
 const generateGroups = require('./mongoDB/generateGroups');
@@ -50,6 +52,8 @@ app.use('/posts', postsRouter);
 app.use('/users', usersRouter);
 // app.use('/calendar', calendarRouter);
 app.use('/event', eventRouter);
+app.use('/groups', groupsRouter);
+
 
 }
 
