@@ -27,6 +27,8 @@ export const googleEvent = {
 export function AddEvent() {
 
   const calendarSignedIn= useSelector(state => state.reducer.googleCalendar);
+  const user = useSelector(state => state.reducer.user);
+
   const dispatch = useDispatch();
 
   const itemIDRef = React.useRef(null);
@@ -38,8 +40,8 @@ export function AddEvent() {
   const itemEndTimeRef = React.useRef(null);
   
   useEffect (() => {
-    dispatch(getEventAsync());
-  },[dispatch]);
+    dispatch(getEventAsync(user.user_id));
+  },[dispatch, user.user_id]);
 
     let formattedStartDate;
     let formattedEndDate;
@@ -62,8 +64,13 @@ export function AddEvent() {
 
       // the id value here gets replaces in when the post request is made. 
       // but it is used as a key? todo; check if it can just be a constant
-      dispatch(addEventAsync({"id": uuid(), "title": itemNameRef.current.value,
-      "description": itemDescRef.current.value,  "start": formattedStartDate, "end": formattedEndDate}));
+      dispatch(addEventAsync({
+          "id": uuid(), 
+          "user_id": user.user_id,
+          "title": itemNameRef.current.value,
+          "description": itemDescRef.current.value,  
+          "start": formattedStartDate, 
+          "end": formattedEndDate}));
     
       // Your form submit logic here
       console.log("title", itemNameRef.current.value);
@@ -92,8 +99,12 @@ export function AddEvent() {
 
     // find a way to just update one of the items in the form not have to replace all the event's details
     const updatedEvent =  { 
-      "id": uuid(), "title": itemNameRef.current.value,
-      "description": itemDescRef.current.value,  "start": formattedStartDate, "end": formattedEndDate
+      "id": uuid(), 
+      "user_id": user.user_id,
+      "title": itemNameRef.current.value,
+      "description": itemDescRef.current.value,  
+      "start": formattedStartDate, 
+      "end": formattedEndDate
     };
 
     console.log(updatedEvent);

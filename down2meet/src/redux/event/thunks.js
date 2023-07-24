@@ -4,8 +4,8 @@ import service from "./service";
 
 export const getEventAsync = createAsyncThunk(
    actionTypes.GET_EVENT,
-    async () => {
-        return await service.getEvent();
+    async (userID) => {
+        return await service.getEvent(userID);
     }
 );
 
