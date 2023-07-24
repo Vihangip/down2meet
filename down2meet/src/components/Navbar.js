@@ -6,6 +6,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import "../css/navigation.css";
 import { useDispatch} from "react-redux";
 import { getOneUserAsync } from "../redux/user/thunks";
+import { updateUserProfile } from "../actions/actions";
 
 export default function Navbar() {
   const dispatch = useDispatch();
@@ -34,6 +35,8 @@ export default function Navbar() {
 
 
     dispatch(getOneUserAsync(email));
+    dispatch(updateUserProfile(user)); //used to update user profile in frontend
+
   };
 
 
@@ -62,7 +65,7 @@ export default function Navbar() {
                         <div className="Navbar-Links">
                         <NavLink className="Social-Option"
                         activeClassName="Social-Option-Active"
-                        exact
+                        exact="true"
                         to="/Home">
                             <div className="Social-Icon">
                                 <i className="fa-solid fa-house"></i>

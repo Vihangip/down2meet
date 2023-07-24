@@ -9,7 +9,7 @@ function Events() {
 
   return (
     <div className='Events'>
-      <BodyHeader />
+      <BodyHeader title={"Events"}/>
       <div className="EventPage">
         <div><AddEvent/></div> 
       

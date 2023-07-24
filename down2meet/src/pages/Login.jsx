@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { getOneUserAsync, addUsersAsync } from '../redux/user/thunks';
 import { useNavigate } from 'react-router-dom';
 import { setUser } from '../redux/user/reducer';
+import { updateUserProfile } from '../actions/actions';
 
 export default function LoginPage() {
   const dispatch = useDispatch();
@@ -29,6 +30,8 @@ export default function LoginPage() {
       events: [],
       availability: false,
     };
+
+    dispatch(updateUserProfile(user)); //used to update user profile in frontend 
 
     // Attempt to retrieve user information
     dispatch(getOneUserAsync(email))

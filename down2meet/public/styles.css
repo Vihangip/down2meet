@@ -464,11 +464,8 @@ html, body, #Home, #Home>div {
 .ProfilePage {
     display: flex;
     flex-direction: column;
-    gap: 30px;
     height: 100%;
     width: 95%;
-    padding-top: 10px;
-    padding-left: 60px;
 }
 
 .ProfilePage h2 {

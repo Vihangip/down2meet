@@ -42,7 +42,7 @@ function Friends() {
 
   return (
     <div className="Friends">
-    <BodyHeader />
+    <BodyHeader title={"Friends"}/>
 
       <div className="FriendsPage">
         <SortingComponent sortOrder={sortOrder} handleSortChange={handleSortChange} />

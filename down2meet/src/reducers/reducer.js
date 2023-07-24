@@ -14,7 +14,6 @@ const initialState = {
 const reducer = (state = initialState, action) => {
     switch (action.type) {
       case 'UPDATE_USER_PROFILE': //for profile, not storing all users yet
-        console.log(dummyUser);
         console.log(action.payload);
         return {
           ...state,

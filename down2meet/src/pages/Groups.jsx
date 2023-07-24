@@ -5,7 +5,7 @@ import React from 'react';
 function Groups() {
   return (
     <div className="Groups">
-    <BodyHeader />
+    <BodyHeader title={"Groups"} />
       <div className="Groupspage">
 
       </div>
