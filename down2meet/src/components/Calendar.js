@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import ApiCalendar from 'react-google-calendar-api';
 import { googleEvent } from "./addEvent";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { signInCalendar} from '../actions/actions';
 
 const config = {
   clientId: "1011482531322-6d1dp35f941hr37vnn7cvjdstntunnru.apps.googleusercontent.com",
@@ -15,6 +16,7 @@ let newEvent = new Date();
 const apiCalendar = new ApiCalendar(config);
 
 export function handleCreateEvent() {
+  
   if (newEvent) {
 
     //start time
@@ -23,8 +25,13 @@ export function handleCreateEvent() {
     let month = new Date(date).toLocaleDateString('en-US', { month: 'numeric' });
     let day = new Date(date).toLocaleDateString('en-US', { day: 'numeric' });
     const startTime = new Date(date).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' });
-    let [hour, minute] = startTime.split(':');
-    minute = minute.split(' ')[0];
+    let hour, minute, ampm;
+    [hour, minute] = startTime.split(':');
+    [minute, ampm] = minute.split(' ');
+
+    if (ampm === "PM") {
+      hour = parseInt(hour, 10) + 12;
+    }
 
     const startDate = new Date();
     startDate.setFullYear(year);
@@ -40,7 +47,11 @@ export function handleCreateEvent() {
     day = new Date(date).toLocaleDateString('en-US', { day: 'numeric' });
     const endTime = new Date(date).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric' });
     [hour, minute] = endTime.split(':');
-    minute = minute.split(' ')[0];
+    [minute, ampm] = minute.split(' ');
+
+    if (ampm === "PM") {
+      hour = parseInt(hour, 10) + 12;
+    }
 
     const endDate = new Date();
     endDate.setFullYear(year);
@@ -48,12 +59,6 @@ export function handleCreateEvent() {
     endDate.setDate(day);
     endDate.setHours(hour);
     endDate.setMinutes(minute);
-
-    console.log(year);
-    console.log(month);
-    console.log(day);
-    console.log(hour);
-    console.log(minute);
 
     const event = {
       summary: googleEvent.title,
@@ -82,6 +87,7 @@ export function handleCreateEvent() {
 
 const Calendar = () => {
   const [events, setEvents] = useState([]);
+  const dispatch = useDispatch();
   //const [newEvent, setNewEvent] = useState(new Date());
 
   useEffect(() => {
@@ -94,6 +100,8 @@ const Calendar = () => {
   const handleItemClick = (event, name) => {
     if (name === 'sign-in') {
       apiCalendar.handleAuthClick();
+      console.log("Calendar handleAuth")
+      dispatch(signInCalendar(true));
     } else if (name === 'sign-out') {
       apiCalendar.handleSignoutClick();
     }

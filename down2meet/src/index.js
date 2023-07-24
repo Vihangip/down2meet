@@ -33,7 +33,7 @@ const rootReducer = combineReducers({
   posts: postReducer,
   groups: groupReducer,
   reducer: reducer,
-  event: eventReducer
+  event: eventReducer,
 });
 
 console.log("index");

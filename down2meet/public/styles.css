@@ -478,7 +478,7 @@ html, body, #Home, #Home>div {
     margin-right: 10%;
 }
 
-.ProfilePage .in-line {
+.in-line {
     position: relative;
     display: flex;
     flex-direction: flex-start;

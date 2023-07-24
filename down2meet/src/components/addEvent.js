@@ -1,7 +1,7 @@
 import React from "react";
 //import EventsList from '../assets/eventsList';
 import { useEffect } from 'react';
-import { useDispatch} from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 import { addEventAsync, getEventAsync, deleteEventAsync, updateEventAsync} from '../redux/event/thunks';
 
 import { handleCreateEvent } from './Calendar'
@@ -25,8 +25,9 @@ export const googleEvent = {
 
 
 export function AddEvent() {
-  const dispatch = useDispatch();
 
+  const calendarSignedIn= useSelector(state => state.reducer.googleCalendar);
+  const dispatch = useDispatch();
 
   const itemIDRef = React.useRef(null);
   const itemNameRef = React.useRef(null);
@@ -76,7 +77,10 @@ export function AddEvent() {
       googleEvent.startingDate = (startDate);//startDate);
       googleEvent.endingDate = (endDate);//endDate);
 
-      handleCreateEvent();
+
+      if (calendarSignedIn === true) {
+        handleCreateEvent(); //only add event to Google Calendar if user is signed in
+      }
       //console.log("addEvent new event");
       //console.log(googleEvent.startingDate);
 

@@ -7,6 +7,7 @@ const initialState = {
     friendsList: userData,
     activeUsers: userData,
     event: [],
+    googleCalendar: false
     // events: [],
   };
 
@@ -18,6 +19,12 @@ const reducer = (state = initialState, action) => {
         return {
           ...state,
           user: action.payload
+        };
+      case 'SIGNED_IN_CALENDAR': //for profile, not storing all users yet
+        console.log("reducer signed in");
+        return {
+          ...state,
+          googleCalendar: action.payload
         };
       case 'REMOVE_FRIEND':
         const updatedFriendsList = state.friendsList.filter(
@@ -70,6 +77,7 @@ const reducer = (state = initialState, action) => {
           activeUsers: updatedActiveUsers,
           event: updatedEvent,
           events: updatedEvents,
+
         };
 
 
