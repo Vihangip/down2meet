@@ -18,8 +18,12 @@
 
 
   export function AddGroup() {
-    const dispatch = useDispatch();
 
+    /**
+     * MAKE IT SO THAT YOU CAN'T ADD GROUPS WITH THE SAME NAME
+     */
+    const dispatch = useDispatch();
+    const groupsList = useSelector(state => state.groups.groupsList);
     const accountUser = useSelector(state => state.users.userList);
     console.log(accountUser);
     // Extract unique friends from the 'friendsOfUser' array
@@ -34,23 +38,34 @@
     useEffect (() => {
       dispatch(getGroupsAsync());
     },[dispatch]);
-
     const handleFormSubmit = (event) => {
-      event.preventDefault(); // Prgroups the default form submission behavior
-
-      // the id value here gets replaces in when the post request is made. 
-      // but it is used as a key? todo; check if it can just be a constant
-      dispatch(addGroupsAsync({"id": uuid(), "name": itemNameRef.current.value,
-      "members": selectedFriends}));
-    
-      // Your form submit logic here
-      console.log("name", itemNameRef.current.value);
-      console.log("members", itemMemRef.current.value);
-
+      event.preventDefault();
+  
+      const newGroupName = itemNameRef.current.value;
+  
+      // Check if the group name already exists in groupsList
+      const existingGroup = groupsList.find(group => group.name === newGroupName);
+  
+      if (existingGroup) {
+        alert("A group with the same name already exists!");
+        return; // Do not add the group if it already exists
+      }
+  
+      dispatch(addGroupsAsync({
+        "id": uuid(),
+        "name": newGroupName,
+        "members": selectedFriends
+      }));
+  
+      // Clear the input field after successfully adding the group
+      itemNameRef.current.value = "";
+  
+      // Reset selectedFriends state
+      setSelectedFriends([]);
+      
       // googleGroup.name = (itemNameRef.current.value);
       // googleGroup.members= (itemMemRef.current.value);
       // handleCreateEvent();
-
     };
       
 
@@ -79,7 +94,7 @@
 
     return (
       <div className="add-group-form-div">
-        <h1>Add your Group</h1>
+        <h1>Add your Group (the name must be unique)</h1>
         <form className="group-form" onSubmit={handleFormSubmit}>
           <hr /> <br />
           <label htmlFor="iTitle">Group Name:</label>
