@@ -29,7 +29,7 @@ function PostBar() {
       name: useruser.name,
       user_id: useruser.user_id,
       profilepic: useruser.picture,
-      status: postContent,
+      status: postContent ? postContent : "Lets meet up!",
       time: time,
       date: date,
       location: location
@@ -80,19 +80,19 @@ function PostBar() {
       <form className="PostBar-Form" onSubmit={handleSubmit}>
         <div className="PostBar-PostContainer">
           <div className='PostBar-DropdownContainer'>
-            <button className="PostBar-DropdownButton" onClick={handleDropdownToggle}>
+            <button type="button" className="PostBar-DropdownButton" onClick={handleDropdownToggle}>
               {selectedOption ? <div className='PostBar-DropdownText'>{selectedOption}<i class="fa-solid fa-arrow-right"></i></div> : <div className='PostBar-DropdownText'>Everyone<i class="fa-solid fa-arrow-right"></i></div>}
               
             </button>
             {showDropdown && (
               <div className="PostBar-Dropdown">
-                <button className="PostBar-DropdownButtonSelect" onClick={() => handleOptionSelect('Everyone')}>
+                <button type="button" className="PostBar-DropdownButtonSelect" onClick={() => handleOptionSelect('Everyone')}>
                   Everyone
                 </button>
-                <button className="PostBar-DropdownButtonSelect" onClick={() => handleOptionSelect('Group 1')}>
+                <button type="button" className="PostBar-DropdownButtonSelect" onClick={() => handleOptionSelect('Group 1')}>
                   Group 1
                 </button>
-                <button className="PostBar-DropdownButtonSelect" onClick={() => handleOptionSelect('Group 2')}>
+                <button type="button" className="PostBar-DropdownButtonSelect" onClick={() => handleOptionSelect('Group 2')}>
                   Group 2
                 </button>
                 {/* Add more options as needed */}
@@ -105,15 +105,15 @@ function PostBar() {
             className="PostBar-PostInput"
             value={postContent}
             onChange={(e) => setPostContent(e.target.value)}
-            placeholder="What's happening?"
+            placeholder="Lets meet up!"
           />
         </div>
         <div className='PostBar-BottomPost'>
           <div className="PostBar-IconContainer">
-            <button onClick={handleTimeToggle} className='PostBar-AdditionalInfo'>
+            <button type="button" onClick={handleTimeToggle} className='PostBar-AdditionalInfo'>
               <i class="fa-regular fa-clock"></i>
             </button>
-            {/* {showTimeInput && ( */}
+            {showTimeInput && (
               <input
                 type="text"
                 id="time"
@@ -123,11 +123,11 @@ function PostBar() {
                 onBlur={() => setShowTimeInput(false)}
                 placeholder=" Enter a time to hang out!"
               />
-            {/* )} */}
-            <button onClick={handleDateToggle} className='PostBar-AdditionalInfo'>
+            )}
+            <button type="button" onClick={handleDateToggle} className='PostBar-AdditionalInfo'>
               <i class="fa-regular fa-calendar-days"></i>
             </button>
-            {/* {showDateInput && ( */}
+            {showDateInput && (
               <input
                 type="date"
                 id="date"
@@ -137,11 +137,11 @@ function PostBar() {
                 onBlur={() => setShowDateInput(false)}
                 placeholder=" Enter the date you're free!"
               />
-            {/* )} */}
-            <button onClick={handleLocationToggle} className='PostBar-AdditionalInfo'>
+            )}
+            <button type="button" onClick={handleLocationToggle} className='PostBar-AdditionalInfo'>
               <i class="fa-solid fa-location-dot"></i>
             </button>
-            {/* {showLocationInput && ( */}
+            {showLocationInput && (
               <input
                 type="text"
                 id="location"
@@ -151,7 +151,7 @@ function PostBar() {
                 onBlur={() => setShowLocationInput(false)}
                 placeholder=" Enter a location you'd want to go to!"
               />
-            {/* )} */}
+            )} 
             </div>
             <button className="PostBar-Button" type="submit">
               Post

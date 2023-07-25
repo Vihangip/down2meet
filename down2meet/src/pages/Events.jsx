@@ -18,7 +18,10 @@ function Events() {
 
       <BodyHeader />
       <div className="EventPage">
-
+        <div><AddEvent/></div> 
+      
+        <div className="Calendar"> <Calendar/> </div> 
+       <div className="Calendar"> <Event/> </div>
 
       </div>
     </div>
