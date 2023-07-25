@@ -25,6 +25,7 @@ import postReducer from './redux/posts/reducer';
 import groupReducer from './redux/groups/reducer';
 import eventReducer from './redux/event/reducer';
 
+import Search from './components/Search';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 

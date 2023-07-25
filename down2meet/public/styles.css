@@ -830,9 +830,9 @@ html, body, #Home, #Home>div {
     /* margin-top: 0; */
 }
 
-.availability-page.button {
-    /* background-color: blue; */
-}
+/* .availability-page.button {
+     background-color: blue; 
+} */
 
 .add-event-form-div {
     margin-bottom: 5vh;
@@ -843,6 +843,36 @@ html, body, #Home, #Home>div {
   width: 100vw;
   height:fit-content;
 }
+
+.event-popup-card {
+  width:80vw;
+  height:50vh;
+  background-color: lightblue;
+}
+
+.event-popup {
+  position: fixed;
+  top: 20vh;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  width: 20vw;
+  height: 30vh;
+  background-color: #32CD32;
+  margin: auto;
+  text-align: center; /* Center the text horizontally */
+}
+
+
+.add-friend-checkbox, .add-events-checkbox{
+  padding-right: 2em;
+}
+
+
 
 @media screen and (max-width: 1265px) {
   .Body {

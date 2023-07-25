@@ -1,18 +1,10 @@
 import React from "react";
-//import EventsList from '../assets/eventsList';
-import { useEffect } from 'react';
-import { useDispatch} from 'react-redux';
-import { addEventAsync, getEventAsync, deleteEventAsync, updateEventAsync} from '../redux/event/thunks';
-
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addEventAsync, getEventAsync, deleteEventAsync, updateEventAsync } from '../redux/event/thunks';
 import { handleCreateEvent } from './Calendar'
 
 const { v4: uuid } = require('uuid');
-
-
-// export let endDateRef = [0,0,0];
-// export let startDateRef =  [0,0,0];
-// export let detailsRef = [];
-
 
 //for adding to Google Calendar, does not need to be stored anywhere
 export const googleEvent = {
@@ -20,13 +12,19 @@ export const googleEvent = {
   description: '',
   startingDate: new Date(),
   endingDate: new Date(),
-
 };
-
 
 export function AddEvent() {
   const dispatch = useDispatch();
+  const events = useSelector(state => state.event.eventList);
+    // Extract unique groups from the 'events' array
+    const uniqueGroups = Array.from(new Set(events.flatMap(event => event.groups)));
 
+  // const allGroups = events.map((event) => event.groups);
+
+  //convert to a set to remove duplicates, then convert back to array to use .map()
+  // const SetOfGroups = new Set(allGroups);
+  // const uniqueGroups = Array.from(SetOfGroups);
 
   const itemIDRef = React.useRef(null);
   const itemNameRef = React.useRef(null);
@@ -35,99 +33,74 @@ export function AddEvent() {
   const itemEndRef = React.useRef(null);
   const itemStartTimeRef = React.useRef(null);
   const itemEndTimeRef = React.useRef(null);
-  
-  useEffect (() => {
+
+  // Add selectedGroups state and setSelectedGroups function
+  const [selectedGroups, setSelectedGroups] = useState([]);
+
+  useEffect(() => {
     dispatch(getEventAsync());
-  },[dispatch]);
+  }, [dispatch]);
 
-    let formattedStartDate;
-    let formattedEndDate;
+  let formattedStartDate;
+  let formattedEndDate;
 
-    const handleFormSubmit = (event) => {
-      event.preventDefault(); // Prevents the default form submission behavior
-    
-      // Format the date and time values to match the JSON format
-      const startDate = new Date(
-        itemStartRef.current.value + 'T' + itemStartTimeRef.current.value
-      ).toISOString();
-      const endDate = new Date(
-        itemEndRef.current.value + 'T' + itemEndTimeRef.current.value
-      ).toISOString();
+  const handleFormSubmit = (event) => {
+    event.preventDefault(); // Prevents the default form submission behavior
 
-      // removes the Z at the end of the date (may not need to do this)
-      //
-      formattedStartDate = startDate.slice(0, -1); // Remove the last character (Z)
-      formattedEndDate = endDate.slice(0, -1); // Remove the last character (Z)
+    const startDate = new Date(
+      itemStartRef.current.value + 'T' + itemStartTimeRef.current.value
+    ).toISOString();
+    const endDate = new Date(
+      itemEndRef.current.value + 'T' + itemEndTimeRef.current.value
+    ).toISOString();
 
-      // the id value here gets replaces in when the post request is made. 
-      // but it is used as a key? todo; check if it can just be a constant
-      dispatch(addEventAsync({"id": uuid(), "title": itemNameRef.current.value,
-      "description": itemDescRef.current.value,  "start": formattedStartDate, "end": formattedEndDate}));
-    
-      // Your form submit logic here
-      console.log("title", itemNameRef.current.value);
-      console.log("description", itemDescRef.current.value);
-      console.log("start date", startDate);
-      console.log("end date", endDate);
+    formattedStartDate = startDate.slice(0, -1);
+    formattedEndDate = endDate.slice(0, -1);
 
+    dispatch(addEventAsync({
+      "id": uuid(),
+      "title": itemNameRef.current.value,
+      "description": itemDescRef.current.value,
+      "start": formattedStartDate,
+      "end": formattedEndDate,
+      "groups": selectedGroups,
+    }));
 
-      googleEvent.title = (itemNameRef.current.value);
-      googleEvent.description = (itemDescRef.current.value);
-      googleEvent.startingDate = (startDate);//startDate);
-      googleEvent.endingDate = (endDate);//endDate);
+    // Your form submit logic here
+    // console.log("title", itemNameRef.current.value);
+    // console.log("description", itemDescRef.current.value);
+    // console.log("start date", startDate);
+    // console.log("end date", endDate);
 
-      handleCreateEvent();
-      //console.log("addEvent new event");
-      //console.log(googleEvent.startingDate);
+    googleEvent.title = (itemNameRef.current.value);
+    googleEvent.description = (itemDescRef.current.value);
+    googleEvent.startingDate = (startDate);
+    googleEvent.endingDate = (endDate);
 
-    };
-    
-
-  const handleUpdateButton = () => {
-    // Your update button logic here
-
-    // find a way to just update one of the items in the form not have to replace all the event's details
-    const updatedEvent =  { 
-      "id": uuid(), "title": itemNameRef.current.value,
-      "description": itemDescRef.current.value,  "start": formattedStartDate, "end": formattedEndDate
-    };
-
-    console.log(updatedEvent);
-
-    dispatch(updateEventAsync(updatedEvent));
+    handleCreateEvent();
   };
 
   const handleDeleteButton = () => {
-    
-    //idea:
-    // by the title of the event, add the id. have the person input the id of the event to delete it.
-    // todo:
     dispatch(deleteEventAsync(itemIDRef.current.value));
-
   };
-
 
   return (
     <div className="add-event-form-div">
       <h1>Add your Event</h1>
       <form className="event-form" onSubmit={handleFormSubmit}>
-        {/* <label htmlFor="iName">Event ID (for updates):</label>
-        <br />
-        <input type="text" id="iID" name="iID" ref={itemIDRef} />
-        <br /> <br /> */}
         <hr /> <br />
         <label htmlFor="iTitle">Title:</label>
         <br />
         <input type="text" id="iTitle" name="iTitle" ref={itemNameRef} />
         <br />
         <br />
-        <label htmlFor="iDes">Description (optional?):</label>
+        <label htmlFor="iDes">Description (optional):</label>
         <br />
         <input type="text" id="iDes" name="iDes" ref={itemDescRef} />
         <br />
         <br />
-        
-        <label htmlFor="iName">Event start:</label><br />     
+
+        <label htmlFor="iName">Event start:</label><br />
         <input type="date" id="iName" name="iName" ref={itemStartRef} /><br />
         <input type="time" id="iStartTime" name="iStartTime" ref={itemStartTimeRef} /><br /><br />
 
@@ -135,10 +108,33 @@ export function AddEvent() {
         <input type="date" id="iDes" name="iDes" ref={itemEndRef} /><br />
         <input type="time" id="iEndTime" name="iEndTime" ref={itemEndTimeRef} /><br /><br />
 
-        {/* add selector for which friends can see it. */}
-        <div style={{justifyContent: "left"}}>
+         {/* add checkboxes for selecting groups */}
+         <div>
+          <label>Select Group:</label>
+          <br />
+          {/* ChatGPT helped with the checkboxes */}
+          {uniqueGroups.map((group) => (
+            <label key={group}>
+              <input
+                className="add-events-checkbox"
+                type="checkbox"
+                value={group}
+                onChange={(e) => {
+                  const { checked, value } = e.target;
+                  setSelectedGroups(prevSelectedGroups => (
+                    checked ? [...prevSelectedGroups, value] : prevSelectedGroups.filter(group => group !== value)
+                  ));
+                }}
+              />
+              {group}
+              {/* <br /> */}
+            </label>
+          ))}
+        </div>
+        <br /><br />
+
+        <div style={{ justifyContent: "left" }}>
           <input type="submit" id="submitButton" value="Add" />
-          {/* <input type="button" id="updateButton" value="Update" onClick={handleUpdateButton} /> */}
           <input type="button" id="deleteButton" value="Delete" onClick={handleDeleteButton} />
           <input type="reset" id="resetButton" value="Clear Form" />
         </div>
@@ -149,3 +145,4 @@ export function AddEvent() {
     </div>
   );
 }
+

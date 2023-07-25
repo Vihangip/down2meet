@@ -15,7 +15,7 @@ export default function BodyHeader() {
             <div className="Body-Header-Container">
                 <div className="Body-Header-Left">
                     <button className='Menu-Popup' onClick={toggleMobileMenu}><i class="fa-solid fa-bars"></i></button>
-                    <h1 className='middle-text'>My Feed</h1>
+                    {/* <h1 className='middle-text'>My Feed</h1> */}
                 </div>
                 <div className="Body-Header-Mobile">
                     <ButtonAvailable />

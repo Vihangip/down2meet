@@ -7,7 +7,8 @@ const initialState = {
     friendsList: userData,
     activeUsers: userData,
     event: [],
-    // events: [],
+    events: [],
+    groups: []
   };
 
 
@@ -47,33 +48,52 @@ const reducer = (state = initialState, action) => {
 
 
         // calendar Events
-        case 'ADD_EVENT':
+        case 'ADD_GROUPS':
           return {
             ...state,
             events: [...state.posts, action.payload.object],
           };
-        case 'UPDATE_EVENT': //for profile, not storing all users yet
+        case 'UPDATE_GROUP': //for profile, not storing all users yet
           return {
             ...state,
             events: action.payload
           };
-        case 'REMOVE_EVENT':
+        case 'REMOVE_GROUP':
           const updatedEventRemoveList = state.events.filter(
             (events, index) => index !== action.payload
           );
           const updatedEvents = updatedEventRemoveList;
           // updatedFriendsList.filter((friend) => friend.event);
+
         
-      
+
+      // adding groups
+
+      case 'ADD_GROUP':
+        return {
+          ...state,
+          groups: [...state.posts, action.payload.object],
+        };
+      case 'UPDATE_GROUPS': //for profile, not storing all users yet
+        return {
+          ...state,
+          groups: action.payload
+        };
+      case 'REMOVE_GROUP':
+        const updatedGroupRemoveList = state.groups.filter(
+          (groups, index) => index !== action.payload
+        );
+        const updatedGroups = updatedGroupRemoveList;
+        // updatedFriendsList.filter((friend) => friend.event);
         return {
           ...state,
           friendsList: updatedFriendsList,
           activeUsers: updatedActiveUsers,
           event: updatedEvent,
           events: updatedEvents,
+          groups: updatedGroups
         };
-
-
+        
       default:
         return state;
     }
