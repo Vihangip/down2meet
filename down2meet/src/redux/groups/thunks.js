@@ -1,22 +1,23 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { actionTypes } from './actionTypes';
 import service from "./service";
 
 export const getGroupsAsync = createAsyncThunk(
-    "groups/getGroupsAsync",
+    actionTypes.GET_GROUPS,
     async () => {
         return await service.getGroups();
     }
 );
 
 export const addGroupsAsync = createAsyncThunk(
-    "groups/addGroupsAsync",
+    actionTypes.ADD_GROUP,
     async (group) => {
         return await service.addGroups(group);
     }
 );
 
 export const deleteGroupsAsync = createAsyncThunk(
-    "groups/deleteGroupsAsync",
+    actionTypes.DELETE_GROUP,
     async (groupID) => {
         return await service.deleteGroups(groupID);
     }

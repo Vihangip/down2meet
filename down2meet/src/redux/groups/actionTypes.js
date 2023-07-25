@@ -1,6 +1,6 @@
 export const actionTypes = {
-    GET_POSTS: 'groups/getGroups',
-    ADD_POST: 'groups/addGroup',
-    DELETE_POST: 'groups/deleteGroup',
-    UPDATE_POST: 'groups/updateGroup',
+    GET_GROUPS: 'groups/getGroups',
+    ADD_GROUP: 'groups/addGroup',
+    DELETE_GROUP: 'groups/deleteGroup',
+    UPDATE_GROUP: 'groups/updateGroup',
 }

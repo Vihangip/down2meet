@@ -1,12 +1,14 @@
+
 import { NavLink } from "react-router-dom";
-import React, { useState, useEffect } from "react";
-import logo from "../assets/D2MLogo.png";
-import logo1265 from "../assets/logo-notext.png";
-import { GoogleLogin } from "@react-oauth/google";
-import "../css/navigation.css";
-import { useDispatch} from "react-redux";
-import { getOneUserAsync } from "../redux/user/thunks";
-import { updateUserProfile } from "../actions/actions";
+import React, {useState} from 'react';
+import logo from '../assets/D2MLogo.png';
+import logo1265 from '../assets/logo-notext.png';
+import { GoogleLogin } from '@react-oauth/google';
+import '../css/navigation.css';
+import { useDispatch } from 'react-redux';
+import { updateUserProfile } from '../actions/actions';
+import { addUsersAsync, getOneUserAsync } from '../redux/user/thunks';
+
 
 export default function Navbar() {
   const dispatch = useDispatch();
@@ -17,27 +19,28 @@ export default function Navbar() {
     const encodedPayload = idToken.split(".")[1];
     const decodedPayload = JSON.parse(atob(encodedPayload));
 
-    const name = decodedPayload.name;
-    const email = decodedPayload.email;
-    const picture = decodedPayload.picture;
 
-    console.log("Hey, " + name);
+      const name = decodedPayload.name;
+      const email = decodedPayload.email;
+      const picture = "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60";
+      // decodedPayload.picture;
 
-    const user = {
-      user_id: email,
-      name: name,
-      picture: picture,
-      friends: [],
-      groups: [],
-      events: [],
-      availability: false,
+      console.log("Hey, " + name);
+
+      const user = {
+        user_id: email,
+        name: name,
+        picture: picture,
+        friends: [],
+        groups: [],
+        events: [],
+        availability: false,
+      }
+
+      dispatch(getOneUserAsync(email));
+      dispatch(updateUserProfile(user));
+
     };
-
-
-    dispatch(getOneUserAsync(email));
-    dispatch(updateUserProfile(user)); //used to update user profile in frontend
-
-  };
 
 
   // when users don't successfully login
