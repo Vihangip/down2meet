@@ -1,3 +1,12 @@
+/** Citations:
+ * - This page is inpired by: https://github.com/jquense/react-big-calendar/tree/master
+ */
+
+// To add events to the calendar, we would use a post request to appen the local variable
+// figure out how to stlye the events.
+// need to give events a title so that we can call delete and put requests
+
+
 import React from "react";
 import moment from "moment";
 import { Calendar, momentLocalizer } from 'react-big-calendar';
