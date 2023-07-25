@@ -4,6 +4,7 @@ function generateEvents() {
     // make a event
     const event1 = new Item({
         "id": "1",
+        "user_id": "karat.wannissorn@gmail.com",
         "userID": "1.1",
         "title": "Event 1",
         "description": "description 1",
@@ -13,6 +14,7 @@ function generateEvents() {
       });
     const event2 = new Item({
         "id": "2",
+        "user_id": "seungbeannie@gmail.com",
         "userID": "2.1",
         "title": "Event 2",
         "description": "description 2",
@@ -22,6 +24,7 @@ function generateEvents() {
       });
     const event3 = new Item({
         "id": "3",
+        "user_id": "seungbeannie@gmail.com",
         "userID": "2.1",
         "title": "Event 3",
         "description": "description 3",

@@ -1,5 +1,6 @@
-const getEvent = async () => {
-    const res = await fetch(`http://localhost:3001/event`,
+const getEvent = async (userID) => {
+    console.log("client service getting events");
+    const res = await fetch(`http://localhost:3001/event/${userID}`,
     {
         method: "GET",
     });

@@ -13,7 +13,7 @@ import Profile from './pages/Profile';
 import Navbar from './components/Navbar';
 import LoginPage from './pages/Login';
 import ButtonAvailable from './components/ButtonAvailable';
-import Search from './components/Search';
+import Search from './components/SearchBar';
 import store from './redux/store';
 import reducer from './reducers/reducer';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
@@ -34,11 +34,12 @@ const rootReducer = combineReducers({
   posts: postReducer,
   groups: groupReducer,
   reducer: reducer,
-  event: eventReducer
+  event: eventReducer,
 });
 
 console.log("index");
-console.log(rootReducer.store);
+console.log(rootReducer.reducer);
+console.log(rootReducer.posts);
 
 const combinedStore =  createStore(rootReducer, applyMiddleware(thunk));
 

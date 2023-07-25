@@ -15,6 +15,10 @@ export const googleEvent = {
 };
 
 export function AddEvent() {
+
+  const calendarSignedIn= useSelector(state => state.reducer.googleCalendar);
+  const user = useSelector(state => state.reducer.user);
+
   const dispatch = useDispatch();
   const events = useSelector(state => state.event.eventList);
     // Extract unique groups from the 'events' array
@@ -33,13 +37,13 @@ export function AddEvent() {
   const itemEndRef = React.useRef(null);
   const itemStartTimeRef = React.useRef(null);
   const itemEndTimeRef = React.useRef(null);
+  
+  useEffect (() => {
+    dispatch(getEventAsync(user.user_id));
+  },[dispatch, user.user_id]);
 
   // Add selectedGroups state and setSelectedGroups function
   const [selectedGroups, setSelectedGroups] = useState([]);
-
-  useEffect(() => {
-    dispatch(getEventAsync());
-  }, [dispatch]);
 
   let formattedStartDate;
   let formattedEndDate;
@@ -54,31 +58,37 @@ export function AddEvent() {
       itemEndRef.current.value + 'T' + itemEndTimeRef.current.value
     ).toISOString();
 
-    formattedStartDate = startDate.slice(0, -1);
-    formattedEndDate = endDate.slice(0, -1);
+      // Your form submit logic here
+      console.log("title", itemNameRef.current.value);
+      console.log("description", itemDescRef.current.value);
+      console.log("start date", startDate);
+      console.log("end date", endDate);
+      formattedStartDate = startDate.slice(0, -1);
+      formattedEndDate = endDate.slice(0, -1);
 
-    dispatch(addEventAsync({
-      "id": uuid(),
-      "title": itemNameRef.current.value,
-      "description": itemDescRef.current.value,
-      "start": formattedStartDate,
-      "end": formattedEndDate,
-      "groups": selectedGroups,
-    }));
+      // the id value here gets replaces in when the post request is made. 
+      // but it is used as a key? todo; check if it can just be a constant
+      dispatch(addEventAsync({
+          "id": uuid(), 
+          "user_id": user.user_id,
+          "userID": user.user_id,
+          "title": itemNameRef.current.value,
+          "description": itemDescRef.current.value,  
+          "start": formattedStartDate, 
+          "end": formattedEndDate,
+          "groups": selectedGroups,}));
+    
 
-    // Your form submit logic here
-    // console.log("title", itemNameRef.current.value);
-    // console.log("description", itemDescRef.current.value);
-    // console.log("start date", startDate);
-    // console.log("end date", endDate);
 
-    googleEvent.title = (itemNameRef.current.value);
-    googleEvent.description = (itemDescRef.current.value);
-    googleEvent.startingDate = (startDate);
-    googleEvent.endingDate = (endDate);
+      if (calendarSignedIn === true) {
+        handleCreateEvent(); //only add event to Google Calendar if user is signed in
+      }
+      //console.log("addEvent new event");
+      //console.log(googleEvent.startingDate);
 
-    handleCreateEvent();
-  };
+    };
+    
+
 
   const handleDeleteButton = () => {
     dispatch(deleteEventAsync(itemIDRef.current.value));

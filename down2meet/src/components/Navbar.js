@@ -1,3 +1,4 @@
+
 import { NavLink } from "react-router-dom";
 import React, {useState} from 'react';
 import logo from '../assets/D2MLogo.png';
@@ -42,7 +43,6 @@ export default function Navbar() {
     };
 
 
-
   // when users don't successfully login
   const errorMessage = (error) => {
     console.log(error);
@@ -68,7 +68,7 @@ export default function Navbar() {
                         <div className="Navbar-Links">
                         <NavLink className="Social-Option"
                         activeClassName="Social-Option-Active"
-                        exact
+                        exact="true"
                         to="/Home">
                             <div className="Social-Icon">
                                 <i className="fa-solid fa-house"></i>

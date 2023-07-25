@@ -19,7 +19,7 @@ function PostBar() {
   const [selectedOption, setSelectedOption] = useState("Everyone"); // Controls which group
   const user = useSelector((state) => state.users.user);
 
-  console.log(user.picture);
+  //console.log(user.picture);
   const handleSubmit = (e) => {
     const useruser = user;
     e.preventDefault();

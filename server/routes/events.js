@@ -7,8 +7,10 @@ var express = require('express');
 var router = express.Router();
 
 /* GET event listing. */
-router.get('/', async(req, res, next) =>{
-  let allEvent = await queries.getAllEvent();
+router.get('/:user_id', async(req, res, next) =>{
+
+  console.log("server events getting events");
+  let allEvent = await queries.getAllEvent({user_id: req.params.user_id}); //only get the specified user's events
   return res.send(allEvent);
 });
 
@@ -26,6 +28,7 @@ router.get('/:eventId', async(req, res, next) => {
 router.post('/', async(req, res, next) => {
   const event =  { 
     id: uuid(),
+    user_id: req.body.user_id,
     userID: uuid(), // TODO: adding dummy var now, will populate with actual userID
     title: req.body.title,
     description: req.body.description,

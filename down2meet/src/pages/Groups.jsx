@@ -7,10 +7,10 @@ import Groups from '../components/Groups';
 function Group() {
   return (
     <div className="Groups">
-   <div><AddGroup/></div> 
-   <div><Groups/></div>
+    <BodyHeader title={"Groups"} />
+      <div><AddGroup/></div> 
+      <div><Groups/></div>
 
-    <BodyHeader />
       <div className="Groupspage">
 
       </div>

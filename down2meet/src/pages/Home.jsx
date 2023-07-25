@@ -7,7 +7,7 @@ import React from 'react';
 function Home() {
   return (
     <div className="Home">
-      <BodyHeader />
+      <BodyHeader title={"My Feed"} />
         <div className="Body-Middle">
           <PostBar />
           <SocialFeed />
