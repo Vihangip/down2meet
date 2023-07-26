@@ -52,8 +52,8 @@ export default function UserProfile() {
         <h1>{userProfile.name}</h1>
         <img src={userProfile.picture} alt={userProfile.name} />
         {currentUser && (currentUser.friends.includes(userProfile.user_id)
-            ? <button onClick={removeFriend}>Delete Friend</button>
-            : <button onClick={addFriend}>Add Friend</button>
+            ? <button className="deleteButton" onClick={removeFriend}>Delete Friend</button>
+            : <button className="addButton" onClick={addFriend}>Add Friend</button>
         )}
     </div>
 );
