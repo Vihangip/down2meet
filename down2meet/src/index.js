@@ -13,19 +13,18 @@ import Profile from './pages/Profile';
 import Navbar from './components/Navbar';
 import LoginPage from './pages/Login';
 import ButtonAvailable from './components/ButtonAvailable';
-import Search from './components/SearchBar';
+import Search from './components/Search';
 import store from './redux/store';
 import reducer from './reducers/reducer';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
+import UserProfile from './components/UserProfile';
 
 
 import userReducer from './redux/user/reducer';
 import postReducer from './redux/posts/reducer';
 import groupReducer from './redux/groups/reducer';
 import eventReducer from './redux/event/reducer';
-
-import Search from './components/Search';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -62,6 +61,7 @@ root.render(<>
           <Route path="/Groups" element={<Groups />} />
           <Route path="/Events" element={<Events />} />
           <Route path="/Profile" element={<Profile />} />
+          <Route path="/user/:userId" element={<UserProfile />} />
         </Routes>
         </div>
 
