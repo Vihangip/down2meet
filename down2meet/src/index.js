@@ -13,7 +13,7 @@ import Profile from './pages/Profile';
 import Navbar from './components/Navbar';
 import LoginPage from './pages/Login';
 import ButtonAvailable from './components/ButtonAvailable';
-import Search from './components/SearchBar';
+// import Search from './components/SearchBar';
 import store from './redux/store';
 import reducer from './reducers/reducer';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
