@@ -53,15 +53,16 @@ router.post('/', async(req, res, next) => {
 });
 
 router.post('/:userId/addFriend', async(req, res) => {
+  console.log(`Request to add friend for user ${req.params.userId}`);
   const userId = req.params.userId;
   const friendId = req.body.friendId;
   const user = await User.findOne({ user_id: userId });
   if (!user) {
-      return res.status(404).send({message: 'User not found'});
+    return res.status(404).send({message: 'User not found'});
   }
   if (!user.friends.includes(friendId)) {
-      user.friends.push(friendId);
-      await user.save();
+    user.friends.push(friendId);
+    await user.save();
   }
   return res.send(user);
 });
