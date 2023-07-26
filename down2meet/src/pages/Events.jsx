@@ -9,17 +9,14 @@ function Events() {
 
   return (
     <div className='Events'>
-      <BodyHeader />
-      <div className="EventPage">
+      <BodyHeader title={"Events"}/>
+      <div className="Events">
         <div><AddEvent/></div> 
       
         <div className="Calendar"> <Calendar/> </div> 
        <div className="Calendar"> <Event/> </div>
 
       </div>
-      {/* <h2>Events</h2> */}
-      {/* <div><h1 className='middle-text'>Events</h1></div><br/><br/> */}
-      
     </div>
   );
 }

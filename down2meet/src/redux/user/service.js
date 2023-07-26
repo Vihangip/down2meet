@@ -18,7 +18,7 @@ const getOneUser = async (userID) => {
     });
     const data = await res.json();
 
-    console.log(res.status);
+    // console.log(res.status);
     if (!res.ok) {
         throw new Error("User not found."); // Throw an error if the response is not successful
       }

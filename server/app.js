@@ -7,14 +7,17 @@ var indexRouter = require('./routes/index');
 var postsRouter = require('./routes/posts');
 var usersRouter = require('./routes/users');
 var eventRouter = require('./routes/events');
+var groupsRouter = require('./routes/groups');
 var authRouter = require('./routes/auth');
 var sessionRouter = require('./routes/session');
 // var calendarRouter = require('./routes/calendar');
 const generateEvent = require('./mongoDB/generateEvents');
+const generateGroups = require('./mongoDB/generateGroups');
 const crypto = require('crypto');
 function generateRandomString(length) {
   return crypto.randomBytes(Math.ceil(length / 2)).toString('hex').slice(0, length);
 }
+
 
 const secretKey = generateRandomString(32);
 var cors = require('cors');
@@ -54,16 +57,21 @@ app.use(passport.session());
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 const mongoDB = "mongodb+srv://PLLOW:down2meet@Down2meet.8i1q7am.mongodb.net/UserData?retryWrites=true&w=majority"
-const queries = require('./mongoDB/EventQueries');
+const eventQueries = require('./mongoDB/EventQueries');
+// const groupsQueries = require('./mongoDB/GroupQueries');
 
 main().catch((err) => console.log(err));
 async function main(){
     await mongoose.connect(mongoDB);
     console.log("database connected");
     // generateEvent();
+    // generateGroups();
     // Get all events
-    const all = await queries.getAllEvent({});
-    console.log("All events:", all);
+    // const all = await eventQueries.getAllEvent({});
+    // console.log("All events:", all);
+
+    // const allGroups = await groupsQueries.getAllGroup({});
+    // console.log("All groups:", allGroups);
 
 app.listen(3001, () => {
     console.log(`Server Started at ${3001}`)
@@ -74,8 +82,10 @@ app.use('/', indexRouter);
 app.use('/posts', ensureAuthenticated, postsRouter);
 app.use('/users', ensureAuthenticated, usersRouter);
 // app.use('/calendar', calendarRouter);
-app.use('/event', ensureAuthenticated, eventRouter);
+app.use('/event', eventRouter);
 app.use('/session', sessionRouter);
+
+
 }
 
 module.exports = app;

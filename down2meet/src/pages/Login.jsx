@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, {useEffect} from 'react';
 // import { GoogleLogin } from '@react-oauth/google';
 import { useDispatch} from 'react-redux';
@@ -6,6 +7,15 @@ import { getOneUserAsync, addUsersAsync, getSessionUserAsync } from '../redux/us
 // import { setUser } from '../redux/user/reducer';
 // import { useNavigate } from 'react-router-dom';
 import { useSelector} from 'react-redux';
+=======
+import React from 'react';
+import { GoogleLogin } from '@react-oauth/google';
+import { useDispatch } from 'react-redux';
+import { getOneUserAsync, addUsersAsync } from '../redux/user/thunks';
+import { useNavigate } from 'react-router-dom';
+import { setUser } from '../redux/user/reducer';
+import { updateUserProfile } from '../actions/actions';
+>>>>>>> main
 
 export default function LoginPage() {
   //const dispatch = useDispatch();
@@ -27,7 +37,46 @@ export default function LoginPage() {
   //     const email = decodedPayload.email;
   //     const picture = decodedPayload.picture;
 
+<<<<<<< HEAD
   //     console.log('Hey, ' + name);
+=======
+    dispatch(updateUserProfile(user)); //used to update user profile in frontend 
+
+    // Attempt to retrieve user information
+    dispatch(getOneUserAsync(email))
+      .then((action) => {
+        if (action.type === 'users/getOneUserAsync/fulfilled') {
+          // User information retrieval successful
+          const existingUser = action.payload;
+          console.log('Existing user found:', existingUser);
+          dispatch(setUser(existingUser));
+          navigate('/Home');
+          // Proceed with sign-in or other necessary logic
+        } else if (action.type === 'users/getOneUserAsync/rejected') {
+          // User information retrieval unsuccessful
+          console.log('User not found. Creating account...');
+          // Dispatch the addUsersAsync action to add the user to the database
+          dispatch(addUsersAsync(user))
+            .then(() => {
+              // Account creation successful
+              console.log('Account created successfully');
+              dispatch(getOneUserAsync(email));
+              navigate('/Home');
+              // Proceed with sign-in or other necessary logic
+            })
+            .catch((error) => {
+              // Account creation unsuccessful
+              console.log('Account creation failed:', error);
+              // Handle account creation error and inform the user
+            });
+        }
+      })
+      .catch((error) => {
+        console.log('User information retrieval failed:', error);
+        // Handle user information retrieval error, if necessary
+      });
+  };
+>>>>>>> main
 
   //     const user = {
   //       user_id: email,

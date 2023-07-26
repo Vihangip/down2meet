@@ -4,28 +4,28 @@ import service from "./service";
 
 export const getEventAsync = createAsyncThunk(
    actionTypes.GET_EVENT,
-    async () => {
-        return await service.getEvent();
+    async (userID) => {
+        return await service.getEvent(userID);
     }
 );
 
 export const addEventAsync = createAsyncThunk(
     actionTypes.ADD_EVENT,
-    async (group) => {
-        return await service.addEvent(group);
+    async (event) => {
+        return await service.addEvent(event);
     }
 );
 
 export const deleteEventAsync = createAsyncThunk(
     actionTypes.DELETE_EVENT,
-    async (groupID) => {
-        return await service.deleteEvent(groupID);
+    async (eventID) => {
+        return await service.deleteEvent(eventID);
     }
 );
 
 export const updateEventAsync = createAsyncThunk(
     actionTypes.UPDATE_EVENT,
-    async (item) => {
-      return await service.updateEvent(item);
+    async (event) => {
+      return await service.updateEvent(event);
     }
   );

@@ -1,5 +1,6 @@
-const getEvent = async () => {
-    const res = await fetch(`http://localhost:3001/event`,
+const getEvent = async (userID) => {
+    console.log("client service getting events");
+    const res = await fetch(`http://localhost:3001/event/${userID}`,
     {
         method: "GET",
     });
@@ -30,10 +31,14 @@ const deleteEvent = async (eventID) => {
     {
         method: "DELETE",
     });
-    const data = await res.text();
-    return data;
+    if (res.status !== 204) {
+        const errorMsg = "error";
+        throw new Error(errorMsg)
+    }
+    return eventID;
 }
 
+// TODO: not part of standard requirements
 const updateEvent = async (event) => {
     const response = await fetch('http://localhost:3001/event/' + event.title, {
       method: 'PUT',
