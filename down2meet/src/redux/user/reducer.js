@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getUsersAsync, addUsersAsync, deleteUsersAsync, getOneUserAsync, addUserPostAsync } from "./thunks";
+import { getUsersAsync, addUsersAsync, deleteUsersAsync, getOneUserAsync, addUserPostAsync, getSessionUserAsync, logoutUserAsync } from "./thunks";
 
 
 const INITIAL_STATE = {
@@ -16,7 +16,6 @@ const userSlice = createSlice({
         setUser: (state, action) => {
             state.user = action.payload;
           },
-        
     },
     extraReducers: (builder) => {
         builder
@@ -39,7 +38,13 @@ const userSlice = createSlice({
             })
             .addCase(addUserPostAsync.fulfilled, (state, action) => {
                 state.postList.push(action.payload);
-            });
+            })
+            .addCase(getSessionUserAsync.fulfilled,(state,action) => {
+                state.user = action.payload;
+            })
+            .addCase(logoutUserAsync.fulfilled,(state,action)=>{
+                
+            })
     },
 });
 export const { setUser } = userSlice.actions;

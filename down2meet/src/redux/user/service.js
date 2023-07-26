@@ -1,3 +1,4 @@
+import { setUser } from "./reducer";
 
 
 const getUsers = async () => {
@@ -73,6 +74,42 @@ const addUserPost = async (userID, postID) => {
     console.log("Post added successfully");
   };
 
+  const getSessionUser = async () => {
+    const res = await fetch(`http://localhost:3001/session`,
+    {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+    });
+    const data = await res.json();
+    console.log(data);
+
+    //TODO !!!!!!!!!!
+    if (res.status >= 400) {
+        throw new Error(data.errors);
+    }
+    return data;
+}
+
+const logoutUser = async() => {
+    const res = await fetch(`http://localhost:3001/auth/logout`,
+    {
+        method:"GET",
+        credentials: 'include',
+
+    });
+
+  if (res.status >= 400) {
+    throw new Error("Logout failed");
+  }
+
+  console.log("Logout successful");
+  window.location.href = '/';
+
+}
+
 export default {
-    getUsers, addUsers, deleteUsers, getOneUser, addUserPost
+    getUsers, addUsers, deleteUsers, getOneUser, addUserPost, getSessionUser, logoutUser
 }

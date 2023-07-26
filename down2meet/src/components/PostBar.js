@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addPost } from '../actions/actions';
 import { addPostAsync } from '../redux/posts/thunks';
 import { addUserPostAsync } from '../redux/user/thunks';
+import { getSessionUserAsync } from '../redux/user/thunks';
 import { v4 as uuidv4 } from 'uuid';
+import { useNavigate } from 'react-router-dom';
+
 
 function PostBar() {
   // const posts = useSelector((state) => state.posts);
@@ -18,9 +21,17 @@ function PostBar() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedOption, setSelectedOption] = useState("Everyone"); // Controls which group
   const user = useSelector((state) => state.users.user);
+  const navigate = useNavigate();
+  useEffect(() => {
+    dispatch(getSessionUserAsync());
+  }, [dispatch]);
 
-  console.log(user.picture);
+
+  //console.log(user.picture);
   const handleSubmit = (e) => {
+    if (user=== null){
+      navigate('/');
+    }
     const useruser = user;
     e.preventDefault();
     const randomUUID = uuidv4();

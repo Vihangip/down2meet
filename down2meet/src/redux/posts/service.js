@@ -2,6 +2,7 @@ const getPosts = async () => {
     const res = await fetch(`http://localhost:3001/posts`,
     {
         method: "GET",
+        credentials: 'include',
     });
     const data = await res.json();
     return data;

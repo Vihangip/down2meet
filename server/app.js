@@ -7,12 +7,49 @@ var indexRouter = require('./routes/index');
 var postsRouter = require('./routes/posts');
 var usersRouter = require('./routes/users');
 var eventRouter = require('./routes/events');
+var authRouter = require('./routes/auth');
+var sessionRouter = require('./routes/session');
 // var calendarRouter = require('./routes/calendar');
 const generateEvent = require('./mongoDB/generateEvents');
+const crypto = require('crypto');
+function generateRandomString(length) {
+  return crypto.randomBytes(Math.ceil(length / 2)).toString('hex').slice(0, length);
+}
 
+const secretKey = generateRandomString(32);
+var cors = require('cors');
+
+const session = require('express-session');
+const passport = require('passport');
+require('./passport');
+
+const { ensureAuthenticated } = require('./authMiddleware');
 
 var app = express();
-var cors = require('cors');
+app.use(cors(
+  {
+  origin: 'http://localhost:3000',
+  credentials: true, // Allows cookies to be sent with the request
+}
+));
+
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(
+  session({
+    secret: secretKey,
+    resave: false,
+    saveUninitialized: false,
+    // expires: new Date(Date.now() + 60 * 60 * 1000),
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
@@ -28,23 +65,17 @@ async function main(){
     const all = await queries.getAllEvent({});
     console.log("All events:", all);
 
-app.use(cors());
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
 app.listen(3001, () => {
     console.log(`Server Started at ${3001}`)
 })
 
+app.use('/auth', authRouter);
 app.use('/', indexRouter);
-app.use('/posts', postsRouter);
-app.use('/users', usersRouter);
+app.use('/posts', ensureAuthenticated, postsRouter);
+app.use('/users', ensureAuthenticated, usersRouter);
 // app.use('/calendar', calendarRouter);
-app.use('/event', eventRouter);
-
+app.use('/event', ensureAuthenticated, eventRouter);
+app.use('/session', sessionRouter);
 }
 
 module.exports = app;
