@@ -2,42 +2,39 @@
   import { useEffect, useState } from 'react';
   import { useDispatch, useSelector} from 'react-redux';
   import { addGroupsAsync, getGroupsAsync, deleteGroupsAsync} from '../redux/groups/thunks';
-
+  import UserProfile from './UserProfile';
+  import Search from './Search';
   import { handleCreateEvent } from "./Calendar";
+  import { getSessionUserAsync } from '../redux/user/thunks';
 
   const { v4: uuid } = require('uuid');
 
-
-
-  // //for adding to Google Calendar, does not need to be stored anywhere
-  // export const googleGroup = {
-  //   id: '',
-  //   name: '',
-  //   members: ['']
-  // };
-
-
   export function AddGroup() {
-
-    /**
-     * MAKE IT SO THAT YOU CAN'T ADD GROUPS WITH THE SAME NAME
-     */
     const dispatch = useDispatch();
+
+    useEffect(() => {
+      dispatch(getSessionUserAsync());
+      dispatch(getGroupsAsync());
+    }, [dispatch]);
+
+    // MAKE IT SO THAT YOU CAN'T ADD GROUPS WITH THE SAME NAME
+
     const groupsList = useSelector(state => state.groups.groupsList);
-    const accountUser = useSelector(state => state.users.userList);
-    console.log(accountUser);
+    // const usersFriends = useSelector(state => state.users.friendslist);
     // Extract unique friends from the 'friendsOfUser' array
-    const uniqueFriends = Array.from(new Set(accountUser));
-    // console.log(uniqueFriends);
+    // const uniqueFriends = Array.from(new Set(usersFriends));
+
+    const currentUser = useSelector(state => state.users.user); 
+    const uniqueFriends = Array.from(new Set(currentUser.friends));
+
+    console.log(uniqueFriends);
     
     const [selectedFriends, setSelectedFriends] = useState([]);
 
     const itemNameRef = React.useRef(null);
     const itemMemRef = React.useRef(null);
-    
-    useEffect (() => {
-      dispatch(getGroupsAsync());
-    },[dispatch]);
+
+
     const handleFormSubmit = (event) => {
       event.preventDefault();
   
@@ -94,10 +91,10 @@
 
     return (
       <div className="add-group-form-div">
-        <h1>Add your Group (the name must be unique)</h1>
+        <h1>Add your Group</h1>
         <form className="group-form" onSubmit={handleFormSubmit}>
           <hr /> <br />
-          <label htmlFor="iTitle">Group Name:</label>
+          <label htmlFor="iTitle">Group Name  (the name must be unique):</label>
           <br />
           <input type="text" id="iTitle" name="iTitle" ref={itemNameRef} />
           <br />  <br />
@@ -107,6 +104,8 @@
          <div>
           <label>Select Group Members:</label>
           <br />
+          {/* <UserProfile/> */}
+          {/* <Search/> */}
           {/* ChatGPT helped with the checkboxes */}
           {uniqueFriends.map((friend) => (
             <label key={friend}>
@@ -119,10 +118,11 @@
                   setSelectedFriends(prevSelectedFriends => (
                     checked ? [...prevSelectedFriends, value] : prevSelectedFriends.filter(friend => friend !== value)
                   ));
-                }}
+                }
+              }
               />
               {friend}
-              {/* <br /> */}
+              <br />
             </label>
           ))}
         </div> <br/>
