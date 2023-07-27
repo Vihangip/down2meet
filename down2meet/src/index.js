@@ -56,7 +56,7 @@ root.render(<>
         <div className='Body-Middle'>
         <Routes>
           <Route path="/" element={<LoginPage />} />
-          <Route path="/Home" element={<Home />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/Friends" element={<Friends />} />
           <Route path="/Groups" element={<Groups />} />
           <Route path="/Events" element={<Events />} />
