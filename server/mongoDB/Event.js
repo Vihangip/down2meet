@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 // create schema
 const eventSchema = new mongoose.Schema({
     id: String,
-    user_id: String,
+    email: String,
     userID: String,
     title: String,
     description: String,

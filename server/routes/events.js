@@ -28,7 +28,7 @@ router.get('/:eventId', async(req, res, next) => {
 router.post('/', async(req, res, next) => {
   const event =  { 
     id: uuid(),
-    user_id: req.body.user_id,
+    email: req.body.email,
     userID: uuid(), // TODO: adding dummy var now, will populate with actual userID
     title: req.body.title,
     description: req.body.description,

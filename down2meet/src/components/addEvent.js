@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addEventAsync, getEventAsync, deleteEventAsync, updateEventAsync } from '../redux/event/thunks';
 import { handleCreateEvent } from './Calendar'
+import { getSessionUserAsync } from "../redux/user/thunks";
 
 const { v4: uuid } = require('uuid');
 
@@ -17,9 +18,13 @@ export const googleEvent = {
 export function AddEvent() {
 
   const calendarSignedIn= useSelector(state => state.reducer.googleCalendar);
-  const user = useSelector(state => state.reducer.user);
-
   const dispatch = useDispatch();
+  //const user = useSelector(state => state.reducer.user);
+  useEffect(() => {
+    dispatch(getSessionUserAsync());
+  }, [dispatch]);
+
+  const user = useSelector(state => state.users.user);
   const events = useSelector(state => state.event.eventList);
     // Extract unique groups from the 'events' array
     const uniqueGroups = Array.from(new Set(events.flatMap(event => event.groups)));
@@ -39,8 +44,8 @@ export function AddEvent() {
   const itemEndTimeRef = React.useRef(null);
   
   useEffect (() => {
-    dispatch(getEventAsync(user.user_id));
-  },[dispatch, user.user_id]);
+    dispatch(getEventAsync(user.email));
+  },[dispatch, user.email]);
 
   // Add selectedGroups state and setSelectedGroups function
   const [selectedGroups, setSelectedGroups] = useState([]);
@@ -70,7 +75,7 @@ export function AddEvent() {
       // but it is used as a key? todo; check if it can just be a constant
       dispatch(addEventAsync({
           "id": uuid(), 
-          "user_id": user.user_id,
+          "email": user.email,
           "userID": user.user_id,
           "title": itemNameRef.current.value,
           "description": itemDescRef.current.value,  

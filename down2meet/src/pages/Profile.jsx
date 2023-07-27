@@ -3,6 +3,7 @@ import BodyHeader from '../components/BodyHeader';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState} from 'react';
+import { getSessionUserAsync } from '../redux/user/thunks';
 //import ProfileSchedule from '../components/ProfileSchedule';
 //import Availability from '../components/Availability';
 
@@ -14,7 +15,14 @@ import Event from '../components/Event';
 
 function Profile() {
 
-  const user = useSelector(state => state.reducer.user);
+  const dispatch = useDispatch();
+  //const user = useSelector(state => state.reducer.user);
+  useEffect(() => {
+    dispatch(getSessionUserAsync());
+  }, [dispatch]);
+
+  const user = useSelector(state => state.users.user);
+
   console.log("profile");
   console.log(user);
 
@@ -32,7 +40,7 @@ function Profile() {
           <img className="ProfilePicture" src={user.picture} alt="profile"/>   
           <div className="column">
             <p> Name:   {user.name} </p> 
-            <p> Email:   {user.user_id} </p>
+            <p> ID:   {user.user_id} </p>
 
           </div>
         </div>
