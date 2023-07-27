@@ -615,6 +615,62 @@ html, body, #Home, #Home>div {
   margin-bottom: 20px;
 }
 
+/* User profile from search */
+
+.UserProfile {
+  text-align: center; /* Center the content horizontally */
+  padding: 20px;
+  border: 1px solid #f3f3f3;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add a box shadow */
+  margin-top: 30px;
+}
+
+.UserProfile h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.UserProfile img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%; /* Make the image circular */
+  margin-bottom: 20px;
+}
+
+.UserProfile .addButton {
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4CAF50; /* Green */
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.UserProfile .addButton:hover {
+  background-color: #45a049; /* Darker Green on hover */
+}
+
+/* Delete Friend button styles */
+.UserProfile .deleteButton {
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ff0000; /* Red */
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.UserProfile .deleteButton:hover {
+  background-color: #b30000; /* Darker Red on hover */
+}
+
+
 /*  ~~~~~~~~~~~~~~~~~~ RIGHT SIDE  ~~~~~~~~~~~~~~~~~~ */
 
 /* status button */
@@ -640,19 +696,61 @@ html, body, #Home, #Home>div {
   /* SearchBar */
 
   .SearchBar {
-    height: 10%;
+    position: relative; 
+    /* height: 10%;
     margin-top: 10px;
     margin-bottom: 10px;
     padding: 10px 20px;
     border: 1px solid #f3f3f3;
     border-radius: 25px;
+    background-color: #f3f3f3; */
+  }
+  
+  .SearchBar h1 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .SearchBar input {
+    display: block;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px 10px;
+    background: transparent;
+  }
+  
+  .dropdown {
+    position: absolute; 
+    top: 100%; 
+    left: 0;
+    width: 100%;
+    max-height: 250px; 
+    overflow-y: auto; 
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1; 
+  }
+  
+  /*individual dropdown items */
+  .dropdown div {
+    padding: 8px 10px;
+    cursor: pointer;
+  }
+  
+  /* dropdown items on hover/focus */
+  .dropdown div:hover,
+  .dropdown div:focus {
     background-color: #f3f3f3;
   }
-
-  .SearchBar h1 {
-
-    font-size: 20px;
-  }
+  
+  
+  
+  
+  
+  
 
 /* ActiveUsers */
 .ActiveUsers {

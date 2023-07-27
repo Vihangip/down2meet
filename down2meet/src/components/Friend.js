@@ -1,5 +1,4 @@
 
-
 const Friend = ({ name, profilepic, availability, onRemove }) => {
 
 
