@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function SearchBar() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -23,13 +24,17 @@ export default function SearchBar() {
     }
   };
 
-
   const handleInputFocus = () => {
     setIsSearchFocused(true);
   };
 
   const handleInputBlur = () => {
     setTimeout(() => setIsSearchFocused(false), 200);
+  };
+
+  const handleLinkClick = () => {
+    setSearchQuery('');
+    setSearchResults([]);
   };
 
   return (
@@ -47,9 +52,9 @@ export default function SearchBar() {
         {isSearchFocused && searchResults.length > 0 && (
           <div className="dropdown">
             {searchResults.map((result, index) => (
-              <div key={index}>
-                {result.name}
-              </div>
+              <Link key={index} to={`/user/${result.user_id}`} onClick={handleLinkClick}>
+                <div>{result.name}</div>
+              </Link>
             ))}
           </div>
         )}
