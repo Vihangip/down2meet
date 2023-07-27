@@ -3,6 +3,7 @@ const getEvent = async (userID) => {
     const res = await fetch(`http://localhost:3001/event/${userID}`,
     {
         method: "GET",
+        credentials: 'include',
     });
     const data = await res.json();
     return data;
@@ -16,6 +17,7 @@ const addEvent = async (event) => {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(event),
+        credentials: 'include',
     });
     const data = await res.json();
     if (res.status >= 400) {
@@ -30,6 +32,7 @@ const deleteEvent = async (eventID) => {
     const res = await fetch(`http://localhost:3001/event/${eventID}`,
     {
         method: "DELETE",
+        credentials: 'include',
     });
     if (res.status !== 204) {
         const errorMsg = "error";
@@ -45,7 +48,8 @@ const updateEvent = async (event) => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(event)
+      body: JSON.stringify(event),
+      credentials: 'include',
     });
     const data = await response.json();
     if (!response.status.ok) {

@@ -12,6 +12,7 @@ const Post = ({ post }) => {
     // Fetch user information when the component mounts
     const fetchUser = async () => {
       try {
+        console.log(post.user_id);
         const userData = await service.getOneUser(post.user_id);
         setUser(userData);
       } catch (error) {
