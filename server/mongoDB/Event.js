@@ -9,7 +9,9 @@ const eventSchema = new mongoose.Schema({
     description: String,
     start: Date,
     end: Date,
-    groups:[String]
+    groups:[String],
+    location: String,
+    participants: [String]
 });
 
 // create model

@@ -96,6 +96,7 @@ export default function Event(props) {
                   <p>End: {moment(selectedEvent.end).format('LLLL')}</p>
                   <p>Groups: {selectedEvent.groups.join(", ")}</p>
 
+
                   <button className="event-delete-button" onClick={handleDelete}>Delete</button>
                   <button className="minimize-button" onClick={removePopUp}>X</button>
                 </div>

@@ -15,6 +15,7 @@ const addPost = async (post) => {
         headers: {
             "Content-Type": "application/json",
         },
+        credentials: 'include',
         body: JSON.stringify(post),
     });
     const data = await res.json();
@@ -28,6 +29,7 @@ const deletePost = async (postID) => {
     const res = await fetch(`http://localhost:3001/posts/${postID}`,
     {
         method: "DELETE",
+        credentials: 'include',
     });
     const data = await res.text();
     return data;

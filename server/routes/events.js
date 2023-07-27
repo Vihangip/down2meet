@@ -34,7 +34,9 @@ router.post('/', async(req, res, next) => {
     description: req.body.description,
     start: req.body.start,
     end: req.body.end,
-    groups: req.body.groups, // TODO: adding dummy var now, will populate with actual group names
+    groups: req.body.groups,
+    location: req.body.location,
+    participants: req.body.participants
   };
   const addedEvent = await queries.addEvent(event);
   // console.log(event);

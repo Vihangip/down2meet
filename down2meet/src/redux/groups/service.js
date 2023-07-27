@@ -2,6 +2,7 @@ const getGroups = async () => {
     const res = await fetch(`http://localhost:3001/groups`,
     {
         method: "GET",
+        credentials: 'include',
     });
     const data = await res.json();
     return data;
@@ -15,6 +16,7 @@ const addGroups = async (group) => {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(group),
+        credentials: 'include',
     });
     const data = await res.json();
     if (res.status >= 400) {
@@ -27,6 +29,7 @@ const deleteGroups = async (groupID) => {
     const res = await fetch(`http://localhost:3001/groups/${groupID}`,
     {
         method: "DELETE",
+        credentials: 'include',
     });
     const data = await res.text();
     return data;

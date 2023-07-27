@@ -5,6 +5,7 @@ const getUsers = async () => {
     const res = await fetch(`http://localhost:3001/users`,
     {
         method: "GET",
+        credentials: 'include',
     });
     const data = await res.json();
     return data;
@@ -15,16 +16,15 @@ const getOneUser = async (userID) => {
     const res = await fetch(`http://localhost:3001/users/${userID}`,
     {
         method: "GET",
+        credentials: 'include',
     });
     const data = await res.json();
 
-    // console.log(res.status);
     if (!res.ok) {
         throw new Error("User not found."); // Throw an error if the response is not successful
       }
     
 
-    //TODO !!!!!!!!!!
     if (res.status >= 400) {
         throw new Error(data.errors);
     }
@@ -38,6 +38,7 @@ const addUsers = async (user) => {
         headers: {
             "Content-Type": "application/json",
         },
+        credentials: 'include',
         body: JSON.stringify(user),
     });
     console.log("account added");
@@ -52,6 +53,7 @@ const deleteUsers = async (userID) => {
     const res = await fetch(`http://localhost:3001/users/${userID}`,
     {
         method: "DELETE",
+        credentials: 'include',
     });
     const data = await res.text();
     return data;
@@ -63,6 +65,7 @@ const addUserPost = async (userID, postID) => {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: 'include',
       body: JSON.stringify({}),
     });
   
