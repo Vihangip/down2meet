@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { updateUserProfile } from '../actions/actions';
 import { addUsersAsync, getOneUserAsync } from '../redux/user/thunks';
 
+import Logout from "./Logout";
 
 export default function Navbar() {
   const dispatch = useDispatch();
@@ -131,6 +132,7 @@ export default function Navbar() {
 
             </div>
             <div className="botnav">
+                <Logout />
                 {/* using tutorial for GoogleLogin from: https://blog.logrocket.com/guide-adding-google-login-react-app/ */}
                 {/* <GoogleLogin onSuccess={responseMessage} onError={errorMessage} className="google-login-button"/> */}
             </div>
