@@ -79,8 +79,8 @@ app.listen(3001, () => {
 
 app.use('/auth', authRouter);
 app.use('/', indexRouter);
-app.use('/posts', ensureAuthenticated, postsRouter);
-app.use('/users', ensureAuthenticated, usersRouter);
+app.use('/posts', postsRouter);
+app.use('/users', usersRouter);
 // app.use('/calendar', calendarRouter);
 app.use('/event', eventRouter);
 app.use('/session', sessionRouter);
