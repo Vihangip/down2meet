@@ -24,6 +24,7 @@ const addEvent = async (event) => {
         throw new Error(data.errors);
     }
     console.log("service: addEvent");
+    console.log(event);
     console.log(data);
     return data;
 }

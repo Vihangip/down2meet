@@ -10,7 +10,7 @@ const Friend = ({ name, profilepic, availability, onRemove }) => {
 
   const navigate = useNavigate(); 
   const handleProfileClick = () => {
-    navigate('/FriendProfile', { state: { name, profilepic, availability } });  
+    //navigate('/FriendProfile', { state: { name, profilepic, availability } });   ///////
   };
 
   return (

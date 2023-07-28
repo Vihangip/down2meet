@@ -21,8 +21,9 @@ const userSlice = createSlice({
         builder
             .addCase(getUsersAsync.fulfilled, (state, action) => {
                 state.userList = action.payload;
-                state.friendsList = action.payload[0].friends;
-                console.log("state done!!!")
+                state.friendsList = action.payload[0].friends;       ////////////////Why action.payload[0] ??????
+                console.log("state done!!!");
+                console.log(state.friendsList);
             })
             .addCase(getOneUserAsync.fulfilled, (state, action) => {
                 state.user = action.payload;

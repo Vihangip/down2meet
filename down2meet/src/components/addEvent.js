@@ -73,6 +73,8 @@ export function AddEvent() {
 
       // the id value here gets replaces in when the post request is made. 
       // but it is used as a key? todo; check if it can just be a constant
+
+      console.log("addEvent, ", user.user_id);
       dispatch(addEventAsync({
           "id": uuid(), 
           "email": user.email,
