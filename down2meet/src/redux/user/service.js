@@ -40,6 +40,7 @@ const addUsers = async (user) => {
         },
         credentials: 'include',
         body: JSON.stringify(user),
+        credentials: 'include'
     });
     console.log("account added");
     const data = await res.json();
@@ -67,6 +68,7 @@ const addUserPost = async (userID, postID) => {
       },
       credentials: 'include',
       body: JSON.stringify({}),
+      credentials: 'include'
     });
   
     if (res.status >= 400) {
@@ -113,6 +115,49 @@ const logoutUser = async() => {
 
 }
 
+async function addFriend(userId, friendId) {
+    const response = await fetch(`/users/${userId}/addFriend`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ friendId })
+    });
+  
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+  
+    return await response.json();
+  }
+  
+  async function removeFriend(userId, friendId) {
+    const response = await fetch(`/users/${userId}/removeFriend`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ friendId })
+    });
+  
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+  
+    return await response.json();
+  }
+
+  const getFriends = async (user_id) => {
+    const res = await fetch(`http://localhost:3001/users/${user_id}/friends`,
+    {
+        method: "GET",
+        credentials: 'include',
+    });
+    const data = await res.json();
+    return data;
+}
+  
+
 export default {
-    getUsers, addUsers, deleteUsers, getOneUser, addUserPost, getSessionUser, logoutUser
+    getUsers, addUsers, deleteUsers, getOneUser, addUserPost, getSessionUser, logoutUser, addFriend, removeFriend, getFriends
 }
