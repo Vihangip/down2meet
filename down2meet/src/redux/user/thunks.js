@@ -75,3 +75,10 @@ export const removeFriendAsync = createAsyncThunk(
   }
 );
 
+export const getFriendsAsync = createAsyncThunk(
+  'users/getFriendsAsync',
+  async (user_id) => {
+      return await service.getFriends(user_id);
+  }
+);
+

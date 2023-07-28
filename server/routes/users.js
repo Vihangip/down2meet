@@ -53,19 +53,25 @@ router.post('/', async(req, res, next) => {
 });
 
 router.post('/:userId/addFriend', async(req, res) => {
-  console.log(`Request to add friend for user ${req.params.userId}`);
-  const userId = req.params.userId;
-  const friendId = req.body.friendId;
-  const user = await User.findOne({ user_id: userId });
-  if (!user) {
-    return res.status(404).send({message: 'User not found'});
+  try {
+    console.log(`Request to add friend for user ${req.params.userId}`);
+    const userId = req.params.userId;
+    const friendId = req.body.friendId;
+    const user = await User.findOne({ user_id: userId });
+    if (!user) {
+      return res.status(404).send({message: 'User not found'});
+    }
+    if (!user.friends.includes(friendId)) {
+      user.friends.push(friendId);
+      await user.save();
+    }
+    return res.send(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server error');
   }
-  if (!user.friends.includes(friendId)) {
-    user.friends.push(friendId);
-    await user.save();
-  }
-  return res.send(user);
 });
+
 
 router.post('/:userId/removeFriend', async(req, res) => {
   const userId = req.params.userId;
@@ -108,6 +114,13 @@ router.get('/:userID/addPost/:postID', async (req, res) => {
     console.error(error);
     return res.status(500).json({ message: 'Server Error' });
   }
+});
+
+router.get('/:user_id/friends', async(req, res, next) => {
+  console.log(req.params.user_id);
+  const foundUser = await User.findOne({user_id: req.params.user_id})
+  console.log("useruseruser:" + foundUser.friends); 
+  return res.send(foundUser.friends);
 });
 
 module.exports = router;

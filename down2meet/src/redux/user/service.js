@@ -146,8 +146,18 @@ async function addFriend(userId, friendId) {
   
     return await response.json();
   }
+
+  const getFriends = async (user_id) => {
+    const res = await fetch(`http://localhost:3001/users/${user_id}/friends`,
+    {
+        method: "GET",
+        credentials: 'include',
+    });
+    const data = await res.json();
+    return data;
+}
   
 
 export default {
-    getUsers, addUsers, deleteUsers, getOneUser, addUserPost, getSessionUser, logoutUser, addFriend, removeFriend
+    getUsers, addUsers, deleteUsers, getOneUser, addUserPost, getSessionUser, logoutUser, addFriend, removeFriend, getFriends
 }
