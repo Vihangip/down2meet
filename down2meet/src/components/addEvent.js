@@ -23,8 +23,8 @@ export function AddEvent() {
   useEffect(() => {
     dispatch(getSessionUserAsync());
   }, [dispatch]);
-
   const user = useSelector(state => state.users.user);
+  
   const events = useSelector(state => state.event.eventList);
     // Extract unique groups from the 'events' array
     const uniqueGroups = Array.from(new Set(events.flatMap(event => event.groups)));
@@ -44,8 +44,8 @@ export function AddEvent() {
   const itemEndTimeRef = React.useRef(null);
   
   useEffect (() => {
-    dispatch(getEventAsync(user.email));
-  },[dispatch, user.email]);
+    dispatch(getEventAsync(user.user_id));          //////////////////////// 
+  },[dispatch, user.user_id]);                      //////////////////////
 
   // Add selectedGroups state and setSelectedGroups function
   const [selectedGroups, setSelectedGroups] = useState([]);

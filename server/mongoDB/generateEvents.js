@@ -14,7 +14,7 @@ function generateEvents() {
       });
     const event2 = new Item({
         "id": "2",
-        "user_id": "seungbeannie@gmail.com",
+        "user_id": "14734b3f-492b-4d41-b4cb-0cf51d86685a",
         "userID": "2.1",
         "title": "Event 2",
         "description": "description 2",
@@ -24,7 +24,7 @@ function generateEvents() {
       });
     const event3 = new Item({
         "id": "3",
-        "user_id": "seungbeannie@gmail.com",
+        "user_id": "14734b3f-492b-4d41-b4cb-0cf51d86685a",
         "userID": "2.1",
         "title": "Event 3",
         "description": "description 3",

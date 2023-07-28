@@ -22,6 +22,7 @@ function Profile() {
   }, [dispatch]);
 
   const user = useSelector(state => state.users.user);
+  
 
   console.log("profile");
   console.log(user);
