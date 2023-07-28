@@ -5,6 +5,7 @@ const getUsers = async () => {
     const res = await fetch(`http://localhost:3001/users`,
     {
         method: "GET",
+        credentials: 'include'
     });
     const data = await res.json();
     return data;
@@ -15,6 +16,7 @@ const getOneUser = async (userID) => {
     const res = await fetch(`http://localhost:3001/users/${userID}`,
     {
         method: "GET",
+        credentials: 'include'
     });
     const data = await res.json();
 
@@ -39,6 +41,7 @@ const addUsers = async (user) => {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(user),
+        credentials: 'include'
     });
     console.log("account added");
     const data = await res.json();
@@ -52,6 +55,7 @@ const deleteUsers = async (userID) => {
     const res = await fetch(`http://localhost:3001/users/${userID}`,
     {
         method: "DELETE",
+        credentials: 'include'
     });
     const data = await res.text();
     return data;
@@ -64,6 +68,7 @@ const addUserPost = async (userID, postID) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({}),
+      credentials: 'include'
     });
   
     if (res.status >= 400) {
@@ -110,6 +115,39 @@ const logoutUser = async() => {
 
 }
 
+async function addFriend(userId, friendId) {
+    const response = await fetch(`/users/${userId}/addFriend`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ friendId })
+    });
+  
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+  
+    return await response.json();
+  }
+  
+  async function removeFriend(userId, friendId) {
+    const response = await fetch(`/users/${userId}/removeFriend`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ friendId })
+    });
+  
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+  
+    return await response.json();
+  }
+  
+
 export default {
-    getUsers, addUsers, deleteUsers, getOneUser, addUserPost, getSessionUser, logoutUser
+    getUsers, addUsers, deleteUsers, getOneUser, addUserPost, getSessionUser, logoutUser, addFriend, removeFriend
 }
