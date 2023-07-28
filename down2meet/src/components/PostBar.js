@@ -27,7 +27,6 @@ function PostBar() {
   }, [dispatch]);
 
 
-  //console.log(user.picture);
   const handleSubmit = (e) => {
     if (user=== null){
       navigate('/');
@@ -43,7 +42,8 @@ function PostBar() {
       status: postContent ? postContent : "Lets meet up!",
       time: time,
       date: date,
-      location: location
+      location: location,
+      viewers: [useruser.user_id]
     };
     console.log(post);
     dispatch(addPostAsync(post));

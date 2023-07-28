@@ -1,20 +1,7 @@
-
-
 var express = require('express');
 const Post = require('../mongoDB/Post');
-const { randomUUID } = require('crypto');
 var router = express.Router();
 
-var posts = [
-  {name: "Johnny Lau", 
-  id: "1", 
-  status: "I'm gonna be in Richmond at 8pm, anyone want to hang out", 
-  profilepic: "https://upload.wikimedia.org/wikipedia/en/c/c6/Jesse_Pinkman_S5B.png", 
-  availability: true,
-  time: "8pm",
-  date: "July 12",
-  location: "Richmond"
-}]
 
 /* GET posts listing. */
 router.get('/', async(req, res, next) => {
@@ -25,10 +12,41 @@ router.get('/', async(req, res, next) => {
 /* GET posts by id. */
 router.get('/:postId', async(req, res, next) => {
   const foundPost = await Post.findOne({id: req.params.postId})
-  if(!foundPost) return res.status(404).send({message: 'Item not found'})
-  // const postId = req.params.postId;
-  // const foundPost = posts.find(post => post.id === postId);
+  if(!foundPost) return res.status(404).send({message: 'Item not found'});
   return res.send(foundPost);
+});
+
+router.get('/:postId/addViewer/:userId', async (req, res) => {
+  try {
+    const userID = req.params.userId;
+    const postID = req.params.postId;
+    const post = await Post.findOne({ post_id: postID });
+    if (!post) {
+      return res.status(404).send('Post not found');
+    }
+    post.viewers.push(userID);
+    post.save();
+    return res.status(200).send(post);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+router.get('/:postId/removeViewer/:userId', async(req, res) => {
+  try {
+    const userID = req.params.userId;
+    const postID = req.params.postId;
+    const post = await Post.findOne({ post_id: postID });
+    if (!post) {
+      return res.status(404).send('Post not found');
+    }
+    post.viewers = post.viewers.filter(viewer => viewer !== userID);
+    post.save();
+    return res.status(200).send(post);
+  } catch (err) {
+    res.status(500).send('Internal Server Error');
+  }
 });
 
 /* POST post. */
@@ -43,9 +61,7 @@ router.post('/', async(req, res, next) =>{
       date: req.body.date, 
       location: req.body.location,
       viewers: req.body.viewers 
-    })
-  // const post = req.body;
-  // posts.push(post);
+    });
   await post.save()
   res.status(201);
   return res.send(post);
@@ -60,17 +76,6 @@ router.delete('/:postId', async(req, res, next) => {
   } catch {
     return res.status(404).send('Post not found');
   }
-  // const postId = req.params.postId;
-  // console.log(postId);
-  // const postIndex = posts.findIndex(post => post.id === postId);
-  // posts.splice(postIndex, 1);
-
-  // if (postIndex === -1) {
-  //   return res.status(404).send('Post not found');
-  // }
-
-  // res.status(200);
-  // return res.send(postId);
 });
 
 /* PUT post. */

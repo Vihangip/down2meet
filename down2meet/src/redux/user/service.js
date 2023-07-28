@@ -12,7 +12,6 @@ const getUsers = async () => {
 }
 
 const getOneUser = async (userID) => {
-    console.log(userID);
     const res = await fetch(`http://localhost:3001/users/${userID}`,
     {
         method: "GET",
@@ -77,6 +76,24 @@ const addUserPost = async (userID, postID) => {
     console.log("Post added successfully");
   };
 
+  const addUserEvent = async (userID, eventID) => {
+    const res = await fetch(`http://localhost:3001/users/${userID}/events/${eventID}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: 'include',
+      body: JSON.stringify({}),
+    });
+  
+    if (res.status >= 400) {
+      const data = await res.json();
+      throw new Error(data.errors);
+    }
+  
+    console.log("Event added successfully");
+  }
+
   const getSessionUser = async () => {
     const res = await fetch(`http://localhost:3001/session`,
     {
@@ -114,5 +131,5 @@ const logoutUser = async() => {
 }
 
 export default {
-    getUsers, addUsers, deleteUsers, getOneUser, addUserPost, getSessionUser, logoutUser
+    getUsers, addUsers, deleteUsers, getOneUser, addUserPost, addUserEvent, getSessionUser, logoutUser
 }

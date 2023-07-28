@@ -21,3 +21,17 @@ export const deletePostAsync = createAsyncThunk(
         return await service.deletePost(postID);
     }
 );
+
+export const addViewerToPost = createAsyncThunk(
+    'users/addViewerToPost',
+    async ({ postID, userID }) => {
+        return await service.addViewerToPost(postID, userID);
+    }
+);
+
+export const removeViewerFromPost = createAsyncThunk(   
+    'users/removeViewerFromPost',
+    async ({postID, userID}) => {
+        return await service.removeViewerFromPost(postID, userID);
+    }
+);

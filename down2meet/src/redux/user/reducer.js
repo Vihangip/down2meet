@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getUsersAsync, addUsersAsync, deleteUsersAsync, getOneUserAsync, addUserPostAsync, getSessionUserAsync, logoutUserAsync } from "./thunks";
+import { getUsersAsync, addUsersAsync, deleteUsersAsync, getOneUserAsync, addUserPostAsync, addUserEventAsync, getSessionUserAsync, logoutUserAsync } from "./thunks";
 
 
 const INITIAL_STATE = {
     user: null,
     userList: [],
     friendsList: [],
-    postList:[]
+    postList:[],
+    eventList:[]
 };
 
 const userSlice = createSlice({
@@ -39,6 +40,9 @@ const userSlice = createSlice({
             })
             .addCase(addUserPostAsync.fulfilled, (state, action) => {
                 state.postList.push(action.payload);
+            })
+            .addCase(addUserEventAsync.fulfilled, (state, action) => {
+                state.eventList.push(action.payload);
             })
             .addCase(getSessionUserAsync.fulfilled,(state,action) => {
                 state.user = action.payload;

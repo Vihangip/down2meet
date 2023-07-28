@@ -47,6 +47,12 @@ export const addUserPostAsync = createAsyncThunk(
         return await service.addUserPost(userID, postID);
     });
 
+export const addUserEventAsync = createAsyncThunk(
+    'users/addUserEventAsync',
+    async (userID, eventID) => {
+        return await service.addUserEvent(userID, eventID);
+    });
+
 export const logoutUserAsync = createAsyncThunk(
   'users/logoutUserAsync', 
   async () => {

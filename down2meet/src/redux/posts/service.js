@@ -35,6 +35,26 @@ const deletePost = async (postID) => {
     return data;
 }
 
+const addViewerToPost = async (postID, userID) => {
+    const res = await fetch(`http://localhost:3001/posts/${postID}/addViewer/${userID}`,
+    {
+        method: "GET",
+        credentials: 'include',
+    });
+    const data = await res.json();
+    return data;
+}
+
+const removeViewerFromPost = async (postID, userID) => {
+    const res = await fetch(`http://localhost:3001/posts/${postID}/removeViewer/${userID}`,
+    {
+        method: "GET",
+        credentials: 'include',
+    });
+    const data = await res.json();
+    return data;
+}
+
 export default {
-    getPosts, addPost, deletePost
+    getPosts, addPost, deletePost, addViewerToPost, removeViewerFromPost
 }
