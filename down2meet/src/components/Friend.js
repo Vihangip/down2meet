@@ -1,10 +1,18 @@
 
-const Friend = ({ name, profilepic, availability, onRemove }) => {
+import { useNavigate } from "react-router-dom";
 
+const Friend = ({ name, profilepic, availability, friendID, onRemove }) => {
+
+  console.log(friendID);
 
   const handleDeleteClick = (e) => {
     e.stopPropagation();
     onRemove();
+  };
+
+  const navigate = useNavigate(); 
+  const handleProfileClick = () => {
+    navigate('/FriendProfile', { state: { name, profilepic, friendID, availability } });   ///////
   };
 
   return (
@@ -14,7 +22,7 @@ const Friend = ({ name, profilepic, availability, onRemove }) => {
         <div className="friend-info">
           <p className="friend-name">{name}</p>
           {availability ? <p className="friend-available">Available</p> : <p className="friend-busy">Not Available</p>}
-        <button>See Profile</button>
+        <button onClick={handleProfileClick}>See Profile</button>
         <button onClick={handleDeleteClick} >Delete Friend</button>
         </div>
 

@@ -10,6 +10,7 @@ import Events from './pages/Events';
 import Friends from './pages/Friends';
 import Groups from './pages/Groups';
 import Profile from './pages/Profile';
+import FriendProfile from './pages/FriendProfile';
 import Navbar from './components/Navbar';
 import Notifications from './pages/Notification';
 import Hangouts from './pages/Hangouts';
@@ -55,6 +56,7 @@ root.render(<>
             <Route path="/Groups" element={<Groups />} />
             <Route path="/Events" element={<Events />} />
             <Route path="/Profile" element={<Profile />} />
+            <Route path="/FriendProfile" element={<FriendProfile />} />
             <Route path="/user/:userId" element={<UserProfile />} />
             <Route path="/hangouts" element={<Hangouts />} />
             <Route path="/notifications" element={<Notifications />} />
