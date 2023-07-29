@@ -1,5 +1,8 @@
 # down2meet
 
+## High Level Description
+Down2meet is a solution for scheduling meetings with friends. It eliminates the hassle of back-and-forths and group chat confusion. Users can easily request and accept hangouts without having to automatically compare availability times.
+
 Group Name: 
 **down2meet**
 
