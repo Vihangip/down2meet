@@ -5,7 +5,8 @@
   import UserProfile from './UserProfile';
   import Search from './Search';
   import { handleCreateEvent } from "./Calendar";
-  import { getFriendsAsync, getSessionUserAsync } from '../redux/user/thunks';
+  import { getFriendsAsync, getOneUserAsync, getSessionUserAsync } from '../redux/user/thunks';
+  import service from "../redux/user/service";
 
   const { v4: uuid } = require('uuid');
 
@@ -24,12 +25,19 @@
     const currentUser = useSelector((state) => state.users.user); 
     const usersFriends = useSelector((state) => state.users.friendsList)
     // const sessionUser
-    console.log(currentUser.friendsList);
     const uniqueFriends = Array.from(new Set(usersFriends));
 
-    console.log(uniqueFriends);
+    // console.log(uniqueFriends);
     
     const [selectedFriends, setSelectedFriends] = useState([]);
+
+    const [friendNames, setFriendNames] = useState([]);
+    useEffect(() => {
+      // Fetch and resolve all user names asynchronously
+      Promise.all(uniqueFriends.map(friend => getUserNameByID(friend)))
+        .then(names => setFriendNames(names))
+        .catch(error => console.error(error));
+    }, []);
 
     const itemNameRef = React.useRef(null);
     const itemMemRef = React.useRef(null);
@@ -40,6 +48,19 @@
       dispatch(getFriendsAsync(currentUser.user_id));
 
     }, [dispatch]);
+
+    const getUserNameByID = async (userid) => {
+      try {
+        const user = await service.getOneUser(userid);
+        // console.log(user.name);
+
+        return user.name;
+      } catch (error) {
+        // Use rejectWithValue to include the error message in the action payload
+        console.log(error.message);
+        return;
+      }
+    };
 
     const handleFormSubmit = (event) => {
       event.preventDefault();
@@ -113,7 +134,7 @@
           {/* <UserProfile/> */}
           {/* <Search/> */}
           {/* ChatGPT helped with the checkboxes */}
-          {uniqueFriends.map((friend) => (
+         {uniqueFriends.map((friend, index) => (
             <label key={friend}>
               <input
                 className="add-events-checkbox"
@@ -127,7 +148,9 @@
                 }
               }
               />
-              {friend}
+              {/* {getUserNameByID(friend)} */}
+              {/* Render the friend name directly if available, else show loading */}
+              {friendNames[index] || 'Loading...'}
               <br />
             </label>
           ))}
