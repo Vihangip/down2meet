@@ -64,10 +64,11 @@ function Home() {
       </div>
       <div className="Body-Right">
         <ButtonAvailable />
-        <Search onUserClick={handleUserProfileClick} /> {/* Pass the click handler to Search */}
-        <ActiveUsers />
-      </div>
-    </>
+        <Search />
+        {/* <ActiveUsers />  */}
+        </div>
+      </>
+    
   );
 }
 

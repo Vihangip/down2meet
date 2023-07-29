@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import ApiCalendar from 'react-google-calendar-api';
 import { googleEvent } from "./addEvent";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { signInCalendar} from '../actions/actions';
 
 const config = {
@@ -87,7 +87,6 @@ export function handleCreateEvent() {
 };
 
 const Calendar = () => {
-  const [events, setEvents] = useState([]);
   const dispatch = useDispatch();
   //const [newEvent, setNewEvent] = useState(new Date());
 

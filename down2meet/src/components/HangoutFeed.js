@@ -23,6 +23,7 @@ export default function HangoutFeed() {
     const posts = useSelector((state) => state.posts.postList);
     const filteredPosts = posts.filter((post) => hangoutList.includes(post.post_id));
     console.log(storedUser.user_id);
+    console.log("HangoutFeed");
     console.log(hangoutList);
     console.log(filteredPosts);
 

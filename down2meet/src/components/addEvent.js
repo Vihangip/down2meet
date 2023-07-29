@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addEventAsync, getEventAsync, deleteEventAsync, updateEventAsync } from '../redux/event/thunks';
+import { addEventAsync, getEventAsync, deleteEventAsync } from '../redux/event/thunks';
 import { handleCreateEvent } from './Calendar'
 import { getSessionUserAsync } from "../redux/user/thunks";
 

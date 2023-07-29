@@ -1,8 +1,7 @@
 import BodyHeader from '../components/BodyHeader';
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useEffect, useState} from 'react';
-import { getSessionUserAsync } from '../redux/user/thunks';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 import { getUsersAsync } from '../redux/user/thunks';
 import { getEventAsync } from '../redux/event/thunks';
 import Event from '../components/Event';

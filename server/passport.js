@@ -23,7 +23,7 @@ passport.use(
       {
         clientID: '1011482531322-6d1dp35f941hr37vnn7cvjdstntunnru.apps.googleusercontent.com',
         clientSecret: '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',
-        callbackURL: 'https://down2meet.onrender.com/auth/google/callback',
+        callbackURL: 'http://localhost:3001/auth/google/callback',
       },
       async (accessToken, refreshToken, profile, done) => {
         try {
