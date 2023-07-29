@@ -25,23 +25,30 @@ function FriendProfile() {
   },[dispatch, friendInfo]);  
 
   return (
-    <div className="ProfilePage">
-      <BodyHeader title={"Friend's Profile"}/>
-        <div className="in-line">
-          
-          
-          <img className="ProfilePicture" src={friendInfo.picture} alt="profile"/>   
-          <div className="column">
-            <p> Name:   {friendInfo.name} </p> 
-            <p> ID: {friendInfo.user_id} </p>
-
-          </div>
-        </div>
-        <h3> Schedule</h3>
-       
-        <div > <Event formLocation="profile"/> </div>
-
+    <>
+    <div className="Body-Left">
+    <Navbar />
     </div>
+    <div className="Body-Middle">
+      <div className="ProfilePage">
+        <BodyHeader title={"Friend's Profile"}/>
+          <div className="in-line">
+            <img className="ProfilePicture" src={friendInfo.picture} alt="profile"/>   
+            <div className="column">
+            <p> Name:   {friendInfo.name} </p> 
+              <p> ID: {friendInfo.user_id} </p>
+            </div>
+          </div>
+          <h3> Schedule</h3>
+          <div > <Event formLocation="profile"/> </div>
+      </div>
+    </div>
+    <div className="Body-Right">
+          <ButtonAvailable />
+          <Search />
+          {/* <ActiveUsers /> */}
+    </div>
+    </>
 
   );
 }
