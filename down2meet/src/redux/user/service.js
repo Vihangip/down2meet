@@ -38,7 +38,6 @@ const addUsers = async (user) => {
         },
         credentials: 'include',
         body: JSON.stringify(user),
-        credentials: 'include'
     });
     console.log("account added");
     const data = await res.json();
@@ -69,7 +68,7 @@ const getFriends = async (user_id) => {
 }
 
 const getHangouts = async (user_id) => {
-  const res = await fetch(`https://down2meet.onrender.com//users/${user_id}/hangouts`,
+  const res = await fetch(`https://down2meet.onrender.com/users/${user_id}/hangouts`,
   {
       method: "GET",
       credentials: 'include',
@@ -87,7 +86,6 @@ const addUserPost = async (userID, postID) => {
       },
       credentials: 'include',
       body: JSON.stringify({}),
-      credentials: 'include'
     });
   
     if (res.status >= 400) {

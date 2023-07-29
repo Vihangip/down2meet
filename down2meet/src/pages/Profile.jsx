@@ -1,7 +1,7 @@
 import BodyHeader from '../components/BodyHeader';
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useEffect, useState} from 'react';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 import { getUsersAsync } from '../redux/user/thunks';
 import Event from '../components/Event';
 import Navbar from '../components/Navbar';

@@ -8,9 +8,8 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { getUsersAsync } from '../redux/user/thunks';
 import { getPostsAsync } from '../redux/posts/thunks';
-import { getSessionUserAsync, getHangoutsAsync } from '../redux/user/thunks';
+import { getSessionUserAsync } from '../redux/user/thunks';
 import { setUser } from '../redux/user/reducer';
-import { useSelector } from 'react-redux';
 
 
 function Hangouts() {
