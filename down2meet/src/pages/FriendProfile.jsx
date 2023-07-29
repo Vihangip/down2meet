@@ -7,6 +7,8 @@ import { getSessionUserAsync } from '../redux/user/thunks';
 
 import { getUsersAsync } from '../redux/user/thunks';
 import { useLocation } from 'react-router-dom';
+import { getEventAsync } from '../redux/event/thunks';
+
 
 import Event from '../components/Event';
 
@@ -16,6 +18,11 @@ function FriendProfile() {
   const friendInfo = location?.state?.friendInfo;
 
   console.log("friend's profile");
+
+  const dispatch = useDispatch();
+  useEffect (() => {
+    dispatch(getEventAsync(friendInfo.user_id));          //////////////////////// 
+  },[dispatch, friendInfo]);  
 
   return (
     <div className="ProfilePage">
