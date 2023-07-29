@@ -84,13 +84,17 @@ export function AddEvent() {
           "start": formattedStartDate, 
           "end": formattedEndDate,
           "groups": selectedGroups,}));
-    
 
 
       if (calendarSignedIn === true) {
+        googleEvent.title = (itemNameRef.current.value);
+        googleEvent.description = (itemDescRef.current.value);
+        googleEvent.startingDate = (startDate);//startDate);
+        googleEvent.endingDate = (endDate);//endDate);
         handleCreateEvent(); //only add event to Google Calendar if user is signed in
+        console.log("added to google calendar")
       }
-      //console.log("addEvent new event");
+      console.log("addEvent new event");
       //console.log(googleEvent.startingDate);
 
     };
