@@ -1,5 +1,3 @@
-
-
 var express = require('express');
 const User = require('../mongoDB/User');
 const { randomUUID } = require('crypto');
@@ -46,8 +44,6 @@ router.post('/', async(req, res, next) => {
       hangouts: req.body.hangouts,
       availability: req.body.availability
     })
-  // const post = req.body;
-  // posts.push(post);
   await user.save()
   res.status(201);
   return res.send(user);
@@ -129,12 +125,6 @@ router.get('/:userID/addPost/:postID', async (req, res) => {
   }
 });
 
-router.get('/:user_id/friends', async(req, res, next) => {
-  console.log(req.params.user_id);
-  const foundUser = await User.findOne({user_id: req.params.user_id})
-  console.log("useruseruser:" + foundUser.friends); 
-  return res.send(foundUser.friends);
-});
 
 router.put('/:userId/availability', async (req, res) => {
   try {

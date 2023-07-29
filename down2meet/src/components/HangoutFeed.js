@@ -17,10 +17,11 @@ export default function HangoutFeed() {
       };
   
       fetchPostsAndUsers();
-    }, [dispatch]);
+    }, [dispatch, storedUser.user_id]);
     const hangoutList = useSelector((state) => (state.users.hangoutList));
 
     console.log(storedUser.user_id);
+    console.log("HangoutFeed");
     console.log(hangoutList);
 
     
