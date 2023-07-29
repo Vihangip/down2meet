@@ -37,8 +37,8 @@ function Friends() {
   };
 
   const navigate = useNavigate(); 
-  const handleProfileClick = () => {
-    //navigate('/FriendProfile', { state: { name, profilepic, friendID, availability } });   ///////
+  const handleProfileClick = (friendInfo) => {
+    navigate('/FriendProfile', { state: { friendInfo } });   ///////
   };
 
 
@@ -63,9 +63,9 @@ function Friends() {
           <img className="friend-image" src={friend.picture} alt="pfp" />
           <p className="friend-info">{friend.name}</p>
           <div className="friend-container-button">
-          <button className="friend-info" onClick={handleProfileClick}>See Profile</button>
+          <button className="friend-info" onClick={() => handleProfileClick({ user_id: friend.user_id, picture: friend.picture, name: friend.name })}>See Profile</button>
         </div>
-        
+
         </div>
 
         </div>
