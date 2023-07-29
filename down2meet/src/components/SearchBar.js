@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-export default function SearchBar({ onSearchResultClick }) {
+export default function SearchBar({ onSearch, onSearchResultClick }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
@@ -35,7 +35,8 @@ export default function SearchBar({ onSearchResultClick }) {
   const handleLinkClick = (userId) => {
     setSearchQuery('');
     setSearchResults([]);
-    onSearchResultClick(userId); // Call the function passed from Search.js with the selected userId
+    onSearchResultClick(userId);
+    onSearch(''); // Update the search query in the parent component as well
   };
 
   return (
@@ -53,7 +54,7 @@ export default function SearchBar({ onSearchResultClick }) {
         {isSearchFocused && searchResults.length > 0 && (
           <div className="dropdown">
             {searchResults.map((result, index) => (
-              <Link key={index} to={`/user/${result.user_id}`} onClick={handleLinkClick}>
+              <Link key={index} to={`/user/${result.user_id}`} onClick={() => handleLinkClick(result.user_id)}>
                 <div>{result.name}</div>
               </Link>
             ))}
