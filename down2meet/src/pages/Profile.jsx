@@ -8,6 +8,7 @@ import { getSessionUserAsync } from '../redux/user/thunks';
 //import Availability from '../components/Availability';
 
 import { getUsersAsync } from '../redux/user/thunks';
+import { getEventAsync } from '../redux/event/thunks';
 import Event from '../components/Event';
 // import Calendar from '../components/Calendar';
 
@@ -22,7 +23,11 @@ function Profile() {
   }, [dispatch]);
 
   const user = useSelector(state => state.users.user);
-  
+
+  useEffect (() => {
+    dispatch(getEventAsync(user.user_id));          //////////////////////// 
+  },[dispatch, user.user_id]);  
+
 
   console.log("profile");
   console.log(user);
