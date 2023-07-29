@@ -2,7 +2,7 @@ import { setUser } from "./reducer";
 
 
 const getUsers = async () => {
-    const res = await fetch(`http://localhost:3001/users`,
+    const res = await fetch(`https://down2meet.onrender.com/users`,
     {
         method: "GET",
         credentials: 'include',
@@ -13,7 +13,7 @@ const getUsers = async () => {
 
 const getOneUser = async (userID) => {
     console.log(userID);
-    const res = await fetch(`http://localhost:3001/users/${userID}`,
+    const res = await fetch(`https://down2meet.onrender.com/users/${userID}`,
     {
         method: "GET",
         credentials: 'include',
@@ -32,7 +32,7 @@ const getOneUser = async (userID) => {
 }
 
 const addUsers = async (user) => {
-    const res = await fetch(`http://localhost:3001/users`,
+    const res = await fetch(`https://down2meet.onrender.com/users`,
     {
         method: "POST",
         headers: {
@@ -51,7 +51,7 @@ const addUsers = async (user) => {
 }
 
 const deleteUsers = async (userID) => {
-    const res = await fetch(`http://localhost:3001/users/${userID}`,
+    const res = await fetch(`https://down2meet.onrender.com/users/${userID}`,
     {
         method: "DELETE",
         credentials: 'include',
@@ -61,7 +61,7 @@ const deleteUsers = async (userID) => {
 }
 
 const addUserPost = async (userID, postID) => {
-    const res = await fetch(`http://localhost:3001/users/${userID}/posts/${postID}`, {
+    const res = await fetch(`https://down2meet.onrender.com/users/${userID}/posts/${postID}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -80,7 +80,7 @@ const addUserPost = async (userID, postID) => {
   };
 
   const getSessionUser = async () => {
-    const res = await fetch(`http://localhost:3001/session`,
+    const res = await fetch(`https://down2meet.onrender.com/session`,
     {
         method: "GET",
         headers: {
@@ -99,7 +99,7 @@ const addUserPost = async (userID, postID) => {
 }
 
 const logoutUser = async() => {
-    const res = await fetch(`http://localhost:3001/auth/logout`,
+    const res = await fetch(`https://down2meet.onrender.com/auth/logout`,
     {
         method:"GET",
         credentials: 'include',
@@ -148,7 +148,7 @@ async function addFriend(userId, friendId) {
   }
 
   const getFriends = async (user_id) => {
-    const res = await fetch(`http://localhost:3001/users/${user_id}/friends`,
+    const res = await fetch(`https://down2meet.onrender.com/users/${user_id}/friends`,
     {
         method: "GET",
         credentials: 'include',
