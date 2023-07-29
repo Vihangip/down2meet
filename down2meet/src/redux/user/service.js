@@ -168,7 +168,7 @@ async function addFriend(userId, friendId) {
     }
 
     const addUserGroup = async (group) => {
-      console.log("got in service");
+      // console.log("got in service");
       const response = await fetch(`http://localhost:3001/users/${group.user_id}/addGroup`, {
         method: 'POST',
         headers: {

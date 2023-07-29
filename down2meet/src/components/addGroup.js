@@ -43,7 +43,7 @@
       // dispatch(getFriendsAsync(currentUser.user_id));
       // todo: Need to add to Groups collection too
 
-    }, [dispatch]);
+    },[dispatch]);
 
 
     const getUserNameByID = async (userid) => {
@@ -79,12 +79,17 @@
         //   "members": selectedFriends
         // });
 
-        dispatch(addUserGroupsAsync({
+        dispatch(
+          addUserGroupsAsync({
           "id": uuid(),
           "user_id": currentUser.user_id,
           "name": newGroupName,
           "members": selectedFriends
-      }));
+        }));
+        dispatch(getUserGroupsAsync(currentUser.user_id));
+
+
+      
       // // Clear the input field after successfully adding the group
       itemNameRef.current.value = "";
   
