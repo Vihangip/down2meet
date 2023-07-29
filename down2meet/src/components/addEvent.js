@@ -56,20 +56,41 @@ export function AddEvent() {
   const handleFormSubmit = (event) => {
     event.preventDefault(); // Prevents the default form submission behavior
 
-    const startDate = new Date(
+  
+    const options = {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+      timeZone: 'America/Vancouver',
+    };
+
+    const unformattedStartDate = new Date(
       itemStartRef.current.value + 'T' + itemStartTimeRef.current.value
-    ).toISOString();
-    const endDate = new Date(
+    );
+
+    const unformattedEndDate = new Date(
       itemEndRef.current.value + 'T' + itemEndTimeRef.current.value
-    ).toISOString();
+    );
+
+    const vancouverStartDate = new Intl.DateTimeFormat('en-US', options).format(unformattedStartDate);
+    const vancouverEndDate = new Intl.DateTimeFormat('en-US', options).format(unformattedEndDate);
+
+    const startDate = new Date(vancouverStartDate);
+    const endDate = new Date(vancouverEndDate);
+
 
       // Your form submit logic here
       console.log("title", itemNameRef.current.value);
       console.log("description", itemDescRef.current.value);
       console.log("start date", startDate);
       console.log("end date", endDate);
-      formattedStartDate = startDate.slice(0, -1);
-      formattedEndDate = endDate.slice(0, -1);
+      formattedStartDate = startDate;
+      formattedEndDate = endDate;
+
+      console.log(formattedStartDate);
 
       // the id value here gets replaces in when the post request is made. 
       // but it is used as a key? todo; check if it can just be a constant
