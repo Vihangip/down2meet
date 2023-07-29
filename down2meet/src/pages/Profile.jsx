@@ -36,7 +36,7 @@ function Profile() {
     fetchPostsAndUsers();
   }, [dispatch]);
 
-  //const user = useSelector(state => state.reducer.user);
+  const user = useSelector(state => state.reducer.user);
   //useEffect(() => {
   //  dispatch(getSessionUserAsync());
   // }, [dispatch]);
@@ -44,7 +44,9 @@ function Profile() {
   console.log("profile");
   console.log(user);
 
-
+  useEffect (() => {
+    dispatch(getEventAsync(user.user_id));          //////////////////////// 
+  },[dispatch, user.user_id]);  
 
   return (
     <>
