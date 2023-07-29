@@ -10,6 +10,8 @@ import ButtonAvailable from '../components/ButtonAvailable';
 import Search from '../components/Search';
 import ProfileInfo from '../components/ProfileInfo';
 import { setUser } from '../redux/user/reducer';
+import { getSessionUserAsync } from '../redux/user/thunks';
+import { useSelector } from 'react-redux';
 
 
 function Profile() {

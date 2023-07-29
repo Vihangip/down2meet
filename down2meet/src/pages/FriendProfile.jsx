@@ -8,6 +8,9 @@ import { getSessionUserAsync } from '../redux/user/thunks';
 import { getUsersAsync } from '../redux/user/thunks';
 import { useLocation } from 'react-router-dom';
 import { getEventAsync } from '../redux/event/thunks';
+import ButtonAvailable from '../components/ButtonAvailable';
+import Navbar from '../components/Navbar';
+import Search from '../components/Search';
 
 
 import Event from '../components/Event';
