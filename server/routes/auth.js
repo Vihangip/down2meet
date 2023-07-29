@@ -38,7 +38,7 @@ router.get('/logout', function(req, res, next) {
       res.status(200).send();
       // Redirect to the client-side route
     });
-    // res.redirect('http://localhost:3001');
+    // res.redirect('https://down2meet.onrender.com');
 });
   
 
