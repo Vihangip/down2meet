@@ -46,15 +46,15 @@ function Friends() {
 
       <div className="FriendsPage">
         <div>
-      {sortedData.map((friend, index) => (
+      {/* {sortedData.map((friend, index) => ( */}
         <Friend
-          key={index}
-          name={friend.name}
-          profilepic={friend.profilepic}
-          availability={friend.availability}
-          onRemove={() => handleRemoveFriend(index)}
+          // key={index}
+          // name={friend.name}
+          // profilepic={friend.profilepic}
+          // availability={friend.availability}
+          // onRemove={() => handleRemoveFriend(index)}
         />
-      ))}
+      {/* ))} */}
       </div>
     </div>
     </div>
