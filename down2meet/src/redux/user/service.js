@@ -1,7 +1,7 @@
 
 
 const getUsers = async () => {
-    const res = await fetch(`http://localhost:3001/users`,
+    const res = await fetch(`https://down2meet.onrender.com/users`,
     {
         method: "GET",
         credentials: 'include',
@@ -11,7 +11,7 @@ const getUsers = async () => {
 }
 
 const getOneUser = async (userID) => {
-    const res = await fetch(`http://localhost:3001/users/${userID}`,
+    const res = await fetch(`https://down2meet.onrender.com/users/${userID}`,
     {
         method: "GET",
         credentials: 'include',
@@ -30,7 +30,7 @@ const getOneUser = async (userID) => {
 }
 
 const addUsers = async (user) => {
-    const res = await fetch(`http://localhost:3001/users`,
+    const res = await fetch(`https://down2meet.onrender.com/users`,
     {
         method: "POST",
         headers: {
@@ -38,6 +38,7 @@ const addUsers = async (user) => {
         },
         credentials: 'include',
         body: JSON.stringify(user),
+        credentials: 'include'
     });
     console.log("account added");
     const data = await res.json();
@@ -48,7 +49,7 @@ const addUsers = async (user) => {
 }
 
 const deleteUsers = async (userID) => {
-    const res = await fetch(`http://localhost:3001/users/${userID}`,
+    const res = await fetch(`https://down2meet.onrender.com/users/${userID}`,
     {
         method: "DELETE",
         credentials: 'include',
@@ -79,13 +80,14 @@ const getHangouts = async (user_id) => {
 }
 
 const addUserPost = async (userID, postID) => {
-    const res = await fetch(`http://localhost:3001/users/${userID}/posts/${postID}`, {
+    const res = await fetch(`https://down2meet.onrender.com/users/${userID}/posts/${postID}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       credentials: 'include',
       body: JSON.stringify({}),
+      credentials: 'include'
     });
   
     if (res.status >= 400) {
@@ -97,7 +99,7 @@ const addUserPost = async (userID, postID) => {
   };
 
   const addUserEvent = async (userID, eventID) => {
-    const res = await fetch(`http://localhost:3001/users/${userID}/events/${eventID}`, {
+    const res = await fetch(`https://down2meet.onrender.com/users/${userID}/events/${eventID}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -115,7 +117,7 @@ const addUserPost = async (userID, postID) => {
   }
 
   const getSessionUser = async () => {
-    const res = await fetch(`http://localhost:3001/session`,
+    const res = await fetch(`https://down2meet.onrender.com/session`,
     {
         method: "GET",
         headers: {
@@ -133,6 +135,40 @@ const addUserPost = async (userID, postID) => {
     return data;
 }
 
+async function addFriend(userId, friendId) {
+    const response = await fetch(`/users/${userId}/addFriend`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ friendId })
+    });
+  
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+  
+    return await response.json();
+  }
+  
+  async function removeFriend(userId, friendId) {
+    const response = await fetch(`/users/${userId}/removeFriend`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ friendId })
+    });
+  
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+  
+    return await response.json();
+  }
+
+  
+
 export default {
-    getUsers, addUsers, deleteUsers, getOneUser, addUserPost, addUserEvent, getSessionUser, getFriends, getHangouts
+    getUsers, addUsers, deleteUsers, getOneUser, addUserPost, addUserEvent, getSessionUser, getFriends, getHangouts, addFriend, removeFriend, getFriends
 }

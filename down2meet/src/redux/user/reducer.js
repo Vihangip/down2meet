@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getUsersAsync, addUsersAsync, deleteUsersAsync, getOneUserAsync, addUserPostAsync, addUserEventAsync, getSessionUserAsync, getFriendsAsync, getHangoutsAsync} from "./thunks";
+import { getUsersAsync, addUsersAsync, deleteUsersAsync, getOneUserAsync, addUserPostAsync, addUserEventAsync, getSessionUserAsync, getFriendsAsync, getHangoutsAsync,} from "./thunks";
 
 
 const INITIAL_STATE = {

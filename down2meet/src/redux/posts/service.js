@@ -1,5 +1,5 @@
-const getPosts = async (userID) => {
-    const res = await fetch(`http://localhost:3001/posts`,
+const getPosts = async () => {
+    const res = await fetch(`https://down2meet.onrender.com/posts`,
     {
         method: "GET",
         credentials: 'include',
@@ -9,7 +9,7 @@ const getPosts = async (userID) => {
 }
 
 const addPost = async (post) => {
-    const res = await fetch(`http://localhost:3001/posts`,
+    const res = await fetch(`https://down2meet.onrender.com/posts`,
     {
         method: "POST",
         headers: {
@@ -26,7 +26,7 @@ const addPost = async (post) => {
 }
 
 const deletePost = async (postID) => {
-    const res = await fetch(`http://localhost:3001/posts/${postID}`,
+    const res = await fetch(`https://down2meet.onrender.com/posts/${postID}`,
     {
         method: "DELETE",
         credentials: 'include',

@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import service from "./service";
 
+
 export const getUsersAsync = createAsyncThunk(
     'users/getUsersAsync',
     async () => {
@@ -63,6 +64,20 @@ export const getSessionUserAsync = createAsyncThunk(
   'users/getUserAsync',
   async() => {
     return await service.getSessionUser();
+  }
+);
+
+export const addFriendAsync = createAsyncThunk(
+  'users/addFriend',
+  async ({ userId, friendId }) => {
+    return await service.addFriend(userId, friendId);
+  }
+);
+
+export const removeFriendAsync = createAsyncThunk(
+  'users/removeFriend',
+  async ({ userId, friendId }) => {
+    return await service.removeFriend(userId, friendId);
   }
 );
 
