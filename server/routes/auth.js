@@ -14,6 +14,7 @@ router.get(
         user_id: req.user.user_id,
         name: req.user.name,
         picture: req.user.picture,
+        email: req.user.email,
         // Add any other relevant user data here
       }
       req.login(req.user, (err) => {
