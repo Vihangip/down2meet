@@ -10,7 +10,6 @@ import ButtonAvailable from '../components/ButtonAvailable';
 import Search from '../components/Search';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { getSessionUserAsync } from '../redux/user/thunks';
 import { setUser } from '../redux/user/reducer';
 
 function Group() {

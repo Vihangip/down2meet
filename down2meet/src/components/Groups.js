@@ -8,7 +8,7 @@ import service from '../redux/user/service';
 
 export default function Groups(props) {
   const groupsList = useSelector(state => state.users.groupList);
-  const currentUser = useSelector((state) => state.users.user);
+  const currentUser = JSON.parse(localStorage.getItem('user'));
   const dispatch = useDispatch();
 
   const [isLoading, setIsLoading] = useState(true);
