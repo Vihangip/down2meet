@@ -13,7 +13,7 @@ function Friends() {
 
   useEffect(() => {
     if (user) {
-      fetch(`https://down2meet.onrender.com//users/${user.user_id}/friendsData`)
+      fetch(`https://down2meet.onrender.com/users/${user.user_id}/friendsData`)
         .then((response) => {
           if (!response.ok) {
             console.log(response);
