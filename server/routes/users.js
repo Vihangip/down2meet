@@ -118,8 +118,13 @@ router.get('/:userID/addPost/:postID', async (req, res) => {
 
 router.get('/:user_id/friends', async(req, res, next) => {
   console.log(req.params.user_id);
-  const foundUser = await User.findOne({user_id: req.params.user_id})
-  console.log("useruseruser:" + foundUser.friends); 
+  const foundUser = await User.findOne({user_id: req.params.user_id});
+  if(!foundUser) {
+    console.log("no friends");
+  } else {
+    console.log("useruseruser:" + foundUser.friends); 
+  }
+
   return res.send(foundUser.friends);
 });
 

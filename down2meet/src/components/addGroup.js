@@ -5,7 +5,7 @@
   import UserProfile from './UserProfile';
   import Search from './Search';
   import { handleCreateEvent } from "./Calendar";
-  import { getSessionUserAsync } from '../redux/user/thunks';
+  import { getFriendsAsync, getSessionUserAsync } from '../redux/user/thunks';
 
   const { v4: uuid } = require('uuid');
 
@@ -15,6 +15,8 @@
     useEffect(() => {
       dispatch(getSessionUserAsync());
       dispatch(getGroupsAsync());
+      dispatch(getFriendsAsync());
+
     }, [dispatch]);
 
     // MAKE IT SO THAT YOU CAN'T ADD GROUPS WITH THE SAME NAME
@@ -24,8 +26,8 @@
     // Extract unique friends from the 'friendsOfUser' array
     // const uniqueFriends = Array.from(new Set(usersFriends));
 
-    const currentUser = useSelector(state => state.users.user); 
-    const uniqueFriends = Array.from(new Set(currentUser.friends));
+    const currentUser = useSelector(state => state.users); 
+    const uniqueFriends = Array.from(new Set(currentUser.friendsList));
 
     console.log(uniqueFriends);
     
