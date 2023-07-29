@@ -22,6 +22,7 @@ const userSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(getUsersAsync.fulfilled, (state, action) => {
+                console.log(action.payload);
                 state.userList = action.payload;
                 console.log("state done!!!")
             })
