@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-export default function SearchBar() {
+export default function SearchBar({ onSearchResultClick }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
@@ -32,9 +32,10 @@ export default function SearchBar() {
     setTimeout(() => setIsSearchFocused(false), 200);
   };
 
-  const handleLinkClick = () => {
+  const handleLinkClick = (userId) => {
     setSearchQuery('');
     setSearchResults([]);
+    onSearchResultClick(userId); // Call the function passed from Search.js with the selected userId
   };
 
   return (

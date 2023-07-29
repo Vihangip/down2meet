@@ -62,6 +62,7 @@ export default function UserProfile() {
   }
 
   return (
+    
     <div className="UserProfile">
         <h1>{userProfile.name}</h1>
         <img src={userProfile.picture} alt={userProfile.name} />
