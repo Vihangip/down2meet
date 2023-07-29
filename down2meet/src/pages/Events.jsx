@@ -10,6 +10,7 @@ import Search from '../components/Search';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { getSessionUserAsync } from '../redux/user/thunks';
+import { setUser } from '../redux/user/reducer';
 
 function Events() {
   const dispatch = useDispatch();
@@ -17,8 +18,13 @@ function Events() {
   useEffect(() => {
     const fetchPostsAndUsers = async () => {
       try {
+        const storedUser = JSON.parse(localStorage.getItem('user'));
+        if (storedUser) {
+          dispatch(setUser(storedUser)); // Initialize the user state with the stored data
+        } else {
         await dispatch(getSessionUserAsync());
         // await dispatch(getPostsAsync());
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
       }

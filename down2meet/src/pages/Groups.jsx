@@ -10,22 +10,29 @@ import Search from '../components/Search';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { getSessionUserAsync } from '../redux/user/thunks';
+import { setUser } from '../redux/user/reducer';
 
 function Group() {
   
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const fetchPostsAndUsers = async () => {
+    const fetchUsers = async () => {
       try {
+        const storedUser = JSON.parse(localStorage.getItem('user'));
+        if (storedUser) {
+          dispatch(setUser(storedUser)); // Initialize the user state with the stored data
+        } else {
         await dispatch(getSessionUserAsync());
         // await dispatch(getPostsAsync());
-      } catch (error) {
+        }
+      }
+      catch (error) {
         console.error('Error fetching data:', error);
       }
     };
 
-    fetchPostsAndUsers();
+    fetchUsers();
   }, [dispatch]);
 
   return (
