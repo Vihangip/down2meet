@@ -157,6 +157,7 @@ router.put('/:userId/availability', async (req, res) => {
     console.error(error);
     res.status(500).json({ message: 'Server error' });
   }
+});
   
 router.get('/:user_id/friends', async(req, res, next) => {
   console.log(req.params.user_id);
@@ -208,4 +209,3 @@ router.post('/:userId/addGroup', async(req, res) => {
 
 
 module.exports = router;
-
