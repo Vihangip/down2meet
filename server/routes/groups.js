@@ -1,4 +1,4 @@
-const queries = require ('../mongoDB/groupQueries');
+const queries = require ('../mongoDB/GroupQueries');
 
 var express = require('express');
 var router = express.Router();
