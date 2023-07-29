@@ -123,5 +123,25 @@ router.get('/:user_id/friends', async(req, res, next) => {
   return res.send(foundUser.friends);
 });
 
+router.put('/:userId/availability', async (req, res) => {
+  try {
+    const user = await User.findOne({ user_id: req.params.userId });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    user.availability = req.body.availability;
+    await user.save();
+
+    res.json({ message: 'User availability updated', user });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
+
 module.exports = router;
 
