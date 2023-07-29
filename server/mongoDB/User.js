@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
     friends: { type: Array, default: [] },
     groups: [Object],
     events: [Object],
+    hangouts: [Object],
     availability: String,
 });
 

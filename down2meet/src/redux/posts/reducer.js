@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getPostsAsync, addPostAsync, deletePostAsync } from "./thunks";
+import { getPostsAsync, addPostAsync, deletePostAsync, addParticipantToPost, removeParticipantFromPost } from "./thunks";
 import {REQUEST_STATE} from '../utils'
 
 
@@ -25,6 +25,26 @@ const postSlice = createSlice({
             })
             .addCase(deletePostAsync.fulfilled, (state, action) => {
                 state.postList = state.postList.filter((post) => post.id !== action.payload);
+            })
+            .addCase(addParticipantToPost.fulfilled, (state, action) => {
+                // console.log('BEFORE');
+                // console.log(state.postList);
+                // state.postList = state.postList.map((post) => {
+                //     if (post.id === action.payload.id) {
+                //         return action.payload;
+                //     }
+                //     return post;
+                // });
+                // console.log('AFTER');
+                // console.log(state.postList);
+            })
+            .addCase(removeParticipantFromPost.fulfilled, (state, action) => {
+                // state.postList = state.postList.map((post) => {
+                //     if (post.id === action.payload.id) {
+                //         return action.payload;
+                //     }
+                //     return post;
+                // });
             });
     },
 });

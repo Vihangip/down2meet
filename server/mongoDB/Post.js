@@ -10,6 +10,7 @@ const postSchema = new mongoose.Schema({
     date: String,
     location: String,
     viewers: [String],
+    participants: [String],
 });
 
 // create model

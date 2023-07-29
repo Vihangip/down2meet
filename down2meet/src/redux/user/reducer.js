@@ -1,12 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getUsersAsync, addUsersAsync, deleteUsersAsync, getOneUserAsync, addUserPostAsync, getSessionUserAsync, logoutUserAsync, getFriendsAsync } from "./thunks";
+import { getUsersAsync, addUsersAsync, deleteUsersAsync, getOneUserAsync, addUserPostAsync, addUserEventAsync, getSessionUserAsync, getFriendsAsync, getHangoutsAsync,} from "./thunks";
 
 
 const INITIAL_STATE = {
     user: null,
     userList: [],
     friendsList: [],
-    postList:[]
+    postList:[],
+    eventList:[],
+    hangoutList:[],
 };
 
 const userSlice = createSlice({
@@ -21,7 +23,6 @@ const userSlice = createSlice({
         builder
             .addCase(getUsersAsync.fulfilled, (state, action) => {
                 state.userList = action.payload;
-                state.friendsList = action.payload[0].friends;
                 console.log("state done!!!")
             })
             .addCase(getOneUserAsync.fulfilled, (state, action) => {
@@ -40,14 +41,17 @@ const userSlice = createSlice({
             .addCase(addUserPostAsync.fulfilled, (state, action) => {
                 state.postList.push(action.payload);
             })
+            .addCase(addUserEventAsync.fulfilled, (state, action) => {
+                state.eventList.push(action.payload);
+            })
             .addCase(getSessionUserAsync.fulfilled,(state,action) => {
                 state.user = action.payload;
             })
-            .addCase(logoutUserAsync.fulfilled,(state,action)=>{
-                
-            })
             .addCase(getFriendsAsync.fulfilled,(state,action)=>{
                 state.friendsList = action.payload;
+            })
+            .addCase(getHangoutsAsync.fulfilled,(state,action)=>{
+                state.hangoutList = action.payload;
             })
     },
 });

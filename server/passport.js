@@ -43,6 +43,7 @@ passport.use(
               friends: [],
               groups: [],
               events: [],
+              hangouts: [],
               availability: false,
             });
   

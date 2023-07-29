@@ -11,10 +11,11 @@ import Friends from './pages/Friends';
 import Groups from './pages/Groups';
 import Profile from './pages/Profile';
 import Navbar from './components/Navbar';
+import Notifications from './pages/Notification';
+import Hangouts from './pages/Hangouts';
 import LoginPage from './pages/Login';
 import ButtonAvailable from './components/ButtonAvailable';
 import Search from './components/Search';
-import store from './redux/store';
 import reducer from './reducers/reducer';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
@@ -36,9 +37,6 @@ const rootReducer = combineReducers({
   event: eventReducer,
 });
 
-console.log("index");
-console.log(rootReducer.reducer);
-console.log(rootReducer.posts);
 
 const combinedStore =  createStore(rootReducer, applyMiddleware(thunk));
 
@@ -50,26 +48,17 @@ root.render(<>
       <Router>
       <Provider store={combinedStore}>
         <div className='Body'>
-        <div className="Body-Left">
-        <Navbar />
-        </div>
-        <div className='Body-Middle'>
-        <Routes>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/Friends" element={<Friends />} />
-          <Route path="/Groups" element={<Groups />} />
-          <Route path="/Events" element={<Events />} />
-          <Route path="/Profile" element={<Profile />} />
-          <Route path="/user/:userId" element={<UserProfile />} />
-        </Routes>
-        </div>
-
-        <div className="Body-Right">
-        <ButtonAvailable />
-          <Search />
-          {/* <ActiveUsers /> */}
-        </div>
+          <Routes>
+            <Route path="/" element={<LoginPage />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/Friends" element={<Friends />} />
+            <Route path="/Groups" element={<Groups />} />
+            <Route path="/Events" element={<Events />} />
+            <Route path="/Profile" element={<Profile />} />
+            <Route path="/user/:userId" element={<UserProfile />} />
+            <Route path="/hangouts" element={<Hangouts />} />
+            <Route path="/notifications" element={<Notifications />} />
+          </Routes>
         </div>
       </Provider>
       </Router>

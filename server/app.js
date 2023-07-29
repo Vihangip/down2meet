@@ -7,6 +7,7 @@ var postsRouter = require('./routes/posts');
 var usersRouter = require('./routes/users');
 var eventRouter = require('./routes/events');
 var groupsRouter = require('./routes/groups');
+var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
 var sessionRouter = require('./routes/session');
 const generateEvent = require('./mongoDB/generateEvents');
@@ -31,6 +32,7 @@ var app = express();
 app.use(cors(
   {
   origin: 'https://down2meet.onrender.com',
+  // origin: 'http://localhost:3000',
   credentials: true, // Allows cookies to be sent with the request
 }
 ));
@@ -69,8 +71,10 @@ app.listen(3001, () => {
 })
 
 app.use('/auth', authRouter);
+app.use('/', indexRouter);
 app.use('/posts', postsRouter);
 app.use('/users', usersRouter);
+// app.use('/calendar', calendarRouter);
 app.use('/event', eventRouter);
 app.use('/session', sessionRouter);
 

@@ -1,31 +1,19 @@
 import Post from './Post.js';
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { getPostsAsync } from '../redux/posts/thunks';
 
 export default function SocialFeed() {
 
-  const test = useSelector((state) => state);
+  const posts = useSelector((state) => (state.posts.postList));
 
-  console.log(test);
-
-    const posts = useSelector((state) => (state.posts.postList));
-
-    const dispatch = useDispatch();
     
-    useEffect(() => {
-        dispatch(getPostsAsync());
-    }, [dispatch]);
-    
-    return (
+  return (
         <div className="SocialFeed">
             {posts.length === 0 ? (
             <p>No posts yet.</p>
           ) : (
             <div>
             {posts.map((post) => (
-              <div>
+              <div key={posts.indexOf(post)}>
                 <Post post={post} /> 
               </div>
             ))}
