@@ -65,6 +65,7 @@ const getFriends = async (user_id) => {
       credentials: 'include',
   });
   const data = await res.json();
+  console.log(data);
   return data;
 }
 
@@ -169,6 +170,7 @@ async function addFriend(userId, friendId) {
 
 
     const getUserGroup = async (user_id) => {
+      console.log(user_id);
         const res = await fetch(`http://localhost:3001/users/${user_id}/groups`,
         {
             method: "GET",

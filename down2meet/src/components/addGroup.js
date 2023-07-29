@@ -17,14 +17,18 @@
     const [selectedFriends, setSelectedFriends] = useState([]);
     const [friendNames, setFriendNames] = useState([]);
 
-    useEffect(() => {
-      dispatch(getSessionUserAsync());
-    }, [dispatch]); 
+    // useEffect(() => {
+    //   dispatch(getSessionUserAsync());
+    // }, [dispatch]); 
 
     const groupsList = useSelector((state) => state.users.groupList);
-    const currentUser = useSelector((state) => state.users.user); 
+    const currentUser = JSON.parse(localStorage.getItem('user'));
+    console.log(currentUser);
     const usersFriends = useSelector((state) => state.users.friendsList)
+    console.log(usersFriends);
     const uniqueFriends = Array.from(new Set(usersFriends));   
+    console.log(uniqueFriends);
+
 
 
     useEffect(() => {
@@ -35,9 +39,9 @@
     }, []);
 
     useEffect(() => {
-      dispatch(getSessionUserAsync());
+      // dispatch(getSessionUserAsync());
       // dispatch(getGroupsAsync());
-      dispatch(getFriendsAsync(currentUser.user_id));
+      // dispatch(getFriendsAsync(currentUser.user_id));
       dispatch(getUserGroupsAsync(currentUser.user_id));
       
       // dispatch(getFriendsAsync(currentUser.user_id));
