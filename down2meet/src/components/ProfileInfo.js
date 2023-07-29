@@ -10,7 +10,7 @@ export default function ProfileInfo() {
       <img className="ProfilePicture" src={user?.picture} alt="profile" /> {/* Use optional chaining to avoid errors if user is null */}
       <div className="column">
         <p> Name: {user?.name} </p> {/* Use optional chaining to avoid errors if user is null */}
-        <p> Email: {user?.user_id} </p> {/* Use optional chaining to avoid errors if user is null */}
+        <p> ID: {user?.user_id} </p> {/* Use optional chaining to avoid errors if user is null */}
       </div>
     </div>
   );
