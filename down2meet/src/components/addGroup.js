@@ -12,12 +12,7 @@
   export function AddGroup() {
     const dispatch = useDispatch();
 
-    useEffect(() => {
-      dispatch(getSessionUserAsync());
-      dispatch(getGroupsAsync());
-      dispatch(getFriendsAsync());
 
-    }, [dispatch]);
 
     // MAKE IT SO THAT YOU CAN'T ADD GROUPS WITH THE SAME NAME
 
@@ -26,8 +21,11 @@
     // Extract unique friends from the 'friendsOfUser' array
     // const uniqueFriends = Array.from(new Set(usersFriends));
 
-    const currentUser = useSelector(state => state.users); 
-    const uniqueFriends = Array.from(new Set(currentUser.friendsList));
+    const currentUser = useSelector((state) => state.users.user); 
+    const usersFriends = useSelector((state) => state.users.friendsList)
+    // const sessionUser
+    console.log(currentUser.friendsList);
+    const uniqueFriends = Array.from(new Set(usersFriends));
 
     console.log(uniqueFriends);
     
@@ -35,7 +33,13 @@
 
     const itemNameRef = React.useRef(null);
     const itemMemRef = React.useRef(null);
+    
+    useEffect(() => {
+      dispatch(getSessionUserAsync());
+      dispatch(getGroupsAsync());
+      dispatch(getFriendsAsync(currentUser.user_id));
 
+    }, [dispatch]);
 
     const handleFormSubmit = (event) => {
       event.preventDefault();
