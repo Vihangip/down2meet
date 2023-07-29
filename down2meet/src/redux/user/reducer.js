@@ -47,8 +47,8 @@ const userSlice = createSlice({
                 
             })
             .addCase(getFriendsAsync.fulfilled,(state,action)=>{
-                state.friendsList = action.payload;
-            })
+                state.friendsList = action.payload.friendsData;
+            })            
     },
 });
 export const { setUser } = userSlice.actions;

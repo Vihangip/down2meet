@@ -45,7 +45,6 @@ function Friends() {
     <BodyHeader title={"Friends"}/>
 
       <div className="FriendsPage">
-        <SortingComponent sortOrder={sortOrder} handleSortChange={handleSortChange} />
         <div>
       {sortedData.map((friend, index) => (
         <Friend
