@@ -9,7 +9,6 @@ import Event from '../components/Event';
 import Navbar from '../components/Navbar';
 import ButtonAvailable from '../components/ButtonAvailable';
 import Search from '../components/Search';
-import { getSessionUserAsync } from '../redux/user/thunks';
 import ProfileInfo from '../components/ProfileInfo';
 import { setUser } from '../redux/user/reducer';
 
@@ -17,6 +16,7 @@ import { setUser } from '../redux/user/reducer';
 function Profile() {
   const dispatch = useDispatch();
 
+  
   useEffect(() => {
     const fetchPostsAndUsers = async () => {
       try {
@@ -34,12 +34,12 @@ function Profile() {
     };
 
     fetchPostsAndUsers();
-  }, [dispatch]);
+  }, [dispatch]); 
 
-  const user = useSelector(state => state.reducer.user);
-  //useEffect(() => {
-  //  dispatch(getSessionUserAsync());
-  // }, [dispatch]);
+  const user = useSelector(state => state.users.user);
+  // useEffect(() => {
+  //   dispatch(getSessionUserAsync());
+  //  }, [dispatch]);
 
   console.log("profile");
   console.log(user);
