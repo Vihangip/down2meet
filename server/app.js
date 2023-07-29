@@ -7,6 +7,7 @@ var postsRouter = require('./routes/posts');
 var usersRouter = require('./routes/users');
 var eventRouter = require('./routes/events');
 var groupsRouter = require('./routes/groups');
+var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
 var sessionRouter = require('./routes/session');
 const generateEvent = require('./mongoDB/generateEvents');
