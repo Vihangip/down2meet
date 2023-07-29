@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addEventAsync, getEventAsync, deleteEventAsync } from '../redux/event/thunks';
 import { handleCreateEvent } from './Calendar'
+import { getSessionUserAsync } from "../redux/user/thunks";
 
 const { v4: uuid } = require('uuid');
 
@@ -17,9 +18,13 @@ export const googleEvent = {
 export function AddEvent() {
 
   const calendarSignedIn= useSelector(state => state.reducer.googleCalendar);
-  const user = useSelector(state => state.reducer.user);
-
   const dispatch = useDispatch();
+  //const user = useSelector(state => state.reducer.user);
+  useEffect(() => {
+    dispatch(getSessionUserAsync());
+  }, [dispatch]);
+  const user = useSelector(state => state.users.user);
+  
   const events = useSelector(state => state.event.eventList);
     // Extract unique groups from the 'events' array
     const uniqueGroups = Array.from(new Set(events.flatMap(event => event.groups)));
@@ -39,8 +44,8 @@ export function AddEvent() {
   const itemEndTimeRef = React.useRef(null);
   
   useEffect (() => {
-    dispatch(getEventAsync(user.user_id));
-  },[dispatch, user.user_id]);
+    dispatch(getEventAsync(user.user_id));          //////////////////////// 
+  },[dispatch, user.user_id]);                      //////////////////////
 
   // Add selectedGroups state and setSelectedGroups function
   const [selectedGroups, setSelectedGroups] = useState([]);
@@ -51,39 +56,66 @@ export function AddEvent() {
   const handleFormSubmit = (event) => {
     event.preventDefault(); // Prevents the default form submission behavior
 
-    const startDate = new Date(
+  
+    const options = {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+      timeZone: 'America/Vancouver',
+    };
+
+    const unformattedStartDate = new Date(
       itemStartRef.current.value + 'T' + itemStartTimeRef.current.value
-    ).toISOString();
-    const endDate = new Date(
+    );
+
+    const unformattedEndDate = new Date(
       itemEndRef.current.value + 'T' + itemEndTimeRef.current.value
-    ).toISOString();
+    );
+
+    const vancouverStartDate = new Intl.DateTimeFormat('en-US', options).format(unformattedStartDate);
+    const vancouverEndDate = new Intl.DateTimeFormat('en-US', options).format(unformattedEndDate);
+
+    const startDate = new Date(vancouverStartDate);
+    const endDate = new Date(vancouverEndDate);
+
 
       // Your form submit logic here
       console.log("title", itemNameRef.current.value);
       console.log("description", itemDescRef.current.value);
       console.log("start date", startDate);
       console.log("end date", endDate);
-      formattedStartDate = startDate.slice(0, -1);
-      formattedEndDate = endDate.slice(0, -1);
+      formattedStartDate = startDate;
+      formattedEndDate = endDate;
+
+      console.log(formattedStartDate);
 
       // the id value here gets replaces in when the post request is made. 
       // but it is used as a key? todo; check if it can just be a constant
+
+      console.log("addEvent, ", user.user_id);
       dispatch(addEventAsync({
           "id": uuid(), 
-          "user_id": user.user_id,
+          "email": user.email,
           "userID": user.user_id,
           "title": itemNameRef.current.value,
           "description": itemDescRef.current.value,  
           "start": formattedStartDate, 
           "end": formattedEndDate,
           "groups": selectedGroups,}));
-    
 
 
       if (calendarSignedIn === true) {
+        googleEvent.title = (itemNameRef.current.value);
+        googleEvent.description = (itemDescRef.current.value);
+        googleEvent.startingDate = (startDate);//startDate);
+        googleEvent.endingDate = (endDate);//endDate);
         handleCreateEvent(); //only add event to Google Calendar if user is signed in
+        console.log("added to google calendar")
       }
-      //console.log("addEvent new event");
+      console.log("addEvent new event");
       //console.log(googleEvent.startingDate);
 
     };

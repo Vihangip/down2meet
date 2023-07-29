@@ -11,8 +11,8 @@ var router = express.Router();
 router.get('/:user_id', async(req, res, next) =>{
 
   console.log("server events getting events");
-  let allEvent = await queries.getAllEvent({user_id: req.params.user_id}); //only get the specified user's events
-  return res.send(allEvent);
+  let allEvent = await queries.getAllEvent({userID: req.params.user_id}); //only get the specified user's events
+  return res.send(allEvent);       ////////////// not sure if this is userID or user_id
 });
 
 /* GET event by ID. */
@@ -27,10 +27,11 @@ router.get('/:eventId', async(req, res, next) => {
 
 /* POST event. */
 router.post('/', async(req, res, next) => {
+  console.log("server events");
   const event =  { 
     id: uuid(),
-    user_id: req.body.user_id,
-    userID: uuid(), // TODO: adding dummy var now, will populate with actual userID
+    email: req.body.email,
+    userID: req.body.userID,//uuid(), // TODO: adding dummy var now, will populate with actual userID
     title: req.body.title,
     description: req.body.description,
     start: req.body.start,
@@ -39,6 +40,7 @@ router.post('/', async(req, res, next) => {
     location: req.body.location,
     participants: req.body.participants
   };
+  console.log("server events, ", req.body.userID);
   const addedEvent = await queries.addEvent(event);
   // console.log(event);
   // console.log(addedEvent);
