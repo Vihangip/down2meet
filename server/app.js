@@ -3,21 +3,19 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
 var postsRouter = require('./routes/posts');
 var usersRouter = require('./routes/users');
 var eventRouter = require('./routes/events');
 var groupsRouter = require('./routes/groups');
 var authRouter = require('./routes/auth');
 var sessionRouter = require('./routes/session');
-// var calendarRouter = require('./routes/calendar');
 const generateEvent = require('./mongoDB/generateEvents');
 const generateGroups = require('./mongoDB/generateGroups');
 const crypto = require('crypto');
+
 function generateRandomString(length) {
   return crypto.randomBytes(Math.ceil(length / 2)).toString('hex').slice(0, length);
 }
-
 
 const secretKey = generateRandomString(32);
 var cors = require('cors');
@@ -29,6 +27,7 @@ require('./passport');
 const { ensureAuthenticated } = require('./authMiddleware');
 
 var app = express();
+
 app.use(cors(
   {
   origin: 'http://localhost:3000',
@@ -40,7 +39,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(express.static(path.join(__dirname, '../down2meet/build'))); // assuming your React project's build directory is 'down2meet/build'
 
 app.use(
   session({
@@ -58,33 +58,25 @@ const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 const mongoDB = "mongodb+srv://PLLOW:down2meet@Down2meet.8i1q7am.mongodb.net/UserData?retryWrites=true&w=majority"
 const eventQueries = require('./mongoDB/EventQueries');
-// const groupsQueries = require('./mongoDB/GroupQueries');
 
 main().catch((err) => console.log(err));
 async function main(){
     await mongoose.connect(mongoDB);
     console.log("database connected");
-    // generateEvent();
-    // generateGroups();
-    // Get all events
-    // const all = await eventQueries.getAllEvent({});
-    // console.log("All events:", all);
-
-    // const allGroups = await groupsQueries.getAllGroup({});
-    // console.log("All groups:", allGroups);
 
 app.listen(3001, () => {
     console.log(`Server Started at ${3001}`)
 })
 
 app.use('/auth', authRouter);
-app.use('/', indexRouter);
 app.use('/posts', postsRouter);
 app.use('/users', usersRouter);
-// app.use('/calendar', calendarRouter);
 app.use('/event', eventRouter);
 app.use('/session', sessionRouter);
 
+app.use('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../down2meet/build', 'index.html')); // any routes not picked up by your api or routes will be directed to your path
+});
 
 }
 
