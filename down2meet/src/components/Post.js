@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import service from '../redux/user/service';
 import { useState, useEffect } from 'react';
 import blankpic from '../assets/blank_profile.jpeg';
-import { addViewerToPost, removeViewerFromPost } from '../redux/posts/thunks';
+import { addParticipantToPost, removeParticipantFromPost } from '../redux/posts/thunks';
 
 const Post = ({ post }) => {
   const [user, setUser] = useState(null);
@@ -28,11 +28,11 @@ const Post = ({ post }) => {
   }, [post.user_id]);
 
   const handleAccept = () => {
-    dispatch(addViewerToPost({ postID: post.post_id, userID: useruser.user_id }));
+    dispatch(addParticipantToPost({ postID: post.post_id, userID: useruser.user_id }));
   };
 
   const handleReject = () => {
-    dispatch(removeViewerFromPost({ postID: post.post_id, userID: useruser.user_id }));
+    dispatch(removeParticipantFromPost({ postID: post.post_id, userID: useruser.user_id }));
   };
 
     if (!user) {

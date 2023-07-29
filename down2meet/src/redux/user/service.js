@@ -1,4 +1,3 @@
-import { setUser } from "./reducer";
 
 
 const getUsers = async () => {
@@ -56,6 +55,26 @@ const deleteUsers = async (userID) => {
     });
     const data = await res.text();
     return data;
+}
+
+const getFriends = async (user_id) => {
+  const res = await fetch(`http://localhost:3001/users/${user_id}/friends`,
+  {
+      method: "GET",
+      credentials: 'include',
+  });
+  const data = await res.json();
+  return data;
+}
+
+const getHangouts = async (user_id) => {
+  const res = await fetch(`http://localhost:3001/users/${user_id}/hangouts`,
+  {
+      method: "GET",
+      credentials: 'include',
+  });
+  const data = await res.json();
+  return data;
 }
 
 const addUserPost = async (userID, postID) => {
@@ -131,5 +150,5 @@ const logoutUser = async() => {
 }
 
 export default {
-    getUsers, addUsers, deleteUsers, getOneUser, addUserPost, addUserEvent, getSessionUser, logoutUser
+    getUsers, addUsers, deleteUsers, getOneUser, addUserPost, addUserEvent, getSessionUser, logoutUser, getFriends, getHangouts
 }

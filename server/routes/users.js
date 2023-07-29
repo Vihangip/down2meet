@@ -43,6 +43,7 @@ router.post('/', async(req, res, next) => {
       friends: req.body.friends,
       groups: req.body.groups,
       events: req.body.events,
+      hangouts: req.body.hangouts,
       availability: req.body.availability
     })
   // const post = req.body;
@@ -77,6 +78,13 @@ router.post('/:userId/removeFriend', async(req, res) => {
   user.friends = user.friends.filter(friend => friend !== friendId);
   await user.save();
   return res.send(user);
+});
+
+router.get('/:user_id/friends', async(req, res, next) => {
+  console.log(req.params.user_id);
+  const foundUser = await User.findOne({user_id: req.params.user_id})
+  console.log("useruseruser:" + foundUser.friends); 
+  return res.send(foundUser.friends);
 });
 
 /* DELETE user. */

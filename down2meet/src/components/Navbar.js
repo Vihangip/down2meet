@@ -1,54 +1,53 @@
 
 import { NavLink } from "react-router-dom";
-import React, {useState} from 'react';
+import React from 'react';
 import logo from '../assets/D2MLogo.png';
 import logo1265 from '../assets/logo-notext.png';
-import { GoogleLogin } from '@react-oauth/google';
 import '../css/navigation.css';
-import { useDispatch } from 'react-redux';
-import { updateUserProfile } from '../actions/actions';
-import { addUsersAsync, getOneUserAsync } from '../redux/user/thunks';
+// import { useDispatch } from 'react-redux';
+// import { updateUserProfile } from '../actions/actions';
+// import { getOneUserAsync } from '../redux/user/thunks';
 
 import Logout from "./Logout";
 
 export default function Navbar() {
-  const dispatch = useDispatch();
+//   const dispatch = useDispatch();
 
-  // when users successfully login
-  const responseMessage = async (response) => {
-    const idToken = response.credential;
-    const encodedPayload = idToken.split(".")[1];
-    const decodedPayload = JSON.parse(atob(encodedPayload));
-
-
-      const name = decodedPayload.name;
-      const email = decodedPayload.email;
-      const picture = "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60";
-      // decodedPayload.picture;
-
-      console.log("Hey, " + name);
-
-      const user = {
-        user_id: email,
-        name: name,
-        picture: picture,
-        friends: [],
-        groups: [],
-        events: [],
-        availability: false,
-      }
-
-      dispatch(getOneUserAsync(email));
-      dispatch(updateUserProfile(user));
-
-    };
+//   // when users successfully login
+//   const responseMessage = async (response) => {
+//     const idToken = response.credential;
+//     const encodedPayload = idToken.split(".")[1];
+//     const decodedPayload = JSON.parse(atob(encodedPayload));
 
 
-  // when users don't successfully login
-  const errorMessage = (error) => {
-    console.log(error);
-    // Show the pop-up when there's an error
-  };
+//       const name = decodedPayload.name;
+//       const email = decodedPayload.email;
+//       const picture = "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60";
+//       // decodedPayload.picture;
+
+//       console.log("Hey, " + name);
+
+//       const user = {
+//         user_id: email,
+//         name: name,
+//         picture: picture,
+//         friends: [],
+//         groups: [],
+//         events: [],
+//         availability: false,
+//       }
+
+//       dispatch(getOneUserAsync(email));
+//       dispatch(updateUserProfile(user));
+
+//     };
+
+
+//   // when users don't successfully login
+//   const errorMessage = (error) => {
+//     console.log(error);
+//     // Show the pop-up when there's an error
+//   };
 
 
 
@@ -117,6 +116,15 @@ export default function Navbar() {
                             <p>Groups</p>
                         </NavLink>
 
+                        <NavLink className="Social-Option"
+                        activeclassname="Social-Option-Active"
+                        exact="true"
+                        to="/Hangouts">
+                            <div className="Social-Icon">
+                                <i className="fa-solid fa-map-marker"></i>
+                            </div>
+                            <p>Hangouts</p>
+                        </NavLink>
                         <NavLink className="Social-Option"
                         activeclassname="Social-Option-Active"
                         exact="true"

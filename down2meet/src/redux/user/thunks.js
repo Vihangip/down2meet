@@ -65,3 +65,17 @@ export const getSessionUserAsync = createAsyncThunk(
     return await service.getSessionUser();
   }
 );
+
+export const getFriendsAsync = createAsyncThunk(
+  'users/getFriendsAsync',
+  async (user_id) => {
+      return await service.getFriends(user_id);
+  }
+);
+
+export const getHangoutsAsync = createAsyncThunk(
+  'users/getHangoutsAsync',
+  async (user_id) => {
+      return await service.getHangouts(user_id);
+  }
+);

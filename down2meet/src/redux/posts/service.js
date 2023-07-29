@@ -1,4 +1,4 @@
-const getPosts = async () => {
+const getPosts = async (userID) => {
     const res = await fetch(`http://localhost:3001/posts`,
     {
         method: "GET",
@@ -35,8 +35,8 @@ const deletePost = async (postID) => {
     return data;
 }
 
-const addViewerToPost = async (postID, userID) => {
-    const res = await fetch(`http://localhost:3001/posts/${postID}/addViewer/${userID}`,
+const addParticipantToPost = async (postID, userID) => {
+    const res = await fetch(`http://localhost:3001/posts/${postID}/addParticipant/${userID}`,
     {
         method: "GET",
         credentials: 'include',
@@ -45,8 +45,8 @@ const addViewerToPost = async (postID, userID) => {
     return data;
 }
 
-const removeViewerFromPost = async (postID, userID) => {
-    const res = await fetch(`http://localhost:3001/posts/${postID}/removeViewer/${userID}`,
+const removeParticipantFromPost = async (postID, userID) => {
+    const res = await fetch(`http://localhost:3001/posts/${postID}/removeParticipant/${userID}`,
     {
         method: "GET",
         credentials: 'include',
@@ -56,5 +56,5 @@ const removeViewerFromPost = async (postID, userID) => {
 }
 
 export default {
-    getPosts, addPost, deletePost, addViewerToPost, removeViewerFromPost
+    getPosts, addPost, deletePost, addParticipantToPost, removeParticipantFromPost
 }

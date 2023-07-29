@@ -11,6 +11,7 @@ import Friends from './pages/Friends';
 import Groups from './pages/Groups';
 import Profile from './pages/Profile';
 import Navbar from './components/Navbar';
+import Hangouts from './pages/Hangouts';
 import LoginPage from './pages/Login';
 import ButtonAvailable from './components/ButtonAvailable';
 import Search from './components/Search';
@@ -35,9 +36,6 @@ const rootReducer = combineReducers({
   event: eventReducer,
 });
 
-console.log("index");
-console.log(rootReducer.reducer);
-console.log(rootReducer.posts);
 
 const combinedStore =  createStore(rootReducer, applyMiddleware(thunk));
 
@@ -61,6 +59,7 @@ root.render(<>
           <Route path="/Events" element={<Events />} />
           <Route path="/Profile" element={<Profile />} />
           <Route path="/user/:userId" element={<UserProfile />} />
+          <Route path="/hangouts" element={<Hangouts />} />
         </Routes>
         </div>
 

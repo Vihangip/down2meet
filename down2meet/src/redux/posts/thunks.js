@@ -22,16 +22,16 @@ export const deletePostAsync = createAsyncThunk(
     }
 );
 
-export const addViewerToPost = createAsyncThunk(
-    'users/addViewerToPost',
+export const addParticipantToPost = createAsyncThunk(
+    'users/addParticipantToPost',
     async ({ postID, userID }) => {
-        return await service.addViewerToPost(postID, userID);
+        return await service.addParticipantToPost(postID, userID);
     }
 );
 
-export const removeViewerFromPost = createAsyncThunk(   
-    'users/removeViewerFromPost',
+export const removeParticipantFromPost = createAsyncThunk(   
+    'users/removeParticipantFromPost',
     async ({postID, userID}) => {
-        return await service.removeViewerFromPost(postID, userID);
+        return await service.removeParticipantFromPost(postID, userID);
     }
 );

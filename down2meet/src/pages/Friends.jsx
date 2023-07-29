@@ -11,6 +11,7 @@ import { getUsersAsync } from '../redux/user/thunks';
 
 
 function Friends() {
+  
   const [sortOrder, setSortOrder] = useState('default');
   const friendsList = useSelector((state) => (state.users.friendsList));
   const dispatch = useDispatch();

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addPost } from '../actions/actions';
 import { addPostAsync } from '../redux/posts/thunks';
@@ -22,9 +22,6 @@ function PostBar() {
   const [selectedOption, setSelectedOption] = useState("Everyone"); // Controls which group
   const user = useSelector((state) => state.users.user);
   const navigate = useNavigate();
-  useEffect(() => {
-    dispatch(getSessionUserAsync());
-  }, [dispatch]);
 
 
   const handleSubmit = (e) => {

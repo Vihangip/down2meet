@@ -5,6 +5,7 @@ import { AddGroup } from '../components/addGroup';
 import Groups from '../components/Groups';
 
 function Group() {
+  
   return (
     <div className="Groups">
     <BodyHeader title={"Groups"} />

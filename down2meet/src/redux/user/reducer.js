@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getUsersAsync, addUsersAsync, deleteUsersAsync, getOneUserAsync, addUserPostAsync, addUserEventAsync, getSessionUserAsync, logoutUserAsync } from "./thunks";
+import { getUsersAsync, addUsersAsync, deleteUsersAsync, getOneUserAsync, addUserPostAsync, addUserEventAsync, getSessionUserAsync, logoutUserAsync, getFriendsAsync, getHangoutsAsync} from "./thunks";
 
 
 const INITIAL_STATE = {
@@ -7,7 +7,8 @@ const INITIAL_STATE = {
     userList: [],
     friendsList: [],
     postList:[],
-    eventList:[]
+    eventList:[],
+    hangoutList:[],
 };
 
 const userSlice = createSlice({
@@ -46,6 +47,12 @@ const userSlice = createSlice({
             })
             .addCase(getSessionUserAsync.fulfilled,(state,action) => {
                 state.user = action.payload;
+            })
+            .addCase(getFriendsAsync.fulfilled,(state,action)=>{
+                state.friendsList = action.payload;
+            })
+            .addCase(getHangoutsAsync.fulfilled,(state,action)=>{
+                state.hangoutList = action.payload;
             })
             .addCase(logoutUserAsync.fulfilled,(state,action)=>{
                 
