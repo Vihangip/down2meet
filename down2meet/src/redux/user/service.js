@@ -11,6 +11,7 @@ const getUsers = async () => {
 }
 
 const getOneUser = async (userID) => {
+    console.log(userID);
     const res = await fetch(`https://down2meet.onrender.com/users/${userID}`,
     {
         method: "GET",

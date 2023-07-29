@@ -16,7 +16,7 @@ const logoutUser = async() => {
 }
 
 // const loginUser = async() => {
-//     const res = await fetch(`https://down2meet.onrender.com/auth/google`,
+//     const res = await fetch(`http://localhost:3001/auth/google`,
 //     {
 //         method:"GET",
 //     });
