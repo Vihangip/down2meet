@@ -21,7 +21,7 @@ function PostBar() {
   const [location, setLocation] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedOption, setSelectedOption] = useState("Everyone"); // Controls which group
-  const user = useSelector((state) => state.users.user);
+  const user = JSON.parse(localStorage.getItem('user'));
   const navigate = useNavigate();
 
 

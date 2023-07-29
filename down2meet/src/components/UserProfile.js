@@ -11,7 +11,7 @@ export default function UserProfile() {
   const [userProfile, setUserProfile] = useState(null);
   const [userFriends, setUserFriends] = useState([]);
   const dispatch = useDispatch();
-  const currentUser = useSelector(state => state.users.user);
+  const currentUser = JSON.parse(localStorage.getItem('user'));
   console.log("UserProfile");
   console.log(currentUser);
 
@@ -69,6 +69,7 @@ export default function UserProfile() {
       <div className="Body-Left">
         <Navbar />
       </div>
+      <div className="Body-Middle">
       <div className="UserProfile">
           <h1>{userProfile.name}</h1>
           <img src={userProfile.picture} alt={userProfile.name} />
@@ -76,6 +77,7 @@ export default function UserProfile() {
               ? <button className="deleteButton" onClick={removeFriend}>Delete Friend</button>
               : <button className="addButton" onClick={addFriend}>Add Friend</button>
           }
+      </div>
       </div>
     <div className="Body-Right">
     <ButtonAvailable />
