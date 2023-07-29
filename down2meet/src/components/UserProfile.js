@@ -18,7 +18,7 @@ export default function UserProfile() {
   useEffect(() => {
     // Only fetch the user's profile if userId is not undefined
     if (userId) {
-      fetch(`https://down2meet.onrender.com/users/${userId}`)
+      fetch(`http://localhost:3001/users/${userId}`)
         .then((response) => response.json())
         .then((data) => setUserProfile(data))
         .catch((error) => console.error(error));
@@ -29,7 +29,7 @@ export default function UserProfile() {
     console.log("UserProfile");
     console.log(currentUser);
     if (currentUser) {
-      fetch(`https://down2meet.onrender.com/users/${currentUser.user_id}/friends`)
+      fetch(`http://localhost:3001/users/${currentUser.user_id}/friends`)
         .then((response) => response.json())
         .then((data) => setUserFriends(data))
         .catch((error) => console.error(error));
@@ -37,7 +37,7 @@ export default function UserProfile() {
   }, [currentUser]);
 
   const addFriend = async () => {
-    const response = await fetch(`https://down2meet.onrender.com/users/${currentUser.user_id}/addFriend`, {
+    const response = await fetch(`http://localhost:3001/users/${currentUser.user_id}/addFriend`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -49,7 +49,7 @@ export default function UserProfile() {
   };
 
   const removeFriend = async () => {
-      const response = await fetch(`https://down2meet.onrender.com/users/${currentUser.user_id}/removeFriend`, {
+      const response = await fetch(`http://localhost:3001/users/${currentUser.user_id}/removeFriend`, {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json'
