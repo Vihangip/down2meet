@@ -2,36 +2,31 @@
   import { useEffect, useState } from 'react';
   import { useDispatch, useSelector} from 'react-redux';
   import { addGroupsAsync, getGroupsAsync, deleteGroupsAsync} from '../redux/groups/thunks';
-  import UserProfile from './UserProfile';
-  import Search from './Search';
   import { handleCreateEvent } from "./Calendar";
-  import { getFriendsAsync, getOneUserAsync, getSessionUserAsync } from '../redux/user/thunks';
+  import { getFriendsAsync, getSessionUserAsync, getUserGroupsAsync, addUserGroupsAsync } from '../redux/user/thunks';
   import service from "../redux/user/service";
 
   const { v4: uuid } = require('uuid');
 
   export function AddGroup() {
+    let newGroupName;
     const dispatch = useDispatch();
 
+    const itemNameRef = React.useRef(null);
 
+    const [selectedFriends, setSelectedFriends] = useState([]);
+    const [friendNames, setFriendNames] = useState([]);
 
-    // MAKE IT SO THAT YOU CAN'T ADD GROUPS WITH THE SAME NAME
+    useEffect(() => {
+      dispatch(getSessionUserAsync());
+    }, [dispatch]); 
 
-    const groupsList = useSelector(state => state.groups.groupsList);
-    // const usersFriends = useSelector(state => state.users.friendslist);
-    // Extract unique friends from the 'friendsOfUser' array
-    // const uniqueFriends = Array.from(new Set(usersFriends));
-
+    const groupsList = useSelector((state) => state.users.groupList);
     const currentUser = useSelector((state) => state.users.user); 
     const usersFriends = useSelector((state) => state.users.friendsList)
-    // const sessionUser
-    const uniqueFriends = Array.from(new Set(usersFriends));
+    const uniqueFriends = Array.from(new Set(usersFriends));   
 
-    // console.log(uniqueFriends);
-    
-    const [selectedFriends, setSelectedFriends] = useState([]);
 
-    const [friendNames, setFriendNames] = useState([]);
     useEffect(() => {
       // Fetch and resolve all user names asynchronously
       Promise.all(uniqueFriends.map(friend => getUserNameByID(friend)))
@@ -39,15 +34,17 @@
         .catch(error => console.error(error));
     }, []);
 
-    const itemNameRef = React.useRef(null);
-    const itemMemRef = React.useRef(null);
-    
     useEffect(() => {
       dispatch(getSessionUserAsync());
-      dispatch(getGroupsAsync());
+      // dispatch(getGroupsAsync());
       dispatch(getFriendsAsync(currentUser.user_id));
+      dispatch(getUserGroupsAsync(currentUser.user_id));
+      
+      // dispatch(getFriendsAsync(currentUser.user_id));
+      // todo: Need to add to Groups collection too
 
     }, [dispatch]);
+
 
     const getUserNameByID = async (userid) => {
       try {
@@ -65,7 +62,7 @@
     const handleFormSubmit = (event) => {
       event.preventDefault();
   
-      const newGroupName = itemNameRef.current.value;
+      newGroupName = itemNameRef.current.value;
   
       // Check if the group name already exists in groupsList
       const existingGroup = groupsList.find(group => group.name === newGroupName);
@@ -75,13 +72,20 @@
         return; // Do not add the group if it already exists
       }
   
-      dispatch(addGroupsAsync({
-        "id": uuid(),
-        "name": newGroupName,
-        "members": selectedFriends
+      // dispatch(addGroupsAsync({
+        //   "id": uuid(),
+        //   "user_id": currentUser.user_id,
+        //   "name": newGroupName,
+        //   "members": selectedFriends
+        // });
+
+        dispatch(addUserGroupsAsync({
+          "id": uuid(),
+          "user_id": currentUser.user_id,
+          "name": newGroupName,
+          "members": selectedFriends
       }));
-  
-      // Clear the input field after successfully adding the group
+      // // Clear the input field after successfully adding the group
       itemNameRef.current.value = "";
   
       // Reset selectedFriends state
@@ -109,7 +113,6 @@
     const handleDeleteButton = () => {
       
       //idea:
-      // by the title of the group, add the id. have the person input the id of the group to delete it.
       // todo:
       // dispatch(deleteGroupsAsync(itemIDRef.current.value));
 
@@ -125,16 +128,13 @@
           <br />
           <input type="text" id="iTitle" name="iTitle" ref={itemNameRef} />
           <br />  <br />
-         
 
-           {/* add checkboxes for selecting friends */}
-         <div>
+          {/* add checkboxes for selecting friends */}
+          <div>
           <label>Select Group Members:</label>
           <br />
-          {/* <UserProfile/> */}
-          {/* <Search/> */}
           {/* ChatGPT helped with the checkboxes */}
-         {uniqueFriends.map((friend, index) => (
+          {uniqueFriends.map((friend, index) => (
             <label key={friend}>
               <input
                 className="add-events-checkbox"

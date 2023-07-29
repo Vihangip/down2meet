@@ -38,6 +38,18 @@ router.post('/', async(req, res, next) => {
   return res.send(addedGroup);
 });
 
+/** GET USER'S GROUPS */
+router.get('/:user_id/groups', async(req, res, next) => {
+  console.log(req.params.user_id);
+  const foundUser = await User.findOne({user_id: req.params.user_id});
+  if(!foundUser) {
+    return res.status(404).send({message: 'User not found'});
+  } else {
+    console.log("useruseruser:" + foundUser.friends); 
+    return res.send(foundUser.friends);
+  }
+  
+});
 
 
 module.exports = router;

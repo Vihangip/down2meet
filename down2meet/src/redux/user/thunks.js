@@ -81,4 +81,23 @@ export const getFriendsAsync = createAsyncThunk(
       return await service.getFriends(user_id);
   }
 );
+export const getUserGroupsAsync = createAsyncThunk(
+  'users/getUserGroupAsync',
+  async (user_id) => {
+      return await service.getUserGroup(user_id);
+  }
+);
+export const addUserGroupsAsync = createAsyncThunk(
+  'users/addUserGroupsAsync',
+  async (group) => {
+      console.log(group);
+      return await service.addUserGroup(group);
+  });
+  
+//   export const getUserEventsAsync = createAsyncThunk(
+//     'users/getUserEventAsync',
+//     async (user_id) => {
+//         return await service.getFriends(user_id);
+//     }
+// );
 

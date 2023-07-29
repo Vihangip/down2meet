@@ -6,17 +6,20 @@ import { useState } from 'react';
 
 
 export default function Groups(props) {
-    let groupsList = useSelector(state => state.groups.groupsList);
+    let groupsList = useSelector(state => state.users.groupList);
   
     // Create a new array containing only unique groups based on group.name
-    const uniqueGroupList = groupsList.reduce((acc, group) => {
-      // Check if the current group's name already exists in the accumulator array
-      if (!acc.find(item => item.name === group.name)) {
-        acc.push(group);
-      }
-      return acc;
-    }, []);
-  
+    // const uniqueGroupList = groupList.reduce((acc, group) => {
+    //   // Check if the current group's name already exists in the accumulator array
+    //   if (!acc.find(item => item.name === group.name)) {
+    //     acc.push(group);
+    //   }
+    //   return acc;
+    // }, []);
+    const uniqueGroupList = Array.from(new Set(groupsList));   
+
+
+    
     return (
       <div>
         {uniqueGroupList.map((group) => (

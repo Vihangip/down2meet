@@ -3,8 +3,10 @@ import BodyHeader from '../components/BodyHeader';
 import React from 'react';
 import { AddGroup } from '../components/addGroup';
 import Groups from '../components/Groups';
+import { getSessionUserAsync } from '../redux/user/thunks';
 
 function Group() {
+ 
   return (
     <div className="Groups">
     <BodyHeader title={"Groups"} />
