@@ -922,23 +922,38 @@ html, body, #Home, #Home>div {
 }
 
 .friend-image{
-    width:150px;
-    height: 150px;
+    width:100px;
+    height: 100px;
     object-fit: contain;
 }
 
 .friend-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    font-size: 20px;
-  }
-  
-  .friend-info {
-    display: flex;
-    flex-direction: column;
-    margin-left: 10px;
-    text-align: right;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.friend-info {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+}
+
+.friend-info p {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.friend-container-button {
+  margin-left: 50px;
+}
+
+
+  .friend-info button {
+    margin-left: 50px;
   }
   
   .friend-name {

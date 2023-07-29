@@ -6,7 +6,7 @@ const SortingComponent = ({ sortOrder, handleSortChange }) => {
       <label htmlFor="sortOrder">Sort by:</label>
       <select id="sortOrder" value={sortOrder} onChange={handleSortChange}>
         <option value="default">Default</option>
-        <option value="availability">Availability</option>
+        <option value="availability">Available</option>
         <option value="busy">Busy</option>
       </select>
     </div>

@@ -48,8 +48,8 @@ const userSlice = createSlice({
                 state.user = action.payload;
             })
             .addCase(getFriendsAsync.fulfilled,(state,action)=>{
-                state.friendsList = action.payload;
-            })
+                state.friendsList = action.payload.friendsData;
+            })            
             .addCase(getHangoutsAsync.fulfilled,(state,action)=>{
                 state.hangoutList = action.payload;
             })

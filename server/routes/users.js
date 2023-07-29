@@ -25,6 +25,21 @@ router.get('/search', async (req, res, next) => {
   }
 });
 
+router.get('/:user_id/friendsData', async(req, res, next) => {
+  console.log(req.params.user_id);
+  const foundUser = await User.findOne({user_id: req.params.user_id})
+
+  if(!foundUser || foundUser === null){ 
+    return res.status(404).send({message: 'Item not found'})
+  };
+
+  // Fetch the friend objects
+  const friends = await User.find({ user_id: { $in: foundUser.friends } });
+  
+  return res.send(friends);
+});
+
+
 /* GET user by ID. */
 router.get('/:userId', async(req, res, next) => {
   const foundUser = await User.findOne({user_id: req.params.userId})
@@ -153,8 +168,6 @@ router.put('/:userId/availability', async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
-
-
 
 module.exports = router;
 

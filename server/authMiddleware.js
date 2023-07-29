@@ -4,7 +4,7 @@ const ensureAuthenticated = (req, res, next) => {
     return next();
   }
   req.session.returnPath = req.path;
-  res.redirect('https://down2meet.onrender.com'); // Redirect to login if not authenticated
+  res.redirect('http://localhost:3000'); // Redirect to login if not authenticated
 };
 
 module.exports = { ensureAuthenticated };
