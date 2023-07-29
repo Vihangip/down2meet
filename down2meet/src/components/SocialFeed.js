@@ -3,10 +3,8 @@ import { useSelector } from 'react-redux';
 
 export default function SocialFeed() {
 
-  const user = useSelector((state) => (state.users.user));
   const posts = useSelector((state) => (state.posts.postList));
 
-  console.log(user);
     
   return (
         <div className="SocialFeed">

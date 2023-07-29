@@ -8,6 +8,11 @@ import { useEffect } from 'react';
 import { getUsersAsync } from '../redux/user/thunks';
 
 
+import Navbar from '../components/Navbar';
+import ButtonAvailable from '../components/ButtonAvailable';
+import Search from '../components/Search';
+
+
 
 
 function Friends() {
@@ -42,6 +47,11 @@ function Friends() {
   }
 
   return (
+    <>
+    <div className="Body-Left">
+      <Navbar />
+    </div>
+    <div className="Body-Middle">
     <div className="Friends">
     <BodyHeader title={"Friends"}/>
 
@@ -60,6 +70,13 @@ function Friends() {
       </div>
     </div>
     </div>
+    </div>
+      <div className="Body-Right">
+        <ButtonAvailable />
+        <Search />
+        {/* <ActiveUsers /> */}
+        </div>
+      </>
   );
 }
 

@@ -80,6 +80,11 @@ router.post('/:userId/removeFriend', async(req, res) => {
   return res.send(user);
 });
 
+router.get('/:userId/hangouts', async(req, res, next) => {
+  const foundUser = await User.findOne({user_id: req.params.userId})
+  return res.send(foundUser.hangouts);
+});
+
 router.get('/:user_id/friends', async(req, res, next) => {
   console.log(req.params.user_id);
   const foundUser = await User.findOne({user_id: req.params.user_id})
@@ -117,6 +122,8 @@ router.get('/:userID/addPost/:postID', async (req, res) => {
     return res.status(500).json({ message: 'Server Error' });
   }
 });
+
+
 
 module.exports = router;
 

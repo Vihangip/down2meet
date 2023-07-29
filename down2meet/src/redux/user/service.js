@@ -74,6 +74,7 @@ const getHangouts = async (user_id) => {
       credentials: 'include',
   });
   const data = await res.json();
+  console.log("hangouts from service: " + data);
   return data;
 }
 
@@ -123,8 +124,8 @@ const addUserPost = async (userID, postID) => {
           credentials: 'include',
     });
     const data = await res.json();
-    console.log(data);
-
+    // console.log(data);
+    localStorage.setItem('user', JSON.stringify(data));
     //TODO !!!!!!!!!!
     if (res.status >= 400) {
         throw new Error(data.errors);
@@ -132,23 +133,6 @@ const addUserPost = async (userID, postID) => {
     return data;
 }
 
-const logoutUser = async() => {
-    const res = await fetch(`http://localhost:3001/auth/logout`,
-    {
-        method:"GET",
-        credentials: 'include',
-
-    });
-
-  if (res.status >= 400) {
-    throw new Error("Logout failed");
-  }
-
-  console.log("Logout successful");
-  window.location.href = '/';
-
-}
-
 export default {
-    getUsers, addUsers, deleteUsers, getOneUser, addUserPost, addUserEvent, getSessionUser, logoutUser, getFriends, getHangouts
+    getUsers, addUsers, deleteUsers, getOneUser, addUserPost, addUserEvent, getSessionUser, getFriends, getHangouts
 }

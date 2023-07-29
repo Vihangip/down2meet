@@ -67,7 +67,6 @@ export default function Navbar() {
 
                         <div className="Navbar-Links">
                         <NavLink className="Social-Option"
-                        activeClassName="Social-Option-Active"
                         exact="true"
                         to="/Home">
                             <div className="Social-Icon">
@@ -77,7 +76,6 @@ export default function Navbar() {
                         </NavLink>
 
                         <NavLink className="Social-Option"
-                        activeclassname="Social-Option-Active"
                         exact="true"
                         to="/Profile">
                             <div className="Social-Icon">
@@ -87,17 +85,15 @@ export default function Navbar() {
                         </NavLink>
                         
                         <NavLink className="Social-Option"
-                        activeclassname="Social-Option-Active"
                         exact="true"
                         to="/Friends">
                             <div className="Social-Icon">
-                            <i class="fa-solid fa-user-group"></i>
+                            <i className="fa-solid fa-user-group"></i>
                             </div>
                             <p>Friends</p>
                         </NavLink>
 
                         <NavLink className="Social-Option"
-                        activeclassname="Social-Option-Active"
                         exact="true"
                         to="/Events">
                             <div className="Social-Icon">
@@ -107,7 +103,6 @@ export default function Navbar() {
                         </NavLink>
                 
                         <NavLink className="Social-Option"
-                        activeclassname="Social-Option-Active"
                         exact="true"
                         to="/Groups">
                             <div className="Social-Icon">
@@ -117,7 +112,6 @@ export default function Navbar() {
                         </NavLink>
 
                         <NavLink className="Social-Option"
-                        activeclassname="Social-Option-Active"
                         exact="true"
                         to="/Hangouts">
                             <div className="Social-Icon">
@@ -126,9 +120,8 @@ export default function Navbar() {
                             <p>Hangouts</p>
                         </NavLink>
                         <NavLink className="Social-Option"
-                        activeclassname="Social-Option-Active"
                         exact="true"
-                        to="">
+                        to="/Notifications">
                             <div className="Social-Icon">
                                 <i className="fa-solid fa-bell"></i>
                             </div>
