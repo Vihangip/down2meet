@@ -21,7 +21,7 @@ export default function Groups(props) {
         console.error("Error fetching groups:", error);
         setIsLoading(false);
       });
-  }, [dispatch, currentUser.user_id]);
+  }, [dispatch]);
 
   useEffect(() => {
     // Fetch and resolve all user names asynchronously for each group's members

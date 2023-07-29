@@ -51,7 +51,7 @@ export function AddEvent() {
   
   useEffect (() => {
     dispatch(getEventAsync(user.user_id));          //////////////////////// 
-  },[dispatch, user.user_id]);                      //////////////////////
+  },[dispatch]);                      //////////////////////
 
   // useEffect(() => {
   //   // Fetch and resolve all user names asynchronously for each group's members
