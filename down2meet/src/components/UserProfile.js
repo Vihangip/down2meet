@@ -11,7 +11,7 @@ export default function UserProfile() {
   const [userProfile, setUserProfile] = useState(null);
   const [userFriends, setUserFriends] = useState([]);
   const dispatch = useDispatch();
-  const currentUser = useSelector(state => state.users.user);
+  const currentUser = JSON.parse(localStorage.getItem('user'));
   console.log("UserProfile");
   console.log(currentUser);
 

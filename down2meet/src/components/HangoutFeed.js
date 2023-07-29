@@ -38,7 +38,7 @@ export default function HangoutFeed() {
             <div>
             {filteredPosts.map((post) => (
               <div key={filteredPosts.indexOf(post)}>
-                <Post post={post} /> 
+                <Hangout post={post} /> 
               </div>
             ))}
             </div>
