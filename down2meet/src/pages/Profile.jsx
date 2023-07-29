@@ -37,7 +37,7 @@ function Profile() {
     fetchPostsAndUsers();
   }, [dispatch]); 
 
-  const user = useSelector(state => state.users.user);
+  const user = JSON.parse(localStorage.getItem('user'));
   // useEffect(() => {
   //   dispatch(getSessionUserAsync());
   //  }, [dispatch]);
