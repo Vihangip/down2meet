@@ -9,6 +9,8 @@ export default function UserProfile() {
   const [userFriends, setUserFriends] = useState([]);
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.users.user);
+  console.log("UserProfile");
+  console.log(currentUser);
 
   useEffect(() => {
     // Only fetch the user's profile if userId is not undefined
@@ -21,6 +23,8 @@ export default function UserProfile() {
   }, [userId]);
 
   useEffect(() => {
+    console.log("UserProfile");
+    console.log(currentUser);
     if (currentUser) {
       fetch(`http://localhost:3001/users/${currentUser.user_id}/friends`)
         .then((response) => response.json())
