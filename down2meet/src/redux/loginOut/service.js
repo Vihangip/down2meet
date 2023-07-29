@@ -1,5 +1,5 @@
 const logoutUser = async() => {
-    const res = await fetch(`https://down2meet.onrender.com/auth/logout`,
+    const res = await fetch(`http://localhost:3001/auth/logout`,
     {
         method:"GET",
         credentials: 'include',
