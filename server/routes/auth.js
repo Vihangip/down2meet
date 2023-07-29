@@ -19,10 +19,10 @@ router.get(
       req.login(req.user, (err) => {
         if (err) {
           console.error('Error during login:', err);
-          return res.redirect('http://localhost:3000');
+          return res.redirect('https://down2meet.onrender.com/');
         }});
     // Redirect to the home page or any other route after successful login
-    res.redirect(`http://localhost:3000/Home`);
+    res.redirect(`https://down2meet.onrender.com//Home`);
   }
 );
 
@@ -37,7 +37,7 @@ router.get('/logout', function(req, res, next) {
       res.status(200).send();
       // Redirect to the client-side route
     });
-    // res.redirect('http://localhost:3000');
+    // res.redirect('https://down2meet.onrender.com/');
 });
   
 

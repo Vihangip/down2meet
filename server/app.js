@@ -31,7 +31,7 @@ var app = express();
 
 app.use(cors(
   {
-  origin: 'http://localhost:3000',
+  origin: 'https://down2meet.onrender.com/',
   credentials: true, // Allows cookies to be sent with the request
 }
 ));

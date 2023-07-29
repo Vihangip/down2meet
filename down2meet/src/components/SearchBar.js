@@ -10,7 +10,7 @@ export default function SearchBar({ onSearch, onSearchResultClick }) {
     setSearchQuery(event.target.value);
     if (event.target.value) {
       try {
-        const response = await fetch(`http://localhost:3001/users/search?q=${event.target.value}`);
+        const response = await fetch(`https://down2meet.onrender.com//users/search?q=${event.target.value}`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }

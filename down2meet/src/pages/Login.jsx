@@ -10,7 +10,7 @@ export default function LoginPage() {
 
   const handleLogin = () => {
 
-    window.location.href = "http://localhost:3001/auth/google";
+    window.location.href = "https://down2meet.onrender.com//auth/google";
   }
 
   return (
