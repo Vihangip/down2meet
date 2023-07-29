@@ -23,8 +23,7 @@ export function AddEvent() {
   useEffect(() => {
     dispatch(getSessionUserAsync());
   }, [dispatch]);
-  const user = useSelector(state => state.users.user);
-  
+  const user = JSON.parse(localStorage.getItem('user'));
   const events = useSelector(state => state.event.eventList);
     // Extract unique groups from the 'events' array
     const uniqueGroups = Array.from(new Set(events.flatMap(event => event.groups)));

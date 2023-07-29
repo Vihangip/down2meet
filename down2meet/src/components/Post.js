@@ -7,7 +7,7 @@ import { addParticipantToPost, removeParticipantFromPost } from '../redux/posts/
 
 const Post = ({ post }) => {
   const [user, setUser] = useState(null);
-  const useruser = useSelector((state) => state.users.user);
+  const useruser = JSON.parse(localStorage.getItem('user'));
   const dispatch = useDispatch();
 
   useEffect(() => {

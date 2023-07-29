@@ -7,7 +7,7 @@ import { addParticipantToPost, removeParticipantFromPost } from '../redux/posts/
 
 const Hangout = ({ post }) => {
   const [user, setUser] = useState(null);
-  const useruser = useSelector((state) => state.users.user);
+  const useruser = JSON.parse(localStorage.getItem('user'));
   const dispatch = useDispatch();
 
   useEffect(() => {
