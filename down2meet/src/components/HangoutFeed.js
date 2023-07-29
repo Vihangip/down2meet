@@ -5,11 +5,11 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 
 export default function HangoutFeed() {
+  const storedUser = JSON.parse(localStorage.getItem('user'));
   const dispatch = useDispatch();
   useEffect(() => {
       const fetchPostsAndUsers = async () => {
         try {
-          const storedUser = JSON.parse(localStorage.getItem('user'));
           await dispatch(getHangoutsAsync(storedUser.user_id));
         } catch (error) {
           console.error('Error fetching data:', error);
@@ -19,6 +19,9 @@ export default function HangoutFeed() {
       fetchPostsAndUsers();
     }, [dispatch]);
     const hangoutList = useSelector((state) => (state.users.hangoutList));
+
+    console.log(storedUser.user_id);
+    console.log(hangoutList);
 
     
     return (
