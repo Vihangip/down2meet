@@ -35,6 +35,26 @@ const deletePost = async (postID) => {
     return data;
 }
 
+const addParticipantToPost = async (postID, userID) => {
+    const res = await fetch(`https://down2meet.onrender.com/posts/${postID}/addParticipant/${userID}`,
+    {
+        method: "GET",
+        credentials: 'include',
+    });
+    const data = await res.json();
+    return data;
+}
+
+const removeParticipantFromPost = async (postID, userID) => {
+    const res = await fetch(`https://down2meet.onrender.com/posts/${postID}/removeParticipant/${userID}`,
+    {
+        method: "GET",
+        credentials: 'include',
+    });
+    const data = await res.json();
+    return data;
+}
+
 export default {
-    getPosts, addPost, deletePost
+    getPosts, addPost, deletePost, addParticipantToPost, removeParticipantFromPost
 }

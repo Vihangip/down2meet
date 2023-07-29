@@ -1,67 +1,59 @@
-import React, {useState} from 'react';
-import Friend from '../components/Friend';
+import React from 'react';
 import BodyHeader from '../components/BodyHeader';
-import SortingComponent from '../components/Sorting';
-import {useDispatch, useSelector} from 'react-redux';
-import { removeFriend } from '../actions/actions';
 import { useEffect } from 'react';
-import { getUsersAsync } from '../redux/user/thunks';
+import { setUser } from '../redux/user/reducer';
+import { useDispatch } from 'react-redux';
+import { getSessionUserAsync, getFriendsAsync } from '../redux/user/thunks';
+
+
+import Navbar from '../components/Navbar';
+import ButtonAvailable from '../components/ButtonAvailable';
+import Search from '../components/Search';
+import FriendList from '../components/FriendList';
 
 
 
 
 function Friends() {
-  const [sortOrder, setSortOrder] = useState('default');
-  const friendsList = useSelector((state) => (state.users.friendsList));
-
-  console.log(friendsList);
-  
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUsersAsync());
+    const fetchUsers = async () => {
+      try {
+        const storedUser = JSON.parse(localStorage.getItem('user'));
+        if (storedUser) {
+          dispatch(setUser(storedUser)); // Initialize the user state with the stored data
+        } else {
+        await dispatch(getSessionUserAsync());
+        // await dispatch(getPostsAsync());
+        }
+        await dispatch(getFriendsAsync(JSON.parse(localStorage.getItem('user'))));
+      }
+      catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchUsers();
   }, [dispatch]);
 
-  const handleSortChange = (event) => {
-    setSortOrder(event.target.value);
-  };
-
-  const handleRemoveFriend = (index) => {
-    dispatch(removeFriend(index));
-  };
-
-  const sortedData = [...friendsList];
-
-  if (sortOrder === 'availability') {
-    sortedData.sort((a, b) => {
-      return a.availability === b.availability ? 0 : a.availability ? -1 : 1;
-    });
-  } else if (sortOrder === 'busy') {
-    sortedData.sort((a, b) => {
-      return a.availability === b.availability ? 0 : a.availability ? 1 : -1;
-    });
-  }
-
   return (
+    <>
+    <div className="Body-Left">
+      <Navbar />
+    </div>
+    <div className="Body-Middle">
     <div className="Friends">
     <BodyHeader title={"Friends"}/>
-
-      <div className="FriendsPage">
-        <SortingComponent sortOrder={sortOrder} handleSortChange={handleSortChange} />
-        <div>
-      {sortedData.map((friend, index) => (
-        <Friend
-          key={index}
-          name={friend.name}
-          profilepic={friend.profilepic}
-          availability={friend.availability}
-          friendID={friendsList[index]}
-          onRemove={() => handleRemoveFriend(index)}
-        />
-      ))}
-      </div>
+    <FriendList />
     </div>
     </div>
+      <div className="Body-Right">
+        <ButtonAvailable />
+        <Search />
+        {/* <ActiveUsers /> */}
+        </div>
+      </>
   );
 }
 

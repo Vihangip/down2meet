@@ -79,6 +79,49 @@ html, body, #Home, #Home>div {
   width: 100%;
 }
 
+.LoginPage {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.landingimage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* This ensures the image covers the entire container without distortion */
+  z-index: -1; /* This places the image behind the content */
+}
+
+.login-logo {
+  background-color: grey;
+  padding: 15px;
+  width: 80%; /* Adjust the width as needed */
+  max-height: 100%; /* Adjust the height as needed */
+}
+
+.google-login-button-front {
+  margin: 0;
+  text-decoration: none;
+  border: 1px solid #dcdcdc;
+  background-color: #228B22;
+  color: white;
+  font-size: 25px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.google-login-button-front:hover {
+  background-color: #104f10;
+}
+
 .Body {
     display: flex;
     flex-direction: row;

@@ -3,16 +3,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import service from '../redux/user/service';
 import { useState, useEffect } from 'react';
 import blankpic from '../assets/blank_profile.jpeg';
+import { addParticipantToPost, removeParticipantFromPost } from '../redux/posts/thunks';
 
 const Post = ({ post }) => {
   const [user, setUser] = useState(null);
+  const useruser = useSelector((state) => state.users.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
     // Fetch user information when the component mounts
     const fetchUser = async () => {
       try {
-        console.log(post.user_id);
         const userData = await service.getOneUser(post.user_id);
         setUser(userData);
       } catch (error) {
@@ -21,30 +22,24 @@ const Post = ({ post }) => {
     };
 
     fetchUser();
-
-    // Clean up function to reset user state when the component unmounts
     return () => {
       setUser(null);
     };
   }, [post.user_id]);
 
-    const handleAccept = () => {
-    // Handle accept logic
-    // ...
-    };
+  const handleAccept = () => {
+    dispatch(addParticipantToPost({ postID: post.post_id, userID: useruser.user_id }));
+  };
 
-    const handleReject = () => {
-    // Handle reject logic
-    // ...
-
-    };
+  const handleReject = () => {
+    dispatch(removeParticipantFromPost({ postID: post.post_id, userID: useruser.user_id }));
+  };
 
     if (!user) {
       // Render a loading state or return null while user data is being fetched
       return <div>Loading...</div>;
     }
 
-    console.log(user);
     return (
       <div className="Post">
         <img className="Post-UserInfo-Image" src={post.profilepic ? post.profilepic : blankpic} alt="" />

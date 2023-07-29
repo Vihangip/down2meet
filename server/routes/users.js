@@ -43,6 +43,7 @@ router.post('/', async(req, res, next) => {
       friends: req.body.friends,
       groups: req.body.groups,
       events: req.body.events,
+      hangouts: req.body.hangouts,
       availability: req.body.availability
     })
   // const post = req.body;
@@ -85,6 +86,18 @@ router.post('/:userId/removeFriend', async(req, res) => {
   return res.send(user);
 });
 
+router.get('/:userId/hangouts', async(req, res, next) => {
+  const foundUser = await User.findOne({user_id: req.params.userId})
+  return res.send(foundUser.hangouts);
+});
+
+router.get('/:user_id/friends', async(req, res, next) => {
+  console.log(req.params.user_id);
+  const foundUser = await User.findOne({user_id: req.params.user_id})
+  console.log("useruseruser:" + foundUser.friends); 
+  return res.send(foundUser.friends);
+});
+
 /* DELETE user. */
 router.delete('/:userId', function(req, res, next) {
   const userId = req.params.userId;
@@ -122,6 +135,26 @@ router.get('/:user_id/friends', async(req, res, next) => {
   console.log("useruseruser:" + foundUser.friends); 
   return res.send(foundUser.friends);
 });
+
+router.put('/:userId/availability', async (req, res) => {
+  try {
+    const user = await User.findOne({ user_id: req.params.userId });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    user.availability = req.body.availability;
+    await user.save();
+
+    res.json({ message: 'User availability updated', user });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
 
 module.exports = router;
 

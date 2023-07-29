@@ -1,63 +1,74 @@
-
 import BodyHeader from '../components/BodyHeader';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState} from 'react';
 import { getSessionUserAsync } from '../redux/user/thunks';
-//import ProfileSchedule from '../components/ProfileSchedule';
-//import Availability from '../components/Availability';
-
 import { getUsersAsync } from '../redux/user/thunks';
 import { getEventAsync } from '../redux/event/thunks';
 import Event from '../components/Event';
-// import Calendar from '../components/Calendar';
-
+import Navbar from '../components/Navbar';
+import ButtonAvailable from '../components/ButtonAvailable';
+import Search from '../components/Search';
+import { getSessionUserAsync } from '../redux/user/thunks';
+import ProfileInfo from '../components/ProfileInfo';
+import { setUser } from '../redux/user/reducer';
 
 
 function Profile() {
-
   const dispatch = useDispatch();
-  //const user = useSelector(state => state.reducer.user);
+
   useEffect(() => {
-    dispatch(getSessionUserAsync());
+    const fetchPostsAndUsers = async () => {
+      try {
+        // Check if there is user data in local storage
+        const storedUser = JSON.parse(localStorage.getItem('user'));
+        if (storedUser) {
+          dispatch(setUser(storedUser)); // Initialize the user state with the stored data
+        } else {
+          await dispatch(getSessionUserAsync()); // Fetch user data if it's not in local storage
+        }
+        await dispatch(getUsersAsync());
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchPostsAndUsers();
   }, [dispatch]);
 
-  const user = useSelector(state => state.users.user);
-
-  useEffect (() => {
-    dispatch(getEventAsync(user.user_id));          //////////////////////// 
-  },[dispatch, user.user_id]);  
-
+  //const user = useSelector(state => state.reducer.user);
+  //useEffect(() => {
+  //  dispatch(getSessionUserAsync());
+  // }, [dispatch]);
 
   console.log("profile");
   console.log(user);
 
-  // todo: remove this img const later
-  //const picture = "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60";
 
 
-  //there's a problem with HTTP GET picture right now
   return (
-    <div className="ProfilePage">
-      <BodyHeader title={"Profile"}/>
-        <div className="in-line">
-          
-          
-          <img className="ProfilePicture" src={user.picture} alt="profile"/>   
-          <div className="column">
-            <p> Name:   {user.name} </p> 
-            <p> ID:   {user.user_id} </p>
+    <>
+      <div className="Body-Left">
+        <Navbar />
+      </div>
+      <div className="Body-Middle">
+      <div className="ProfilePage">
+        <BodyHeader title={"Profile"}/>
+          <ProfileInfo />
+          <h3> Schedule</h3>
+        
+          <div > <Event formLocation="profile"/> </div>
 
-          </div>
+
+        {/* <div className="Calendar"> <Availability/> </div> */}
+      </div>
+      </div>
+      <div className="Body-Right">
+        <ButtonAvailable />
+        <Search />
+        {/* <ActiveUsers /> */}
         </div>
-        <h3> Schedule</h3>
-       
-        <div > <Event formLocation="profile"/> </div>
-
-
-       {/* <div className="Calendar"> <Availability/> </div> */}
-    </div>
-
+      </>
   );
 }
 

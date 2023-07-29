@@ -3,6 +3,7 @@ const { v4: uuid } = require('uuid');
 
 
 var express = require('express');
+const User = require('../mongoDB/User');
 // const Calendar = require('../mongoDB/Calendar');
 var router = express.Router();
 
@@ -45,6 +46,24 @@ router.post('/', async(req, res, next) => {
   // console.log(addedEvent);
   res.status(201);
   return res.send(addedEvent);
+});
+
+/* event linked with user. */
+router.get('/:userID/addEvent/:eventID', async(req, res, next) => {
+  try {
+    const userID = req.params.userID;
+    const eventID = req.params.eventID;
+    console.log(userID);
+    console.log(eventID);
+    const user = await User.updateOne(
+      { user_id: userID },
+      { $push: { events: eventID } }
+    );
+    return res.json(user);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({message: 'Internal Server Error'});
+  }
 });
 
 /* DELETE event. */
