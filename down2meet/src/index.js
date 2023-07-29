@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import Events from './pages/Events';
 import Friends from './pages/Friends';
 import Groups from './pages/Groups';
+import FriendProfile from './pages/FriendProfile';
 import Profile from './pages/Profile';
 import Notifications from './pages/Notification';
 import Hangouts from './pages/Hangouts';
