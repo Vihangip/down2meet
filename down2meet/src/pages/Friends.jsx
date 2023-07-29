@@ -13,8 +13,10 @@ import { getUsersAsync } from '../redux/user/thunks';
 function Friends() {
   const [sortOrder, setSortOrder] = useState('default');
   const friendsList = useSelector((state) => (state.users.friendsList));
-  const dispatch = useDispatch();
 
+  console.log(friendsList);
+  
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getUsersAsync());
@@ -53,6 +55,7 @@ function Friends() {
           name={friend.name}
           profilepic={friend.profilepic}
           availability={friend.availability}
+          friendID={friendsList[index]}
           onRemove={() => handleRemoveFriend(index)}
         />
       ))}

@@ -1,7 +1,9 @@
 
 import { useNavigate } from "react-router-dom";
 
-const Friend = ({ name, profilepic, availability, onRemove }) => {
+const Friend = ({ name, profilepic, availability, friendID, onRemove }) => {
+
+  console.log(friendID);
 
   const handleDeleteClick = (e) => {
     e.stopPropagation();
@@ -10,7 +12,7 @@ const Friend = ({ name, profilepic, availability, onRemove }) => {
 
   const navigate = useNavigate(); 
   const handleProfileClick = () => {
-    navigate('/FriendProfile', { state: { name, profilepic, availability } });   ///////
+    navigate('/FriendProfile', { state: { name, profilepic, friendID, availability } });   ///////
   };
 
   return (

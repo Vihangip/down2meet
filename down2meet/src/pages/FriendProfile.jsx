@@ -8,7 +8,7 @@ import { getSessionUserAsync } from '../redux/user/thunks';
 import { getUsersAsync } from '../redux/user/thunks';
 import Event from '../components/Event';
 
-function FriendProfile({name, profilepic, availability}) {
+function FriendProfile({name, profilepic, friendID, availability}) {
 
   console.log("friend's profile");
   console.log(name);
@@ -22,6 +22,7 @@ function FriendProfile({name, profilepic, availability}) {
           <img className="ProfilePicture" src={profilepic} alt="profile"/>   
           <div className="column">
             <p> Name:   {name} </p> 
+            <p> ID: {friendID} </p>
             <p> Availability:   {availability} </p> 
 
           </div>
