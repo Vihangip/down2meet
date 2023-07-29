@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import SearchBar from './SearchBar';
 
-export default function Search() {
+export default function Search({ onSearch }) {
   const [searchResults, setSearchResults] = useState([]);
 
   const handleSearchResults = (results) => {
@@ -10,7 +10,7 @@ export default function Search() {
 
   return (
     <div>
-      <SearchBar onSearch={handleSearchResults} />
+      <SearchBar onSearch={onSearch} onSearchResultClick={handleSearchResults} />
       {/* You can then use the searchResults state here to render the search results */}
     </div>
   );
