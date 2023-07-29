@@ -47,7 +47,7 @@ function Profile() {
 
   useEffect (() => {
     dispatch(getEventAsync(user.user_id));          //////////////////////// 
-  },[dispatch, user.user_id]);  
+  },[dispatch]);  
 
   return (
     <>

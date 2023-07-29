@@ -201,5 +201,5 @@ async function addFriend(userId, friendId) {
   
 
 export default {
-    getUsers, addUsers, deleteUsers, getOneUser, addUserPost, getSessionUser, addFriend, removeFriend, getFriends, getUserGroup, addUserGroup
+    getUsers, addUsers, deleteUsers, getOneUser, addUserPost, getSessionUser, addFriend, removeFriend, getFriends, getUserGroup, addUserGroup, getHangouts, addUserEvent
 }

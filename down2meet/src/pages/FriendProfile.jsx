@@ -25,7 +25,7 @@ function FriendProfile() {
   const dispatch = useDispatch();
   useEffect (() => {
     dispatch(getEventAsync(friendInfo.user_id));          //////////////////////// 
-  },[dispatch, friendInfo]);  
+  },[dispatch]);  
 
   return (
     <>

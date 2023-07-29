@@ -18,7 +18,7 @@ export default function HangoutFeed() {
       };
   
       fetchPostsAndUsers();
-    }, [dispatch, storedUser.user_id]);
+    }, [dispatch]);
     const hangoutList = useSelector((state) => (state.users.hangoutList));
     const posts = useSelector((state) => state.posts.postList);
     const filteredPosts = posts.filter((post) => hangoutList.includes(post.post_id));
