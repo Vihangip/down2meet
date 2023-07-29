@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "install-server": "npm install",
-    "start-server": "node app.js"
+    "start": "npm start"
   },
   "dependencies": {
     "connect-mongo": "^3.2.0",
