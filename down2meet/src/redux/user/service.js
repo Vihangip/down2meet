@@ -169,7 +169,7 @@ async function addFriend(userId, friendId) {
 
 
     const getUserGroup = async (user_id) => {
-        const res = await fetch(`http://localhost:3001/users/${user_id}/groups`,
+        const res = await fetch(`https://down2meet.onrender.com/users/${user_id}/groups`,
         {
             method: "GET",
             credentials: 'include',
@@ -180,7 +180,7 @@ async function addFriend(userId, friendId) {
 
     const addUserGroup = async (group) => {
       // console.log("got in service");
-      const response = await fetch(`http://localhost:3001/users/${group.user_id}/addGroup`, {
+      const response = await fetch(`https://down2meet.onrender.com/users/${group.user_id}/addGroup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -201,5 +201,5 @@ async function addFriend(userId, friendId) {
   
 
 export default {
-    getUsers, addUsers, deleteUsers, getOneUser, addUserPost, getSessionUser, logoutUser, addFriend, removeFriend, getFriends, getUserGroup, addUserGroup
+    getUsers, addUsers, deleteUsers, getOneUser, addUserPost, getSessionUser, addFriend, removeFriend, getFriends, getUserGroup, addUserGroup
 }
