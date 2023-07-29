@@ -199,7 +199,7 @@ export function AddEvent() {
                   );
                 }}
               />
-              {group.name} Display the group name as the label
+              {group.name}
               <br />
             </label>
           ))}
