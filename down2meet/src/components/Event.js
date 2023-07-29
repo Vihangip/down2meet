@@ -18,6 +18,7 @@ import { useState } from 'react';
 const localizer = momentLocalizer(moment);
 
 export default function Event(props) {
+  let showGroups = true;
   let eventsList = useSelector(state => state.event.eventList);
   const [selectedEvent, setSelectedEvent] = useState(null);
 
@@ -29,19 +30,20 @@ export default function Event(props) {
       ...event,
       title: "Busy",
       description: "",
+      groups: [],
       start: moment(event.start).toDate(),
       end: moment(event.end).toDate()
     }));
     processedEvents = profileEvents;
-    // TODO: make it so that the events on the profile page don't pop up
+    showGroups = false;
   } else {
     // Convert start and end values to Date objects
     processedEvents = eventsList.map(event => ({
       ...event,
       start: moment(event.start).toDate(),
       end: moment(event.end).toDate()
-
     }));
+    showGroups = true;
   }
 
   // ChatGPT helped me learn to useState to hide and show content!
@@ -94,7 +96,7 @@ export default function Event(props) {
                   {/* the dates are formated using the 'moment' library */}
                   <p>Start: {moment(selectedEvent.start).format('LLLL')}</p>
                   <p>End: {moment(selectedEvent.end).format('LLLL')}</p>
-                  <p>Groups: {selectedEvent.groups.join(", ")}</p>
+                  {showGroups && <p>Groups: {selectedEvent.groups.join(", ")}</p>}
 
 
                   <button className="event-delete-button" onClick={handleDelete}>Delete</button>

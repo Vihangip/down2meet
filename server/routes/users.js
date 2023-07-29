@@ -157,7 +157,55 @@ router.put('/:userId/availability', async (req, res) => {
     console.error(error);
     res.status(500).json({ message: 'Server error' });
   }
+  
+router.get('/:user_id/friends', async(req, res, next) => {
+  console.log(req.params.user_id);
+  const foundUser = await User.findOne({user_id: req.params.user_id});
+  if(!foundUser) {
+    return res.status(404).send({message: 'User not found'});
+  } else {
+    console.log("useruseruser:" + foundUser.friends); 
+    return res.send(foundUser.friends);
+  }
+  
 });
+
+
+router.post('/:userId/addGroup', async(req, res) => {
+  try {
+    console.log(`Request to add Group for user ${req.params.userId}`);
+    const userId = req.params.userId;
+    const group = req.body;
+    const user = await User.findOne({ user_id: userId });
+    if (!user) {
+      return res.status(404).send({message: 'User not found'});
+    }
+    if (group.length != 0) {
+      user.groups.push(group);
+      await user.save();
+    }
+
+    console.log(group);
+    return res.send(group);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server error');
+  }
+});
+
+
+// router.post('/:userId/removeFriend', async(req, res) => {
+//   const userId = req.params.userId;
+//   const friendId = req.body.friendId;
+//   const user = await User.findOne({ user_id: userId });
+//   if (!user) {
+//       return res.status(404).send({message: 'User not found'});
+//   }
+//   user.friends = user.friends.filter(friend => friend !== friendId);
+//   await user.save();
+//   return res.send(user);
+// });
+
 
 module.exports = router;
 

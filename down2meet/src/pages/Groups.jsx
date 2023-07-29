@@ -3,6 +3,7 @@ import BodyHeader from '../components/BodyHeader';
 import React from 'react';
 import { AddGroup } from '../components/addGroup';
 import Groups from '../components/Groups';
+import { getSessionUserAsync } from '../redux/user/thunks';
 
 import Navbar from '../components/Navbar';
 import ButtonAvailable from '../components/ButtonAvailable';

@@ -75,6 +75,7 @@ app.use('/posts', postsRouter);
 app.use('/users', usersRouter);
 // app.use('/calendar', calendarRouter);
 app.use('/event', eventRouter);
+app.use('/groups', groupsRouter);
 app.use('/session', sessionRouter);
 
 app.use('*', (req, res) => {
