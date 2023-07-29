@@ -1,5 +1,6 @@
 import { getHangoutsAsync } from '../redux/user/thunks.js';
 import Hangout from './Hangout.js';
+import Post from './Post.js';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
@@ -17,22 +18,26 @@ export default function HangoutFeed() {
       };
   
       fetchPostsAndUsers();
-    }, [dispatch]);
+    }, [dispatch, storedUser.user_id]);
     const hangoutList = useSelector((state) => (state.users.hangoutList));
-
+    const posts = useSelector((state) => state.posts.postList);
+    const filteredPosts = posts.filter((post) => hangoutList.includes(post.post_id));
     console.log(storedUser.user_id);
     console.log(hangoutList);
+    console.log(filteredPosts);
+
+  
 
     
     return (
         <div className="HangoutFeed">
-            {hangoutList.length === 0 ? (
+            {filteredPosts.length === 0 ? (
             <p>No posts yet.</p>
           ) : (
             <div>
-            {hangoutList.map((hangoutID) => (
-              <div key={hangoutID.indexOf(hangoutID)}>
-                <Hangout hangout={hangoutID} /> 
+            {filteredPosts.map((post) => (
+              <div key={filteredPosts.indexOf(post)}>
+                <Post post={post} /> 
               </div>
             ))}
             </div>
