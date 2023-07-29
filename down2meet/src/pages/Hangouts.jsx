@@ -30,7 +30,6 @@ function Hangouts() {
         await dispatch(getPostsAsync());
         console.log("user on store: " + storedUser);
         console.log("userrrrrrid on store: " + storedUser.user_id);
-        await dispatch(storedUser.user_id);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
