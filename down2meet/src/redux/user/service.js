@@ -65,6 +65,7 @@ const getFriends = async (user_id) => {
       credentials: 'include',
   });
   const data = await res.json();
+  console.log(data);
   return data;
 }
 
@@ -166,8 +167,41 @@ async function addFriend(userId, friendId) {
     return await response.json();
   }
 
+
+
+    const getUserGroup = async (user_id) => {
+      console.log(user_id);
+        const res = await fetch(`http://localhost:3001/users/${user_id}/groups`,
+        {
+            method: "GET",
+            credentials: 'include',
+        });
+        const data = await res.json();
+        return data;
+    }
+
+    const addUserGroup = async (group) => {
+      // console.log("got in service");
+      const response = await fetch(`http://localhost:3001/users/${group.user_id}/addGroup`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(group),
+        credentials: 'include',
+
+      });
+    
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      console.log(data);
+      return data;
+    }
+    
   
 
 export default {
-    getUsers, addUsers, deleteUsers, getOneUser, addUserPost, addUserEvent, getSessionUser, getFriends, getHangouts, addFriend, removeFriend, getFriends
+    getUsers, addUsers, deleteUsers, getOneUser, addUserPost, getSessionUser, addFriend, removeFriend, getFriends, getUserGroup, addUserGroup, getHangouts, addUserEvent
 }

@@ -45,7 +45,7 @@ function Hangouts() {
     </div>
     <div className="Body-Middle">
     <div className="Home">
-      <BodyHeader title={"My Feed"} />
+      <BodyHeader title={"My Accepted Hangouts"} />
         <HangoutFeed />
     </div>
     </div>

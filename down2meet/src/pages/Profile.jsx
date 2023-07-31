@@ -10,6 +10,8 @@ import ButtonAvailable from '../components/ButtonAvailable';
 import Search from '../components/Search';
 import ProfileInfo from '../components/ProfileInfo';
 import { setUser } from '../redux/user/reducer';
+import { getSessionUserAsync } from '../redux/user/thunks';
+import { useSelector } from 'react-redux';
 
 
 function Profile() {
@@ -35,7 +37,7 @@ function Profile() {
     fetchPostsAndUsers();
   }, [dispatch]); 
 
-  const user = useSelector(state => state.users.user);
+  const user = JSON.parse(localStorage.getItem('user'));
   // useEffect(() => {
   //   dispatch(getSessionUserAsync());
   //  }, [dispatch]);
@@ -45,7 +47,7 @@ function Profile() {
 
   useEffect (() => {
     dispatch(getEventAsync(user.user_id));          //////////////////////// 
-  },[dispatch, user.user_id]);  
+  },[dispatch]);  
 
   return (
     <>

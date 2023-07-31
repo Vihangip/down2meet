@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 
 
+
 function PostBar() {
   // const posts = useSelector((state) => state.posts);
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ function PostBar() {
   const [location, setLocation] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedOption, setSelectedOption] = useState("Everyone"); // Controls which group
-  const user = useSelector((state) => state.users.user);
+  const user = JSON.parse(localStorage.getItem('user'));
   const navigate = useNavigate();
 
 

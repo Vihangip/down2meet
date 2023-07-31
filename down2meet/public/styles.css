@@ -613,6 +613,54 @@ html, body, #Home, #Home>div {
   color: white;
 }
 
+.Hangouts-InviteButtons-active {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.Hangouts-InviteButtons-active button{
+text-decoration: none;
+border: none;
+padding: 8px 16px;
+cursor: pointer;
+font-size: 18px;
+font-weight: bold;
+border-radius: 20px;
+background-color: grey;
+color: white;
+}
+
+.Hangouts-InviteButtons-inactive {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.Hangouts-InviteButtons-inactive button{
+text-decoration: none;
+border: none;
+padding: 8px 16px;
+cursor: pointer;
+font-size: 18px;
+font-weight: bold;
+border-radius: 20px;
+background-color: grey;
+color: white;
+}
+
+.hangout-reject-button {
+  text-decoration: none;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 20px;
+  background-color: #FF6347;
+  color: white;
+}
+
 .ProfilePage {
     display: flex;
     flex-direction: column;

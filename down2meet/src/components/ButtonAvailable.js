@@ -6,7 +6,7 @@ export default function Button() {
   const [isBusy, setIsBusy] = useState(false);
   
   // Use the useSelector hook to get the current user from state
-  const user = useSelector((state) => state.users.user);
+  const user = JSON.parse(localStorage.getItem('user'));
   
   const buttonAvailable = isBusy ? 'button busy' : 'button available';
 

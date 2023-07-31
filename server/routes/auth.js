@@ -14,6 +14,7 @@ router.get(
         user_id: req.user.user_id,
         name: req.user.name,
         picture: req.user.picture,
+        email: req.user.email,
         // Add any other relevant user data here
       }
       req.login(req.user, (err) => {
@@ -37,7 +38,7 @@ router.get('/logout', function(req, res, next) {
       res.status(200).send();
       // Redirect to the client-side route
     });
-    // res.redirect('http://localhost:3000');
+    // res.redirect('http://localhost:3001');
 });
   
 

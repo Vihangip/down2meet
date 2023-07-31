@@ -2,13 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { setUser } from '../redux/user/reducer';
 import { useDispatch, useSelector } from 'react-redux';
+import Navbar from './Navbar.js';
+import ButtonAvailable from './ButtonAvailable.js';
+import Search from './Search';
 
 export default function UserProfile() {
   const { userId } = useParams(); // get the userId from the URL
   const [userProfile, setUserProfile] = useState(null);
   const [userFriends, setUserFriends] = useState([]);
   const dispatch = useDispatch();
-  const currentUser = useSelector(state => state.users.user);
+  const currentUser = JSON.parse(localStorage.getItem('user'));
   console.log("UserProfile");
   console.log(currentUser);
 
@@ -62,13 +65,25 @@ export default function UserProfile() {
   }
 
   return (
-    <div className="UserProfile">
-        <h1>{userProfile.name}</h1>
-        <img src={userProfile.picture} alt={userProfile.name} />
-        {currentUser && userFriends.includes(userProfile.user_id)
-            ? <button className="deleteButton" onClick={removeFriend}>Delete Friend</button>
-            : <button className="addButton" onClick={addFriend}>Add Friend</button>
-        }
+<>
+      <div className="Body-Left">
+        <Navbar />
+      </div>
+      <div className="Body-Middle">
+      <div className="UserProfile">
+          <h1>{userProfile.name}</h1>
+          <img src={userProfile.picture} alt={userProfile.name} />
+          {currentUser && userFriends.includes(userProfile.user_id)
+              ? <button className="deleteButton" onClick={removeFriend}>Delete Friend</button>
+              : <button className="addButton" onClick={addFriend}>Add Friend</button>
+          }
+      </div>
+      </div>
+    <div className="Body-Right">
+    <ButtonAvailable />
+    <Search />
+    {/* <ActiveUsers /> */}
     </div>
+  </>
   );
 }

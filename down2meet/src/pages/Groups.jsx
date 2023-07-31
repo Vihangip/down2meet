@@ -3,13 +3,13 @@ import BodyHeader from '../components/BodyHeader';
 import React from 'react';
 import { AddGroup } from '../components/addGroup';
 import Groups from '../components/Groups';
+import { getFriendsAsync, getSessionUserAsync, getUsersAsync } from '../redux/user/thunks';
 
 import Navbar from '../components/Navbar';
 import ButtonAvailable from '../components/ButtonAvailable';
 import Search from '../components/Search';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { getSessionUserAsync } from '../redux/user/thunks';
 import { setUser } from '../redux/user/reducer';
 
 function Group() {
@@ -24,6 +24,7 @@ function Group() {
           dispatch(setUser(storedUser)); // Initialize the user state with the stored data
         } else {
         await dispatch(getSessionUserAsync());
+        await dispatch(getFriendsAsync(JSON.parse(localStorage.getItem('user'))));
         // await dispatch(getPostsAsync());
         }
       }

@@ -2,46 +2,71 @@
   import { useEffect, useState } from 'react';
   import { useDispatch, useSelector} from 'react-redux';
   import { addGroupsAsync, getGroupsAsync, deleteGroupsAsync} from '../redux/groups/thunks';
-
   import { handleCreateEvent } from "./Calendar";
+  import { getFriendsAsync, getSessionUserAsync, getUserGroupsAsync, addUserGroupsAsync } from '../redux/user/thunks';
+  import service from "../redux/user/service";
 
   const { v4: uuid } = require('uuid');
 
-
-
-  // //for adding to Google Calendar, does not need to be stored anywhere
-  // export const googleGroup = {
-  //   id: '',
-  //   name: '',
-  //   members: ['']
-  // };
-
-
   export function AddGroup() {
-
-    /**
-     * MAKE IT SO THAT YOU CAN'T ADD GROUPS WITH THE SAME NAME
-     */
+    let newGroupName;
     const dispatch = useDispatch();
-    const groupsList = useSelector(state => state.groups.groupsList);
-    const accountUser = useSelector(state => state.users.userList);
-    console.log(accountUser);
-    // Extract unique friends from the 'friendsOfUser' array
-    const uniqueFriends = Array.from(new Set(accountUser));
-    // console.log(uniqueFriends);
-    
-    const [selectedFriends, setSelectedFriends] = useState([]);
 
     const itemNameRef = React.useRef(null);
-    const itemMemRef = React.useRef(null);
-    
-    useEffect (() => {
-      dispatch(getGroupsAsync());
+
+    const [selectedFriends, setSelectedFriends] = useState([]);
+    const [friendNames, setFriendNames] = useState([]);
+
+    // useEffect(() => {
+    //   dispatch(getSessionUserAsync());
+    // }, [dispatch]); 
+
+    const groupsList = useSelector((state) => state.users.groupList);
+    const currentUser = JSON.parse(localStorage.getItem('user'));
+    console.log(currentUser);
+    const usersFriends = useSelector((state) => state.users.friendsList)
+    console.log(usersFriends);
+    const uniqueFriends = Array.from(new Set(usersFriends));   
+    console.log(uniqueFriends);
+
+
+
+    useEffect(() => {
+      // Fetch and resolve all user names asynchronously
+      Promise.all(uniqueFriends.map(friend => getUserNameByID(friend)))
+        .then(names => setFriendNames(names))
+        .catch(error => console.error(error));
+    }, []);
+
+    useEffect(() => {
+      // dispatch(getSessionUserAsync());
+      // dispatch(getGroupsAsync());
+      // dispatch(getFriendsAsync(currentUser.user_id));
+      dispatch(getUserGroupsAsync(currentUser.user_id));
+      
+      // dispatch(getFriendsAsync(currentUser.user_id));
+      // todo: Need to add to Groups collection too
+
     },[dispatch]);
+
+
+    const getUserNameByID = async (userid) => {
+      try {
+        const user = await service.getOneUser(userid);
+        // console.log(user.name);
+
+        return user.name;
+      } catch (error) {
+        // Use rejectWithValue to include the error message in the action payload
+        console.log(error.message);
+        return;
+      }
+    };
+
     const handleFormSubmit = (event) => {
       event.preventDefault();
   
-      const newGroupName = itemNameRef.current.value;
+      newGroupName = itemNameRef.current.value;
   
       // Check if the group name already exists in groupsList
       const existingGroup = groupsList.find(group => group.name === newGroupName);
@@ -51,13 +76,25 @@
         return; // Do not add the group if it already exists
       }
   
-      dispatch(addGroupsAsync({
-        "id": uuid(),
-        "name": newGroupName,
-        "members": selectedFriends
-      }));
-  
-      // Clear the input field after successfully adding the group
+      // dispatch(addGroupsAsync({
+        //   "id": uuid(),
+        //   "user_id": currentUser.user_id,
+        //   "name": newGroupName,
+        //   "members": selectedFriends
+        // });
+
+        dispatch(
+          addUserGroupsAsync({
+          "id": uuid(),
+          "user_id": currentUser.user_id,
+          "name": newGroupName,
+          "members": selectedFriends
+        }));
+        dispatch(getUserGroupsAsync(currentUser.user_id));
+
+
+      
+      // // Clear the input field after successfully adding the group
       itemNameRef.current.value = "";
   
       // Reset selectedFriends state
@@ -85,7 +122,6 @@
     const handleDeleteButton = () => {
       
       //idea:
-      // by the title of the group, add the id. have the person input the id of the group to delete it.
       // todo:
       // dispatch(deleteGroupsAsync(itemIDRef.current.value));
 
@@ -94,21 +130,20 @@
 
     return (
       <div className="add-group-form-div">
-        <h1>Add your Group (the name must be unique)</h1>
+        <h1>Add your Group</h1>
         <form className="group-form" onSubmit={handleFormSubmit}>
           <hr /> <br />
-          <label htmlFor="iTitle">Group Name:</label>
+          <label htmlFor="iTitle">Group Name  (the name must be unique):</label>
           <br />
           <input type="text" id="iTitle" name="iTitle" ref={itemNameRef} />
           <br />  <br />
-         
 
-           {/* add checkboxes for selecting friends */}
-         <div>
+          {/* add checkboxes for selecting friends */}
+          <div>
           <label>Select Group Members:</label>
           <br />
           {/* ChatGPT helped with the checkboxes */}
-          {uniqueFriends.map((friend) => (
+          {uniqueFriends.map((friend, index) => (
             <label key={friend}>
               <input
                 className="add-events-checkbox"
@@ -119,10 +154,13 @@
                   setSelectedFriends(prevSelectedFriends => (
                     checked ? [...prevSelectedFriends, value] : prevSelectedFriends.filter(friend => friend !== value)
                   ));
-                }}
+                }
+              }
               />
-              {friend}
-              {/* <br /> */}
+              {/* {getUserNameByID(friend)} */}
+              {/* Render the friend name directly if available, else show loading */}
+              {friendNames[index] || 'Loading...'}
+              <br />
             </label>
           ))}
         </div> <br/>
