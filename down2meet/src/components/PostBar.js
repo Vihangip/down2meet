@@ -4,6 +4,7 @@ import { addPost } from '../actions/actions';
 import { addPostAsync } from '../redux/posts/thunks';
 import { addUserPostAsync } from '../redux/user/thunks';
 import { getSessionUserAsync } from '../redux/user/thunks';
+import { addParticipantToPost } from '../redux/posts/thunks';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 
@@ -46,7 +47,7 @@ function PostBar() {
     };
     console.log(post);
     dispatch(addPostAsync(post));
-    // dispatch(addUserPostAsync(user.user_id, post.post_id));
+    dispatch(addParticipantToPost({ postID: post.post_id, userID: useruser.user_id }));
     setPostContent('');
     setTime('');
     setDate('');
