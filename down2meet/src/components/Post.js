@@ -9,6 +9,7 @@ const Post = ({ post }) => {
   const [user, setUser] = useState(null);
   const useruser = JSON.parse(localStorage.getItem('user'));
   const dispatch = useDispatch();
+  const [showuserPost, setuserPost] = useState(false);
 
   useEffect(() => {
     // Fetch user information when the component mounts
@@ -22,6 +23,11 @@ const Post = ({ post }) => {
     };
 
     fetchUser();
+    if (useruser.user_id === post.user_id) {
+      setuserPost(true);
+    } else {
+      setuserPost(false);
+    }
     return () => {
       setUser(null);
     };
@@ -84,6 +90,7 @@ const Post = ({ post }) => {
                   <i class="fa-solid fa-location-dot"></i>
                 </div>
               }
+              { !showuserPost && (
             <div className="Post-InviteButtons-active">
               <button className="accept-button" onClick={handleAccept}>
                 Join
@@ -92,6 +99,7 @@ const Post = ({ post }) => {
                 Leave
               </button>
             </div>
+            )}
           </div> 
           : 
           <div className="Post-Invite-Info">
