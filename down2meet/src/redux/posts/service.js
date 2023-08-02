@@ -1,7 +1,7 @@
-require('dotenv').config();
+//require('dotenv').config();
 
 const getPosts = async () => {
-    const res = await fetch(`${process.env.URL3001}/posts`,
+    const res = await fetch(`${process.env.REACT_APP_URL3001}/posts`,
     {
         method: "GET",
         credentials: 'include',
@@ -11,7 +11,7 @@ const getPosts = async () => {
 }
 
 const addPost = async (post) => {
-    const res = await fetch(`${process.env.URL3001}/posts`,
+    const res = await fetch(`${process.env.REACT_APP_URL3001}/posts`,
     {
         method: "POST",
         headers: {
@@ -28,7 +28,7 @@ const addPost = async (post) => {
 }
 
 const deletePost = async (postID) => {
-    const res = await fetch(`${process.env.URL3001}/posts/${postID}`,
+    const res = await fetch(`${process.env.REACT_APP_URL3001}/posts/${postID}`,
     {
         method: "DELETE",
         credentials: 'include',
@@ -38,7 +38,7 @@ const deletePost = async (postID) => {
 }
 
 const addParticipantToPost = async (postID, userID) => {
-    const res = await fetch(`${process.env.URL3001}/posts/${postID}/addParticipant/${userID}`,
+    const res = await fetch(`${process.env.REACT_APP_URL3001}/posts/${postID}/addParticipant/${userID}`,
     {
         method: "GET",
         credentials: 'include',
@@ -48,7 +48,7 @@ const addParticipantToPost = async (postID, userID) => {
 }
 
 const removeParticipantFromPost = async (postID, userID) => {
-    const res = await fetch(`${process.env.URL3001}/posts/${postID}/removeParticipant/${userID}`,
+    const res = await fetch(`${process.env.REACT_APP_URL3001}/posts/${postID}/removeParticipant/${userID}`,
     {
         method: "GET",
         credentials: 'include',

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Navbar from './Navbar.js';
 import ButtonAvailable from './ButtonAvailable.js';
 import Search from './Search';
-require('dotenv').config();
+//require('dotenv').config();
 
 
 export default function UserProfile() {
@@ -20,7 +20,7 @@ export default function UserProfile() {
   useEffect(() => {
     // Only fetch the user's profile if userId is not undefined
     if (userId) {
-      fetch(`${process.env.URL3001}/users/${userId}`)
+      fetch(`${process.env.REACT_APP_URL3001}/users/${userId}`)
         .then((response) => response.json())
         .then((data) => setUserProfile(data))
         .catch((error) => console.error(error));
@@ -31,7 +31,7 @@ export default function UserProfile() {
     console.log("UserProfile");
     console.log(currentUser);
     if (currentUser) {
-      fetch(`${process.env.URL3001}/users/${currentUser.user_id}/friends`)
+      fetch(`${process.env.REACT_APP_URL3001}/users/${currentUser.user_id}/friends`)
         .then((response) => response.json())
         .then((data) => setUserFriends(data))
         .catch((error) => console.error(error));
@@ -39,7 +39,7 @@ export default function UserProfile() {
   }, [currentUser]);
 
   const addFriend = async () => {
-    const response = await fetch(`${process.env.URL3001}/users/${currentUser.user_id}/addFriend`, {
+    const response = await fetch(`${process.env.REACT_APP_URL3001}/users/${currentUser.user_id}/addFriend`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -51,7 +51,7 @@ export default function UserProfile() {
   };
 
   const removeFriend = async () => {
-      const response = await fetch(`${process.env.URL3001}/users/${currentUser.user_id}/removeFriend`, {
+      const response = await fetch(`${process.env.REACT_APP_URL3001}/users/${currentUser.user_id}/removeFriend`, {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json'

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-require('dotenv').config();
+//require('dotenv').config();
 
 
 export default function Button() {
@@ -20,7 +20,7 @@ export default function Button() {
   
     // Update user's availability in the database
     const availability = isBusy ? 'Available' : 'Busy';
-    const response = await fetch(`${process.env.URL3001}/users/${user.user_id}/availability`, {
+    const response = await fetch(`${process.env.REACT_APP_URL3001}/users/${user.user_id}/availability`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

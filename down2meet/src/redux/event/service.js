@@ -1,8 +1,8 @@
-require('dotenv').config();
+//require('dotenv').config();
 
 const getEvent = async (userID) => {
     console.log("client service getting events");
-    const res = await fetch(`${process.env.URL3001}/event/${userID}`,
+    const res = await fetch(`${process.env.REACT_APP_URL3001}/event/${userID}`,
     {
         method: "GET",
         credentials: 'include',
@@ -12,7 +12,7 @@ const getEvent = async (userID) => {
 }
 
 const addEvent = async (event) => {
-    const res = await fetch(`${process.env.URL3001}/event`,
+    const res = await fetch(`${process.env.REACT_APP_URL3001}/event`,
     {
         method: "POST",
         headers: {
@@ -32,7 +32,7 @@ const addEvent = async (event) => {
 }
 
 const deleteEvent = async (eventID) => {
-    const res = await fetch(`${process.env.URL3001}/event/${eventID}`,
+    const res = await fetch(`${process.env.REACT_APP_URL3001}/event/${eventID}`,
     {
         method: "DELETE",
         credentials: 'include',
@@ -46,7 +46,7 @@ const deleteEvent = async (eventID) => {
 
 // TODO: not part of standard requirements
 const updateEvent = async (event) => {
-    const response = await fetch(`${process.env.URL3001}/event/` + event.title, {
+    const response = await fetch(`${process.env.REACT_APP_URL3001}/event/` + event.title, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'

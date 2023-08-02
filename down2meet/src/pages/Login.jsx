@@ -4,14 +4,18 @@ import ButtonAvailable from '../components/ButtonAvailable';
 import Search from '../components/Search';
 import landingimage from '../assets/landingimage.jpg';
 import logo from '../assets/D2MLogo.png';
-require('dotenv').config();
+//require('dotenv').config();
 
 
 export default function LoginPage() {
 
+  const URL = `${process.env.REACT_APP_URL3001}`;
+  console.log("Login");
+  console.log(URL);
+
   const handleLogin = () => {
 
-    window.location.href = `${process.env.URL3001}/auth/google`;
+    window.location.href = `${process.env.REACT_APP_URL3001}/auth/google`;
   }
 
   return (

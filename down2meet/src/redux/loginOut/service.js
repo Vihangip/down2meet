@@ -1,7 +1,7 @@
-require('dotenv').config();
+//require('dotenv').config();
 
 const logoutUser = async() => {
-    const res = await fetch(`${process.env.URL3001}/auth/logout`,
+    const res = await fetch(`${process.env.REACT_APP_URL3001}/auth/logout`,
     {
         method:"GET",
         credentials: 'include',
@@ -18,7 +18,7 @@ const logoutUser = async() => {
 }
 
 // const loginUser = async() => {
-//     const res = await fetch(`${process.env.URL3001}/auth/google`,
+//     const res = await fetch(`${process.env.REACT_APP_URL3001}/auth/google`,
 //     {
 //         method:"GET",
 //     });

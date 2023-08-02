@@ -47,7 +47,15 @@
       "last 1 safari version"
     ]
   },
+  "browser": {
+    "path": false,
+    "os": false,
+    "crypto": false,
+    "fs": false
+  },
   "devDependencies": {
+    "dotenv": "^16.3.1",
+    "dotenv-webpack": "^8.0.1",
     "eslint": "^8.44.0"
   }
 }

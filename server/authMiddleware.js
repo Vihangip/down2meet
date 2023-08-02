@@ -6,7 +6,7 @@ const ensureAuthenticated = (req, res, next) => {
     return next();
   }
   req.session.returnPath = req.path;
-  res.redirect(process.env.URL3000); // Redirect to login if not authenticated
+  res.redirect(process.env.REACT_APP_URL3000); // Redirect to login if not authenticated
 };
 
 module.exports = { ensureAuthenticated };

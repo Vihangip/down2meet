@@ -1,7 +1,7 @@
-require('dotenv').config();
+//require('dotenv').config();
 
 const getGroups = async () => {
-    const res = await fetch(`${process.env.URL3001}/groups`,
+    const res = await fetch(`${process.env.REACT_APP_URL3001}/groups`,
     {
         method: "GET",
         credentials: 'include',
@@ -11,7 +11,7 @@ const getGroups = async () => {
 }
 
 const addGroups = async (group) => {
-    const res = await fetch(`${process.env.URL3001}/groups`,
+    const res = await fetch(`${process.env.REACT_APP_URL3001}/groups`,
     {
         method: "POST",
         headers: {
@@ -28,7 +28,7 @@ const addGroups = async (group) => {
 }
 
 const deleteGroups = async (groupID) => {
-    const res = await fetch(`${process.env.URL3001}/groups/${groupID}`,
+    const res = await fetch(`${process.env.REACT_APP_URL3001}/groups/${groupID}`,
     {
         method: "DELETE",
         credentials: 'include',

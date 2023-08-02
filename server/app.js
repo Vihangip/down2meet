@@ -30,9 +30,13 @@ const { ensureAuthenticated } = require('./authMiddleware');
 
 var app = express();
 
+const URL = process.env.REACT_APP_URL3000;
+console.log(URL)
+console.log(`${process.env.REACT_APP_URL3000}`);
+
 app.use(cors(
   {
-  origin: process.env.URL3000, //automatically uses https://down2meet.onrender.com when running on render
+  origin: `${process.env.REACT_APP_URL3000}`, //automatically uses https://down2meet.onrender.com when running on render
   credentials: true, // Allows cookies to be sent with the request
 }
 ));
