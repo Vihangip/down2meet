@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setUser } from '../redux/user/reducer';
 import { useNavigate } from "react-router-dom";
+require('dotenv').config();
 
 function Friends() {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ function Friends() {
 
   useEffect(() => {
     if (user) {
-      fetch(`https://down2meet.onrender.com/users/${user.user_id}/friendsData`)
+      fetch(`${process.env.URL3001}/users/${user.user_id}/friendsData`)
         .then((response) => {
           if (!response.ok) {
             console.log(response);

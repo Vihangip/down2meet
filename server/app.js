@@ -1,3 +1,4 @@
+require('dotenv').config();
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -31,7 +32,7 @@ var app = express();
 
 app.use(cors(
   {
-  origin: 'https://down2meet.onrender.com',
+  origin: process.env.URL3000, //automatically uses https://down2meet.onrender.com when running on render
   credentials: true, // Allows cookies to be sent with the request
 }
 ));

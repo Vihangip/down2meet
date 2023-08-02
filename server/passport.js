@@ -1,6 +1,7 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('./mongoDB/User'); // Replace this with the path to your user model
+require('dotenv').config();
 
 
 passport.serializeUser((user, done) => {
@@ -23,7 +24,7 @@ passport.use(
       {
         clientID: '1011482531322-6d1dp35f941hr37vnn7cvjdstntunnru.apps.googleusercontent.com',
         clientSecret: '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',
-        callbackURL: 'https://down2meet.onrender.com/auth/google/callback',
+        callbackURL: `${process.env.URL3001}/auth/google/callback`,
       },
       async (accessToken, refreshToken, profile, done) => {
         try {

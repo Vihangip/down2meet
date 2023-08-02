@@ -1,5 +1,7 @@
+require('dotenv').config();
+
 const logoutUser = async() => {
-    const res = await fetch(`https://down2meet.onrender.com/auth/logout`,
+    const res = await fetch(`${process.env.URL3001}/auth/logout`,
     {
         method:"GET",
         credentials: 'include',
@@ -16,7 +18,7 @@ const logoutUser = async() => {
 }
 
 // const loginUser = async() => {
-//     const res = await fetch(`https://down2meet.onrender.com/auth/google`,
+//     const res = await fetch(`${process.env.URL3001}/auth/google`,
 //     {
 //         method:"GET",
 //     });

@@ -4,13 +4,14 @@ import ButtonAvailable from '../components/ButtonAvailable';
 import Search from '../components/Search';
 import landingimage from '../assets/landingimage.jpg';
 import logo from '../assets/D2MLogo.png';
+require('dotenv').config();
 
 
 export default function LoginPage() {
 
   const handleLogin = () => {
 
-    window.location.href = "https://down2meet.onrender.com/auth/google";
+    window.location.href = `${process.env.URL3001}/auth/google`;
   }
 
   return (
