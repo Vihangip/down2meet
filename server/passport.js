@@ -46,7 +46,7 @@ passport.use(
               groups: [],
               events: [],
               hangouts: [],
-              availability: false,
+              availability: 'Available',
             });
   
             

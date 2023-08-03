@@ -45,7 +45,6 @@ router.get('/:user_id/groups', async(req, res, next) => {
   if(!foundUser) {
     return res.status(404).send({message: 'User not found'});
   } else {
-    console.log("useruseruser:" + foundUser.friends); 
     return res.send(foundUser.friends);
   }
   

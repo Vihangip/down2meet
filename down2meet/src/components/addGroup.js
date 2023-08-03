@@ -36,18 +36,19 @@
       Promise.all(uniqueFriends.map(friend => getUserNameByID(friend)))
         .then(names => setFriendNames(names))
         .catch(error => console.error(error));
-    }, []);
+      dispatch(getUserGroupsAsync(currentUser.user_id));
+    }, [dispatch]);
 
-    useEffect(() => {
+    // useEffect(() => {
       // dispatch(getSessionUserAsync());
       // dispatch(getGroupsAsync());
       // dispatch(getFriendsAsync(currentUser.user_id));
-      dispatch(getUserGroupsAsync(currentUser.user_id));
+
       
       // dispatch(getFriendsAsync(currentUser.user_id));
       // todo: Need to add to Groups collection too
 
-    },[dispatch]);
+    // },[dispatch]);
 
 
     const getUserNameByID = async (userid) => {

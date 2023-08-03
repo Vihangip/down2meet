@@ -81,6 +81,7 @@ export const getFriendsAsync = createAsyncThunk(
       return await service.getFriends(user_id);
   }
 );
+
 export const getUserGroupsAsync = createAsyncThunk(
   'users/getUserGroupAsync',
   async (user_id) => {

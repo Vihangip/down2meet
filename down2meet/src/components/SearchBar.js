@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 //require('dotenv').config();
 
 
-export default function SearchBar({ onSearch, onSearchResultClick }) {
+export default function SearchBar({ onSearchResultClick }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
@@ -38,7 +38,6 @@ export default function SearchBar({ onSearch, onSearchResultClick }) {
     setSearchQuery('');
     setSearchResults([]);
     onSearchResultClick(userId);
-    onSearch(''); // Update the search query in the parent component as well
   };
 
   return (

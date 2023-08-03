@@ -4,6 +4,7 @@ import service from '../redux/user/service';
 import { useState, useEffect } from 'react';
 import blankpic from '../assets/blank_profile.jpeg';
 import { addParticipantToPost, removeParticipantFromPost } from '../redux/posts/thunks';
+import HangoutParticipant from './HangoutParticipant';
 
 const Hangout = ({ post }) => {
   const [user, setUser] = useState(null);
@@ -44,13 +45,25 @@ const Hangout = ({ post }) => {
       <div className="Post">
         <img className="Post-UserInfo-Image" src={post.profilepic ? post.profilepic : blankpic} alt="" />
         <div className="Post-Container">
-          <div key={post.id} className="Post-UserInfo">
-            {user.availability ? 
-            <p className='Post-Username-active'>{user.name}</p> : 
-            <p className='Post-Username-inactive'>{user.name}</p>}
-            {/* ADD THE TIME WHEN POST WAS POSTED */}
+          <div className="Hangout-Top">
+            <div className='Hangout-UserInfo'>
+              <div key={post.id} className="Post-UserInfo">
+                {user.availability ? 
+                <p className='Post-Username-active'>{user.name}</p> : 
+                <p className='Post-Username-inactive'>{user.name}</p>}
+                {/* ADD THE TIME WHEN POST WAS POSTED */}
+              </div>
+              <p className='Post-Status'>{post.status ? post.status : " "}</p>
+            </div>
+            <div className="Hangouts-Participants">
+              <p className="Hangouts-Participants-Text">Participants</p>
+              <div className="Hangouts-Participants-Images">
+                {post.participants.map((participant) => (
+                  <HangoutParticipant participant={participant} />
+                 ))}
+              </div>
+            </div>
           </div>
-          <p className='Post-Status'>{post.status ? post.status : " "}</p>
 
           {user.availability ? 
             <div className="Post-Invite-Info">

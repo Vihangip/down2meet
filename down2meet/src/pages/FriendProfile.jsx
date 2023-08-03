@@ -39,7 +39,7 @@ function FriendProfile() {
               <img className="ProfilePicture" src={friendInfo.picture} alt="profile"/>   
               <div className="column">
               <p> Name:   {friendInfo.name} </p> 
-                <p> ID: {friendInfo.user_id} </p>
+                <p> Email: {friendInfo.email} </p>
               </div>
             </div>
             <h3> Schedule</h3>

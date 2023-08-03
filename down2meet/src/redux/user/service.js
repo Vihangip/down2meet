@@ -170,7 +170,6 @@ async function addFriend(userId, friendId) {
 
 
     const getUserGroup = async (user_id) => {
-      console.log(user_id);
         const res = await fetch(`${process.env.REACT_APP_URL3001}/users/${user_id}/groups`,
         {
             method: "GET",
@@ -203,5 +202,5 @@ async function addFriend(userId, friendId) {
   
 
 export default {
-    getUsers, addUsers, deleteUsers, getOneUser, addUserPost, getSessionUser, addFriend, removeFriend, getFriends, getUserGroup, addUserGroup, getHangouts, addUserEvent
+    getUsers, addUsers, deleteUsers, getOneUser, addUserPost, getSessionUser, addFriend, removeFriend, getUserGroup, addUserGroup, getHangouts, addUserEvent, getFriends
 }

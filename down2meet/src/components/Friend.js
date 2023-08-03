@@ -6,7 +6,8 @@ import { useNavigate } from "react-router-dom";
 
 function Friends() {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.users);
+  // const { user } = useSelector((state) => state.users);
+  const user = JSON.parse(localStorage.getItem('user'));
   const [friendsData, setFriendsData] = useState([]);
   const [filterByAvailability, setFilterByAvailability] = useState('All');
 
@@ -64,7 +65,7 @@ function Friends() {
           <img className="friend-image" src={friend.picture} alt="pfp" />
           <p className="friend-info">{friend.name}</p>
           <div className="friend-container-button">
-          <button className="friend-info" onClick={() => handleProfileClick({ user_id: friend.user_id, picture: friend.picture, name: friend.name })}>See Profile</button>
+          <button className="friend-info" onClick={() => handleProfileClick({ user_id: friend.user_id, picture: friend.picture, name: friend.name, email: friend.email})}>See Profile</button>
         </div>
 
         </div>
