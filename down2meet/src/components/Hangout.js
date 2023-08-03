@@ -3,13 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import service from '../redux/user/service';
 import { useState, useEffect } from 'react';
 import blankpic from '../assets/blank_profile.jpeg';
-import { addParticipantToPost, removeParticipantFromPost } from '../redux/posts/thunks';
+import { addParticipantToPost, removeParticipantFromPost,deletePostAsync  } from '../redux/posts/thunks';
+import { removeHangoutsForFriendsAsync} from '../redux/user/thunks';
 import HangoutParticipant from './HangoutParticipant';
 
 const Hangout = ({ post }) => {
   const [user, setUser] = useState(null);
   const useruser = JSON.parse(localStorage.getItem('user'));
   const dispatch = useDispatch();
+  const [showuserPost, setuserPost] = useState(false);
 
   useEffect(() => {
     // Fetch user information when the component mounts
@@ -21,6 +23,12 @@ const Hangout = ({ post }) => {
         console.error("Error fetching user:", error.message);
       }
     };
+
+    if (useruser.user_id === post.user_id) {
+      setuserPost(true);
+    } else {
+      setuserPost(false);
+    }
 
     fetchUser();
     return () => {
@@ -34,6 +42,11 @@ const Hangout = ({ post }) => {
 
   const handleReject = () => {
     dispatch(removeParticipantFromPost({ postID: post.post_id, userID: useruser.user_id }));
+  };
+
+  const handleDelete = () => {
+    dispatch(removeHangoutsForFriendsAsync(post.post_id));
+    dispatch(deletePostAsync(post.post_id));
   };
 
     if (!user) {
@@ -100,10 +113,23 @@ const Hangout = ({ post }) => {
             <div className="Hangouts-InviteButtons-active">
               {/* <button className="accept-button" onClick={handleAccept}>
                 Join
-              </button> */}
+              </button>
               <button className="hangout-reject-button" onClick={handleReject}>
                 Leave
+              </button> */}
+              {!showuserPost ?(
+                <div className="Hangouts-InviteButtons-active">
+                  <button className="reject-button" onClick={handleReject}>
+                    Leave
+                  </button>
+                </div>
+              ):
+              (
+                <div className="Hangouts-InviteButtons-active">
+                <button className="delete-button" onClick={handleDelete}>
+                Delete
               </button>
+              </div>)}
             </div>
           </div> 
           : 
@@ -124,9 +150,22 @@ const Hangout = ({ post }) => {
             {/* <button className="accept-button" onClick={handleAccept}>
               Join
             </button> */}
-            <button className="hangout-reject-button" onClick={handleReject}>
+            {/* <button className="hangout-reject-button" onClick={handleReject}>
               Leave
-            </button>
+            </button> */}
+                          {!showuserPost ?(
+                <div className="Hangouts-InviteButtons-active">
+                  <button className="reject-button" onClick={handleReject}>
+                    Leave
+                  </button>
+                </div>
+              ):
+              (
+                <div className="Hangouts-InviteButtons-active">
+                <button className="delete-button" onClick={handleDelete}>
+                Delete
+              </button>
+              </div>)}
           </div>
         </div>
           }
