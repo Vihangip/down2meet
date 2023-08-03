@@ -48,12 +48,6 @@ export const addUserEventAsync = createAsyncThunk(
         return await service.addUserEvent(userID, eventID);
     });
 
-export const logoutUserAsync = createAsyncThunk(
-  'users/logoutUserAsync', 
-  async () => {
-      return await service.logoutUser();
-});
-
 export const getSessionUserAsync = createAsyncThunk(
   'users/getUserAsync',
   async() => {
@@ -106,5 +100,12 @@ export const getHangoutsAsync = createAsyncThunk(
   'users/getHangoutsAsync',
   async (user_id) => {
       return await service.getHangouts(user_id);
+  }
+);
+
+export const removeHangoutsForFriendsAsync = createAsyncThunk(
+  'users/removeHangoutsForFriendsAsync',
+  async (postID) => {
+      return await service.removeHangoutsForFriends(postID);
   }
 );

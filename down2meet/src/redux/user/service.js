@@ -197,10 +197,26 @@ async function addFriend(userId, friendId) {
       const data = await response.json();
       console.log(data);
       return data;
-    }
+    };
+
+    const removeHangoutsForFriends = async (post_id) => {
+        const res = await fetch(`${process.env.REACT_APP_URL3001}/users/${post_id}/remove-from-hangouts`, {
+          method: "PUT",
+          credentials: 'include',
+        });
     
+        if (!res.ok) {
+          throw new Error(`HTTP error! Status: ${res.status}`);
+        }
+    
+        const data = await res.json();
+        console.log("hangouts from service: ", data);
+        return data;
+      
+    };
   
 
 export default {
-    getUsers, addUsers, deleteUsers, getOneUser, addUserPost, getSessionUser, addFriend, removeFriend, getUserGroup, addUserGroup, getHangouts, addUserEvent, getFriends
+    getUsers, addUsers, deleteUsers, getOneUser, addUserPost, getSessionUser, addFriend, removeFriend, 
+    getUserGroup, addUserGroup, getHangouts, addUserEvent, getFriends, removeHangoutsForFriends
 }

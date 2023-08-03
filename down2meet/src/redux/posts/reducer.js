@@ -25,7 +25,8 @@ const postSlice = createSlice({
                 state.postList.push(action.payload);
             })
             .addCase(deletePostAsync.fulfilled, (state, action) => {
-                state.postList = state.postList.filter((post) => post.id !== action.payload);
+                // state.postList = state.postList.filter((post) => post.id !== action.payload);
+                 state.friendsPostList = state.friendsPostList.filter((post) => post.id !== action.payload);
             })
             .addCase(addParticipantToPost.fulfilled, (state, action) => {
                 // console.log('BEFORE');

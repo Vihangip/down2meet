@@ -207,6 +207,25 @@ router.get('/:user_id/groups', async(req, res, next) => {
   
 });
 
+router.put('/:post_id/remove-from-hangouts', async (req, res) => {
+  const post_id  = req.params.post_id;
+  console.log ("hereeeeeeee");
+
+    // Find all users that have the specified post_id in their hangouts array
+    const users = await User.find({ hangouts: { $in: [post_id] } });
+
+    // Remove the post_id from each user's hangouts array
+    const updatedUsers = await Promise.all(
+      users.map(async (user) => {
+        const updatedHangouts = user.hangouts.filter((hangoutId) => hangoutId !== post_id);
+        user.hangouts = updatedHangouts;
+        return await user.save();
+      })
+    );
+
+    res.json(updatedUsers); // Send back the updated user documents
+});
+
 
 
 // router.post('/:userId/removeFriend', async(req, res) => {

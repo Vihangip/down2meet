@@ -28,9 +28,9 @@ const Hangout = ({ post }) => {
     };
   }, [post.user_id]);
 
-  const handleAccept = () => {
-    dispatch(addParticipantToPost({ postID: post.post_id, userID: useruser.user_id }));
-  };
+  // const handleAccept = () => {
+  //   dispatch(addParticipantToPost({ postID: post.post_id, userID: useruser.user_id }));
+  // };
 
   const handleReject = () => {
     dispatch(removeParticipantFromPost({ postID: post.post_id, userID: useruser.user_id }));
@@ -98,9 +98,9 @@ const Hangout = ({ post }) => {
                 </div>
               }
             <div className="Hangouts-InviteButtons-active">
-              <button className="accept-button" onClick={handleAccept}>
+              {/* <button className="accept-button" onClick={handleAccept}>
                 Join
-              </button>
+              </button> */}
               <button className="hangout-reject-button" onClick={handleReject}>
                 Leave
               </button>
@@ -121,6 +121,9 @@ const Hangout = ({ post }) => {
             <p>{post.location}</p>
           </div>
           <div className="Hangouts-InviteButtons-inactive">
+            {/* <button className="accept-button" onClick={handleAccept}>
+              Join
+            </button> */}
             <button className="hangout-reject-button" onClick={handleReject}>
               Leave
             </button>
