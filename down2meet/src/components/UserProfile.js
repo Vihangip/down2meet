@@ -7,6 +7,7 @@ import ButtonAvailable from './ButtonAvailable.js';
 import Search from './Search';
 import { current } from '@reduxjs/toolkit';
 import service from '../redux/user/service';
+import { useNavigate } from 'react-router-dom';
 
 //require('dotenv').config();
 
@@ -15,7 +16,9 @@ export default function UserProfile() {
   const { userId } = useParams(); // get the userId from the URL
   const [userProfile, setUserProfile] = useState(null);
   const [userFriends, setUserFriends] = useState([]);
+  const [friendAdded, setFriendAdded] = useState([]); 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const currentUser = JSON.parse(localStorage.getItem('user'));
   console.log("UserProfile");
   console.log(currentUser);
@@ -30,6 +33,7 @@ export default function UserProfile() {
     });
     const data = await response.json();
     dispatch(setUser(data)); // Use the setUser Redux action to update the current user
+    setFriendAdded(true);
   };
 
   const removeFriend = async () => {
@@ -42,6 +46,7 @@ export default function UserProfile() {
       });
       const data = await response.json();
       dispatch(setUser(data)); // Use the setUser Redux action to update the current user
+      setFriendAdded(false);
   };
 
   useEffect(() => { //VIHANGI
@@ -64,6 +69,10 @@ export default function UserProfile() {
       }
     };
 
+    if (friendAdded) {
+      //nothing to put in here, but it works
+    } else if (!friendAdded){}
+
     // if (userId) {
     //   fetch(`${process.env.REACT_APP_URL3001}/users/${userId}`)
     //     .then((response) => response.json())
@@ -72,7 +81,7 @@ export default function UserProfile() {
     // }
     fetchFriends();
     fetchUser();
-  }, [userId, currentUser.user_id]);
+  }, [userId, currentUser.user_id, friendAdded]);
 
   useEffect(() => { //LUCY
     // if (currentUser) {
@@ -85,6 +94,10 @@ export default function UserProfile() {
   // }, [addFriend, removeFriend]);
   }, []);
 
+  const handleProfileClick = (friendInfo) => {
+    console.log(friendInfo);
+    navigate('/FriendProfile', { state: { friendInfo } });   ///////
+  };
 
 
   if (!userProfile) {
@@ -100,6 +113,9 @@ export default function UserProfile() {
       <div className="UserProfile">
           <h1>{userProfile.name}</h1>
           <img src={userProfile.picture} alt={userProfile.name} />
+          {currentUser && userFriends.includes(userProfile.user_id) && (
+            <button className="addButton" onClick={() => handleProfileClick(userProfile)}>See Profile</button>
+          )}
           {currentUser && userFriends.includes(userProfile.user_id)
               ? <button className="deleteButton" onClick={removeFriend}>Delete Friend</button>
               : <button className="addButton" onClick={addFriend}>Add Friend</button>
