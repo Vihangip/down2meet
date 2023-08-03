@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getPostsAsync, addPostAsync, deletePostAsync, addParticipantToPost, removeParticipantFromPost } from "./thunks";
+import { getPostsAsync, addPostAsync, deletePostAsync, addParticipantToPost, removeParticipantFromPost, getFriendsPostsAsync } from "./thunks";
 import {REQUEST_STATE} from '../utils'
 
 
 const INITIAL_STATE = {
     postList: [],
+    friendsPostList: [],
     getPosts: REQUEST_STATE.IDLE,
     addPost: REQUEST_STATE.IDLE,
 };
@@ -45,6 +46,9 @@ const postSlice = createSlice({
                 //     }
                 //     return post;
                 // });
+            })
+            .addCase(getFriendsPostsAsync.fulfilled, (state, action) => {
+                state.friendsPostList = action.payload;
             });
     },
 });

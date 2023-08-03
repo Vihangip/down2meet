@@ -35,3 +35,10 @@ export const removeParticipantFromPost = createAsyncThunk(
         return await service.removeParticipantFromPost(postID, userID);
     }
 );
+
+export const getFriendsPostsAsync = createAsyncThunk(
+    'users/getFriendsPostsAsync',
+    async (userID) => {
+        return await service.getFriendsPosts(userID);
+    }
+);

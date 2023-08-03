@@ -121,9 +121,6 @@ const Hangout = ({ post }) => {
             <p>{post.location}</p>
           </div>
           <div className="Hangouts-InviteButtons-inactive">
-            <button className="accept-button" onClick={handleAccept}>
-              Join
-            </button>
             <button className="hangout-reject-button" onClick={handleReject}>
               Leave
             </button>
