@@ -27,7 +27,7 @@
     const usersFriends = useSelector((state) => state.users.friendsList)
     console.log(usersFriends);
     const uniqueFriends = Array.from(new Set(usersFriends));   
-    console.log(uniqueFriends);
+    // console.log(uniqueFriends);
 
 
 
@@ -41,7 +41,7 @@
     useEffect(() => {
       // dispatch(getSessionUserAsync());
       // dispatch(getGroupsAsync());
-      // dispatch(getFriendsAsync(currentUser.user_id));
+      dispatch(getFriendsAsync(currentUser.user_id));
       dispatch(getUserGroupsAsync(currentUser.user_id));
       
       // dispatch(getFriendsAsync(currentUser.user_id));
