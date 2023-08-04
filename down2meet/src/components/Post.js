@@ -5,8 +5,10 @@ import { useState, useEffect } from 'react';
 import blankpic from '../assets/blank_profile.jpeg';
 import { addParticipantToPost, removeParticipantFromPost } from '../redux/user/thunks';
 import { deletePostAsync } from '../redux/posts/thunks';
-import { removeHangoutsForFriendsAsync
- } from '../redux/user/thunks';
+import { removeHangoutsForFriendsAsync} from '../redux/user/thunks';
+import { v4 as uuidv4 } from 'uuid';
+import { addEventAsync } from '../redux/event/thunks';
+
 const Post = ({ post }) => {
   const [user, setUser] = useState(null);
   const useruser = JSON.parse(localStorage.getItem('user'));
@@ -44,6 +46,9 @@ const Post = ({ post }) => {
   const handleAccept = () => {
     dispatch(addParticipantToPost({ postID: post.post_id, userID: useruser.user_id }));
     setHasJoinedHangout(true);
+
+    handleAddEvent(post.post_id, useruser.user_id);
+
   };
 
   const handleReject = () => {
@@ -57,6 +62,51 @@ const Post = ({ post }) => {
     setHasJoinedHangout(false);
   };
 
+  const handleAddEvent = (post_id, user_id) => {
+
+    const randomUUID = uuidv4();
+    
+    const options = {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+      timeZone: 'America/Vancouver',
+    };
+
+    console.log(post.date);
+    console.log(post.start);
+    const unformattedStartDate = new Date(
+      post.date + 'T' + post.start
+    );
+    const unformattedEndDate = new Date(
+      post.date + 'T' + post.end
+    );
+    console.log(unformattedEndDate);
+
+    const vancouverStartDate = new Intl.DateTimeFormat('en-US', options).format(unformattedStartDate);
+    const vancouverEndDate = new Intl.DateTimeFormat('en-US', options).format(unformattedEndDate);
+
+    const formattedStartDate = new Date(vancouverStartDate);
+    const formattedEndDate = new Date(vancouverEndDate);
+
+    const new_event = {
+      "id": randomUUID, 
+      "email": useruser.email,
+      "userID": useruser.user_id,
+      "user_id": useruser.user_id,
+      "title": "down2meet",
+      "description": post.status, 
+      "start": formattedStartDate, 
+      "end": formattedEndDate,
+      "groups": post.participants
+    };
+    console.log("new_event")
+    dispatch(addEventAsync(new_event));
+
+  }
 
     if (!user) {
       // Render a loading state or return null while user data is being fetched

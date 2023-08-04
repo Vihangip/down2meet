@@ -4,11 +4,11 @@ import { addPost } from '../actions/actions';
 import { addPostAsync } from '../redux/posts/thunks';
 import { addUserPostAsync } from '../redux/user/thunks';
 import { getSessionUserAsync } from '../redux/user/thunks';
-import { addParticipantToPost } from '../redux/posts/thunks';
+//import { addParticipantToPost } from '../redux/posts/thunks';
 import { addEventAsync } from '../redux/event/thunks';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
-
+import { addParticipantToPost } from '../redux/user/thunks';
 
 
 function PostBar() {
@@ -49,6 +49,7 @@ function PostBar() {
       viewers: [],
       participants: [],
     };
+    console.log(post);
     dispatch(addPostAsync(post));
     dispatch(addParticipantToPost({ postID: post.post_id, userID: useruser.user_id }));
     
@@ -67,7 +68,6 @@ function PostBar() {
   };
 
   const handleAddEvent = () => {
-
     const useruser = user;
     const randomUUID = uuidv4();
     
@@ -81,12 +81,10 @@ function PostBar() {
       timeZone: 'America/Vancouver',
     };
 
-
     const unformattedStartDate = new Date(
       date + 'T' + time
       //itemStartRef.current.value + 'T' + itemStartTimeRef.current.value
     );
-
 
     const unformattedEndDate = new Date(
       date + 'T' + time2
@@ -158,7 +156,7 @@ function PostBar() {
         <div className="PostBar-PostContainer">
           <div className='PostBar-DropdownContainer'>
             <button type="button" className="PostBar-DropdownButton" onClick={handleDropdownToggle}>
-              {selectedOption ? <div className='PostBar-DropdownText'>{selectedOption}<i className="fa-solid fa-arrow-right"></i></div> : <div className='PostBar-DropdownText'>Everyone<i class="fa-solid fa-arrow-right"></i></div>}
+              {selectedOption ? <div className='PostBar-DropdownText'>{selectedOption}<i class="fa-solid fa-arrow-right"></i></div> : <div className='PostBar-DropdownText'>Everyone<i class="fa-solid fa-arrow-right"></i></div>}
               
             </button>
             {showDropdown && (
@@ -189,7 +187,7 @@ function PostBar() {
         <div className='PostBar-BottomPost'>
           <div className="PostBar-IconContainer">
             <button type="button" onClick={handleDateToggle} className='PostBar-AdditionalInfo'>
-              <i className="fa-regular fa-calendar-days"></i>
+              <i class="fa-regular fa-calendar-days"></i>
             </button>
             {showDateInput && (
               <input
@@ -204,7 +202,7 @@ function PostBar() {
               />
             )}
             <button type="button" onClick={handleTimeToggle} className='PostBar-AdditionalInfo'>
-              <i class="fa-regular fa-clock"></i>
+              <i className="fa-regular fa-clock"></i>
             </button>
             {showTimeInput && (
               <>
