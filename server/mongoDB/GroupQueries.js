@@ -30,7 +30,6 @@ const queries = {
       
         // returns results where the price is less than $filter.
         const searchResults = await Group.find({ price: { $lt: filterAsStr } });
-        console.log(searchResults);
         return searchResults;
       }
       

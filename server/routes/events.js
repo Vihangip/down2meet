@@ -10,7 +10,6 @@ var router = express.Router();
 /* GET event listing. */
 router.get('/:user_id', async(req, res, next) =>{
 
-  console.log("server events getting events");
   let allEvent = await queries.getAllEvent({userID: req.params.user_id}); //only get the specified user's events
   return res.send(allEvent);       ////////////// not sure if this is userID or user_id
 });
@@ -27,7 +26,6 @@ router.get('/:eventId', async(req, res, next) => {
 
 /* POST event. */
 router.post('/', async(req, res, next) => {
-  console.log("server events");
   const event =  { 
     id: uuid(),
     email: req.body.email,
@@ -40,10 +38,7 @@ router.post('/', async(req, res, next) => {
     location: req.body.location,
     participants: req.body.participants
   };
-  console.log("server events, ", req.body.userID);
   const addedEvent = await queries.addEvent(event);
-  // console.log(event);
-  // console.log(addedEvent);
   res.status(201);
   return res.send(addedEvent);
 });
@@ -53,8 +48,6 @@ router.get('/:userID/addEvent/:eventID', async(req, res, next) => {
   try {
     const userID = req.params.userID;
     const eventID = req.params.eventID;
-    console.log(userID);
-    console.log(eventID);
     const user = await User.updateOne(
       { user_id: userID },
       { $push: { events: eventID } }

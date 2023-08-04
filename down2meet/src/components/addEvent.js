@@ -34,7 +34,6 @@ export function AddEvent() {
   const uniqueGroups = Array.from(new Set(events.flatMap(event => event.groups)));
 
   const groupsList = useSelector((state) => state.users.groupList);
-  console.log(groupsList);
 
 
   useEffect(() => {
@@ -70,7 +69,6 @@ export function AddEvent() {
 //     const memberNames = await Promise.all(group.members.map(userid => service.getOneUser(userid).then(user => user.name)));
 //     return { ...group, members: memberNames };
 //   } catch (error) {
-//     console.log(error.message);
 //     return group;
 //   }
 // };
@@ -112,19 +110,13 @@ export function AddEvent() {
 
 
       // Your form submit logic here
-      console.log("title", itemNameRef.current.value);
-      console.log("description", itemDescRef.current.value);
-      console.log("start date", startDate);
-      console.log("end date", endDate);
       formattedStartDate = startDate;
       formattedEndDate = endDate;
 
-      console.log(formattedStartDate);
 
       // the id value here gets replaces in when the post request is made. 
       // but it is used as a key? todo; check if it can just be a constant
 
-      console.log("addEvent, ", user.user_id);
       dispatch(addEventAsync({
           "id": uuid(), 
           "email": user.email,
@@ -143,10 +135,7 @@ export function AddEvent() {
         googleEvent.startingDate = (startDate);//startDate);
         googleEvent.endingDate = (endDate);//endDate);
         handleCreateEvent(); //only add event to Google Calendar if user is signed in
-        console.log("added to google calendar")
       }
-      console.log("addEvent new event");
-      //console.log(googleEvent.startingDate);
     };
     
 
@@ -289,10 +278,6 @@ export function AddEvent() {
 //     ).toISOString();
 
 //       // Your form submit logic here
-//       console.log("title", itemNameRef.current.value);
-//       console.log("description", itemDescRef.current.value);
-//       console.log("start date", startDate);
-//       console.log("end date", endDate);
 //       formattedStartDate = startDate.slice(0, -1);
 //       formattedEndDate = endDate.slice(0, -1);
 
@@ -313,8 +298,6 @@ export function AddEvent() {
 //       if (calendarSignedIn === true) {
 //         handleCreateEvent(); //only add event to Google Calendar if user is signed in
 //       }
-//       //console.log("addEvent new event");
-//       //console.log(googleEvent.startingDate);
 //     };
     
 

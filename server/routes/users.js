@@ -1,5 +1,7 @@
 var express = require('express');
 const User = require('../mongoDB/User');
+
+const Post = require('../mongoDB/Post');
 const { randomUUID } = require('crypto');
 var router = express.Router();
 
@@ -12,7 +14,6 @@ router.get('/', async(req, res, next) =>{
 /* GET users by name (search). */
 router.get('/search', async (req, res, next) => {
   const searchQuery = req.query.q; // Get the search query from the query parameter
-  console.log(searchQuery);
 
   try {
     const users = await User.find({ name: { $regex: searchQuery, $options: 'i' } }); // Perform a case-insensitive search for users by name
@@ -24,7 +25,6 @@ router.get('/search', async (req, res, next) => {
 });
 
 router.get('/:user_id/friendsData', async(req, res, next) => {
-  console.log(req.params.user_id);
   const foundUser = await User.findOne({user_id: req.params.user_id})
 
   if(!foundUser || foundUser === null){ 
@@ -41,7 +41,6 @@ router.get('/:user_id/friendsData', async(req, res, next) => {
 /* GET user by ID. */
 router.get('/:userId', async(req, res, next) => {
   const foundUser = await User.findOne({user_id: req.params.userId})
-  console.log('User ID:', req.params.userId);
   if(!foundUser || foundUser === null){ return res.status(404).send({message: 'Item not found'})};
   return res.send(foundUser);
 });
@@ -66,7 +65,6 @@ router.post('/', async(req, res, next) => {
 
 router.post('/:userId/addFriend', async(req, res) => {
   try {
-    console.log(`Request to add friend for user ${req.params.userId}`);
     const userId = req.params.userId;
     const friendId = req.body.friendId;
     const user = await User.findOne({ user_id: userId });
@@ -103,9 +101,7 @@ router.get('/:userId/hangouts', async(req, res, next) => {
 });
 
 router.get('/:user_id/friends', async(req, res, next) => {
-  console.log(req.params.user_id);
   const foundUser = await User.findOne({user_id: req.params.user_id})
-  console.log("USERS.JS/110"); 
   return res.send(foundUser.friends);
 });
 
@@ -127,8 +123,6 @@ router.get('/:userID/addPost/:postID', async (req, res) => {
   try {
     const userID = req.params.userID;
     const postID = req.params.postID;
-    console.log(userID);
-    console.log(postID);
     const user = await User.updateOne(
       { user_id: userID },
       { $push: { events: postID } }
@@ -160,12 +154,10 @@ router.put('/:userId/availability', async (req, res) => {
 });
   
 router.get('/:user_id/friends', async(req, res, next) => {
-  console.log(req.params.user_id);
   const foundUser = await User.findOne({user_id: req.params.user_id});
   if(!foundUser) {
     return res.status(404).send({message: 'User not found'});
   } else {
-    // console.log("USERS.JS/168"); 
     return res.send(foundUser.friends);
   }
   
@@ -174,7 +166,6 @@ router.get('/:user_id/friends', async(req, res, next) => {
 
 router.post('/:userId/addGroup', async(req, res) => {
   try {
-    console.log(`Request to add Group for user ${req.params.userId}`);
     const userId = req.params.userId;
     const group = req.body;
     const user = await User.findOne({ user_id: userId });
@@ -186,7 +177,6 @@ router.post('/:userId/addGroup', async(req, res) => {
       await user.save();
     }
 
-    console.log(group);
     return res.send(group);
   } catch (error) {
     console.error(error);
@@ -195,13 +185,10 @@ router.post('/:userId/addGroup', async(req, res) => {
 });
 
 router.get('/:user_id/groups', async(req, res, next) => {
-  // console.log(req.params.user_id);
-  // console.log("AAAAAAAAAAAA");  
   const foundUser = await User.findOne({user_id: req.params.user_id});
   if(!foundUser) {
     return res.status(404).send({message: 'User not found'});
   } else {
-    // console.log("useruseruser:" + foundUser.groups); 
     return res.send(foundUser.groups);
   }
   
@@ -209,7 +196,6 @@ router.get('/:user_id/groups', async(req, res, next) => {
 
 router.put('/:post_id/remove-from-hangouts', async (req, res) => {
   const post_id  = req.params.post_id;
-  console.log ("hereeeeeeee");
 
     // Find all users that have the specified post_id in their hangouts array
     const users = await User.find({ hangouts: { $in: [post_id] } });
@@ -223,7 +209,55 @@ router.put('/:post_id/remove-from-hangouts', async (req, res) => {
       })
     );
 
-    res.json(updatedUsers); // Send back the updated user documents
+    return res.status(200).send(post_id);
+});
+
+router.get('/:postId/addParticipant/:userId', async (req, res) => {
+  try {
+    const userID = req.params.userId;
+    const postID = req.params.postId;
+    const user = await User.findOne ({ user_id: userID });
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+    const post = await Post.findOne({ post_id: postID });
+    if (!post) {
+      return res.status(404).send('Post not found');
+    }
+    user.hangouts.push(postID);
+    user.save();
+    post.participants.push(userID);
+    post.save();
+    return res.status(200).send(postID);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+router.get('/:postId/removeParticipant/:userId', async(req, res) => {
+  try {
+    console.log('ROUTER REQUEST RECEIVED');
+    const userID = req.params.userId;
+    const postID = req.params.postId;
+    const user = await User.findOne ({ user_id: userID });
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+    const post = await Post.findOne({ post_id: postID });
+    if (!post) {
+      return res.status(404).send('Post not found');
+    }
+    user.hangouts = user.hangouts.filter(hangouts => hangouts !== postID);
+    user.save();
+    post.participants = post.participants.filter(participants => participants !== userID);
+    post.save();
+    console.log('POST ID ROUTER SIDE!!!');
+    console.log(postID);
+    return res.status(200).send(postID);
+  } catch (err) {
+    res.status(500).send('Internal Server Error');
+  }
 });
 
 

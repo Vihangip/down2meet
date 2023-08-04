@@ -4,7 +4,7 @@ import BodyHeader from '../components/BodyHeader';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { getFriendsPostsAsync, getPostsAsync } from '../redux/posts/thunks';
-import { getSessionUserAsync } from '../redux/user/thunks';
+import { getHangoutsAsync, getSessionUserAsync } from '../redux/user/thunks';
 import Navbar from '../components/Navbar';
 import ButtonAvailable from '../components/ButtonAvailable';
 import Search from '../components/Search';
@@ -19,7 +19,6 @@ import { useSelector } from 'react-redux';
 function Home() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const setUpdate = useSelector((state) => state.posts.setUpdate);
 
   useEffect(() => {
     const fetchPostsAndUsers = async () => {
@@ -33,18 +32,14 @@ function Home() {
         }
         await dispatch(getPostsAsync());
         await dispatch(getFriendsPostsAsync(storedUser.user_id));
+        await dispatch(getHangoutsAsync(storedUser.user_id));
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
-    if (setUpdate) {
-      //nothing to put in here, but it works
-    } else if (!setUpdate){
-      //nothing to put in here, but it works
-    }
 
     fetchPostsAndUsers();
-  }, [dispatch, setUpdate]);
+  }, [dispatch]);
 
   const handleUserProfileClick = (userId) => {
     navigate(`/user/${userId}`); // Navigate to the UserProfile component with the selected userId

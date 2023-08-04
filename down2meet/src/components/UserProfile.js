@@ -20,8 +20,6 @@ export default function UserProfile() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentUser = JSON.parse(localStorage.getItem('user'));
-  console.log("UserProfile");
-  console.log(currentUser);
 
   const addFriend = async () => {
     const response = await fetch(`${process.env.REACT_APP_URL3001}/users/${currentUser.user_id}/addFriend`, {
@@ -95,7 +93,6 @@ export default function UserProfile() {
   }, []);
 
   const handleProfileClick = (friendInfo) => {
-    console.log(friendInfo);
     navigate('/FriendProfile', { state: { friendInfo } });   ///////
   };
 

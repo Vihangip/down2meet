@@ -23,11 +23,8 @@
 
     const groupsList = useSelector((state) => state.users.groupList);
     const currentUser = JSON.parse(localStorage.getItem('user'));
-    console.log(currentUser);
     const usersFriends = useSelector((state) => state.users.friendsList)
-    console.log(usersFriends);
     const uniqueFriends = Array.from(new Set(usersFriends));   
-    console.log(uniqueFriends);
 
 
 
@@ -54,12 +51,10 @@
     const getUserNameByID = async (userid) => {
       try {
         const user = await service.getOneUser(userid);
-        // console.log(user.name);
 
         return user.name;
       } catch (error) {
         // Use rejectWithValue to include the error message in the action payload
-        console.log(error.message);
         return;
       }
     };
@@ -115,7 +110,6 @@
     //     "id": uuid(), "title": itemNameRef.current.value, 
     //     "members": itemMemRef.current.value};
 
-    //   console.log(updatedGroup);
 
     //   // dispatch(updateGroupsAsync(updatedGroup));
     // };

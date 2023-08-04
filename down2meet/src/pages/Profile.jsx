@@ -42,9 +42,6 @@ function Profile() {
   //   dispatch(getSessionUserAsync());
   //  }, [dispatch]);
 
-  console.log("profile");
-  console.log(user);
-
   useEffect (() => {
     dispatch(getEventAsync(user.user_id));          //////////////////////// 
   },[dispatch]);  
