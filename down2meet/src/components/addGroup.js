@@ -16,10 +16,8 @@
 
     const [selectedFriends, setSelectedFriends] = useState([]);
     const [friendNames, setFriendNames] = useState([]);
+    const [loading, setLoading] = useState(true); // Track the loading state
 
-    // useEffect(() => {
-    //   dispatch(getSessionUserAsync());
-    // }, [dispatch]); 
 
     const groupsList = useSelector((state) => state.users.groupList);
     const currentUser = JSON.parse(localStorage.getItem('user'));
@@ -31,24 +29,39 @@
 
 
 
-    useEffect(() => {
-      // Fetch and resolve all user names asynchronously
-      dispatch(getFriendsAsync(currentUser.user_id));
-      dispatch(getUserGroupsAsync(currentUser.user_id));
+    // useEffect(() => {
+    //   dispatch(getUserGroupsAsync(currentUser.user_id));
+    //   dispatch(getFriendsAsync(currentUser.user_id));
+    //   Promise.all(uniqueFriends.map(friend => getUserNameByID(friend)))
+    //     .then(names => setFriendNames(names))
+    //     .catch(error => console.error(error));
+        
+    // }, []);
+
+    // const [selectedFriends, setSelectedFriends] = useState([]);
+    // const [friendNames, setFriendNames] = useState([]);
+  
+  useEffect(() => {
+    // Fetch friends asynchronously
+    dispatch(getFriendsAsync(currentUser.user_id))
+      .then(() => setLoading(false)) // Set loading to false when friends are fetched
+      .catch(error => {
+        console.error(error);
+        setLoading(false); // Handle error, set loading to false
+      });
+      
+    dispatch(getUserGroupsAsync(currentUser.user_id));
+
+  }, []);
+
+  useEffect(() => {
+    // Resolve friend names once friends are fetched
+    if (!loading) {
       Promise.all(uniqueFriends.map(friend => getUserNameByID(friend)))
         .then(names => setFriendNames(names))
         .catch(error => console.error(error));
-        
-    }, []);
-
-    // useEffect(() => {
-    //   dispatch(getFriendsAsync(currentUser.user_id));
-    //   dispatch(getUserGroupsAsync(currentUser.user_id));
-      
-    //   // dispatch(getFriendsAsync(currentUser.user_id));
-    //   // todo: Need to add to Groups collection too
-
-    // },[dispatch]);
+    }
+  }, [!loading]);
 
 
     const getUserNameByID = async (userid) => {
