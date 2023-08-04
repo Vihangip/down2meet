@@ -23,7 +23,11 @@ const Post = ({ post }) => {
         console.error("Error fetching user:", error.message);
       }
     };
-
+    if (hasJoinedHangout) {
+      //nothing to put in here, but it works
+    } else if (!hasJoinedHangout){
+      //nothing to put in here, but it works
+    }
     fetchUser();
     if (useruser.user_id === post.user_id) {
       setuserPost(true);
@@ -33,7 +37,7 @@ const Post = ({ post }) => {
     return () => {
       setUser(null);
     };
-  }, [post.user_id]);
+  }, [post.user_id, hasJoinedHangout]);
 
   const handleAccept = () => {
     dispatch(addParticipantToPost({ postID: post.post_id, userID: useruser.user_id }));

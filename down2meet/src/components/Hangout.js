@@ -6,6 +6,8 @@ import blankpic from '../assets/blank_profile.jpeg';
 import { addParticipantToPost, removeParticipantFromPost,deletePostAsync  } from '../redux/posts/thunks';
 import { removeHangoutsForFriendsAsync} from '../redux/user/thunks';
 import HangoutParticipant from './HangoutParticipant';
+import { setUpdateState } from '../redux/posts/reducer';
+
 
 const Hangout = ({ post }) => {
   const [user, setUser] = useState(null);
@@ -29,7 +31,6 @@ const Hangout = ({ post }) => {
     } else {
       setuserPost(false);
     }
-
     fetchUser();
     return () => {
       setUser(null);
@@ -42,11 +43,14 @@ const Hangout = ({ post }) => {
 
   const handleReject = () => {
     dispatch(removeParticipantFromPost({ postID: post.post_id, userID: useruser.user_id }));
+    console.log("state set to true");
+    dispatch(setUpdateState(true));
   };
 
   const handleDelete = () => {
     dispatch(removeHangoutsForFriendsAsync(post.post_id));
     dispatch(deletePostAsync(post.post_id));
+    dispatch(setUpdateState(true));
   };
 
     if (!user) {

@@ -13,7 +13,10 @@ const INITIAL_STATE = {
 const postSlice = createSlice({
     name: "posts",
     initialState: INITIAL_STATE,
-    reducers: {},
+    reducers: {        
+        setUpdateState: (state, action) => {
+        state.setUpdate = action.payload;
+    },},
     extraReducers: (builder) => {
         builder
             .addCase(getPostsAsync.fulfilled, (state, action) => {
@@ -39,6 +42,7 @@ const postSlice = createSlice({
                 // });
                 // console.log('AFTER');
                 // console.log(state.postList);
+                state.setUpdate = true;
             })
             .addCase(removeParticipantFromPost.fulfilled, (state, action) => {
                 // state.postList = state.postList.map((post) => {
@@ -47,11 +51,12 @@ const postSlice = createSlice({
                 //     }
                 //     return post;
                 // });
+                state.setUpdate = false;
             })
             .addCase(getFriendsPostsAsync.fulfilled, (state, action) => {
                 state.friendsPostList = action.payload;
             });
     },
 });
-
+export const { setUpdateState } = postSlice.actions;
 export default postSlice.reducer;

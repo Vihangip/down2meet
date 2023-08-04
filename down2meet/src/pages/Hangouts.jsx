@@ -27,6 +27,7 @@ function Hangouts() {
         }
         await dispatch(getUsersAsync());
         await dispatch(getPostsAsync());
+
         console.log("user on store: " + storedUser);
         console.log("userrrrrrid on store: " + storedUser.user_id);
       } catch (error) {
