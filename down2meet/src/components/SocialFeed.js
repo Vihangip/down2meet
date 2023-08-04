@@ -5,6 +5,7 @@ export default function SocialFeed() {
 
   // const posts = useSelector((state) => (state.posts.postList));
   const posts = useSelector((state) => (state.posts.friendsPostList));
+  console.log(posts);
     
   return (
         <div className="SocialFeed">
