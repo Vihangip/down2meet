@@ -73,8 +73,6 @@ export const getFriendsAsync = createAsyncThunk(
   'users/getFriendsAsync',
   async (user_id) => {
       const friends = await service.getFriends(user_id);
-      console.log('friends thunk:');
-      console.log(friends);
       return friends;
   }
 );

@@ -74,6 +74,10 @@ export default function Event(props) {
     return { style };
   };
 
+  const showReoccurence = (selectedEvent?.repetitionRule != null);
+  console.log(selectedEvent.repetitionRule.frequency);
+  console.log(selectedEvent);
+
   return (
     <div className="calendar-page">
       <Calendar
@@ -97,6 +101,7 @@ export default function Event(props) {
                   <p>Start: {moment(selectedEvent.start).format('LLLL')}</p>
                   <p>End: {moment(selectedEvent.end).format('LLLL')}</p>
                   {showGroups && <p>Groups: {selectedEvent.groups.join(", ")}</p>}
+                  {showReoccurence && <p>Re-occurrs: {selectedEvent.repetitionRule?.frequency}</p>}
 
 
                   <button className="event-delete-button" onClick={handleDelete}>Delete</button>

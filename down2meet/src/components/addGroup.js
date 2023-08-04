@@ -3,7 +3,7 @@
   import { useDispatch, useSelector} from 'react-redux';
   import { addGroupsAsync, getGroupsAsync, deleteGroupsAsync} from '../redux/groups/thunks';
   import { handleCreateEvent } from "./Calendar";
-  import { getFriendsAsync, getSessionUserAsync, getUserGroupsAsync, addUserGroupsAsync } from '../redux/user/thunks';
+  import { getFriendsAsync, getUserGroupsAsync, addUserGroupsAsync } from '../redux/user/thunks';
   import service from "../redux/user/service";
 
   const { v4: uuid } = require('uuid');

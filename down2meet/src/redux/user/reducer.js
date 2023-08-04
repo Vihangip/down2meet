@@ -48,8 +48,6 @@ const userSlice = createSlice({
                 state.user = action.payload;
             })
             .addCase(getFriendsAsync.fulfilled,(state,action)=>{
-                console.log('reducers payload');
-                console.log(action.payload);
                 state.friendsList = action.payload;
             })            
             .addCase(getHangoutsAsync.fulfilled,(state,action)=>{
