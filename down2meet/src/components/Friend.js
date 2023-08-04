@@ -6,24 +6,22 @@ import { useNavigate } from "react-router-dom";
 
 function Friends() {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.users);
+  // const { user } = useSelector((state) => state.users);
+  const user = JSON.parse(localStorage.getItem('user'));
   const [friendsData, setFriendsData] = useState([]);
   const [filterByAvailability, setFilterByAvailability] = useState('All');
 
-  console.log('Friends component rendered');
 
   useEffect(() => {
     if (user) {
       fetch(`${process.env.REACT_APP_URL3001}/users/${user.user_id}/friendsData`)
         .then((response) => {
           if (!response.ok) {
-            console.log(response);
             throw new Error(`HTTP error! status: ${response.status}`);
           }
           return response.json();
         })
         .then((data) => {
-          console.log(data);
           setFriendsData(data);
           dispatch(setUser({ ...user, friendsData: data }));
         })
@@ -64,7 +62,7 @@ function Friends() {
           <img className="friend-image" src={friend.picture} alt="pfp" />
           <p className="friend-info">{friend.name}</p>
           <div className="friend-container-button">
-          <button className="friend-info" onClick={() => handleProfileClick({ user_id: friend.user_id, picture: friend.picture, name: friend.name })}>See Profile</button>
+          <button className="friend-info" onClick={() => handleProfileClick({ user_id: friend.user_id, picture: friend.picture, name: friend.name, email: friend.email})}>See Profile</button>
         </div>
 
         </div>

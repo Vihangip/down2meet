@@ -613,6 +613,48 @@ html, body, #Home, #Home>div {
   color: white;
 }
 
+.Hangout-Top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+  padding-right: 20%;
+  width: 100%;
+}
+
+.Hangout-UserInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.Hangouts-Participants-Text {
+  font-size: 20px;
+  font-weight: bold;
+  color: #2c812c;
+  margin: 0px;
+  margin-bottom: 5px;
+}
+
+.Hangouts-Participants-Images {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.Hangouts-Participants-Image {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin: 1%;
+  cursor: pointer;
+}
+
+.Hangouts-Participants-Image:hover {
+  border: 2px solid #2c812c;
+}
+
 .Hangouts-InviteButtons-active {
   display: flex;
   flex-direction: row;

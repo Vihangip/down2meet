@@ -31,8 +31,6 @@ const { ensureAuthenticated } = require('./authMiddleware');
 var app = express();
 
 const URL = process.env.REACT_APP_URL3000;
-console.log(URL)
-console.log(`${process.env.REACT_APP_URL3000}`);
 
 app.use(cors(
   {
@@ -68,7 +66,6 @@ const eventQueries = require('./mongoDB/EventQueries');
 main().catch((err) => console.log(err));
 async function main(){
     await mongoose.connect(mongoDB);
-    console.log("database connected");
 
 app.listen(3001, () => {
     console.log(`Server Started at ${3001}`)

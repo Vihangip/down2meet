@@ -24,14 +24,8 @@ function Friends() {
           dispatch(setUser(storedUser)); // Initialize the user state with the stored data
         } else {
         await dispatch(getSessionUserAsync());
-        //const user = useSelector(state => state.users.user);
-        // await dispatch(getPostsAsync());
         }
-        await dispatch(getFriendsAsync(JSON.parse(localStorage.getItem('user')).user_id));
-        
-        console.log("Friends, getFriendsAsync");
-        console.log("storedUser: ", storedUser);
-        console.log("sessionUser: ", )
+        // await dispatch(getFriendsAsync(JSON.parse(localStorage.getItem('user')).user_id));
       }
       catch (error) {
         console.error('Error fetching data:', error);
@@ -39,7 +33,7 @@ function Friends() {
     };
 
     fetchUsers();
-  }, [dispatch]);
+  }, []);
 
   return (
     <>

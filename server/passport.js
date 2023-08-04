@@ -6,12 +6,10 @@ const User = require('./mongoDB/User'); // Replace this with the path to your us
 
 
 passport.serializeUser((user, done) => {
-    console.log("----Serialized with id: ", user.id);
     done(null, user.id);
   });
   
   passport.deserializeUser(async (id, done) => {
-    console.log("Deserializing user with id:", id);
     try {
       const user = await User.findById(id);
       done(null, user);
@@ -46,7 +44,7 @@ passport.use(
               groups: [],
               events: [],
               hangouts: [],
-              availability: false,
+              availability: 'Available',
             });
   
             

@@ -11,7 +11,6 @@ const getUsers = async () => {
 }
 
 const getOneUser = async (userID) => {
-    console.log(userID);
     const res = await fetch(`${process.env.REACT_APP_URL3001}/users/${userID}`,
     {
         method: "GET",
@@ -40,7 +39,6 @@ const addUsers = async (user) => {
         credentials: 'include',
         body: JSON.stringify(user),
     });
-    console.log("account added");
     const data = await res.json();
     if (res.status >= 400) {
         throw new Error(data.errors);
@@ -65,8 +63,6 @@ const getFriends = async (user_id) => {
       credentials: 'include',
   });
   const data = await res.json();
-  console.log('my friends:');
-  console.log(data);
   return data;
 }
 
@@ -77,7 +73,6 @@ const getHangouts = async (user_id) => {
       credentials: 'include',
   });
   const data = await res.json();
-  console.log("hangouts from service: " + data);
   return data;
 }
 
@@ -96,7 +91,6 @@ const addUserPost = async (userID, postID) => {
       throw new Error(data.errors);
     }
   
-    console.log("Post added successfully");
   };
 
   const addUserEvent = async (userID, eventID) => {
@@ -114,7 +108,6 @@ const addUserPost = async (userID, postID) => {
       throw new Error(data.errors);
     }
   
-    console.log("Event added successfully");
   }
 
   const getSessionUser = async () => {
@@ -127,7 +120,6 @@ const addUserPost = async (userID, postID) => {
           credentials: 'include',
     });
     const data = await res.json();
-    // console.log(data);
     localStorage.setItem('user', JSON.stringify(data));
     //TODO !!!!!!!!!!
     if (res.status >= 400) {
@@ -171,7 +163,6 @@ async function addFriend(userId, friendId) {
 
 
     const getUserGroup = async (user_id) => {
-      console.log(user_id);
         const res = await fetch(`${process.env.REACT_APP_URL3001}/users/${user_id}/groups`,
         {
             method: "GET",
@@ -182,7 +173,6 @@ async function addFriend(userId, friendId) {
     }
 
     const addUserGroup = async (group) => {
-      // console.log("got in service");
       const response = await fetch(`${process.env.REACT_APP_URL3001}/users/${group.user_id}/addGroup`, {
         method: 'POST',
         headers: {
@@ -197,12 +187,46 @@ async function addFriend(userId, friendId) {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
-      console.log(data);
       return data;
-    }
+    };
+
+    const removeHangoutsForFriends = async (post_id) => {
+        const res = await fetch(`${process.env.REACT_APP_URL3001}/users/${post_id}/remove-from-hangouts`, {
+          method: "PUT",
+          credentials: 'include',
+        });
     
+        if (!res.ok) {
+          throw new Error(`HTTP error! Status: ${res.status}`);
+        }
+    
+        const data = await res.json();
+        return data;
+      
+    };
+
+    const addParticipantToPost = async (postID, userID) => {
+      const res = await fetch(`${process.env.REACT_APP_URL3001}/users/${postID}/addParticipant/${userID}`,
+      {
+          method: "GET",
+          credentials: 'include',
+      });
+      const data = await res.text();
+      return data;
+  }
+  
+  const removeParticipantFromPost = async (postID, userID) => {
+      const res = await fetch(`${process.env.REACT_APP_URL3001}/users/${postID}/removeParticipant/${userID}`,
+      {
+          method: "GET",
+          credentials: 'include',
+      });
+      const data = await res.text();
+      return data;
+  }
   
 
 export default {
-    getUsers, addUsers, deleteUsers, getOneUser, addUserPost, getSessionUser, addFriend, removeFriend, getFriends, getUserGroup, addUserGroup, getHangouts, addUserEvent
+    getUsers, addUsers, deleteUsers, getOneUser, addUserPost, getSessionUser, addFriend, removeFriend, 
+    getUserGroup, addUserGroup, getHangouts, addUserEvent, getFriends, removeHangoutsForFriends, addParticipantToPost, removeParticipantFromPost
 }

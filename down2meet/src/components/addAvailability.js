@@ -57,12 +57,6 @@ export function AddAvailability() {
       const formattedStartDate = startDate.slice(0, -1); // Remove the last character (Z)
       const formattedEndDate = endDate.slice(0, -1); // Remove the last character (Z)
 
-    
-      // Your form submit logic here
-      console.log("title", itemNameRef.current.value);
-      console.log("description", itemDescRef.current.value);
-      console.log("start date", formattedStartDate);
-      console.log("end date", formattedEndDate);
       
       // removes the Z at the end of the date (may not need to do this)
       //by removing the Z, the date and time values will be treated as local time rather than UTC. 
@@ -97,9 +91,6 @@ export function AddAvailability() {
   //     itemNameRef.current?.value,
   //     itemDescRef.current?.value
   //   ];
-  //   console.log(endDateRef.current);
-  //   console.log(startDateRef.current);
-  //   console.log(detailsRef.current);
 
 
   // }, [handleFormSubmit]);

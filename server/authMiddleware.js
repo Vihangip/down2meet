@@ -1,7 +1,6 @@
 require('dotenv').config();
 
 const ensureAuthenticated = (req, res, next) => {
-  console.log("isauthenticated: " + req.isAuthenticated());
   if (req.isAuthenticated()) {
     return next();
   }
