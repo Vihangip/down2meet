@@ -42,8 +42,8 @@ function PostBar() {
       time: time,
       date: date,
       location: location,
-      viewers: [useruser.user_id],
-      participants: [useruser.user_id],
+      viewers: [],
+      participants: [],
     };
     console.log(post);
     dispatch(addPostAsync(post));

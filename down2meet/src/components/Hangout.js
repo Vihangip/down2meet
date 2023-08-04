@@ -43,7 +43,6 @@ const Hangout = ({ post }) => {
 
   const handleReject = () => {
     dispatch(removeParticipantFromPost({ postID: post.post_id, userID: useruser.user_id }));
-    console.log("state set to true");
     dispatch(setUpdateState(true));
   };
 
@@ -158,7 +157,7 @@ const Hangout = ({ post }) => {
               Leave
             </button> */}
                           {!showuserPost ?(
-                <div className="Hangouts-InviteButtons-active">
+                <div className="Hangouts-InviteButtons-inactive">
                   <button className="reject-button" onClick={handleReject}>
                     Leave
                   </button>

@@ -12,12 +12,14 @@ import ActiveUsers from '../components/ActiveUsers';
 import { setUser } from '../redux/user/reducer';
 import { useNavigate, Route, Routes } from 'react-router-dom';
 import UserProfile from '../components/UserProfile';
+import { useSelector } from 'react-redux';
 
 
 
 function Home() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const setUpdate = useSelector((state) => state.posts.setUpdate);
 
   useEffect(() => {
     const fetchPostsAndUsers = async () => {
@@ -35,9 +37,14 @@ function Home() {
         console.error('Error fetching data:', error);
       }
     };
+    if (setUpdate) {
+      //nothing to put in here, but it works
+    } else if (!setUpdate){
+      //nothing to put in here, but it works
+    }
 
     fetchPostsAndUsers();
-  }, [dispatch]);
+  }, [dispatch, setUpdate]);
 
   const handleUserProfileClick = (userId) => {
     navigate(`/user/${userId}`); // Navigate to the UserProfile component with the selected userId
