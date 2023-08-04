@@ -40,8 +40,9 @@ function PostBar() {
       user_id: useruser.user_id,
       profilepic: useruser.picture,
       status: postContent ? postContent : "Lets meet up!",
-      time: time,
-      time2: time2,
+      time: time + " - " + time2, //used for posts
+      start: time, // used for adding to calendar
+      end: time2, // used for adding to calendar
       date: date,
       location: location,
       viewers: [],
@@ -57,16 +58,22 @@ function PostBar() {
     setLocation('');
   };
 
-  const handleTimeToggle = () => {
-    setShowTimeInput(!showTimeInput);
-  };
-
   const handleDateToggle = () => {
     setShowDateInput(!showDateInput);
+    setShowTimeInput(false);
+    setShowLocationInput(false)
+  };
+
+  const handleTimeToggle = () => {
+    setShowTimeInput(!showTimeInput);
+    setShowDateInput(false);
+    setShowLocationInput(false)
   };
 
   const handleLocationToggle = () => {
     setShowLocationInput(!showLocationInput);
+    setShowDateInput(false)
+    setShowTimeInput(false);
   };
 
   const handleDropdownToggle = () => {
@@ -132,7 +139,7 @@ function PostBar() {
               <input
                 type="date"
                 id="date"
-                className="PostBar-InputBar"
+                className="PostBar-InputBar "
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
                 onBlur={() => setShowDateInput(false)}
@@ -147,7 +154,7 @@ function PostBar() {
                 <input
                   type="time"
                   id="time"
-                  className="PostBar-InputBar"
+                  className="PostBar-InputBar PostBar-SmallTimeInput"
                   value={time}
                   onChange={(e) => setTime(e.target.value)}
                   onBlur={() => setShowTimeInput(false)}
@@ -157,7 +164,7 @@ function PostBar() {
                 <input
                   type="time"
                   id="time2"
-                  className="PostBar-InputBar"
+                  className="PostBar-InputBar PostBar-SmallTimeInput"
                   value={time2}
                   onChange={(e) => setTime2(e.target.value)}
                   placeholder=" Enter an end time!"
@@ -176,7 +183,7 @@ function PostBar() {
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 onBlur={() => setShowLocationInput(false)}
-                placeholder=" Enter a location you'd want to go to!"
+                placeholder=" Add a location "
               />
             )} 
             </div>
