@@ -61,19 +61,22 @@ function PostBar() {
   const handleDateToggle = () => {
     setShowDateInput(!showDateInput);
     setShowTimeInput(false);
-    setShowLocationInput(false)
+    setShowLocationInput(false);
+    console.log("date");
   };
 
   const handleTimeToggle = () => {
     setShowTimeInput(!showTimeInput);
     setShowDateInput(false);
-    setShowLocationInput(false)
+    setShowLocationInput(false);
+    console.log("time");
   };
 
   const handleLocationToggle = () => {
     setShowLocationInput(!showLocationInput);
-    setShowDateInput(false)
+    setShowDateInput(false);
     setShowTimeInput(false);
+    console.log("location");
   };
 
   const handleDropdownToggle = () => {
@@ -157,7 +160,6 @@ function PostBar() {
                   className="PostBar-InputBar PostBar-SmallTimeInput"
                   value={time}
                   onChange={(e) => setTime(e.target.value)}
-                  onBlur={() => setShowTimeInput(false)}
                   placeholder=" Enter a time to hang out!"
                 />
                 <p> - </p>
@@ -167,6 +169,7 @@ function PostBar() {
                   className="PostBar-InputBar PostBar-SmallTimeInput"
                   value={time2}
                   onChange={(e) => setTime2(e.target.value)}
+                  onBlur={() => setShowTimeInput(false)}
                   placeholder=" Enter an end time!"
                 />
               </>
