@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addPost } from '../actions/actions';
 import { addPostAsync } from '../redux/posts/thunks';
 import { addUserPostAsync } from '../redux/user/thunks';
 import { getSessionUserAsync } from '../redux/user/thunks';
 import { addParticipantToPost } from '../redux/posts/thunks';
+import { addEventAsync } from '../redux/event/thunks';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 
@@ -51,32 +52,85 @@ function PostBar() {
     console.log(post);
     dispatch(addPostAsync(post));
     dispatch(addParticipantToPost({ postID: post.post_id, userID: useruser.user_id }));
+    
+    //if there's a valid date and time, add to user's calendar 
+    if (time && time2 && date) {
+      console.log("handleAddEvent");
+      handleAddEvent();
+    }
+    
     setPostContent('');
     setTime('');
     setTime2('');
     setDate('');
     setLocation('');
+
   };
+
+  const handleAddEvent = () => {
+
+    const useruser = user;
+    const randomUUID = uuidv4();
+    
+    const options = {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+      timeZone: 'America/Vancouver',
+    };
+
+
+    const unformattedStartDate = new Date(
+      date + 'T' + time
+      //itemStartRef.current.value + 'T' + itemStartTimeRef.current.value
+    );
+
+
+    const unformattedEndDate = new Date(
+      date + 'T' + time2
+      //itemStartRef.current.value + 'T' + itemEndTimeRef.current.value //same start and end day
+    );
+    const vancouverStartDate = new Intl.DateTimeFormat('en-US', options).format(unformattedStartDate);
+    const vancouverEndDate = new Intl.DateTimeFormat('en-US', options).format(unformattedEndDate);
+
+    const formattedStartDate = new Date(vancouverStartDate);
+    const formattedEndDate = new Date(vancouverEndDate);
+
+    const new_event = {
+      "id": randomUUID, 
+      "email": useruser.email,
+      "userID": useruser.user_id,
+      "user_id": useruser.user_id,
+      "title": "down2meet",
+      "description": postContent ? postContent : "Lets meet up!",  
+      "start": formattedStartDate, 
+      "end": formattedEndDate,
+      "groups": []
+    };
+    console.log("new_event")
+    dispatch(addEventAsync(new_event));
+
+  }
 
   const handleDateToggle = () => {
     setShowDateInput(!showDateInput);
     setShowTimeInput(false);
     setShowLocationInput(false);
-    console.log("date");
   };
 
   const handleTimeToggle = () => {
     setShowTimeInput(!showTimeInput);
     setShowDateInput(false);
     setShowLocationInput(false);
-    console.log("time");
   };
 
   const handleLocationToggle = () => {
     setShowLocationInput(!showLocationInput);
     setShowDateInput(false);
     setShowTimeInput(false);
-    console.log("location");
   };
 
   const handleDropdownToggle = () => {
@@ -144,6 +198,7 @@ function PostBar() {
                 id="date"
                 className="PostBar-InputBar "
                 value={date}
+                //ref={itemStartRef}
                 onChange={(e) => setDate(e.target.value)}
                 onBlur={() => setShowDateInput(false)}
                 placeholder=" Enter the date you're free!"
@@ -159,6 +214,7 @@ function PostBar() {
                   id="time"
                   className="PostBar-InputBar PostBar-SmallTimeInput"
                   value={time}
+                  //ref={itemStartTimeRef}
                   onChange={(e) => setTime(e.target.value)}
                   placeholder=" Enter a time to hang out!"
                 />
@@ -168,6 +224,7 @@ function PostBar() {
                   id="time2"
                   className="PostBar-InputBar PostBar-SmallTimeInput"
                   value={time2}
+                  //ref={itemEndTimeRef}
                   onChange={(e) => setTime2(e.target.value)}
                   onBlur={() => setShowTimeInput(false)}
                   placeholder=" Enter an end time!"
