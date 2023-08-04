@@ -1089,8 +1089,9 @@ color: white;
 
 .event-popup-card {
   width:80vw;
-  height:50vh;
+  height:fit-content;
   background-color: lightblue;
+  padding: 1em;
 }
 
 .event-popup {
@@ -1104,7 +1105,7 @@ color: white;
   justify-content: center;
   z-index: 9999;
   width: 20vw;
-  height: 30vh;
+  height: fit-content;
   background-color: #32CD32;
   margin: auto;
   text-align: center; /* Center the text horizontally */

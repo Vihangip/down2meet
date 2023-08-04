@@ -43,7 +43,7 @@ function Events() {
       </div>
       <div className="Body-Middle">
       <div className='Events'>
-        <BodyHeader title={"Events"}/>
+        <BodyHeader title={"Availability"}/>
         <div className="Events">
           <div><AddEvent/></div> 
         

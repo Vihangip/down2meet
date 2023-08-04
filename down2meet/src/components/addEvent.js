@@ -146,7 +146,7 @@ export function AddEvent() {
 
   return (
     <div className="add-event-form-div">
-      <h1>Add your Event</h1>
+      <h1>Add your Availability</h1>
       <form className="event-form" onSubmit={handleFormSubmit}>
         <hr /> <br />
         <label htmlFor="iTitle">Title:</label>
