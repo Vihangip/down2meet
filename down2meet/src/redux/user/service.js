@@ -200,7 +200,7 @@ async function addFriend(userId, friendId) {
           throw new Error(`HTTP error! Status: ${res.status}`);
         }
     
-        const data = await res.json();
+        const data = await res.text();
         return data;
       
     };

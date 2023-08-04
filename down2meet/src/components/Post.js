@@ -13,7 +13,7 @@ const Post = ({ post }) => {
   const hangoutList = useSelector((state) => state.users.hangoutList);
   const dispatch = useDispatch();
   const [showuserPost, setuserPost] = useState(false);
-  const [hasJoinedHangout, setHasJoinedHangout] = useState(post.participants.includes(useruser.user_id)); // State variable to track if the user has joined the hangout
+  const [hasJoinedHangout, setHasJoinedHangout] = useState(hangoutList.includes(post.post_id)); // State variable to track if the user has joined the hangout
 
   useEffect(() => {
     // Fetch user information when the component mounts
@@ -25,21 +25,21 @@ const Post = ({ post }) => {
         console.error("Error fetching user:", error.message);
       }
     };
-    if (hasJoinedHangout) {
-      //nothing to put in here, but it works
-    } else if (!hasJoinedHangout){
-      //nothing to put in here, but it works
-    }
     fetchUser();
     if (useruser.user_id === post.user_id) {
       setuserPost(true);
     } else {
       setuserPost(false);
     }
+    if (hangoutList.includes(post.post_id)){
+      setHasJoinedHangout(true);
+    } else {
+      setHasJoinedHangout(false);
+    }
     return () => {
       setUser(null);
     };
-  }, [post.user_id, hasJoinedHangout]);
+  }, [post.user_id]);
 
   const handleAccept = () => {
     dispatch(addParticipantToPost({ postID: post.post_id, userID: useruser.user_id }));
