@@ -33,21 +33,22 @@
 
     useEffect(() => {
       // Fetch and resolve all user names asynchronously
+      dispatch(getFriendsAsync(currentUser.user_id));
+      dispatch(getUserGroupsAsync(currentUser.user_id));
       Promise.all(uniqueFriends.map(friend => getUserNameByID(friend)))
         .then(names => setFriendNames(names))
         .catch(error => console.error(error));
+        
     }, []);
 
-    useEffect(() => {
-      // dispatch(getSessionUserAsync());
-      // dispatch(getGroupsAsync());
-      dispatch(getFriendsAsync(currentUser.user_id));
-      dispatch(getUserGroupsAsync(currentUser.user_id));
+    // useEffect(() => {
+    //   dispatch(getFriendsAsync(currentUser.user_id));
+    //   dispatch(getUserGroupsAsync(currentUser.user_id));
       
-      // dispatch(getFriendsAsync(currentUser.user_id));
-      // todo: Need to add to Groups collection too
+    //   // dispatch(getFriendsAsync(currentUser.user_id));
+    //   // todo: Need to add to Groups collection too
 
-    },[dispatch]);
+    // },[dispatch]);
 
 
     const getUserNameByID = async (userid) => {

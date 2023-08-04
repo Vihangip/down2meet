@@ -51,7 +51,9 @@ const userSlice = createSlice({
                 state.user = action.payload;
             })
             .addCase(getFriendsAsync.fulfilled,(state,action)=>{
-                state.friendsList = action.payload.friendsData;
+                console.log('reducers payload');
+                console.log(action.payload);
+                state.friendsList = action.payload;
             })            
             .addCase(getHangoutsAsync.fulfilled,(state,action)=>{
                 state.hangoutList = action.payload;

@@ -65,6 +65,7 @@ const getFriends = async (user_id) => {
       credentials: 'include',
   });
   const data = await res.json();
+  console.log('my friends:');
   console.log(data);
   return data;
 }
