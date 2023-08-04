@@ -20,8 +20,6 @@ function FriendProfile() {
   const location = useLocation();
   const friendInfo = location?.state?.friendInfo;
 
-  console.log("friend's profile");
-
   const dispatch = useDispatch();
   useEffect (() => {
     dispatch(getEventAsync(friendInfo.user_id));          //////////////////////// 

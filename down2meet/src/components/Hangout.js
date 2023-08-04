@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import service from '../redux/user/service';
 import { useState, useEffect } from 'react';
 import blankpic from '../assets/blank_profile.jpeg';
-import { addParticipantToPost, removeParticipantFromPost,deletePostAsync  } from '../redux/posts/thunks';
+import { addParticipantToPost, removeParticipantFromPost  } from '../redux/user/thunks';
+import { deletePostAsync } from '../redux/posts/thunks';
 import { removeHangoutsForFriendsAsync} from '../redux/user/thunks';
 import HangoutParticipant from './HangoutParticipant';
-import { setUpdateState } from '../redux/posts/reducer';
 
 
 const Hangout = ({ post }) => {
@@ -42,14 +42,13 @@ const Hangout = ({ post }) => {
   // };
 
   const handleReject = () => {
+    console.log("button press");
     dispatch(removeParticipantFromPost({ postID: post.post_id, userID: useruser.user_id }));
-    dispatch(setUpdateState(true));
   };
 
   const handleDelete = () => {
     dispatch(removeHangoutsForFriendsAsync(post.post_id));
     dispatch(deletePostAsync(post.post_id));
-    dispatch(setUpdateState(true));
   };
 
     if (!user) {
@@ -75,7 +74,9 @@ const Hangout = ({ post }) => {
               <p className="Hangouts-Participants-Text">Participants</p>
               <div className="Hangouts-Participants-Images">
                 {post.participants.map((participant) => (
+                  <div key={post.participants.indexOf(participant)}>
                   <HangoutParticipant participant={participant} />
+                  </ div>
                  ))}
               </div>
             </div>
@@ -85,32 +86,32 @@ const Hangout = ({ post }) => {
             <div className="Post-Invite-Info">
               {post.time ? 
                 <div className="Post-Invite-InfoContainer-active">
-                  <i class="fa-regular fa-clock"></i>
+                  <i className="fa-regular fa-clock"></i>
                   <p>{post.time}</p>
                 </div>
               :
                 <div className="Post-Invite-InfoContainer-dead">
-                  <i class="fa-regular fa-clock"></i>
+                  <i className="fa-regular fa-clock"></i>
                 </div>
               }
             {post.date ? 
                 <div className="Post-Invite-InfoContainer-active">
-                  <i class="fa-regular fa-calendar-days"></i>
+                  <i className="fa-regular fa-calendar-days"></i>
                   <p>{post.date}</p>
                 </div>
               :
                 <div className="Post-Invite-InfoContainer-dead">
-                  <i class="fa-regular fa-calendar-days"></i>
+                  <i className="fa-regular fa-calendar-days"></i>
                 </div>
               }
             {post.location ? 
                 <div className="Post-Invite-InfoContainer-active">
-                  <i class="fa-solid fa-location-dot"></i>
+                  <i className="fa-solid fa-location-dot"></i>
                   <p>{post.location}</p>
                 </div>
               :
                 <div className="Post-Invite-InfoContainer-dead">
-                  <i class="fa-solid fa-location-dot"></i>
+                  <i className="fa-solid fa-location-dot"></i>
                 </div>
               }
             <div className="Hangouts-InviteButtons-active">
@@ -138,15 +139,15 @@ const Hangout = ({ post }) => {
           : 
           <div className="Post-Invite-Info">
           <div className="Post-Invite-InfoContainer-inactive">
-            <i class="fa-regular fa-clock"></i>
+            <i className="fa-regular fa-clock"></i>
             <p>{post.time}</p>
           </div>
           <div className="Post-Invite-InfoContainer-inactive">
-            <i class="fa-regular fa-calendar-days"></i>
+            <i className="fa-regular fa-calendar-days"></i>
             <p>{post.date}</p>
           </div>
           <div className="Post-Invite-InfoContainer-inactive">
-            <i class="fa-solid fa-location-dot"></i>
+            <i className="fa-solid fa-location-dot"></i>
             <p>{post.location}</p>
           </div>
           <div className="Hangouts-InviteButtons-inactive">

@@ -1,7 +1,6 @@
 //require('dotenv').config();
 
 const getEvent = async (userID) => {
-    console.log("client service getting events");
     const res = await fetch(`${process.env.REACT_APP_URL3001}/event/${userID}`,
     {
         method: "GET",
@@ -25,9 +24,6 @@ const addEvent = async (event) => {
     if (res.status >= 400) {
         throw new Error(data.errors);
     }
-    console.log("service: addEvent");
-    console.log(event);
-    console.log(data);
     return data;
 }
 

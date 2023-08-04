@@ -1,6 +1,6 @@
 var express = require('express');
-const User = require('../mongoDB/User');
 const Post = require('../mongoDB/Post');
+const User = require('../mongoDB/User');
 var router = express.Router();
 
 
@@ -17,50 +17,7 @@ router.get('/:postId', async(req, res, next) => {
   return res.send(foundPost);
 });
 
-router.get('/:postId/addParticipant/:userId', async (req, res) => {
-  try {
-    const userID = req.params.userId;
-    const postID = req.params.postId;
-    const user = await User.findOne ({ user_id: userID });
-    if (!user) {
-      return res.status(404).send('User not found');
-    }
-    const post = await Post.findOne({ post_id: postID });
-    if (!post) {
-      return res.status(404).send('Post not found');
-    }
-    user.hangouts.push(postID);
-    user.save();
-    post.participants.push(userID);
-    post.save();
-    return res.status(200).send(post);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Internal Server Error');
-  }
-});
 
-router.get('/:postId/removeParticipant/:userId', async(req, res) => {
-  try {
-    const userID = req.params.userId;
-    const postID = req.params.postId;
-    const user = await User.findOne ({ user_id: userID });
-    if (!user) {
-      return res.status(404).send('User not found');
-    }
-    const post = await Post.findOne({ post_id: postID });
-    if (!post) {
-      return res.status(404).send('Post not found');
-    }
-    user.hangouts = user.hangouts.filter(hangouts => hangouts !== postID);
-    user.save();
-    post.participants = post.participants.filter(participants => participants !== userID);
-    post.save();
-    return res.status(200).send(post);
-  } catch (err) {
-    res.status(500).send('Internal Server Error');
-  }
-});
 
 /* POST post. */
 router.post('/', async(req, res, next) =>{

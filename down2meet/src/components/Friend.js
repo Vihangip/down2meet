@@ -11,20 +11,17 @@ function Friends() {
   const [friendsData, setFriendsData] = useState([]);
   const [filterByAvailability, setFilterByAvailability] = useState('All');
 
-  console.log('Friends component rendered');
 
   useEffect(() => {
     if (user) {
       fetch(`${process.env.REACT_APP_URL3001}/users/${user.user_id}/friendsData`)
         .then((response) => {
           if (!response.ok) {
-            console.log(response);
             throw new Error(`HTTP error! status: ${response.status}`);
           }
           return response.json();
         })
         .then((data) => {
-          console.log(data);
           setFriendsData(data);
           dispatch(setUser({ ...user, friendsData: data }));
         })

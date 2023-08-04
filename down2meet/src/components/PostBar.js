@@ -49,7 +49,6 @@ function PostBar() {
       viewers: [],
       participants: [],
     };
-    console.log(post);
     dispatch(addPostAsync(post));
     dispatch(addParticipantToPost({ postID: post.post_id, userID: useruser.user_id }));
     
@@ -159,7 +158,7 @@ function PostBar() {
         <div className="PostBar-PostContainer">
           <div className='PostBar-DropdownContainer'>
             <button type="button" className="PostBar-DropdownButton" onClick={handleDropdownToggle}>
-              {selectedOption ? <div className='PostBar-DropdownText'>{selectedOption}<i class="fa-solid fa-arrow-right"></i></div> : <div className='PostBar-DropdownText'>Everyone<i class="fa-solid fa-arrow-right"></i></div>}
+              {selectedOption ? <div className='PostBar-DropdownText'>{selectedOption}<i className="fa-solid fa-arrow-right"></i></div> : <div className='PostBar-DropdownText'>Everyone<i class="fa-solid fa-arrow-right"></i></div>}
               
             </button>
             {showDropdown && (
@@ -190,7 +189,7 @@ function PostBar() {
         <div className='PostBar-BottomPost'>
           <div className="PostBar-IconContainer">
             <button type="button" onClick={handleDateToggle} className='PostBar-AdditionalInfo'>
-              <i class="fa-regular fa-calendar-days"></i>
+              <i className="fa-regular fa-calendar-days"></i>
             </button>
             {showDateInput && (
               <input
@@ -233,7 +232,7 @@ function PostBar() {
             )}
             
             <button type="button" onClick={handleLocationToggle} className='PostBar-AdditionalInfo'>
-              <i class="fa-solid fa-location-dot"></i>
+              <i className="fa-solid fa-location-dot"></i>
             </button>
             {showLocationInput && (
               <input

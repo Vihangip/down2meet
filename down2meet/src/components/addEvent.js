@@ -34,7 +34,6 @@ export function AddEvent() {
   const uniqueGroups = Array.from(new Set(events.flatMap(event => event.groups)));
 
   const groupsList = useSelector((state) => state.users.groupList);
-  console.log(groupsList);
 
 
   useEffect(() => {
@@ -89,19 +88,13 @@ export function AddEvent() {
 
 
       // Your form submit logic here
-      console.log("title", itemNameRef.current.value);
-      console.log("description", itemDescRef.current.value);
-      console.log("start date", startDate);
-      console.log("end date", endDate);
       formattedStartDate = startDate;
       formattedEndDate = endDate;
 
-      console.log(formattedStartDate);
 
       // the id value here gets replaces in when the post request is made. 
       // but it is used as a key? todo; check if it can just be a constant
 
-      console.log("addEvent, ", user.user_id);
       dispatch(addEventAsync({
           "id": uuid(), 
           "email": user.email,
@@ -120,10 +113,7 @@ export function AddEvent() {
         googleEvent.startingDate = (startDate);//startDate);
         googleEvent.endingDate = (endDate);//endDate);
         handleCreateEvent(); //only add event to Google Calendar if user is signed in
-        console.log("added to google calendar")
       }
-      console.log("addEvent new event");
-      //console.log(googleEvent.startingDate);
     };
     
 
@@ -134,7 +124,7 @@ export function AddEvent() {
 
   return (
     <div className="add-event-form-div">
-      <h1>Add your Event</h1>
+      <h1>Add your Availability</h1>
       <form className="event-form" onSubmit={handleFormSubmit}>
         <hr /> <br />
         <label htmlFor="iTitle">Title:</label>

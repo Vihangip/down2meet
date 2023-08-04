@@ -12,7 +12,6 @@ const logoutUser = async() => {
     throw new Error("Logout failed");
   }
 
-  console.log("Logout successful");
   window.location.href = '/';
 
 }
@@ -26,7 +25,6 @@ const logoutUser = async() => {
 //   if (res.status >= 400) {
 //     throw new Error("Login failed");
 //   }
-//   console.log("Login successful");
 // }
 
 export default {

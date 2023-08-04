@@ -68,7 +68,6 @@ const eventQueries = require('./mongoDB/EventQueries');
 main().catch((err) => console.log(err));
 async function main(){
     await mongoose.connect(mongoDB);
-    console.log("database connected");
 
 app.listen(3001, () => {
     console.log(`Server Started at ${3001}`)

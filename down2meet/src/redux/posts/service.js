@@ -37,38 +37,18 @@ const deletePost = async (postID) => {
     return data;
 }
 
-const addParticipantToPost = async (postID, userID) => {
-    const res = await fetch(`${process.env.REACT_APP_URL3001}/posts/${postID}/addParticipant/${userID}`,
-    {
-        method: "GET",
-        credentials: 'include',
-    });
-    const data = await res.json();
-    return data;
-}
 
-const removeParticipantFromPost = async (postID, userID) => {
-    const res = await fetch(`${process.env.REACT_APP_URL3001}/posts/${postID}/removeParticipant/${userID}`,
-    {
-        method: "GET",
-        credentials: 'include',
-    });
-    const data = await res.json();
-    return data;
-}
 
 const getFriendsPosts = async (userID) => {
-    console.log("userID : "+userID);
     const res = await fetch(`${process.env.REACT_APP_URL3001}/posts/friends/${userID}`,
     {
         method: "GET",
         credentials: 'include',
     });
     const data = await res.json();
-    console.log(data);
     return data;
 }
 
 export default {
-    getPosts, addPost, deletePost, addParticipantToPost, removeParticipantFromPost, getFriendsPosts
+    getPosts, addPost, deletePost, getFriendsPosts
 }

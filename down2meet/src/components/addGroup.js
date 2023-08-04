@@ -16,50 +16,58 @@
 
     const [selectedFriends, setSelectedFriends] = useState([]);
     const [friendNames, setFriendNames] = useState([]);
+    const [loading, setLoading] = useState(true); // Track the loading state
 
-    // useEffect(() => {
-    //   dispatch(getSessionUserAsync());
-    // }, [dispatch]); 
 
     const groupsList = useSelector((state) => state.users.groupList);
     const currentUser = JSON.parse(localStorage.getItem('user'));
-    console.log(currentUser);
     const usersFriends = useSelector((state) => state.users.friendsList)
-    console.log(usersFriends);
     const uniqueFriends = Array.from(new Set(usersFriends));   
-    console.log(uniqueFriends);
 
 
 
-    useEffect(() => {
-      // Fetch and resolve all user names asynchronously
+    // useEffect(() => {
+    //   dispatch(getUserGroupsAsync(currentUser.user_id));
+    //   dispatch(getFriendsAsync(currentUser.user_id));
+    //   Promise.all(uniqueFriends.map(friend => getUserNameByID(friend)))
+    //     .then(names => setFriendNames(names))
+    //     .catch(error => console.error(error));
+        
+    // }, []);
+
+    // const [selectedFriends, setSelectedFriends] = useState([]);
+    // const [friendNames, setFriendNames] = useState([]);
+  
+  useEffect(() => {
+    // Fetch friends asynchronously
+    dispatch(getFriendsAsync(currentUser.user_id))
+      .then(() => setLoading(false)) // Set loading to false when friends are fetched
+      .catch(error => {
+        console.error(error);
+        setLoading(false); // Handle error, set loading to false
+      });
+      
+    dispatch(getUserGroupsAsync(currentUser.user_id));
+
+  }, []);
+
+  useEffect(() => {
+    // Resolve friend names once friends are fetched
+    if (!loading) {
       Promise.all(uniqueFriends.map(friend => getUserNameByID(friend)))
         .then(names => setFriendNames(names))
         .catch(error => console.error(error));
-      dispatch(getUserGroupsAsync(currentUser.user_id));
-    }, [dispatch]);
-
-    // useEffect(() => {
-      // dispatch(getSessionUserAsync());
-      // dispatch(getGroupsAsync());
-      // dispatch(getFriendsAsync(currentUser.user_id));
-
-      
-      // dispatch(getFriendsAsync(currentUser.user_id));
-      // todo: Need to add to Groups collection too
-
-    // },[dispatch]);
+    }
+  }, [!loading]);
 
 
     const getUserNameByID = async (userid) => {
       try {
         const user = await service.getOneUser(userid);
-        // console.log(user.name);
 
         return user.name;
       } catch (error) {
         // Use rejectWithValue to include the error message in the action payload
-        console.log(error.message);
         return;
       }
     };
@@ -115,7 +123,6 @@
     //     "id": uuid(), "title": itemNameRef.current.value, 
     //     "members": itemMemRef.current.value};
 
-    //   console.log(updatedGroup);
 
     //   // dispatch(updateGroupsAsync(updatedGroup));
     // };

@@ -72,7 +72,10 @@ export const removeFriendAsync = createAsyncThunk(
 export const getFriendsAsync = createAsyncThunk(
   'users/getFriendsAsync',
   async (user_id) => {
-      return await service.getFriends(user_id);
+      const friends = await service.getFriends(user_id);
+      console.log('friends thunk:');
+      console.log(friends);
+      return friends;
   }
 );
 
@@ -85,7 +88,6 @@ export const getUserGroupsAsync = createAsyncThunk(
 export const addUserGroupsAsync = createAsyncThunk(
   'users/addUserGroupsAsync',
   async (group) => {
-      console.log(group);
       return await service.addUserGroup(group);
   });
   
@@ -108,4 +110,19 @@ export const removeHangoutsForFriendsAsync = createAsyncThunk(
   async (postID) => {
       return await service.removeHangoutsForFriends(postID);
   }
+);
+
+export const addParticipantToPost = createAsyncThunk(
+    'users/addParticipantToPost',
+    async ({ postID, userID }) => {
+        return await service.addParticipantToPost(postID, userID);
+    }
+);
+
+export const removeParticipantFromPost = createAsyncThunk(   
+    'users/removeParticipantFromPost',
+    async ({postID, userID}) => {
+      console.log("user thunk for remove");
+        return await service.removeParticipantFromPost(postID, userID);
+    }
 );

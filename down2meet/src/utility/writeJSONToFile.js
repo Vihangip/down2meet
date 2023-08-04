@@ -15,7 +15,6 @@
 //     if (err) {
 //         console.error('Error writing JSON to file:', err);
 //     } else {
-//         console.log('JSON object has been written to the file successfully.');
 //     }
 //     });
 
