@@ -18,6 +18,7 @@ function PostBar() {
   const [showDateInput, setShowDateInput] = useState(false);
   const [showLocationInput, setShowLocationInput] = useState(false);
   const [time, setTime] = useState('');
+  const [time2, setTime2] = useState('');
   const [date, setDate] = useState('');
   const [location, setLocation] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
@@ -40,6 +41,7 @@ function PostBar() {
       profilepic: useruser.picture,
       status: postContent ? postContent : "Lets meet up!",
       time: time,
+      time2: time2,
       date: date,
       location: location,
       viewers: [],
@@ -50,6 +52,7 @@ function PostBar() {
     dispatch(addParticipantToPost({ postID: post.post_id, userID: useruser.user_id }));
     setPostContent('');
     setTime('');
+    setTime2('');
     setDate('');
     setLocation('');
   };
@@ -119,22 +122,9 @@ function PostBar() {
             placeholder="Lets meet up!"
           />
         </div>
+        
         <div className='PostBar-BottomPost'>
           <div className="PostBar-IconContainer">
-            <button type="button" onClick={handleTimeToggle} className='PostBar-AdditionalInfo'>
-              <i class="fa-regular fa-clock"></i>
-            </button>
-            {showTimeInput && (
-              <input
-                type="text"
-                id="time"
-                className="PostBar-InputBar"
-                value={time}
-                onChange={(e) => setTime(e.target.value)}
-                onBlur={() => setShowTimeInput(false)}
-                placeholder=" Enter a time to hang out!"
-              />
-            )}
             <button type="button" onClick={handleDateToggle} className='PostBar-AdditionalInfo'>
               <i class="fa-regular fa-calendar-days"></i>
             </button>
@@ -149,6 +139,32 @@ function PostBar() {
                 placeholder=" Enter the date you're free!"
               />
             )}
+            <button type="button" onClick={handleTimeToggle} className='PostBar-AdditionalInfo'>
+              <i class="fa-regular fa-clock"></i>
+            </button>
+            {showTimeInput && (
+              <>
+                <input
+                  type="time"
+                  id="time"
+                  className="PostBar-InputBar"
+                  value={time}
+                  onChange={(e) => setTime(e.target.value)}
+                  onBlur={() => setShowTimeInput(false)}
+                  placeholder=" Enter a time to hang out!"
+                />
+                <p> - </p>
+                <input
+                  type="time"
+                  id="time2"
+                  className="PostBar-InputBar"
+                  value={time2}
+                  onChange={(e) => setTime2(e.target.value)}
+                  placeholder=" Enter an end time!"
+                />
+              </>
+            )}
+            
             <button type="button" onClick={handleLocationToggle} className='PostBar-AdditionalInfo'>
               <i class="fa-solid fa-location-dot"></i>
             </button>
