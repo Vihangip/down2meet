@@ -99,7 +99,7 @@ export default function Navbar() {
                             <div className="Social-Icon">
                                 <i className="fa-solid fa-calendar-days"></i>
                             </div>
-                            <p>Events</p> 
+                            <p>Availability</p> 
                         </NavLink>
                 
                         <NavLink className="Social-Option"
