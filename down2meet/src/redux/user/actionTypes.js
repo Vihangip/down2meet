@@ -3,5 +3,6 @@ export const actionTypes = {
     GET_ONE_USERS: 'users/getOneUsers',
     ADD_USER: 'users/addUsers',
     DELETE_USER: 'users/deleteUsers',
-    UPDATE_USER: 'users/updateUsers'
+    UPDATE_USER: 'users/updateUsers',
+    EDIT_USER: 'users/editUser'
 }

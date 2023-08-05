@@ -3,8 +3,7 @@ import { useState } from 'react';
 import { useEffect } from "react";
 import { setUser } from '../redux/user/reducer';
 import { getSessionUserAsync } from '../redux/user/thunks';
-import { getUsersAsync } from '../redux/user/thunks';
-//import { editUserAsync } from '../reducers/items/thunks';
+import { getUsersAsync, editUserAsync } from '../redux/user/thunks';
 
 
 const EditView = ({ onClose}) => {
@@ -35,7 +34,7 @@ const EditView = ({ onClose}) => {
     const [new_name, setName] = useState(user.name);
     const [new_picture, setPicture] = useState(user.picture);
 
-    const handleEdit = () => {
+    const handleSave = () => {
         const editedUser = 
             { 
                 user_id: user.user_id,
@@ -48,7 +47,7 @@ const EditView = ({ onClose}) => {
                 hangouts: user.hangouts,
                 availability: user.availability
             }
-        //dispatch(editUserAsync(editedUser));
+        dispatch(editUserAsync(editedUser));
     }
 
     return (
@@ -64,7 +63,7 @@ const EditView = ({ onClose}) => {
                         </div>
 
                         <br />
-                        <button className="buttons" onClick={handleEdit}> Save </button>
+                        <button className="buttons" onClick={handleSave}> Save </button>
                     </div>
                 </div>
         

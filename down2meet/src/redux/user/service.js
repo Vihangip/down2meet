@@ -224,9 +224,31 @@ async function addFriend(userId, friendId) {
       const data = await res.text();
       return data;
   }
+
+  const editUser = async (user) => {
+    console.log("frontend service user editting ");
+    console.log(user);
+
+    const response = await fetch(`${process.env.REACT_APP_URL3001}/users/edit`, {
+      method: 'PUT',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    });
+  
+    const data = await response.json();
+    if (!response.ok) {
+      const errorMsg = data?.message;
+      throw new Error(errorMsg)
+    }
+    
+    return data; 
+  };
   
 
 export default {
     getUsers, addUsers, deleteUsers, getOneUser, addUserPost, getSessionUser, addFriend, removeFriend, 
-    getUserGroup, addUserGroup, getHangouts, addUserEvent, getFriends, removeHangoutsForFriends, addParticipantToPost, removeParticipantFromPost
+    getUserGroup, addUserGroup, getHangouts, addUserEvent, getFriends, removeHangoutsForFriends, addParticipantToPost, removeParticipantFromPost, editUser
 }

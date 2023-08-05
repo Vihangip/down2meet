@@ -1,7 +1,7 @@
 var express = require('express');
 const User = require('../mongoDB/User');
-
 const Post = require('../mongoDB/Post');
+const userQueries = require('../mongoDB/UserQueries')
 const { randomUUID } = require('crypto');
 var router = express.Router();
 
@@ -81,7 +81,6 @@ router.post('/:userId/addFriend', async(req, res) => {
     res.status(500).send('Server error');
   }
 });
-
 
 router.post('/:userId/removeFriend', async(req, res) => {
   const userId = req.params.userId;
@@ -265,6 +264,19 @@ router.get('/:postId/removeParticipant/:userId', async(req, res) => {
   }
 });
 
+router.put('/edit', async function (req, res, next) {
+
+  console.log("server users edit");
+  console.log(req.body);
+
+  if (!req.body.user_id) {
+    return res.status(400).send({ message: 'Require UserID!' });
+  }
+
+  const user = await userQueries.editUser(req.body);
+  return res.send(user);
+
+});
 
 
 // router.post('/:userId/removeFriend', async(req, res) => {

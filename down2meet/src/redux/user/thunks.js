@@ -126,3 +126,10 @@ export const removeParticipantFromPost = createAsyncThunk(
         return await service.removeParticipantFromPost(postID, userID);
     }
 );
+
+export const editUserAsync = createAsyncThunk(
+  'users/editUserAsync',
+  async (user) => {
+    return await service.editUser(user);
+  }
+);

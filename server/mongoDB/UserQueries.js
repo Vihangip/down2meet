@@ -15,6 +15,10 @@ const queries = {
     // }
     deleteOneUser: async function (filter) {
         await User.deleteOne(filter);
+    },
+    editUser: async function (user) {
+        const editedUser = await User.updateOne({ user_id: user.user_id }, user);
+        return editedUser;
     }
 
 }
