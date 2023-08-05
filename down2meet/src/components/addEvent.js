@@ -53,6 +53,31 @@ export function AddEvent() {
   const itemEndRef = React.useRef(null);
   const itemStartTimeRef = React.useRef(null);
   const itemEndTimeRef = React.useRef(null);
+  
+  useEffect (() => {
+    dispatch(getEventAsync(user.user_id));          //////////////////////// 
+  },[dispatch]);                      //////////////////////
+
+  // useEffect(() => {
+  //   // Fetch and resolve all user names asynchronously for each group's members
+  //   Promise.all(groupsList.map(group => getGroupData(group)))
+  //     .then(data => setGroupData(data))
+  //     .catch(error => console.error(error));
+  // }, [groupsList]);
+
+
+  // const [groupData, setGroupData] = useState([]);
+
+ // Function to fetch data for each group (including member names) based on group object
+//  const getGroupData = async (group) => {
+//   try {
+//     // Fetch the member names based on their user IDs
+//     const memberNames = await Promise.all(group.members.map(userid => service.getOneUser(userid).then(user => user.name)));
+//     return { ...group, members: memberNames };
+//   } catch (error) {
+//     return group;
+//   }
+// };
 
   
   // Add selectedGroups state and setSelectedGroups function

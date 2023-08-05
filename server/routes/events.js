@@ -27,9 +27,9 @@ router.get('/:eventId', async(req, res, next) => {
 /* POST event. */
 router.post('/', async(req, res, next) => {
   const event =  { 
-    id: uuid(),
+    id: req.body.id ? req.body.id : uuid(),
     email: req.body.email,
-    userID: req.body.userID,//uuid(), // TODO: adding dummy var now, will populate with actual userID
+    userID: req.body.userID, //uuid(), // TODO: adding dummy var now, will populate with actual userID
     title: req.body.title,
     description: req.body.description,
     start: req.body.start,
@@ -70,6 +70,21 @@ router.delete('/:eventId', async(req, res, next) => {
 
   res.status(204);
   return res.send();
+});
+
+/* DELETE EVENT FROM ONE PARTICIPANT (same event still exists for other participants) */
+router.delete('/:eventID/participant/:userID', async(req, res, next) => {
+
+  const eventID = req.params.eventID;
+  const userID = req.params.userID;
+
+  const event = await queries.deleteOneEvent(eventID, userID);
+  if (!event) {
+    return res.status(404).send('Event not found');
+  }
+
+  res.status(204).send();
+
 });
 
 

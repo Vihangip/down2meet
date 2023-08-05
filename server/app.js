@@ -30,7 +30,9 @@ const { ensureAuthenticated } = require('./authMiddleware');
 
 var app = express();
 
-const URL = process.env.REACT_APP_URL3000;
+//const URL = process.env.REACT_APP_URL3000;
+//console.log(URL)
+console.log(`${process.env.REACT_APP_URL3000}`);
 
 app.use(cors(
   {

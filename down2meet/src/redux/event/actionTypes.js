@@ -3,4 +3,5 @@ export const actionTypes = {
     ADD_EVENT: 'groups/addEvent',
     DELETE_EVENT: 'groups/deleteEvent',
     UPDATE_EVENT: 'groups/updateEvent',
+    REMOVE_PARTICIPANT: 'event/removeEventParticipant'
 }

@@ -7,6 +7,8 @@ const postSchema = new mongoose.Schema({
     profilepic: String,
     status: String, 
     time: String,
+    start: String,
+    end: String,
     date: String,
     location: String,
     viewers: [String],

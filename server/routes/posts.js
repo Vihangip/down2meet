@@ -28,6 +28,8 @@ router.post('/', async(req, res, next) =>{
       profilepic: req.body.profilepic,
       status: req.body.status, 
       time: req.body.time,
+      start: req.body.start,
+      end: req.body.end,
       date: req.body.date, 
       location: req.body.location,
       viewers: req.body.viewers,
