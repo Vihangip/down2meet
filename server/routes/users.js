@@ -131,11 +131,10 @@ router.delete('/:userId/:groupId/deleteGroup', async function(req, res, next) {
   }
   // get user's group
   const groups = userWithGroup.groups;
-  
+  const groupIndex = groups.findIndex((group) => (group.id === groupId));
   if (groupIndex === -1) {
     return res.status(404).send('Group not found');
   }
-  const groupIndex = groups.findIndex((group) => (group.id === groupId));
   groups.splice(groupIndex, 1);
 
   
