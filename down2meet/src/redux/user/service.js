@@ -190,6 +190,17 @@ async function addFriend(userId, friendId) {
       return data;
     };
 
+
+    const deleteUserGroup = async (group) => {
+      const res = await fetch(`${process.env.REACT_APP_URL3001}/users/${group.user_id}/${group.id}/deleteGroup`,
+      {
+          method: "DELETE",
+          credentials: 'include',
+      });
+      const data = await res.text();
+      return data;
+  }
+
     const removeHangoutsForFriends = async (post_id) => {
         const res = await fetch(`${process.env.REACT_APP_URL3001}/users/${post_id}/remove-from-hangouts`, {
           method: "PUT",
@@ -228,5 +239,5 @@ async function addFriend(userId, friendId) {
 
 export default {
     getUsers, addUsers, deleteUsers, getOneUser, addUserPost, getSessionUser, addFriend, removeFriend, 
-    getUserGroup, addUserGroup, getHangouts, addUserEvent, getFriends, removeHangoutsForFriends, addParticipantToPost, removeParticipantFromPost
+    getUserGroup, addUserGroup, deleteUserGroup, getHangouts, addUserEvent, getFriends, removeHangoutsForFriends, addParticipantToPost, removeParticipantFromPost
 }
