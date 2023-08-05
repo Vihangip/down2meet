@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+//require('dotenv').config();
 
-export default function SearchBar({ onSearch, onSearchResultClick }) {
+
+export default function SearchBar({ onSearchResultClick }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
@@ -10,7 +12,7 @@ export default function SearchBar({ onSearch, onSearchResultClick }) {
     setSearchQuery(event.target.value);
     if (event.target.value) {
       try {
-        const response = await fetch(`http://localhost:3001/users/search?q=${event.target.value}`);
+        const response = await fetch(`${process.env.REACT_APP_URL3001}/users/search?q=${event.target.value}`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -36,7 +38,6 @@ export default function SearchBar({ onSearch, onSearchResultClick }) {
     setSearchQuery('');
     setSearchResults([]);
     onSearchResultClick(userId);
-    onSearch(''); // Update the search query in the parent component as well
   };
 
   return (

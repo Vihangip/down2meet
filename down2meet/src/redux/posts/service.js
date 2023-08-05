@@ -1,5 +1,7 @@
+//require('dotenv').config();
+
 const getPosts = async () => {
-    const res = await fetch(`http://localhost:3001/posts`,
+    const res = await fetch(`${process.env.REACT_APP_URL3001}/posts`,
     {
         method: "GET",
         credentials: 'include',
@@ -9,7 +11,7 @@ const getPosts = async () => {
 }
 
 const addPost = async (post) => {
-    const res = await fetch(`http://localhost:3001/posts`,
+    const res = await fetch(`${process.env.REACT_APP_URL3001}/posts`,
     {
         method: "POST",
         headers: {
@@ -26,7 +28,7 @@ const addPost = async (post) => {
 }
 
 const deletePost = async (postID) => {
-    const res = await fetch(`http://localhost:3001/posts/${postID}`,
+    const res = await fetch(`${process.env.REACT_APP_URL3001}/posts/${postID}`,
     {
         method: "DELETE",
         credentials: 'include',
@@ -35,18 +37,10 @@ const deletePost = async (postID) => {
     return data;
 }
 
-const addParticipantToPost = async (postID, userID) => {
-    const res = await fetch(`http://localhost:3001/posts/${postID}/addParticipant/${userID}`,
-    {
-        method: "GET",
-        credentials: 'include',
-    });
-    const data = await res.json();
-    return data;
-}
 
-const removeParticipantFromPost = async (postID, userID) => {
-    const res = await fetch(`http://localhost:3001/posts/${postID}/removeParticipant/${userID}`,
+
+const getFriendsPosts = async (userID) => {
+    const res = await fetch(`${process.env.REACT_APP_URL3001}/posts/friends/${userID}`,
     {
         method: "GET",
         credentials: 'include',
@@ -56,5 +50,5 @@ const removeParticipantFromPost = async (postID, userID) => {
 }
 
 export default {
-    getPosts, addPost, deletePost, addParticipantToPost, removeParticipantFromPost
+    getPosts, addPost, deletePost, getFriendsPosts
 }

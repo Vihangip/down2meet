@@ -1,15 +1,15 @@
+//require('dotenv').config();
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('./mongoDB/User'); // Replace this with the path to your user model
 
 
+
 passport.serializeUser((user, done) => {
-    console.log("----Serialized with id: ", user.id);
     done(null, user.id);
   });
   
   passport.deserializeUser(async (id, done) => {
-    console.log("Deserializing user with id:", id);
     try {
       const user = await User.findById(id);
       done(null, user);
@@ -23,7 +23,7 @@ passport.use(
       {
         clientID: '1011482531322-6d1dp35f941hr37vnn7cvjdstntunnru.apps.googleusercontent.com',
         clientSecret: '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',
-        callbackURL: 'http://localhost:3001/auth/google/callback',
+        callbackURL: `${process.env.REACT_APP_URL3001}/auth/google/callback`,
       },
       async (accessToken, refreshToken, profile, done) => {
         try {
@@ -44,7 +44,7 @@ passport.use(
               groups: [],
               events: [],
               hangouts: [],
-              availability: false,
+              availability: 'Available',
             });
   
             

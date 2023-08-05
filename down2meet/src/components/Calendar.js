@@ -72,16 +72,10 @@ export function handleCreateEvent() {
         timeZone: 'America/Vancouver',
       },
     };
-
-    console.log("Calendar");
-    console.log(event);
-
     apiCalendar.createEvent(event)
       .then((result) => {
-        console.log(result);
       })
       .catch((error) => {
-        console.log(error);
       });
   }
 };
@@ -91,8 +85,6 @@ const Calendar = () => {
   //const [newEvent, setNewEvent] = useState(new Date());
 
   useEffect(() => {
-    console.log("Calendar google Event");
-    console.log(googleEvent);
     //setNewEvent(googleEvent);
     newEvent = googleEvent;
   }, []);
@@ -100,7 +92,6 @@ const Calendar = () => {
   const handleItemClick = (event, name) => {
     if (name === 'sign-in') {
       apiCalendar.handleAuthClick();
-      console.log("Calendar handleAuth")
       dispatch(signInCalendar(true));
     } else if (name === 'sign-out') {
       apiCalendar.handleSignoutClick();
@@ -120,7 +111,6 @@ const Calendar = () => {
           onClick={(e) => {
             apiCalendar.listUpcomingEvents(10)
               .then(({ result }) => {
-                console.log(result.items);
                 setEvents(result.items);
               });
           }}

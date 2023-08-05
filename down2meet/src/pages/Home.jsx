@@ -3,8 +3,8 @@ import PostBar from '../components/PostBar';
 import BodyHeader from '../components/BodyHeader';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { getPostsAsync } from '../redux/posts/thunks';
-import { getSessionUserAsync } from '../redux/user/thunks';
+import { getFriendsPostsAsync, getPostsAsync } from '../redux/posts/thunks';
+import { getHangoutsAsync, getSessionUserAsync } from '../redux/user/thunks';
 import Navbar from '../components/Navbar';
 import ButtonAvailable from '../components/ButtonAvailable';
 import Search from '../components/Search';
@@ -12,6 +12,7 @@ import ActiveUsers from '../components/ActiveUsers';
 import { setUser } from '../redux/user/reducer';
 import { useNavigate, Route, Routes } from 'react-router-dom';
 import UserProfile from '../components/UserProfile';
+import { useSelector } from 'react-redux';
 
 
 
@@ -22,13 +23,16 @@ function Home() {
   useEffect(() => {
     const fetchPostsAndUsers = async () => {
       try {
-        const storedUser = JSON.parse(localStorage.getItem('user'));
+        let storedUser = JSON.parse(localStorage.getItem('user'));
         if (storedUser) {
           dispatch(setUser(storedUser)); // Initialize the user state with the stored data
         } else {
           await dispatch(getSessionUserAsync()); // Fetch user data if it's not in local storage
+          storedUser = JSON.parse(localStorage.getItem('user'));
         }
         await dispatch(getPostsAsync());
+        await dispatch(getFriendsPostsAsync(storedUser.user_id));
+        await dispatch(getHangoutsAsync(storedUser.user_id));
       } catch (error) {
         console.error('Error fetching data:', error);
       }

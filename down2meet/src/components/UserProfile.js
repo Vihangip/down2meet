@@ -5,39 +5,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import Navbar from './Navbar.js';
 import ButtonAvailable from './ButtonAvailable.js';
 import Search from './Search';
+import { current } from '@reduxjs/toolkit';
+import service from '../redux/user/service';
+import { useNavigate } from 'react-router-dom';
+
+//require('dotenv').config();
+
 
 export default function UserProfile() {
   const { userId } = useParams(); // get the userId from the URL
   const [userProfile, setUserProfile] = useState(null);
   const [userFriends, setUserFriends] = useState([]);
+  const [friendAdded, setFriendAdded] = useState([]); 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const currentUser = JSON.parse(localStorage.getItem('user'));
-  console.log("UserProfile");
-  console.log(currentUser);
-
-  useEffect(() => {
-    // Only fetch the user's profile if userId is not undefined
-    if (userId) {
-      fetch(`http://localhost:3001/users/${userId}`)
-        .then((response) => response.json())
-        .then((data) => setUserProfile(data))
-        .catch((error) => console.error(error));
-    }
-  }, [userId]);
-
-  useEffect(() => {
-    console.log("UserProfile");
-    console.log(currentUser);
-    if (currentUser) {
-      fetch(`http://localhost:3001/users/${currentUser.user_id}/friends`)
-        .then((response) => response.json())
-        .then((data) => setUserFriends(data))
-        .catch((error) => console.error(error));
-    }
-  }, [currentUser]);
 
   const addFriend = async () => {
-    const response = await fetch(`http://localhost:3001/users/${currentUser.user_id}/addFriend`, {
+    const response = await fetch(`${process.env.REACT_APP_URL3001}/users/${currentUser.user_id}/addFriend`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -46,10 +31,11 @@ export default function UserProfile() {
     });
     const data = await response.json();
     dispatch(setUser(data)); // Use the setUser Redux action to update the current user
+    setFriendAdded(true);
   };
 
   const removeFriend = async () => {
-      const response = await fetch(`http://localhost:3001/users/${currentUser.user_id}/removeFriend`, {
+      const response = await fetch(`${process.env.REACT_APP_URL3001}/users/${currentUser.user_id}/removeFriend`, {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json'
@@ -58,7 +44,58 @@ export default function UserProfile() {
       });
       const data = await response.json();
       dispatch(setUser(data)); // Use the setUser Redux action to update the current user
+      setFriendAdded(false);
   };
+
+  useEffect(() => { //VIHANGI
+    // Only fetch the user's profile if userId is not undefined
+    const fetchFriends = async() => {
+      try {
+        const friendListData = await service.getFriends(currentUser.user_id);
+        setUserFriends(friendListData);
+      } catch (error) {
+        console.error("Error fetching user:", error.message);
+      }
+    };
+
+    const fetchUser = async () => {
+      try {
+        const userData = await service.getOneUser(userId);
+        setUserProfile(userData);
+      } catch (error) {
+        console.error("Error fetching user:", error.message);
+      }
+    };
+
+    if (friendAdded) {
+      //nothing to put in here, but it works
+    } else if (!friendAdded){}
+
+    // if (userId) {
+    //   fetch(`${process.env.REACT_APP_URL3001}/users/${userId}`)
+    //     .then((response) => response.json())
+    //     .then((data) => setUserProfile(data))
+    //     .catch((error) => console.error(error));
+    // }
+    fetchFriends();
+    fetchUser();
+  }, [userId, currentUser.user_id, friendAdded]);
+
+  useEffect(() => { //LUCY
+    // if (currentUser) {
+    //   fetch(`${process.env.REACT_APP_URL3001}/users/${currentUser.user_id}/friends`)
+    //     .then((response) => response.json())
+    //     .then((data) => setUserFriends(data))
+    //     .catch((error) => console.error(error));
+    // }
+    
+  // }, [addFriend, removeFriend]);
+  }, []);
+
+  const handleProfileClick = (friendInfo) => {
+    navigate('/FriendProfile', { state: { friendInfo } });   ///////
+  };
+
 
   if (!userProfile) {
     return null;
@@ -73,6 +110,9 @@ export default function UserProfile() {
       <div className="UserProfile">
           <h1>{userProfile.name}</h1>
           <img src={userProfile.picture} alt={userProfile.name} />
+          {currentUser && userFriends.includes(userProfile.user_id) && (
+            <button className="addButton" onClick={() => handleProfileClick(userProfile)}>See Profile</button>
+          )}
           {currentUser && userFriends.includes(userProfile.user_id)
               ? <button className="deleteButton" onClick={removeFriend}>Delete Friend</button>
               : <button className="addButton" onClick={addFriend}>Add Friend</button>

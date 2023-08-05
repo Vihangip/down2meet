@@ -14,7 +14,11 @@ const queries = {
         return event;
     },
     deleteEvent: async function (eventID) {
-        const event = await Event.deleteOne({id: eventID });
+        const event = await Event.deleteMany({id: eventID });
+        return event;
+    },
+    deleteOneEvent: async function (eventID, userID) {
+        const event = await Event.deleteOne({id: eventID, userID: userID });
         return event;
     },
     editEvent:  async function (eventName) {
@@ -30,7 +34,6 @@ const queries = {
       
         // returns results where the price is less than $filter.
         const searchResults = await Event.find({ price: { $lt: filterAsStr } });
-        console.log(searchResults);
         return searchResults;
       }
       

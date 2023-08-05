@@ -37,7 +37,6 @@ export default function Groups(props) {
       const memberNames = await Promise.all(group.members.map(userid => service.getOneUser(userid).then(user => user.name)));
       return { ...group, members: memberNames };
     } catch (error) {
-      console.log(error.message);
       return group;
     }
   };
