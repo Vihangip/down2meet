@@ -97,6 +97,27 @@ router.post('/:userId/removeFriend', async(req, res) => {
   return res.send(user);
 });
 
+
+router.post('/:userId/approveFriends', async(req, res) => {
+  try {
+      console.log(`Request to approve friends for user ${req.params.userId}`);
+      const userId = req.params.userId;
+      const friendsIds = req.body.friendsIds; // Expecting an array of friend IDs
+      const user = await User.findOne({ user_id: userId });
+      if (!user) {
+          return res.status(404).send({message: 'User not found'});
+      }
+      user.approvedFriends = friendsIds;
+      await user.save();
+      return res.send(user);
+  } catch (error) {
+      console.error(error);
+      res.status(500).send('Server error');
+  }
+});
+
+
+
 router.get('/:userId/hangouts', async(req, res, next) => {
   const foundUser = await User.findOne({user_id: req.params.userId})
   return res.send(foundUser.hangouts);
