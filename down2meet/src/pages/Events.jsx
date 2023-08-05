@@ -14,6 +14,19 @@ function Events() {
   const [selectedApprovedFriends, setSelectedApprovedFriends] = useState([]);
   const currentUser = JSON.parse(localStorage.getItem('user'));
 
+  // Load approved friends from localStorage on mount
+  useEffect(() => {
+    const storedApprovedFriends = JSON.parse(localStorage.getItem('approvedFriends'));
+    if (storedApprovedFriends) {
+      setSelectedApprovedFriends(storedApprovedFriends);
+    }
+  }, []);
+
+  // Save approved friends to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem('approvedFriends', JSON.stringify(selectedApprovedFriends));
+  }, [selectedApprovedFriends]);
+
   useEffect(() => {
     const fetchFriends = async () => {
       try {
@@ -36,11 +49,32 @@ function Events() {
   }, [currentUser.user_id]);
 
   const handleSelectFriend = (friend) => {
-    setSelectedApprovedFriends([...selectedApprovedFriends, friend]);
+    console.log('Selecting friend:', friend);
+    if (!selectedApprovedFriends.includes(friend)) {
+      setSelectedApprovedFriends([...selectedApprovedFriends, friend]);
+    }
   };
 
   const handleUnselectFriend = (friend) => {
+    console.log('Unselecting friend:', friend);
     setSelectedApprovedFriends(selectedApprovedFriends.filter(f => f !== friend));
+  };
+
+  const handleSaveApprovedFriends = async () => {
+    try {
+      console.log('Saving friends:', selectedApprovedFriends);
+      // Mapping selectedApprovedFriends to extract friend IDs
+      const friendsIds = selectedApprovedFriends.map(friend => friend._id);
+
+      // Debugging output to see the IDs being sent
+      console.log("Saving approved friends with IDs:", friendsIds);
+
+      // Save the selected approved friends to the database
+      await service.saveApprovedFriends(currentUser.user_id, friendsIds);
+    } catch (error) {
+      console.error('Error saving approved friends:', error.message);
+
+    }
   };
 
   if (loading) return <div>Loading...</div>;
@@ -55,29 +89,22 @@ function Events() {
           <BodyHeader title={"Availability"} />
           <h2>Choose who you want to share your availability with:</h2>
           {approvedFriends.map((friend) => (
-      <div key={friend.id}>
-        <label>
-          <input
-            type="checkbox"
-            checked={selectedApprovedFriends.includes(friend)}
-            onChange={() =>
-              selectedApprovedFriends.includes(friend)
-                ? handleUnselectFriend(friend)
-                : handleSelectFriend(friend)
-            }
-          />
-          {friend.name}
-        </label>
-      </div>
-    ))}
-          <div>
-            <h2>Friends that can see your availability:</h2>
-            <ul>
-              {selectedApprovedFriends.map((friend) => (
-                <li key={friend.id}>{friend.name}</li>
-              ))}
-            </ul>
-          </div>
+            <div key={friend.id}>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={selectedApprovedFriends.includes(friend)}
+                  onChange={() =>
+                    selectedApprovedFriends.includes(friend)
+                      ? handleUnselectFriend(friend)
+                      : handleSelectFriend(friend)
+                  }
+                />
+                {friend.name}
+              </label>
+            </div>
+          ))}
+          <button onClick={handleSaveApprovedFriends}>Save</button>
           <div><AddEvent /></div>
           <div className="Calendar"> <Calendar /> </div>
           <div className="Calendar"> <Event /> </div>

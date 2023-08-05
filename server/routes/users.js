@@ -98,8 +98,9 @@ router.post('/:userId/removeFriend', async(req, res) => {
 });
 
 
-router.post('/:userId/approveFriends', async(req, res) => {
+router.post('/:userId/approvedFriends', async(req, res) => {
   try {
+      console.log('Request body:', req.body);
       console.log(`Request to approve friends for user ${req.params.userId}`);
       const userId = req.params.userId;
       const friendsIds = req.body.friendsIds; // Expecting an array of friend IDs

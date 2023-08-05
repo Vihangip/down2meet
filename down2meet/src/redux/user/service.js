@@ -214,9 +214,34 @@ async function addFriend(userId, friendId) {
         return data;
       
     };
+
+    const saveApprovedFriends = async (userId, approvedFriends) => {
+      try {
+        const res = await fetch(`${process.env.REACT_APP_URL3001}/users/${userId}/approvedFriends`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+          body: JSON.stringify({ friendsIds: approvedFriends }),
+        });
+        const data = await res.json();
+        console.log('Response:', data); // Log the response data
+    
+        if (res.status >= 400) {
+          throw new Error(data.errors);
+        }
+    
+        return data;
+      } catch (error) {
+        console.error('Error calling saveApprovedFriends:', error); // Log the error details
+        throw error;
+      }
+    };
+    
   
 
 export default {
     getUsers, addUsers, deleteUsers, getOneUser, addUserPost, getSessionUser, addFriend, removeFriend, 
-    getUserGroup, addUserGroup, getHangouts, addUserEvent, getFriends, removeHangoutsForFriends
+    getUserGroup, addUserGroup, getHangouts, addUserEvent, getFriends, removeHangoutsForFriends, saveApprovedFriends
 }
