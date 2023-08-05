@@ -7,6 +7,7 @@ import { addParticipantToPost, removeParticipantFromPost  } from '../redux/user/
 import { deletePostAsync } from '../redux/posts/thunks';
 import { removeHangoutsForFriendsAsync} from '../redux/user/thunks';
 import HangoutParticipant from './HangoutParticipant';
+import { deleteEventAsync, getEventAsync } from '../redux/event/thunks';
 
 
 const Hangout = ({ post }) => {
@@ -37,6 +38,10 @@ const Hangout = ({ post }) => {
     };
   }, [post.user_id]);
 
+  useEffect (() => {
+    dispatch(getEventAsync(useruser.user_id));          //////////////////////// 
+  },[dispatch]);
+
   // const handleAccept = () => {
   //   dispatch(addParticipantToPost({ postID: post.post_id, userID: useruser.user_id }));
   // };
@@ -49,6 +54,7 @@ const Hangout = ({ post }) => {
   const handleDelete = () => {
     dispatch(removeHangoutsForFriendsAsync(post.post_id));
     dispatch(deletePostAsync(post.post_id));
+    dispatch(deleteEventAsync(post.post_id));
   };
 
     if (!user) {

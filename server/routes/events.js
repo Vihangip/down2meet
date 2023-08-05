@@ -27,9 +27,9 @@ router.get('/:eventId', async(req, res, next) => {
 /* POST event. */
 router.post('/', async(req, res, next) => {
   const event =  { 
-    id: uuid(),
+    id: req.body.id ? req.body.id : uuid(),
     email: req.body.email,
-    userID: req.body.userID,//uuid(), // TODO: adding dummy var now, will populate with actual userID
+    userID: req.body.userID, //uuid(), // TODO: adding dummy var now, will populate with actual userID
     title: req.body.title,
     description: req.body.description,
     start: req.body.start,

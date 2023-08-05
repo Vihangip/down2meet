@@ -56,7 +56,7 @@ function PostBar() {
     //if there's a valid date and time, add to user's calendar 
     if (time && time2 && date) {
       console.log("handleAddEvent");
-      handleAddEvent();
+      handleAddEvent(post);
     }
     
     setPostContent('');
@@ -67,7 +67,7 @@ function PostBar() {
 
   };
 
-  const handleAddEvent = () => {
+  const handleAddEvent = (post) => {
     const useruser = user;
     const randomUUID = uuidv4();
     
@@ -97,7 +97,7 @@ function PostBar() {
     const formattedEndDate = new Date(vancouverEndDate);
 
     const new_event = {
-      "id": randomUUID, 
+      "id": post.post_id, //give relevant event the same ID as post
       "email": useruser.email,
       "userID": useruser.user_id,
       "user_id": useruser.user_id,

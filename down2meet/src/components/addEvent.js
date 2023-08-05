@@ -21,7 +21,7 @@ export function AddEvent() {
 
   const calendarSignedIn= useSelector(state => state.reducer.googleCalendar);
   const dispatch = useDispatch();
-  //const user = useSelector(state => state.reducer.user);
+
   useEffect(() => {
     dispatch(getSessionUserAsync());
   }, [dispatch]);

@@ -18,6 +18,7 @@ import { useState } from 'react';
 const localizer = momentLocalizer(moment);
 
 export default function Event(props) {
+
   let showGroups = true;
   let eventsList = useSelector(state => state.event.eventList);
   const [selectedEvent, setSelectedEvent] = useState(null);

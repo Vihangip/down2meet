@@ -7,12 +7,13 @@ import { addParticipantToPost, removeParticipantFromPost } from '../redux/user/t
 import { deletePostAsync } from '../redux/posts/thunks';
 import { removeHangoutsForFriendsAsync} from '../redux/user/thunks';
 import { v4 as uuidv4 } from 'uuid';
-import { addEventAsync } from '../redux/event/thunks';
+import { addEventAsync, deleteEventAsync, getEventAsync } from '../redux/event/thunks';
 
 const Post = ({ post }) => {
   const [user, setUser] = useState(null);
   const useruser = JSON.parse(localStorage.getItem('user'));
   const hangoutList = useSelector((state) => state.users.hangoutList);
+  const events = useSelector(state => state.event.eventList);
   const dispatch = useDispatch();
   const [showuserPost, setuserPost] = useState(false);
   const [hasJoinedHangout, setHasJoinedHangout] = useState(hangoutList.includes(post.post_id)); // State variable to track if the user has joined the hangout
@@ -43,12 +44,15 @@ const Post = ({ post }) => {
     };
   }, [post.user_id]);
 
+  useEffect (() => {
+    dispatch(getEventAsync(useruser.user_id));          //////////////////////// 
+  },[dispatch]);
+
   const handleAccept = () => {
     dispatch(addParticipantToPost({ postID: post.post_id, userID: useruser.user_id }));
     setHasJoinedHangout(true);
 
-    handleAddEvent(post.post_id, useruser.user_id);
-
+    handleAddEvent();
   };
 
   const handleReject = () => {
@@ -60,9 +64,11 @@ const Post = ({ post }) => {
     dispatch(removeHangoutsForFriendsAsync(post.post_id));
     dispatch(deletePostAsync(post.post_id));
     setHasJoinedHangout(false);
+    dispatch(deleteEventAsync(post.post_id)); //associated event has same id as posts
+    console.log(post.post_id);
   };
 
-  const handleAddEvent = (post_id, user_id) => {
+  const handleAddEvent = () => {
 
     const randomUUID = uuidv4();
     
@@ -93,7 +99,7 @@ const Post = ({ post }) => {
     const formattedEndDate = new Date(vancouverEndDate);
 
     const new_event = {
-      "id": randomUUID, 
+      "id": post.post_id, 
       "email": useruser.email,
       "userID": useruser.user_id,
       "user_id": useruser.user_id,
