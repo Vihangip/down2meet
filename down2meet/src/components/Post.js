@@ -65,7 +65,7 @@ const Post = ({ post }) => {
     dispatch(deletePostAsync(post.post_id));
     setHasJoinedHangout(false);
     dispatch(deleteEventAsync(post.post_id)); //associated event has same id as posts
-    console.log(post.post_id);
+    //console.log(post.post_id);
   };
 
   const handleAddEvent = () => {
