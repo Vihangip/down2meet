@@ -167,7 +167,7 @@ export function AddEvent() {
         <input type="time" id="iEndTime" name="iEndTime" ref={itemEndTimeRef} /><br /><br />
 
         {/* Add the "weekly" checkbox */}
-        <div>
+        {/* <div>
           <label htmlFor="iWeekly">Weekly:</label>
           <input
             type="checkbox"
@@ -176,7 +176,7 @@ export function AddEvent() {
             checked={isWeekly}
             onChange={(e) => setIsWeekly(e.target.checked)}
           />
-        </div> <br />
+        </div> <br /> */}
 
          {/* Render the checkboxes with group names */}
          <div>
