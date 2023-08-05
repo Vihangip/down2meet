@@ -30,10 +30,9 @@ export const updateEventAsync = createAsyncThunk(
     }
 );
 
-/* export const removeEventAfterLeave = createAsyncThunk(   
-    'users/removeEventAfterLeave',
-    async ({postID, userID}) => {
-      console.log("user thunk for remove");
-        return await service.removeParticipantFromPost(postID, userID);
+export const removeEventParticipant = createAsyncThunk(   
+    actionTypes.REMOVE_PARTICIPANT,
+    async ({eventID, userID}) => {
+        return await service.removeEventParticipant(eventID, userID);
     }
-); */
+);

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getEventAsync, addEventAsync, deleteEventAsync, updateEventAsync } from "./thunks";
+import { getEventAsync, addEventAsync, deleteEventAsync, updateEventAsync, removeEventParticipant} from "./thunks";
 
 
 const INITIAL_STATE = {
@@ -25,6 +25,9 @@ const eventSlice = createSlice({
                 // we find the event by id and then 
                 const foundIndex = state.eventList.findIndex(event => event.id === action.payload.id);
                 state.eventList[foundIndex] = action.payload;
+            })
+            .addCase(removeEventParticipant.fulfilled, (state, action) => {
+                state.eventList = state.eventList.filter((event) => event !== action.payload);
             });
     },
 });

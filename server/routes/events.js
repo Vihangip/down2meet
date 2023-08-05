@@ -72,6 +72,21 @@ router.delete('/:eventId', async(req, res, next) => {
   return res.send();
 });
 
+/* DELETE EVENT FROM ONE PARTICIPANT (same event still exists for other participants) */
+router.delete('/:eventID/participant/:userID', async(req, res, next) => {
+
+  const eventID = req.params.eventID;
+  const userID = req.params.userID;
+
+  const event = await queries.deleteOneEvent(eventID, userID);
+  if (!event) {
+    return res.status(404).send('Event not found');
+  }
+
+  res.status(204).send();
+
+});
+
 
 // TODO: STRECTCH REQ TO IMPLEMENT UPDATE
 // // can edit the description of the event

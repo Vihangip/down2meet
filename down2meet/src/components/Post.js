@@ -7,7 +7,7 @@ import { addParticipantToPost, removeParticipantFromPost } from '../redux/user/t
 import { deletePostAsync } from '../redux/posts/thunks';
 import { removeHangoutsForFriendsAsync} from '../redux/user/thunks';
 import { v4 as uuidv4 } from 'uuid';
-import { addEventAsync, deleteEventAsync, getEventAsync } from '../redux/event/thunks';
+import { addEventAsync, deleteEventAsync, getEventAsync, removeEventParticipant } from '../redux/event/thunks';
 
 const Post = ({ post }) => {
   const [user, setUser] = useState(null);
@@ -58,6 +58,7 @@ const Post = ({ post }) => {
   const handleReject = () => {
     dispatch(removeParticipantFromPost({ postID: post.post_id, userID: useruser.user_id }));
     setHasJoinedHangout(false);
+    dispatch(removeEventParticipant({ eventID: post.post_id, userID: useruser.user_id }));
   };
 
   const handleDelete = () => {

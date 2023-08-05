@@ -7,7 +7,7 @@ import { addParticipantToPost, removeParticipantFromPost  } from '../redux/user/
 import { deletePostAsync } from '../redux/posts/thunks';
 import { removeHangoutsForFriendsAsync} from '../redux/user/thunks';
 import HangoutParticipant from './HangoutParticipant';
-import { deleteEventAsync, getEventAsync } from '../redux/event/thunks';
+import { deleteEventAsync, getEventAsync, removeEventParticipant } from '../redux/event/thunks';
 
 
 const Hangout = ({ post }) => {
@@ -49,6 +49,7 @@ const Hangout = ({ post }) => {
   const handleReject = () => {
     console.log("button press");
     dispatch(removeParticipantFromPost({ postID: post.post_id, userID: useruser.user_id }));
+    dispatch(removeEventParticipant({ eventID: post.post_id, userID: useruser.user_id })); //event and post have same IDs 
   };
 
   const handleDelete = () => {
