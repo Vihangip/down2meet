@@ -10,7 +10,6 @@ var router = express.Router();
 /* GET event listing. */
 router.get('/:user_id', async(req, res, next) =>{
 
-  console.log("server events getting events");
   let allEvent = await queries.getAllEvent({userID: req.params.user_id}); //only get the specified user's events
   return res.send(allEvent);       ////////////// not sure if this is userID or user_id
 });
@@ -27,11 +26,10 @@ router.get('/:eventId', async(req, res, next) => {
 
 /* POST event. */
 router.post('/', async(req, res, next) => {
-  console.log("server events");
   const event =  { 
-    id: uuid(),
+    id: req.body.id ? req.body.id : uuid(),
     email: req.body.email,
-    userID: req.body.userID,//uuid(), // TODO: adding dummy var now, will populate with actual userID
+    userID: req.body.userID, //uuid(), // TODO: adding dummy var now, will populate with actual userID
     title: req.body.title,
     description: req.body.description,
     start: req.body.start,
@@ -40,10 +38,7 @@ router.post('/', async(req, res, next) => {
     location: req.body.location,
     participants: req.body.participants
   };
-  console.log("server events, ", req.body.userID);
   const addedEvent = await queries.addEvent(event);
-  // console.log(event);
-  // console.log(addedEvent);
   res.status(201);
   return res.send(addedEvent);
 });
@@ -53,8 +48,6 @@ router.get('/:userID/addEvent/:eventID', async(req, res, next) => {
   try {
     const userID = req.params.userID;
     const eventID = req.params.eventID;
-    console.log(userID);
-    console.log(eventID);
     const user = await User.updateOne(
       { user_id: userID },
       { $push: { events: eventID } }
@@ -77,6 +70,21 @@ router.delete('/:eventId', async(req, res, next) => {
 
   res.status(204);
   return res.send();
+});
+
+/* DELETE EVENT FROM ONE PARTICIPANT (same event still exists for other participants) */
+router.delete('/:eventID/participant/:userID', async(req, res, next) => {
+
+  const eventID = req.params.eventID;
+  const userID = req.params.userID;
+
+  const event = await queries.deleteOneEvent(eventID, userID);
+  if (!event) {
+    return res.status(404).send('Event not found');
+  }
+
+  res.status(204).send();
+
 });
 
 

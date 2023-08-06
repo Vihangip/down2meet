@@ -28,4 +28,11 @@ export const updateEventAsync = createAsyncThunk(
     async (event) => {
       return await service.updateEvent(event);
     }
-  );
+);
+
+export const removeEventParticipant = createAsyncThunk(   
+    actionTypes.REMOVE_PARTICIPANT,
+    async ({eventID, userID}) => {
+        return await service.removeEventParticipant(eventID, userID);
+    }
+);

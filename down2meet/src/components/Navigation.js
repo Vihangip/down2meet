@@ -23,7 +23,6 @@ export default function Navigation() {
       const email = decodedPayload.email;
       const picture = decodedPayload.picture;
 
-      console.log("Hey, " + name);
 
       const user = {
         name: name,
@@ -34,11 +33,9 @@ export default function Navigation() {
       dispatch(addUsersAsync(user));
       dispatch(updateUserProfile(user));
 
-      //console.log(response);
     };
     // when users don't successfully login
     const errorMessage = (error) => {
-      console.log(error);
     };
 
   return (

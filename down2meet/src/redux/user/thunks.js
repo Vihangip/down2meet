@@ -72,7 +72,10 @@ export const removeFriendAsync = createAsyncThunk(
 export const getFriendsAsync = createAsyncThunk(
   'users/getFriendsAsync',
   async (user_id) => {
-      return await service.getFriends(user_id);
+      const friends = await service.getFriends(user_id);
+      console.log('friends thunk:');
+      console.log(friends);
+      return friends;
   }
 );
 
@@ -85,7 +88,6 @@ export const getUserGroupsAsync = createAsyncThunk(
 export const addUserGroupsAsync = createAsyncThunk(
   'users/addUserGroupsAsync',
   async (group) => {
-      console.log(group);
       return await service.addUserGroup(group);
   });
   
@@ -107,5 +109,34 @@ export const removeHangoutsForFriendsAsync = createAsyncThunk(
   'users/removeHangoutsForFriendsAsync',
   async (postID) => {
       return await service.removeHangoutsForFriends(postID);
+  }
+);
+
+export const addParticipantToPost = createAsyncThunk(
+    'users/addParticipantToPost',
+    async ({ postID, userID }) => {
+        return await service.addParticipantToPost(postID, userID);
+    }
+);
+
+export const removeParticipantFromPost = createAsyncThunk(   
+    'users/removeParticipantFromPost',
+    async ({postID, userID}) => {
+        return await service.removeParticipantFromPost(postID, userID);
+    }
+);
+
+export const getAvailabilityAsync = createAsyncThunk(   
+  'users/getAvailabilityAsync',
+  async (userID) => {
+      return await service.getAvailability(userID);
+  }
+);
+
+export const changeUserAvailabilityAsync = createAsyncThunk(
+  'users/changeUserAvailabilityAsync',
+  async ({userID,availability}) => {
+    console.log("service: "+ userID + availability);
+    return await service.changeUserAvailability(userID, availability);
   }
 );

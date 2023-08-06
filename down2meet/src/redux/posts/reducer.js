@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getPostsAsync, addPostAsync, deletePostAsync, addParticipantToPost, removeParticipantFromPost, getFriendsPostsAsync } from "./thunks";
+import { getPostsAsync, addPostAsync, deletePostAsync, getFriendsPostsAsync } from "./thunks";
 import {REQUEST_STATE} from '../utils'
 
 
@@ -13,7 +13,10 @@ const INITIAL_STATE = {
 const postSlice = createSlice({
     name: "posts",
     initialState: INITIAL_STATE,
-    reducers: {},
+    reducers: {        
+        setUpdateState: (state, action) => {
+        state.setUpdate = action.payload;
+    },},
     extraReducers: (builder) => {
         builder
             .addCase(getPostsAsync.fulfilled, (state, action) => {
@@ -26,32 +29,12 @@ const postSlice = createSlice({
             })
             .addCase(deletePostAsync.fulfilled, (state, action) => {
                 // state.postList = state.postList.filter((post) => post.id !== action.payload);
-                 state.friendsPostList = state.friendsPostList.filter((post) => post.id !== action.payload);
-            })
-            .addCase(addParticipantToPost.fulfilled, (state, action) => {
-                // console.log('BEFORE');
-                // console.log(state.postList);
-                // state.postList = state.postList.map((post) => {
-                //     if (post.id === action.payload.id) {
-                //         return action.payload;
-                //     }
-                //     return post;
-                // });
-                // console.log('AFTER');
-                // console.log(state.postList);
-            })
-            .addCase(removeParticipantFromPost.fulfilled, (state, action) => {
-                // state.postList = state.postList.map((post) => {
-                //     if (post.id === action.payload.id) {
-                //         return action.payload;
-                //     }
-                //     return post;
-                // });
+                 state.friendsPostList = state.friendsPostList.filter((post) => post.post_id !== action.payload);
             })
             .addCase(getFriendsPostsAsync.fulfilled, (state, action) => {
                 state.friendsPostList = action.payload;
             });
     },
 });
-
+export const { setUpdateState } = postSlice.actions;
 export default postSlice.reducer;

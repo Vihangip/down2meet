@@ -11,12 +11,9 @@ import Search from '../components/Search';
 import ProfileInfo from '../components/ProfileInfo';
 import { setUser } from '../redux/user/reducer';
 import { getSessionUserAsync } from '../redux/user/thunks';
-import { useSelector } from 'react-redux';
-
 
 function Profile() {
   const dispatch = useDispatch();
-
   
   useEffect(() => {
     const fetchPostsAndUsers = async () => {
@@ -38,12 +35,6 @@ function Profile() {
   }, [dispatch]); 
 
   const user = JSON.parse(localStorage.getItem('user'));
-  // useEffect(() => {
-  //   dispatch(getSessionUserAsync());
-  //  }, [dispatch]);
-
-  console.log("profile");
-  console.log(user);
 
   useEffect (() => {
     dispatch(getEventAsync(user.user_id));          //////////////////////// 
@@ -59,11 +50,7 @@ function Profile() {
         <BodyHeader title={"Profile"}/>
           <ProfileInfo />
           <h3> Schedule</h3>
-        
           <div > <Event formLocation="profile"/> </div>
-
-
-        {/* <div className="Calendar"> <Availability/> </div> */}
       </div>
       </div>
       <div className="Body-Right">

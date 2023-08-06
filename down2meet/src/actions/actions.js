@@ -12,7 +12,6 @@ export const updateUserProfile = (user) => {
 };
 
 export const signInCalendar = (sign) => {
-  console.log("actions signing in");
   return {
     type: SIGNED_IN_CALENDAR,
     payload: sign

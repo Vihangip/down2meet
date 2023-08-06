@@ -1,7 +1,6 @@
 //require('dotenv').config();
 
 const getEvent = async (userID) => {
-    console.log("client service getting events");
     const res = await fetch(`${process.env.REACT_APP_URL3001}/event/${userID}`,
     {
         method: "GET",
@@ -25,14 +24,24 @@ const addEvent = async (event) => {
     if (res.status >= 400) {
         throw new Error(data.errors);
     }
-    console.log("service: addEvent");
-    console.log(event);
-    console.log(data);
     return data;
 }
 
 const deleteEvent = async (eventID) => {
     const res = await fetch(`${process.env.REACT_APP_URL3001}/event/${eventID}`,
+    {
+        method: "DELETE",
+        credentials: 'include',
+    });
+    if (res.status !== 204) {
+        const errorMsg = "error";
+        throw new Error(errorMsg)
+    }
+    return eventID;
+}
+
+const removeEventParticipant = async (eventID, userID) => {
+    const res = await fetch(`${process.env.REACT_APP_URL3001}/event/${eventID}/participant/${userID}`,
     {
         method: "DELETE",
         credentials: 'include',
@@ -66,5 +75,5 @@ const updateEvent = async (event) => {
   
 
 export default {
-    getEvent, addEvent, deleteEvent, updateEvent
+    getEvent, addEvent, deleteEvent, removeEventParticipant, updateEvent
 }
