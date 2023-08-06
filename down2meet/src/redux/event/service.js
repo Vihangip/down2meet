@@ -40,6 +40,19 @@ const deleteEvent = async (eventID) => {
     return eventID;
 }
 
+const removeEventParticipant = async (eventID, userID) => {
+    const res = await fetch(`${process.env.REACT_APP_URL3001}/event/${eventID}/participant/${userID}`,
+    {
+        method: "DELETE",
+        credentials: 'include',
+    });
+    if (res.status !== 204) {
+        const errorMsg = "error";
+        throw new Error(errorMsg)
+    }
+    return eventID;
+}
+
 // TODO: not part of standard requirements
 const updateEvent = async (event) => {
     const response = await fetch(`${process.env.REACT_APP_URL3001}/event/` + event.title, {
@@ -62,5 +75,5 @@ const updateEvent = async (event) => {
   
 
 export default {
-    getEvent, addEvent, deleteEvent, updateEvent
+    getEvent, addEvent, deleteEvent, removeEventParticipant, updateEvent
 }
