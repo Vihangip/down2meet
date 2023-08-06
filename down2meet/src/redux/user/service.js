@@ -238,10 +238,51 @@ async function addFriend(userId, friendId) {
         throw error;
       }
     };
+
+    const getApprovedFriends = async (userId) => {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_URL3001}/users/${userId}/approvedfriends`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+        });
+        
+        if (response.status >= 400) {
+          throw new Error('Error fetching approved friends');
+        }
+        
+        const data = await response.json();
+        return data; // Assuming data contains the approved friends
+      } catch (error) {
+        console.error('Error fetching approved friends:', error);
+        throw error;
+      }
+};
+
+const getUserByUserId = async (user_id) => {
+  console.log(user_id);
+  const res = await fetch(`${process.env.REACT_APP_URL3001}/users/${user_id}`, {
+      method: "GET",
+      credentials: 'include',
+  });
+  const data = await res.json();
+
+  if (!res.ok) {
+      throw new Error("User not found."); // Throw an error if the response is not successful
+  }
+
+  if (res.status >= 400) {
+      throw new Error(data.errors);
+  }
+  return data;
+};
+
     
   
 
 export default {
     getUsers, addUsers, deleteUsers, getOneUser, addUserPost, getSessionUser, addFriend, removeFriend, 
-    getUserGroup, addUserGroup, getHangouts, addUserEvent, getFriends, removeHangoutsForFriends, saveApprovedFriends
+    getUserGroup, addUserGroup, getHangouts, addUserEvent, getFriends, removeHangoutsForFriends, saveApprovedFriends, getApprovedFriends, getUserByUserId
 }

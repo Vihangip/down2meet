@@ -52,6 +52,18 @@ router.get('/:user_id/approvedfriends', async (req, res, next) => {
   return res.send(foundUser.approvedFriends);
 });
 
+router.get('/:user_id', async (req, res) => {
+  try {
+    const user = await User.findOne({ user_id: req.params.user_id });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 
 
 /* GET user by ID. */

@@ -9,23 +9,10 @@ import ButtonAvailable from '../components/ButtonAvailable';
 import Search from '../components/Search';
 
 function Events() {
-  const [loading, setLoading] = useState(true);
-  const [approvedFriends, setApprovedFriends] = useState([]);
+  const [friends, setFriends] = useState([]);
   const [selectedApprovedFriends, setSelectedApprovedFriends] = useState([]);
+  const [approvedFriends, setApprovedFriends] = useState([]);
   const currentUser = JSON.parse(localStorage.getItem('user'));
-
-  // Load approved friends from localStorage on mount
-  useEffect(() => {
-    const storedApprovedFriends = JSON.parse(localStorage.getItem('approvedFriends'));
-    if (storedApprovedFriends) {
-      setSelectedApprovedFriends(storedApprovedFriends);
-    }
-  }, []);
-
-  // Save approved friends to localStorage whenever they change
-  useEffect(() => {
-    localStorage.setItem('approvedFriends', JSON.stringify(selectedApprovedFriends));
-  }, [selectedApprovedFriends]);
 
   useEffect(() => {
     const fetchFriends = async () => {
@@ -37,15 +24,14 @@ function Events() {
         const friendsListData = await Promise.all(friendsPromises);
     
         console.log("Friend Details:", friendsListData);
-        setApprovedFriends(friendsListData);
-        setLoading(false);
+        setFriends(friendsListData);
       } catch (error) {
         console.error("Error fetching friends:", error.message);
-        setLoading(false);
       }
     };    
 
     fetchFriends();
+    loadApprovedFriends();
   }, [currentUser.user_id]);
 
   const handleSelectFriend = (friend) => {
@@ -71,13 +57,27 @@ function Events() {
 
       // Save the selected approved friends to the database
       await service.saveApprovedFriends(currentUser.user_id, friendsIds);
+      loadApprovedFriends();
     } catch (error) {
       console.error('Error saving approved friends:', error.message);
 
     }
   };
 
-  if (loading) return <div>Loading...</div>;
+  const loadApprovedFriends = async () => {
+    try {
+      const friendsIds = await service.getApprovedFriends(currentUser.user_id);
+      const friendsPromises = friendsIds.map((friendID) => service.getUserByUserId(friendID));
+      const approvedFriendsNames = await Promise.all(friendsPromises);
+      console.log("approvedfriends", approvedFriendsNames);
+      setApprovedFriends(approvedFriendsNames);
+      console.log("approved", approvedFriends);
+    } catch (error) {
+      console.error('Error saving approved friends:', error.message);
+    }
+  }
+
+  
 
   return (
     <>
@@ -88,7 +88,7 @@ function Events() {
         <div className='Events'>
           <BodyHeader title={"Availability"} />
           <h2>Choose who you want to share your availability with:</h2>
-          {approvedFriends.map((friend) => (
+          {friends.map((friend) => (
             <div key={friend.id}>
               <label>
                 <input
@@ -105,6 +105,12 @@ function Events() {
             </div>
           ))}
           <button onClick={handleSaveApprovedFriends}>Save</button>
+          <h2>Friends that can see your availability:</h2>
+            <ul>
+              {approvedFriends.map((friend) => (
+                <li key={friend.id}>{friend.name}</li>
+              ))}
+            </ul>
           <div><AddEvent /></div>
           <div className="Calendar"> <Calendar /> </div>
           <div className="Calendar"> <Event /> </div>
