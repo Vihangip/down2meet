@@ -224,9 +224,38 @@ async function addFriend(userId, friendId) {
       const data = await res.text();
       return data;
   }
+
+  const getAvailability = async (userID) => {
+    const res = await fetch(`${process.env.REACT_APP_URL3001}/users/${userID}/availability`,
+    {
+        method: "GET",
+        credentials: 'include',
+    });
+    const data = await res.text();
+    return data;
+}
+
+const changeUserAvailability = async (userID, availability) => {
+  const res = await fetch(`${process.env.REACT_APP_URL3001}/users/${userID}/availability`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+    body: JSON.stringify({ availability }),
+  });
+  if (!res.ok) {
+    // Handle error
+    console.error('Error updating user availability');
+  } 
+  const data = await res.text();
+  console.log("server data : "+ data);
+  return data;
+}
   
 
 export default {
     getUsers, addUsers, deleteUsers, getOneUser, addUserPost, getSessionUser, addFriend, removeFriend, 
-    getUserGroup, addUserGroup, getHangouts, addUserEvent, getFriends, removeHangoutsForFriends, addParticipantToPost, removeParticipantFromPost
+    getUserGroup, addUserGroup, getHangouts, addUserEvent, getFriends, removeHangoutsForFriends, addParticipantToPost, removeParticipantFromPost,
+    getAvailability, changeUserAvailability
 }

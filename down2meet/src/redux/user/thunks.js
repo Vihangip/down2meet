@@ -122,7 +122,21 @@ export const addParticipantToPost = createAsyncThunk(
 export const removeParticipantFromPost = createAsyncThunk(   
     'users/removeParticipantFromPost',
     async ({postID, userID}) => {
-      console.log("user thunk for remove");
         return await service.removeParticipantFromPost(postID, userID);
     }
+);
+
+export const getAvailabilityAsync = createAsyncThunk(   
+  'users/getAvailabilityAsync',
+  async (userID) => {
+      return await service.getAvailability(userID);
+  }
+);
+
+export const changeUserAvailabilityAsync = createAsyncThunk(
+  'users/changeUserAvailabilityAsync',
+  async ({userID,availability}) => {
+    console.log("service: "+ userID + availability);
+    return await service.changeUserAvailability(userID, availability);
+  }
 );

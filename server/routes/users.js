@@ -134,6 +134,18 @@ router.get('/:userID/addPost/:postID', async (req, res) => {
   }
 });
 
+router.get('/:user_id/availability', async(req, res, next) => {
+  console.log("hmm");
+  const foundUser = await User.findOne({user_id: req.params.user_id});
+  if(!foundUser) {
+    return res.status(404).send({message: 'User not found'});
+  } else {
+    console.log("availability from backend: " + foundUser.availability);
+    return res.send(foundUser.availability);
+  }
+  
+});
+
 
 router.put('/:userId/availability', async (req, res) => {
   try {
@@ -146,7 +158,8 @@ router.put('/:userId/availability', async (req, res) => {
     user.availability = req.body.availability;
     await user.save();
 
-    res.json({ message: 'User availability updated', user });
+    // res.json({ message: 'User availability updated', user });
+    return res.status(200).send(user.availability);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error' });
