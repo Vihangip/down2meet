@@ -50,7 +50,7 @@ function Events() {
 
   const handleSelectFriend = (friend) => {
     console.log('Selecting friend:', friend);
-    if (!selectedApprovedFriends.includes(friend)) {
+    if (!selectedApprovedFriends.includes(friend.user_id)) {
       setSelectedApprovedFriends([...selectedApprovedFriends, friend]);
     }
   };
@@ -64,7 +64,7 @@ function Events() {
     try {
       console.log('Saving friends:', selectedApprovedFriends);
       // Mapping selectedApprovedFriends to extract friend IDs
-      const friendsIds = selectedApprovedFriends.map(friend => friend._id);
+      const friendsIds = selectedApprovedFriends.map(friend => friend.user_id);
 
       // Debugging output to see the IDs being sent
       console.log("Saving approved friends with IDs:", friendsIds);
