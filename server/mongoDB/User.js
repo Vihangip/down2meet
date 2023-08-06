@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
     name: String,
     picture: String,
     friends: { type: Array, default: [] },
+    approvedFriends: { type: Array, default: [] }, 
     groups: [Object],
     events: [Object],
     hangouts: [Object],
