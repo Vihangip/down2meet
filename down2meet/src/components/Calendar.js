@@ -11,10 +11,10 @@ const config = {
   apiKey: "AIzaSyDwUAUOzBUBdUB35If5Q5bgZHry2TiU05g",
   scope: 'https://www.googleapis.com/auth/calendar',
   discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'],
-  hosted_domain: `${process.env.REACT_APP_URL3000}`
+  hosted_domain: `${process.env.REACT_APP_URL3000}`,
+  redirect_uri: `${process.env.REACT_APP_URL3000}/Events`
 };
 
-const callbackurl = `${process.env.REACT_APP_URL3000}/Profile`
 
 let newEvent = new Date();
 
@@ -113,13 +113,10 @@ const Calendar = () => {
       //window.location.href = `${process.env.REACT_APP_URL3001}/auth/google`;
       apiCalendar.initGapiClient();
       apiCalendar.handleClientLoad();
-      //apiCalendar.onLoad(callbackurl);
-      apiCalendar.onLoad(() => {
-        apiCalendar.handleAuthClick();
-        console.log('Google API client is initialized and ready to use!');
-        // Perform operations that require the API to be initialized here.
-        // For example, you can fetch events, create events, etc.
-      });
+      //apiCalendar.onLoad(() => {
+       apiCalendar.handleAuthClick();
+       console.log('Google API client is initialized and ready to use!');
+      //});
       //apiCalendar.handleAuthClick();
       dispatch(signInCalendar(true));
     } else if (name === 'sign-out') {
