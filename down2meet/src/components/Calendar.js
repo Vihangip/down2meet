@@ -3,24 +3,43 @@ import ApiCalendar from 'react-google-calendar-api';
 import { googleEvent } from "./addEvent";
 import { useDispatch } from 'react-redux';
 import { signInCalendar} from '../actions/actions';
+import { postEvent } from "./Post"; 
+import { postbarEvent } from "./PostBar"; 
 
 const config = {
   clientId: "1011482531322-6d1dp35f941hr37vnn7cvjdstntunnru.apps.googleusercontent.com",
   apiKey: "AIzaSyDwUAUOzBUBdUB35If5Q5bgZHry2TiU05g",
   scope: 'https://www.googleapis.com/auth/calendar',
-  discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest']
+  discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'],
+  hosted_domain: `${process.env.REACT_APP_URL3000}`,
+  redirect_uri: `${process.env.REACT_APP_URL3000}/Events`
 };
+
 
 let newEvent = new Date();
 
+
 const apiCalendar = new ApiCalendar(config);
 
-export function handleCreateEvent() {
+
+export function handleCreateEvent({origin}) {
+  
+  let sourceEvent;
+  if (origin==="addEvent") {
+    sourceEvent = googleEvent;
+    console.log("googleEvent")
+  } else if (origin==="Post") {
+    sourceEvent = postEvent;
+    console.log("postEvent");
+  } else if (origin==="PostBar") {
+    sourceEvent = postbarEvent;
+    console.log("postbarEvent");
+  }
   
   if (newEvent) {
 
     //start time
-    let date = new Date(googleEvent.startingDate);
+    let date = new Date(sourceEvent.startingDate);
     let year = new Date(date).toLocaleDateString('en-US', { year: 'numeric' });
     let month = new Date(date).toLocaleDateString('en-US', { month: 'numeric' });
     let day = new Date(date).toLocaleDateString('en-US', { day: 'numeric' });
@@ -41,7 +60,7 @@ export function handleCreateEvent() {
     startDate.setMinutes(minute);
 
     //end time
-    date = new Date(googleEvent.endingDate);
+    date = new Date(sourceEvent.endingDate);
     year = new Date(date).toLocaleDateString('en-US', { year: 'numeric' });
     month = new Date(date).toLocaleDateString('en-US', { month: 'numeric' });
     day = new Date(date).toLocaleDateString('en-US', { day: 'numeric' });
@@ -61,8 +80,8 @@ export function handleCreateEvent() {
     endDate.setMinutes(minute);
 
     const event = {
-      summary: googleEvent.title,
-      description: googleEvent.description,
+      summary: sourceEvent.title,
+      description: sourceEvent.description,
       start: {
         dateTime: startDate.toISOString(),
         timeZone: 'America/Vancouver',
@@ -91,7 +110,15 @@ const Calendar = () => {
 
   const handleItemClick = (event, name) => {
     if (name === 'sign-in') {
-      apiCalendar.handleAuthClick();
+      //window.location.href = `${process.env.REACT_APP_URL3001}/auth/google`;
+      apiCalendar.onLoad(() => {
+        apiCalendar.handleClientLoad();
+        apiCalendar.handleAuthClick();
+        console.log('handle item click in calendar');
+      });
+      apiCalendar.initGapiClient();
+    
+      //apiCalendar.handleAuthClick();
       dispatch(signInCalendar(true));
     } else if (name === 'sign-out') {
       apiCalendar.handleSignoutClick();

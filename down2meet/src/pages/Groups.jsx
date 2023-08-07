@@ -12,10 +12,12 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../redux/user/reducer';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 function Group() {
   
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const userAvailability = useSelector((state) => state.users.availability);
   const colorSwitch = () => {
     const primaryColor = '#32CD32';
@@ -29,11 +31,16 @@ function Group() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const storedUser = JSON.parse(localStorage.getItem('user'));
+        let storedUser = JSON.parse(localStorage.getItem('user'));
         if (storedUser) {
           dispatch(setUser(storedUser)); // Initialize the user state with the stored data
         } else {
         await dispatch(getSessionUserAsync());
+        storedUser = JSON.parse(localStorage.getItem('user'));
+        if (!storedUser){
+          navigate('/');
+          return;
+        }
         await dispatch(getFriendsAsync(JSON.parse(localStorage.getItem('user'))));
         // await dispatch(getPostsAsync());
         }

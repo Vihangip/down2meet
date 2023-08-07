@@ -17,7 +17,7 @@ export default function LoginPage() {
   const handleLogin = () => {
 
     window.location.href = `${process.env.REACT_APP_URL3001}/auth/google`;
-    dispatch(getSessionUserAsync());
+
   }
 
   return (

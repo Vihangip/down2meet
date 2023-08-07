@@ -5,12 +5,14 @@
   import { handleCreateEvent } from "./Calendar";
   import { getFriendsAsync, getSessionUserAsync, getUserGroupsAsync, addUserGroupsAsync } from '../redux/user/thunks';
   import service from "../redux/user/service";
+import { useNavigate } from "react-router-dom";
 
   const { v4: uuid } = require('uuid');
 
   export function AddGroup() {
     let newGroupName;
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const itemNameRef = React.useRef(null);
 
@@ -39,6 +41,10 @@
     // const [friendNames, setFriendNames] = useState([]);
   
   useEffect(() => {
+    if (!currentUser){
+      navigate('/');
+      return;
+    }
     // Fetch friends asynchronously
     dispatch(getFriendsAsync(currentUser.user_id))
       .then(() => setLoading(false)) // Set loading to false when friends are fetched

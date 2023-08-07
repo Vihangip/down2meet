@@ -8,8 +8,17 @@ import { deletePostAsync } from '../redux/posts/thunks';
 import { removeHangoutsForFriendsAsync} from '../redux/user/thunks';
 import { v4 as uuidv4 } from 'uuid';
 import { addEventAsync, deleteEventAsync, getEventAsync, removeEventParticipant } from '../redux/event/thunks';
+import { handleCreateEvent } from './Calendar'
 
-const Post = ({ post }) => {
+//for adding to Google Calendar, does not need to be stored anywhere
+export const postEvent = {
+  title: '',
+  description: '',
+  startingDate: new Date(),
+  endingDate: new Date(),
+};
+
+export const Post = ({ post }) => {
   const [user, setUser] = useState(null);
   const useruser = JSON.parse(localStorage.getItem('user'));
   const hangoutList = useSelector((state) => state.users.hangoutList);
@@ -17,6 +26,7 @@ const Post = ({ post }) => {
   const dispatch = useDispatch();
   const [showuserPost, setuserPost] = useState(false);
   const [hasJoinedHangout, setHasJoinedHangout] = useState(hangoutList.includes(post.post_id)); // State variable to track if the user has joined the hangout
+  const calendarSignedIn= useSelector(state => state.reducer.googleCalendar);
 
   useEffect(() => {
     // Fetch user information when the component mounts
@@ -110,8 +120,20 @@ const Post = ({ post }) => {
       "end": formattedEndDate,
       "groups": post.participants
     };
-    console.log("new_event")
+    console.log("Post new_event")
     dispatch(addEventAsync(new_event));
+
+    if (calendarSignedIn === true) {
+      postEvent.title = "down2meet";
+      postEvent.description = post.status;
+      postEvent.startingDate = formattedStartDate;
+      postEvent.endingDate = formattedEndDate;
+      handleCreateEvent({origin: "Post"}); //only add event to Google Calendar if user is signed in
+      console.log("created event from post");
+    }
+    else {
+      console.log("not signed into calendar");
+    }
 
   }
 
@@ -122,7 +144,8 @@ const Post = ({ post }) => {
 
     return (
       <div className="Post">
-        <img className="Post-UserInfo-Image" src={post.profilepic ? post.profilepic : blankpic} alt="" />
+       {/* <img className="Post-UserInfo-Image" src={post.profilepic ? post.profilepic : blankpic} alt="" /> */}
+       <img className="Post-UserInfo-Image" src={user.picture ? user.picture : blankpic} alt="" />
         <div className="Post-Container">
           <div key={post.id} className="Post-UserInfo">
             {user.availability ? 
@@ -239,5 +262,5 @@ const Post = ({ post }) => {
     );
   };
   
-  export default Post;
+
   

@@ -65,7 +65,8 @@ const Hangout = ({ post }) => {
 
     return (
       <div className="Post">
-        <img className="Post-UserInfo-Image" src={post.profilepic ? post.profilepic : blankpic} alt="" />
+       {/*  <img className="Post-UserInfo-Image" src={post.profilepic ? post.profilepic : blankpic} alt="" /> */}
+       <img className="Post-UserInfo-Image" src={user.picture ? user.picture : blankpic} alt="" />
         <div className="Post-Container">
           <div className="Hangout-Top">
             <div className='Hangout-UserInfo'>

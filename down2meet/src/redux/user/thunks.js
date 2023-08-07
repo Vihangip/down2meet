@@ -126,6 +126,13 @@ export const removeParticipantFromPost = createAsyncThunk(
     }
 );
 
+export const editUserAsync = createAsyncThunk(
+  'users/editUserAsync',
+  async (user) => {
+    return await service.editUser(user);
+  }
+);
+
 export const getAvailabilityAsync = createAsyncThunk(   
   'users/getAvailabilityAsync',
   async (userID) => {
