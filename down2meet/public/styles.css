@@ -151,7 +151,6 @@ html, body, #Home, #Home>div {
     gap: 0px;
     margin: 0;
     padding: 0px;
-    border-right: 1px solid #dcdcdc;
     overflow: auto;
 }  
 
@@ -170,6 +169,7 @@ html, body, #Home, #Home>div {
     margin-bottom: 0;
     gap: 20px;
     padding-right: 15px;
+    border-left: 1px solid #dcdcdc;
 } 
 
 /*  ~~~~~~~~~~~~~~~~~~ LEFT SIDE  ~~~~~~~~~~~~~~~~~~ */
@@ -290,10 +290,45 @@ html, body, #Home, #Home>div {
     cursor: pointer;   
     border: 0;
 }
+.GroupContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  margin: 0;
+}
+
+.GroupObject {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #dcdcdc;
+  width: 100%;
+  padding: 20px;
+}
+
+.GroupObject h4 {
+  font-size: 20px;
+  margin: 0;
+}
+
+.GroupObject p {
+  font-size: 15px;
+  margin: 0;
+  margin-top: 10px;
+}
+
+.GroupObject:hover {
+  border: 1px solid var(--active-color);
+}
 
 .botnav {
   display: flex;
   flex-direction: column;
+
 }
   
 
@@ -357,6 +392,7 @@ html, body, #Home, #Home>div {
     height: 70px;
     border-radius: 50%;
     margin: 1%;
+    border: 1px solid black;
   }
   
   .PostBar-Form {
@@ -488,11 +524,17 @@ html, body, #Home, #Home>div {
     border: 1px solid #dcdcdc;
 }
 
+.Post:hover {
+  border: 1px solid var(--active-color);
+}
+
 .Post-UserInfo-Image {
     border-radius: 50%;
     width: 70px;
     height: 70px;
     margin: 1%;
+
+    border: 1px solid black;
 }
 
 .Post-Container {
@@ -646,6 +688,7 @@ html, body, #Home, #Home>div {
   display: flex;
   flex-direction: row;
   align-items: center;
+  
 }
 
 .Hangouts-Participants-Image {
@@ -654,6 +697,8 @@ html, body, #Home, #Home>div {
   height: 40px;
   margin: 1%;
   cursor: pointer;
+
+  border: 1px solid black;
 }
 
 .Hangouts-Participants-Image:hover {
@@ -723,6 +768,7 @@ color: white;
     width: 30%;
     max-width: 300px;
     margin-right: 10%;
+    border: 1px solid black;
 }
 
 .in-line {
@@ -734,7 +780,7 @@ color: white;
 }
 
 .Profile-Edit-Button {
-  border: none;
+  border: 1px solid black;
   color: white;
   background-color: var(--active-color);
   font-size: 20px;
@@ -826,6 +872,8 @@ color: white;
   height: 150px;
   border-radius: 50%; /* Make the image circular */
   margin-bottom: 20px;
+
+  border: 1px solid black;
 }
 
 .UserProfile .addButton {
@@ -995,6 +1043,7 @@ color: white;
   flex-direction: column;
   height: 100%;
   width: 100%;
+  gap: 10px;
 }
 
 .EventPage {
@@ -1009,7 +1058,96 @@ color: white;
   margin-top: 35vh;
 }
 
+.center-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-bottom: 20px;
+}
 
+.AvailabilitySettings {
+  display: flex;
+  flex-direction: column;
+}
+
+.AvailabilitySettings h2 {
+  font-size: 23px;
+}
+
+.AvailabilityFriend {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.AvailabilityButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.AvailabilityButton {
+  border: 1px solid black;
+  background-color: var(--active-color);
+  color: white;
+  font-size: 20px;
+  width: 75px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.AvailabilityButton2 {
+  border: 1px solid black;
+  background-color: var(--active-color);
+  color: white;
+  font-size: 20px;
+  width: 200px;
+  height: 45px;
+  cursor: pointer;
+}
+
+.AvailabilityButton3 {
+  border: 1px solid black;
+  background-color: var(--active-color);
+  color: white;
+  font-size: 17px;
+  width: 100px;
+  height: 35px;
+  align-content: center;
+  cursor: pointer;
+}
+
+.AvailabilityButton4 {
+  border: 1px solid black;
+  background-color: var(--active-color);
+  color: white;
+  font-size: 20px;
+  width: 300px;
+  height: 45px;
+  cursor: pointer;
+}
+
+.UserView {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.UserView img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+
+  border: 1px solid black;
+  margin-right: 10px;
+}
+
+.UserView h2 {
+  font-size: 20px;
+  font-weight: 600;
+}
 
 .Calendar-table {
     width: 100%;
@@ -1070,22 +1208,39 @@ color: white;
 .friend-image{
     width:100px;
     height: 100px;
+    border-radius: 50%;
     object-fit: contain;
+    border: 1px solid black;
 }
 
 .friend-container {
   margin-top: 20px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 20px;
   margin-bottom: 20px;
   font-size: 20px;
+  border: 1px solid #dcdcdc;
+  padding: 20px;
+}
+
+.friend-container:hover {
+  border: 1px solid var(--active-color);
 }
 
 .friend-info {
   display: flex;
   flex-direction: column;
   text-align: right;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.friend-button {
+  border: 1px solid black;
+  background-color: var(--active-color);
+  color: white;
+  font-size: 20px;
 }
 
 .Friend-Button-Container {
@@ -1160,7 +1315,7 @@ color: white;
 }
 
 .event-form {
-  width: 100vw;
+  width: 100%;
   height:fit-content;
 }
 

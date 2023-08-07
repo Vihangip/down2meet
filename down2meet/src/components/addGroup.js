@@ -24,7 +24,8 @@ import { useNavigate } from "react-router-dom";
     const groupsList = useSelector((state) => state.users.groupList);
     const currentUser = JSON.parse(localStorage.getItem('user'));
     const usersFriends = useSelector((state) => state.users.friendsList)
-    const uniqueFriends = Array.from(new Set(usersFriends));   
+    const uniqueFriends = Array.from(new Set(usersFriends));  
+    const [friends, setFriends] = useState([]);
 
 
 
@@ -70,7 +71,7 @@ import { useNavigate } from "react-router-dom";
     const getUserNameByID = async (userid) => {
       try {
         const user = await service.getOneUser(userid);
-
+        friends.push(user);
         return user.name;
       } catch (error) {
         // Use rejectWithValue to include the error message in the action payload
@@ -180,10 +181,10 @@ import { useNavigate } from "react-router-dom";
         </div> <br/>
 
           <div style={{ justifyContent: "left" }}>
-            <input type="submit" id="submitButton" value="Add" />
+            <input className='AvailabilityButton3' type="submit" id="submitButton" value="Add" />
             {/* <input type="button" id="updateButton" value="Update" onClick={handleUpdateButton} /> */}
-            <input type="button" id="deleteButton" value="Delete" onClick={handleDeleteButton} />
-            <input type="reset" id="resetButton" value="Clear Form" />
+            <input className='AvailabilityButton3' type="button" id="deleteButton" value="Delete" onClick={handleDeleteButton} />
+            <input className='AvailabilityButton3' type="reset" id="resetButton" value="Clear Form" />
           </div>
           
           <br /> <br /> <br />

@@ -4,6 +4,7 @@ import { googleEvent } from "./addEvent";
 import { useDispatch } from 'react-redux';
 import { postEvent } from "./Post"; 
 import { postbarEvent } from "./PostBar"; 
+import { signInCalendar} from '../actions/actions';
 
 const config = {
   clientId: "1011482531322-6d1dp35f941hr37vnn7cvjdstntunnru.apps.googleusercontent.com",
@@ -22,7 +23,7 @@ export const apiCalendar = new ApiCalendar(config);
 
 
 export function handleCreateEvent({origin}) {
-  
+
   let sourceEvent;
   if (origin==="addEvent") {
     sourceEvent = googleEvent;
@@ -96,11 +97,32 @@ export function handleCreateEvent({origin}) {
       .catch((error) => {
       });
   }
+
+
 };
+
+
 
 const Calendar = () => {
   const dispatch = useDispatch();
   //const [newEvent, setNewEvent] = useState(new Date());
+
+  
+  const handleItemClick = (event, name) => {
+
+    if (name === 'sign-in') {
+      //window.location.href = `${process.env.REACT_APP_URL3001}/auth/google`;
+      apiCalendar.onLoad(() => {
+        apiCalendar.handleClientLoad();
+        apiCalendar.handleAuthClick();
+        console.log('handle item click in calendar');
+      });
+      apiCalendar.initGapiClient();
+      dispatch(signInCalendar(true));
+    } else if (name === 'sign-out') {
+      apiCalendar.handleSignoutClick();
+    }
+  };
 
   useEffect(() => {
     //setNewEvent(googleEvent);
@@ -110,6 +132,10 @@ const Calendar = () => {
 
   return (
     <div>
+      <div style={{ padding: '0.5em' }}>
+        <button className='AvailabilityButton4' onClick={(e) => handleItemClick(e, 'sign-in')}>Connect to Google Calendar</button>
+       
+      </div>
 
       {/*
       <div style={{ padding: '0.5em' }}>
