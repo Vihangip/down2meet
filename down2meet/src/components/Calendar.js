@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import ApiCalendar from 'react-google-calendar-api';
 import { googleEvent } from "./addEvent";
 import { useDispatch } from 'react-redux';
-import { signInCalendar} from '../actions/actions';
 import { postEvent } from "./Post"; 
 import { postbarEvent } from "./PostBar"; 
 
@@ -19,7 +18,7 @@ const config = {
 let newEvent = new Date();
 
 
-const apiCalendar = new ApiCalendar(config);
+export const apiCalendar = new ApiCalendar(config);
 
 
 export function handleCreateEvent({origin}) {
@@ -108,29 +107,9 @@ const Calendar = () => {
     newEvent = googleEvent;
   }, []);
 
-  const handleItemClick = (event, name) => {
-    if (name === 'sign-in') {
-      //window.location.href = `${process.env.REACT_APP_URL3001}/auth/google`;
-      apiCalendar.onLoad(() => {
-        apiCalendar.handleClientLoad();
-        apiCalendar.handleAuthClick();
-        console.log('handle item click in calendar');
-      });
-      apiCalendar.initGapiClient();
-    
-      //apiCalendar.handleAuthClick();
-      dispatch(signInCalendar(true));
-    } else if (name === 'sign-out') {
-      apiCalendar.handleSignoutClick();
-    }
-  };
 
   return (
     <div>
-      <div style={{ padding: '0.5em' }}>
-        <button onClick={(e) => handleItemClick(e, 'sign-in')}>Connect to Google Calendar</button>
-       
-      </div>
 
       {/*
       <div style={{ padding: '0.5em' }}>

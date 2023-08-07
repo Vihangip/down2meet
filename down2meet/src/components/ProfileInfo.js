@@ -54,19 +54,18 @@ export default function ProfileInfo() {
   const handleClose = async () => {
     console.log("handleClsoe")
     setView(null);
-    dispatch(setUser(user));
-    console.log(editedUser);
+    console.log(user);
     //refresh if necessary
   };
 
   return (
     <div className="ProfileInfo in-line">
-      <img className="ProfilePicture" src={editedUser?.picture} alt="profile" /> {/* Use optional chaining to avoid errors if user is null */}
+      <img className="ProfilePicture" src={user?.picture} alt="profile" /> {/* Use optional chaining to avoid errors if user is null */}
       <div className="column">
-        <p> Name: {editedUser?.name} </p> {/* Use optional chaining to avoid errors if user is null */}
-        <p> Email: {editedUser?.email} </p> {/* Use optional chaining to avoid errors if user is null */}
+        <p> Name: {user?.name} </p> {/* Use optional chaining to avoid errors if user is null */}
+        <p> Email: {user?.email} </p> {/* Use optional chaining to avoid errors if user is null */}
         <button className="Profile-Edit-Button" onClick={() => handleEdit()}>Edit</button>
-        {view==='Edit' && <EditView onClose={handleClose} user_id={user.user_id}/>}     
+        {view==='Edit' && <EditView onClose={handleClose} user_id={user?.user_id}/>}     
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ import { handleCreateEvent } from './Calendar'
 import { getSessionUserAsync } from "../redux/user/thunks";
 import { addEventAsync, getEventAsync, deleteEventAsync, updateEventAsync } from '../redux/event/thunks';
 import service from '../redux/user/service';
-
+import { setUser } from "../redux/user/reducer";
 
 const { v4: uuid } = require('uuid');
 
@@ -23,23 +23,30 @@ export function AddEvent() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getSessionUserAsync());
-  }, [dispatch]);
+    const fetchPostsAndUsers = async () => {
+      try {
+        let storedUser = JSON.parse(localStorage.getItem('user'));
+        if (storedUser) {
+          dispatch(setUser(storedUser)); // Initialize the user state with the stored data
+        } else {
+        await dispatch(getSessionUserAsync()); //doesn't save edited user name and picture
+        storedUser = JSON.parse(localStorage.getItem('user'));
+        }
+      }
+      catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchPostsAndUsers();
+  }, []); 
 
  // const user = useSelector(state => state.users.user);
-  
   const user = JSON.parse(localStorage.getItem('user'));
   const events = useSelector(state => state.event.eventList);
   // Extract unique groups from the 'events' array
   const uniqueGroups = Array.from(new Set(events.flatMap(event => event.groups)));
 
   const groupsList = useSelector((state) => state.users.groupList);
-
-
-  useEffect(() => {
-    dispatch(getSessionUserAsync());
-  }, [dispatch]); 
-
   const itemIDRef = React.useRef(null);
   const itemNameRef = React.useRef(null);
   const itemDescRef = React.useRef(null);
@@ -49,8 +56,8 @@ export function AddEvent() {
   const itemEndTimeRef = React.useRef(null);
   
   useEffect (() => {
-    dispatch(getEventAsync(user.user_id));          //////////////////////// 
-  },[dispatch]);                      //////////////////////
+    dispatch(getEventAsync(user.user_id));     
+  },[dispatch]);             
   
   // Add selectedGroups state and setSelectedGroups function
   const [selectedGroups, setSelectedGroups] = useState([]);

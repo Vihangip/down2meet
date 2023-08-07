@@ -7,14 +7,21 @@ import Calendar from '../components/Calendar';
 import Navbar from '../components/Navbar';
 import ButtonAvailable from '../components/ButtonAvailable';
 import Search from '../components/Search';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser } from '../redux/user/reducer';
+import { getSessionUserAsync, getUsersAsync, getOneUserAsync } from '../redux/user/thunks';
+import { useNavigate } from 'react-router-dom';
 
 function Events() {
   const [friends, setFriends] = useState([]);
   const [selectedApprovedFriends, setSelectedApprovedFriends] = useState([]);
   const [approvedFriends, setApprovedFriends] = useState([]);
-  const currentUser = JSON.parse(localStorage.getItem('user'));
+  const currentUser = JSON.parse(localStorage.getItem('user')); 
+  //const currentUser = useSelector(state => state.users.user);
   const userAvailability = useSelector((state) => state.users.availability);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const colorSwitch = () => {
     const primaryColor = '#32CD32';
     const secondaryColor = '#FF6347';

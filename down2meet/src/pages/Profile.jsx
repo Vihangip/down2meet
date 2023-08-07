@@ -42,6 +42,7 @@ function Profile() {
             return;
           }
         }
+        console.log(storedUser);
         await dispatch(getUsersAsync());
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -49,7 +50,7 @@ function Profile() {
     };
 
     fetchPostsAndUsers();
-  }, [dispatch]); 
+  }, []); 
 
   const user = JSON.parse(localStorage.getItem('user'));
 

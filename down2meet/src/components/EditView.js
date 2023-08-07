@@ -50,6 +50,7 @@ const EditView = ({ onClose, user_id }) => {
         dispatch(editUserAsync(editedUser));
         dispatch(getOneUserAsync(user_id)); //edited view doesn't save changes properly without this line 
         localStorage.setItem('user', JSON.stringify(editedUser));
+        dispatch(setUser(editedUser));
     }
 
     return (

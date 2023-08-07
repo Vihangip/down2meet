@@ -4,14 +4,16 @@ import React from 'react';
 import logo from '../assets/D2MLogo.png';
 import logo1265 from '../assets/logo-notext.png';
 import '../css/navigation.css';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { signInCalendar} from '../actions/actions';
 // import { updateUserProfile } from '../actions/actions';
 // import { getOneUserAsync } from '../redux/user/thunks';
+import { apiCalendar } from "./Calendar";
 
 import Logout from "./Logout";
 
 export default function Navbar() {
-//   const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
 //   // when users successfully login
 //   const responseMessage = async (response) => {
@@ -47,7 +49,20 @@ export default function Navbar() {
 //     // Show the pop-up when there's an error
 //   };
 
-
+const handleItemClick = (event, name) => {
+    if (name === 'sign-in') {
+      //window.location.href = `${process.env.REACT_APP_URL3001}/auth/google`;
+      apiCalendar.onLoad(() => {
+        apiCalendar.handleClientLoad();
+        apiCalendar.handleAuthClick();
+        console.log('handle item click in calendar');
+      });
+      apiCalendar.initGapiClient();
+      dispatch(signInCalendar(true));
+    } else if (name === 'sign-out') {
+      apiCalendar.handleSignoutClick();
+    }
+  };
 
     return (
         <nav className="Navbar">
@@ -123,6 +138,9 @@ export default function Navbar() {
 
             </div>
             <div className="botnav">
+                <div style={{ padding: '0.5em' }}>
+                    <button onClick={(e) => handleItemClick(e, 'sign-in')}>Connect to Google Calendar</button>
+                </div>
                 <Logout />
                 {/* using tutorial for GoogleLogin from: https://blog.logrocket.com/guide-adding-google-login-react-app/ */}
                 {/* <GoogleLogin onSuccess={responseMessage} onError={errorMessage} className="google-login-button"/> */}
