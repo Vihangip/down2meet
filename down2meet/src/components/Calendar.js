@@ -14,9 +14,13 @@ const config = {
   hosted_domain: `${process.env.REACT_APP_URL3000}`
 };
 
+const callbackurl = `${process.env.REACT_APP_URL3000}/Profile`
+
 let newEvent = new Date();
 
+
 const apiCalendar = new ApiCalendar(config);
+
 
 export function handleCreateEvent({origin}) {
   
@@ -107,7 +111,16 @@ const Calendar = () => {
   const handleItemClick = (event, name) => {
     if (name === 'sign-in') {
       //window.location.href = `${process.env.REACT_APP_URL3001}/auth/google`;
-      apiCalendar.handleAuthClick();
+      apiCalendar.initGapiClient();
+      apiCalendar.handleClientLoad();
+      //apiCalendar.onLoad(callbackurl);
+      apiCalendar.onLoad(() => {
+        apiCalendar.handleAuthClick();
+        console.log('Google API client is initialized and ready to use!');
+        // Perform operations that require the API to be initialized here.
+        // For example, you can fetch events, create events, etc.
+      });
+      //apiCalendar.handleAuthClick();
       dispatch(signInCalendar(true));
     } else if (name === 'sign-out') {
       apiCalendar.handleSignoutClick();
