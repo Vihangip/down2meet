@@ -1,5 +1,5 @@
 import SocialFeed from '../components/SocialFeed';
-import PostBar from '../components/PostBar';
+import { PostBar } from '../components/PostBar';
 import BodyHeader from '../components/BodyHeader';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';

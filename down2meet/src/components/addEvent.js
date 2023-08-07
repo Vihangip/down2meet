@@ -112,7 +112,7 @@ export function AddEvent() {
         googleEvent.description = (itemDescRef.current.value);
         googleEvent.startingDate = (startDate);//startDate);
         googleEvent.endingDate = (endDate);//endDate);
-        handleCreateEvent(); //only add event to Google Calendar if user is signed in
+        handleCreateEvent({origin: "addEvent"}); //only add event to Google Calendar if user is signed in
       }
     };
     

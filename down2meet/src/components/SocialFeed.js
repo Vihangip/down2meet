@@ -1,4 +1,4 @@
-import Post from './Post.js';
+import { Post}  from './Post.js';
 import { useSelector } from 'react-redux';
 
 export default function SocialFeed() {

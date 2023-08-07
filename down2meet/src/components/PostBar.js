@@ -9,9 +9,16 @@ import { addEventAsync } from '../redux/event/thunks';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 import { addParticipantToPost } from '../redux/user/thunks';
+import { handleCreateEvent } from './Calendar'
 
+export const postbarEvent = {
+  title: '',
+  description: '',
+  startingDate: new Date(),
+  endingDate: new Date(),
+};
 
-function PostBar() {
+export function PostBar() {
   // const posts = useSelector((state) => state.posts);
   const dispatch = useDispatch();
   const [postContent, setPostContent] = useState('');
@@ -26,6 +33,7 @@ function PostBar() {
   const [selectedOption, setSelectedOption] = useState("Everyone"); // Controls which group
   const user = JSON.parse(localStorage.getItem('user'));
   const navigate = useNavigate();
+  const calendarSignedIn= useSelector(state => state.reducer.googleCalendar);
 
 
   const handleSubmit = (e) => {
@@ -109,6 +117,18 @@ function PostBar() {
     };
     console.log("new_event")
     dispatch(addEventAsync(new_event));
+
+    if (calendarSignedIn === true) {
+      postbarEvent.title = "down2meet";
+      postbarEvent.description = post.status;
+      postbarEvent.startingDate = formattedStartDate;
+      postbarEvent.endingDate = formattedEndDate;
+      handleCreateEvent({origin: "PostBar"}); //only add event to Google Calendar if user is signed in
+      console.log("created event from postbar");
+    }
+    else {
+      console.log("not signed into calendar");
+    }
 
   }
 
@@ -253,4 +273,3 @@ function PostBar() {
   );
 }
 
-export default PostBar;
