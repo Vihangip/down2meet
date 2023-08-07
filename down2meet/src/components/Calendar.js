@@ -111,12 +111,13 @@ const Calendar = () => {
   const handleItemClick = (event, name) => {
     if (name === 'sign-in') {
       //window.location.href = `${process.env.REACT_APP_URL3001}/auth/google`;
+      apiCalendar.onLoad(() => {
+        apiCalendar.handleClientLoad();
+        apiCalendar.handleAuthClick();
+        console.log('handle item click in calendar');
+      });
       apiCalendar.initGapiClient();
-      apiCalendar.handleClientLoad();
-      //apiCalendar.onLoad(() => {
-       apiCalendar.handleAuthClick();
-       console.log('Google API client is initialized and ready to use!');
-      //});
+    
       //apiCalendar.handleAuthClick();
       dispatch(signInCalendar(true));
     } else if (name === 'sign-out') {
