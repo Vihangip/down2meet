@@ -138,9 +138,9 @@ const handleItemClick = (event, name) => {
 
             </div>
             <div className="botnav">
-                <div style={{ padding: '0.5em' }}>
-                    <button onClick={(e) => handleItemClick(e, 'sign-in')}>Connect to Google Calendar</button>
-                </div>
+                
+                 {/*}   <button onClick={(e) => handleItemClick(e, 'sign-in')}>Connect to Google Calendar</button> */}
+               
                 <Logout />
                 {/* using tutorial for GoogleLogin from: https://blog.logrocket.com/guide-adding-google-login-react-app/ */}
                 {/* <GoogleLogin onSuccess={responseMessage} onError={errorMessage} className="google-login-button"/> */}
