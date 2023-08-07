@@ -17,39 +17,28 @@ export default function ProfileInfo() {
 
   const user = JSON.parse(localStorage.getItem('user'));
   const editedUser = useSelector(state => state.users.user);
-  const user_id = useSelector(state => state.users.user.user_id);
   
   useEffect(() => {
     const fetchPostsAndUsers = async () => {
       try {
-        // Check if there is user data in local storage
         let storedUser = JSON.parse(localStorage.getItem('user'));
-        //if (storedUser) {
-        //   dispatch(setUser(storedUser)); // Initialize the user state with the stored data
-        //   console.log("local");
-        //   console.log(storedUser);
-        // } else {
-        dispatch(getSessionUserAsync()); // Fetch user data if it's not in local storage
-        //   storedUser = JSON.parse(localStorage.getItem('user'));
-        //   setRenderedUser(storedUser);
-        //   console.log("not in local");
-        //   console.log(storedUser);
-
-      //console.log("dispatching getSessionUserAsync to get user id")
-        //setRenderedUser(editedUser);
-          //if (!storedUser){
-          //  navigate('/');
-          //  return;
-          //}
-        //}
-        //await dispatch(getUsersAsync());
-      } catch (error) {
+        if (storedUser) {
+          dispatch(setUser(storedUser)); // Initialize the user state with the stored data
+        } else {
+          await dispatch(getSessionUserAsync());
+          storedUser = JSON.parse(localStorage.getItem('user'));
+          if (!storedUser){
+            navigate('/');
+            return;
+          }
+        }
+      }
+      catch (error) {
         console.error('Error fetching data:', error);
       }
     };
-
     fetchPostsAndUsers();
-  }, []);//editedUser]); 
+  }, [dispatch]);
 
   useEffect (() => {
     if (!user){
@@ -65,8 +54,8 @@ export default function ProfileInfo() {
   const handleClose = async () => {
     console.log("handleClsoe")
     setView(null);
-    dispatch(setUser(editedUser));
-    console.log(user);
+    dispatch(setUser(user));
+    console.log(editedUser);
     //refresh if necessary
   };
 
@@ -77,7 +66,7 @@ export default function ProfileInfo() {
         <p> Name: {editedUser?.name} </p> {/* Use optional chaining to avoid errors if user is null */}
         <p> Email: {editedUser?.email} </p> {/* Use optional chaining to avoid errors if user is null */}
         <button onClick={() => handleEdit()}>Edit</button>
-        {view==='Edit' && <EditView onClose={handleClose} user_id={editedUser.user_id}/>}     
+        {view==='Edit' && <EditView onClose={handleClose} user_id={user.user_id}/>}     
       </div>
     </div>
   );

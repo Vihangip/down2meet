@@ -13,23 +13,23 @@ const EditView = ({ onClose, user_id }) => {
     useEffect(() => {
         const fetchPostsAndUsers = async () => {
           try {
-            // Check if there is user data in local storage
-            const storedUser = JSON.parse(localStorage.getItem('user'));
+            let storedUser = JSON.parse(localStorage.getItem('user'));
             if (storedUser) {
               dispatch(setUser(storedUser)); // Initialize the user state with the stored data
             } else {
-              await dispatch(getOneUserAsync(user_id));//dispatch(getSessionUserAsync()); // Fetch user data if it's not in local storage
+            await dispatch(getSessionUserAsync());
+            storedUser = JSON.parse(localStorage.getItem('user'));
             }
-            await dispatch(getUsersAsync());
-          } catch (error) {
+            // await dispatch(getFriendsAsync(JSON.parse(localStorage.getItem('user')).user_id));
+          }
+          catch (error) {
             console.error('Error fetching data:', error);
           }
         };
-    
         fetchPostsAndUsers();
-    }, [dispatch]); 
+    }, []); 
     
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = useSelector(state => state.users.user);//JSON.parse(localStorage.getItem('user'));
 
     const [new_name, setName] = useState(user.name);
     const [new_picture, setPicture] = useState(user.picture);
@@ -48,7 +48,8 @@ const EditView = ({ onClose, user_id }) => {
                 availability: user.availability
             }
         dispatch(editUserAsync(editedUser));
-        dispatch(getOneUserAsync(user_id));
+        dispatch(getOneUserAsync(user_id)); //edited view doesn't save changes properly without this line 
+        localStorage.setItem('user', JSON.stringify(editedUser));
     }
 
     return (
