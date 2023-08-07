@@ -176,23 +176,24 @@ export function PostBar() {
         <div className="PostBar-PostContainer">
           <div className='PostBar-DropdownContainer'>
             <button type="button" className="PostBar-DropdownButton" onClick={handleDropdownToggle}>
-              {selectedOption ? <div className='PostBar-DropdownText'>{selectedOption}<i class="fa-solid fa-arrow-right"></i></div> : <div className='PostBar-DropdownText'>Everyone<i class="fa-solid fa-arrow-right"></i></div>}
+              {selectedOption ? <div className='PostBar-DropdownText'>{selectedOption}</div> : <div className='PostBar-DropdownText'>Everyone</div>}
               
             </button>
-            {showDropdown && (
-              <div className="PostBar-Dropdown">
-                <button type="button" className="PostBar-DropdownButtonSelect" onClick={() => handleOptionSelect('Everyone')}>
-                  Everyone
-                </button>
-                <button type="button" className="PostBar-DropdownButtonSelect" onClick={() => handleOptionSelect('Group 1')}>
-                  Group 1
-                </button>
-                <button type="button" className="PostBar-DropdownButtonSelect" onClick={() => handleOptionSelect('Group 2')}>
-                  Group 2
-                </button>
-                {/* Add more options as needed */}
-              </div>
-            )}
+              {//{showDropdown && (
+              // <div className="PostBar-Dropdown">
+              //   <button type="button" className="PostBar-DropdownButtonSelect" onClick={() => handleOptionSelect('Everyone')}>
+              //     Everyone
+              //   </button>
+              //   <button type="button" className="PostBar-DropdownButtonSelect" onClick={() => handleOptionSelect('Group 1')}>
+              //     Group 1
+              //   </button>
+              //   <button type="button" className="PostBar-DropdownButtonSelect" onClick={() => handleOptionSelect('Group 2')}>
+              //     Group 2
+              //   </button>
+              //   {/* Add more options as needed */}
+              // </div>
+            //)}
+              }
           </div>
           <input
             type="text"

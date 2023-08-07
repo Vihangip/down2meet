@@ -55,12 +55,10 @@ function Friends() {
       </div>
       {filteredFriends.map((friend) => (
         <div key={friend.user_id}>
-          <div className="friend-container">
+          <div className="friend-container" 
+              onClick={() => handleProfileClick({ user_id: friend.user_id, picture: friend.picture, name: friend.name, email: friend.email })}>
             <img className="friend-image" src={friend.picture} alt="pfp" />
             <p className="friend-info">{friend.name}</p>
-            <div className="friend-container-button">
-              <button className="friend-info" onClick={() => handleProfileClick({ user_id: friend.user_id, picture: friend.picture, name: friend.name, email: friend.email })}>See Profile</button>
-            </div>
           </div>
         </div>
       ))}

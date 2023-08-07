@@ -124,7 +124,7 @@ export function AddEvent() {
 
   return (
     <div className="add-event-form-div">
-      <h1>Add your Availability</h1>
+      <h1>Set your Availability</h1>
       <form className="event-form" onSubmit={handleFormSubmit}>
         <hr /> <br />
         <label htmlFor="iTitle">Title:</label>
@@ -173,10 +173,10 @@ export function AddEvent() {
         </div>
         <br /><br />
 
-        <div style={{ justifyContent: "left" }}>
-          <input type="submit" id="submitButton" value="Add" />
-          <input type="button" id="deleteButton" value="Delete" onClick={handleDeleteButton} />
-          <input type="reset" id="resetButton" value="Clear Form" />
+        <div style={{ justifyContent: "left", display: "flex", gap: "5px" }}>
+          <input className='AvailabilityButton3' type="submit" id="submitButton" value="Add" />
+          <input className='AvailabilityButton3' type="button" id="deleteButton" value="Delete" onClick={handleDeleteButton} />
+          <input className='AvailabilityButton3' type="reset" id="resetButton" value="Clear Form" />
         </div>
         <br /> <br /> <br />
         <hr /> <br />

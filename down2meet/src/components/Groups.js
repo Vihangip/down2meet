@@ -52,9 +52,10 @@ export default function Groups(props) {
   }
 
   return (
-    <div>
+    <div className='GroupContainer'>
+      <h1>Your Groups</h1>
       {groupData.map((group) => (
-        <div key={group.id}>
+        <div className="GroupObject" key={group.id}>
           <h4>{group.name}</h4>
           <p>
             {group.members.map((member, index) => (

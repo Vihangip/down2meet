@@ -7,12 +7,14 @@ import Calendar from '../components/Calendar';
 import Navbar from '../components/Navbar';
 import ButtonAvailable from '../components/ButtonAvailable';
 import Search from '../components/Search';
+import UserView from '../components/UserView';
 import { useSelector } from 'react-redux';
 
 function Events() {
   const [friends, setFriends] = useState([]);
   const [selectedApprovedFriends, setSelectedApprovedFriends] = useState([]);
   const [approvedFriends, setApprovedFriends] = useState([]);
+  const [viewSettings, setViewSettings] = useState(0);
   const currentUser = JSON.parse(localStorage.getItem('user'));
   const userAvailability = useSelector((state) => state.users.availability);
   const colorSwitch = () => {
@@ -20,6 +22,7 @@ function Events() {
     const secondaryColor = '#FF6347';
     document.documentElement.style.setProperty('--active-color', userAvailability === 'Busy' ? secondaryColor : primaryColor);
   };
+  
   useEffect(() => {
     colorSwitch();
   }, [userAvailability]);
@@ -97,31 +100,47 @@ function Events() {
       <div className="Body-Middle">
         <div className='Events'>
           <BodyHeader title={"Availability"} />
-          <h2>Choose who you want to share your availability with:</h2>
-          {friends.map((friend) => (
-            <div key={friend.id}>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={selectedApprovedFriends.includes(friend)}
-                  onChange={() =>
-                    selectedApprovedFriends.includes(friend)
-                      ? handleUnselectFriend(friend)
-                      : handleSelectFriend(friend)
-                  }
-                />
-                {friend.name}
-              </label>
+          <div className='AvailabilityButtons'>
+          {viewSettings === 1 ? 
+          <div className='AvailabilitySettings'>
+            <h2>Choose who you want to share your availability with:</h2>
+            {friends.map((friend) => (
+              <div key={friend.id}>
+                <label className='AvailabilityFriend'>
+                  <input
+                    type="checkbox"
+                    checked={selectedApprovedFriends.includes(friend)}
+                    onChange={() =>
+                      selectedApprovedFriends.includes(friend)
+                        ? handleUnselectFriend(friend)
+                        : handleSelectFriend(friend)
+                    }
+                  />
+                  <UserView user={friend} />
+                </label>
+              </div>
+            ))}
+            <button className='AvailabilityButton' onClick={handleSaveApprovedFriends}>Save</button>
+            <h2>Friends that can see your availability:</h2>
+              <ul>
+                {approvedFriends.map((friend) => (
+                  <UserView user={friend}/>
+                ))}
+              </ul>
+            <button className='AvailabilityButton' onClick={() => setViewSettings(0)}>Done</button>
+          </div> : 
+          viewSettings === 2 ?
+           <div><AddEvent /> 
+          <button className='AvailabilityButton' onClick={() => setViewSettings(0)}>Cancel</button>
+          </div> : <>
+            <button className='AvailabilityButton2' onClick={() => setViewSettings(1)}>Availability Settings</button>
+            <button className='AvailabilityButton2' onClick={() => setViewSettings(2)}>Set Availability</button>
+            </>}
             </div>
-          ))}
-          <button onClick={handleSaveApprovedFriends}>Save</button>
-          <h2>Friends that can see your availability:</h2>
-            <ul>
-              {approvedFriends.map((friend) => (
-                <li key={friend.id}>{friend.name}</li>
-              ))}
-            </ul>
-          <div><AddEvent /></div>
+
+
+            <div className='middle-line'></div>
+
           <div className="Calendar"> <Calendar /> </div>
           <div className="Calendar"> <Event /> </div>
         </div>
