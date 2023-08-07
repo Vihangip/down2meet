@@ -19,6 +19,15 @@ function FriendProfile() {
 
   const location = useLocation();
   const friendInfo = location?.state?.friendInfo;
+  const userAvailability = useSelector((state) => state.users.availability);
+  const colorSwitch = () => {
+    const primaryColor = '#32CD32';
+    const secondaryColor = '#FF6347';
+    document.documentElement.style.setProperty('--active-color', userAvailability === 'Busy' ? secondaryColor : primaryColor);
+  };
+  useEffect(() => {
+    colorSwitch();
+  }, [userAvailability]);
 
   const dispatch = useDispatch();
   useEffect (() => {

@@ -9,12 +9,21 @@ import { getSessionUserAsync, getFriendsAsync } from '../redux/user/thunks';
 import Navbar from '../components/Navbar';
 import ButtonAvailable from '../components/ButtonAvailable';
 import Search from '../components/Search';
-
+import { useSelector } from 'react-redux';
 import Friend from '../components/Friend';
 
 
 function Friends() {
   const dispatch = useDispatch();
+  const userAvailability = useSelector((state) => state.users.availability);
+  const colorSwitch = () => {
+    const primaryColor = '#32CD32';
+    const secondaryColor = '#FF6347';
+    document.documentElement.style.setProperty('--active-color', userAvailability === 'Busy' ? secondaryColor : primaryColor);
+  };
+  useEffect(() => {
+    colorSwitch();
+  }, [userAvailability]);
 
   useEffect(() => {
     const fetchUsers = async () => {

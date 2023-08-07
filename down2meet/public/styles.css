@@ -1,8 +1,8 @@
 :root {
     --active-color: #32CD32;
-    --busy-color: #FF6347;
+    --inactive-color: #FF6347;
     --friend-active-color: #32CD32;
-    --friend-busy-color: #FF6347;
+    --friend-inactive-color: #FF6347;
   }
 
 * {
@@ -730,6 +730,15 @@ color: white;
     display: flex;
     flex-direction: flex-start;
     margin-right: 10%;
+    font-size: 17px;
+}
+
+.Profile-Edit-Button {
+  border: none;
+  color: white;
+  background-color: var(--active-color);
+  font-size: 20px;
+  cursor: pointer;
 }
 
 .ProfilePage .column {
@@ -870,7 +879,7 @@ color: white;
   }
   
   .button.busy {
-    background-color: var(--active-color);
+    background-color: var(--inactive-color);
   }
 
   /* SearchBar */
@@ -1079,6 +1088,27 @@ color: white;
   text-align: right;
 }
 
+.Friend-Button-Container {
+  display: flex;
+  flex-direction: row;
+  gap: 1px;
+}
+
+.Friend-Buttonactive {
+  border: black 1px solid;
+  background-color:var(--active-color);
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.Friend-Button {
+  border: black;
+  background-color: grey;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
 .friend-info p {
   font-size: 20px;
   margin-bottom: 20px;

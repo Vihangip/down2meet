@@ -10,10 +10,20 @@ import ButtonAvailable from '../components/ButtonAvailable';
 import Search from '../components/Search';
 import ProfileInfo from '../components/ProfileInfo';
 import { setUser } from '../redux/user/reducer';
+import { useSelector } from 'react-redux';
 import { getSessionUserAsync } from '../redux/user/thunks';
 
 function Profile() {
   const dispatch = useDispatch();
+  const userAvailability = useSelector((state) => state.users.availability);
+  const colorSwitch = () => {
+    const primaryColor = '#32CD32';
+    const secondaryColor = '#FF6347';
+    document.documentElement.style.setProperty('--active-color', userAvailability === 'Busy' ? secondaryColor : primaryColor);
+  };
+  useEffect(() => {
+    colorSwitch();
+  }, [userAvailability]);
   
   useEffect(() => {
     const fetchPostsAndUsers = async () => {

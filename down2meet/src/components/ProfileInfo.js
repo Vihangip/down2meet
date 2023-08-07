@@ -54,7 +54,7 @@ export default function ProfileInfo() {
       <div className="column">
         <p> Name: {user?.name} </p> {/* Use optional chaining to avoid errors if user is null */}
         <p> Email: {user?.email} </p> {/* Use optional chaining to avoid errors if user is null */}
-        <button onClick={() => handleEdit()}>Edit</button>
+        <button className="Profile-Edit-Button" onClick={() => handleEdit()}>Edit</button>
         {view==='Edit' && <EditView onClose={handleClose} />}     
       </div>
     </div>

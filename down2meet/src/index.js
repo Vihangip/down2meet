@@ -11,7 +11,6 @@ import Friends from './pages/Friends';
 import Groups from './pages/Groups';
 import FriendProfile from './pages/FriendProfile';
 import Profile from './pages/Profile';
-import Notifications from './pages/Notification';
 import Hangouts from './pages/Hangouts';
 import LoginPage from './pages/Login';
 import reducer from './reducers/reducer';
@@ -56,7 +55,6 @@ root.render(<>
             <Route path="/FriendProfile" element={<FriendProfile />} />
             <Route path="/user/:userId" element={<UserProfile />} />
             <Route path="/hangouts" element={<Hangouts />} />
-            <Route path="/notifications" element={<Notifications />} />
           </Routes>
         </div>
       </Provider>

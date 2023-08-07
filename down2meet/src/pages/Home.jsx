@@ -8,7 +8,6 @@ import { getHangoutsAsync, getSessionUserAsync, getAvailabilityAsync } from '../
 import Navbar from '../components/Navbar';
 import ButtonAvailable from '../components/ButtonAvailable';
 import Search from '../components/Search';
-import ActiveUsers from '../components/ActiveUsers';
 import { setUser } from '../redux/user/reducer';
 import { useNavigate, Route, Routes } from 'react-router-dom';
 import UserProfile from '../components/UserProfile';
@@ -19,6 +18,15 @@ import { useSelector } from 'react-redux';
 function Home() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const userAvailability = useSelector((state) => state.users.availability);
+  const colorSwitch = () => {
+    const primaryColor = '#32CD32';
+    const secondaryColor = '#FF6347';
+    document.documentElement.style.setProperty('--active-color', userAvailability === 'Busy' ? secondaryColor : primaryColor);
+  };
+  useEffect(() => {
+    colorSwitch();
+  }, [userAvailability]);
 
   useEffect(() => {
     const fetchPostsAndUsers = async () => {
@@ -41,6 +49,7 @@ function Home() {
 
     fetchPostsAndUsers();
   }, [dispatch]);
+
 
   const handleUserProfileClick = (userId) => {
     navigate(`/user/${userId}`); // Navigate to the UserProfile component with the selected userId

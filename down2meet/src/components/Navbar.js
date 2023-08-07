@@ -117,14 +117,6 @@ export default function Navbar() {
                             </div>
                             <p>Hangouts</p>
                         </NavLink>
-                        <NavLink className="Social-Option"
-                        exact="true"
-                        to="/Notifications">
-                            <div className="Social-Icon">
-                                <i className="fa-solid fa-bell"></i>
-                            </div>
-                            <p>Notifications</p>
-                        </NavLink>
                         </div>
 
                             {/* Pop-up */}

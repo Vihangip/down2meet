@@ -10,6 +10,12 @@ export default function Button() {
   const user = JSON.parse(localStorage.getItem('user'));
   let buttonAvailable = isBusy ? 'button busy' : 'button available';
 
+  const colorSwitch = () => {
+    const primaryColor = '#32CD32';
+    const secondaryColor = '#FF6347';
+    root.style.setProperty('--active-color', isBusy ? secondaryColor : primaryColor);
+  };
+
   useEffect(() => {
     buttonAvailable = isBusy ? 'button busy' : 'button available';
     if(userAvailability === "Availability"){
@@ -17,23 +23,21 @@ export default function Button() {
     } else if ( userAvailability === "Busy"){
       setIsBusy(true);
     }
-    const primaryColor = getComputedStyle(root).getPropertyValue('--active-color').trim();
-    const secondaryColor = getComputedStyle(root).getPropertyValue('--busy-color').trim();
-    root.style.setProperty('--active-color', isBusy ? primaryColor : secondaryColor);
-    root.style.setProperty('--busy-color', isBusy ? secondaryColor : primaryColor);
+    colorSwitch();
   }, [userAvailability])
   console.log("user availabiity: " + userAvailability)
 
-  if (!userAvailability) {
-    console.log("loading.....")
-    // Return a loading state if the availability data is not available yet
-    return <div>Loading...</div>;
-  }
+  // if (!userAvailability) {
+  //   console.log("loading.....")
+  //   // Return a loading state if the availability data is not available yet
+  //   return <div>Loading...</div>;
+  // }
+
   const handleClick = async () => {
-    const primaryColor = getComputedStyle(root).getPropertyValue('--active-color').trim();
-    const secondaryColor = getComputedStyle(root).getPropertyValue('--busy-color').trim();
-    root.style.setProperty('--active-color', isBusy ? primaryColor : secondaryColor);
-    root.style.setProperty('--busy-color', isBusy ? secondaryColor : primaryColor);
+
+  if(userAvailability) {
+    colorSwitch();
+  }
 
     // Update user's availability in the database
     const availability = isBusy ? 'Available' : 'Busy';
@@ -48,6 +52,7 @@ export default function Button() {
       // Only change the button state after a successful server response
     setIsBusy(!isBusy);
   };
+
 
   return (
     <div>

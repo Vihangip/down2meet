@@ -10,10 +10,20 @@ import { getUsersAsync } from '../redux/user/thunks';
 import { getPostsAsync } from '../redux/posts/thunks';
 import { getSessionUserAsync } from '../redux/user/thunks';
 import { setUser } from '../redux/user/reducer';
+import { useSelector } from 'react-redux';
 
 
 function Hangouts() {
 
+  const userAvailability = useSelector((state) => state.users.availability);
+  const colorSwitch = () => {
+    const primaryColor = '#32CD32';
+    const secondaryColor = '#FF6347';
+    document.documentElement.style.setProperty('--active-color', userAvailability === 'Busy' ? secondaryColor : primaryColor);
+  };
+  useEffect(() => {
+    colorSwitch();
+  }, [userAvailability]);
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchPostsAndUsers = async () => {
