@@ -2,11 +2,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { useState } from 'react';
 import { useEffect } from "react";
 import { setUser } from '../redux/user/reducer';
-import { getSessionUserAsync } from '../redux/user/thunks';
+import { getOneUserAsync, getSessionUserAsync } from '../redux/user/thunks';
 import { getUsersAsync, editUserAsync } from '../redux/user/thunks';
 
 
-const EditView = ({ onClose}) => {
+const EditView = ({ onClose, user_id }) => {
 
     const dispatch = useDispatch();
 
@@ -18,7 +18,7 @@ const EditView = ({ onClose}) => {
             if (storedUser) {
               dispatch(setUser(storedUser)); // Initialize the user state with the stored data
             } else {
-              await dispatch(getSessionUserAsync()); // Fetch user data if it's not in local storage
+              await dispatch(getOneUserAsync(user_id));//dispatch(getSessionUserAsync()); // Fetch user data if it's not in local storage
             }
             await dispatch(getUsersAsync());
           } catch (error) {
@@ -48,6 +48,7 @@ const EditView = ({ onClose}) => {
                 availability: user.availability
             }
         dispatch(editUserAsync(editedUser));
+        dispatch(getOneUserAsync(user_id));
     }
 
     return (

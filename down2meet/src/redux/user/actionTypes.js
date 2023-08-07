@@ -4,5 +4,6 @@ export const actionTypes = {
     ADD_USER: 'users/addUsers',
     DELETE_USER: 'users/deleteUsers',
     UPDATE_USER: 'users/updateUsers',
-    EDIT_USER: 'users/editUser'
+    EDIT_USER: 'users/editUser',
+    GET_BY_ID: 'users/getById'
 }

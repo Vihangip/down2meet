@@ -19,6 +19,10 @@ const queries = {
     editUser: async function (user) {
         const editedUser = await User.updateOne({ user_id: user.user_id }, user);
         return editedUser;
+    },
+    findById: async function (user_id) {
+        const user = await User.findOne({user_id: user_id});
+        return user;
     }
 
 }

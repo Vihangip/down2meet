@@ -11,6 +11,15 @@ router.get('/', async(req, res, next) =>{
   return res.send(allUsers);
 });
 
+router.get('/getById/:user_id', async(req, res, next) => {
+
+  const user = await userQueries.findById(req.body.user_id);
+  console.log(user);
+
+  return res.send(user);
+
+});
+
 /* GET users by name (search). */
 router.get('/search', async (req, res, next) => {
   const searchQuery = req.query.q; // Get the search query from the query parameter

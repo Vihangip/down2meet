@@ -34,7 +34,7 @@ const userSlice = createSlice({
             })
             .addCase(getOneUserAsync.rejected, (state, action) => {
                 state.error = action.error.message;
-              })
+            })
             .addCase(addUsersAsync.fulfilled, (state, action) => {
                 state.userList.push(action.payload);
             })
