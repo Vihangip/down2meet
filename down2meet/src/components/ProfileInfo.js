@@ -33,9 +33,13 @@ export default function ProfileInfo() {
   }, [dispatch]); 
 
   const user = JSON.parse(localStorage.getItem('user'));
+  const editedUser = useSelector(state => state.users.user);
+  const [renderedUser, setRenderedUser] = useState(user);
 
   useEffect (() => {
     dispatch(getEventAsync(user.user_id));          //////////////////////// 
+    setRenderedUser(editedUser)
+    console.log("setting user");
   },[dispatch]);  
 
   const handleEdit = (id) => {
@@ -44,16 +48,19 @@ export default function ProfileInfo() {
 
   const handleClose = () => {
     setView(null);
+    dispatch(getSessionUserAsync());
+    console.log("handleClsoe")
     //refresh if necessary
   };
 
 
+
   return (
     <div className="ProfileInfo in-line">
-      <img className="ProfilePicture" src={user?.picture} alt="profile" /> {/* Use optional chaining to avoid errors if user is null */}
+      <img className="ProfilePicture" src={renderedUser?.picture} alt="profile" /> {/* Use optional chaining to avoid errors if user is null */}
       <div className="column">
-        <p> Name: {user?.name} </p> {/* Use optional chaining to avoid errors if user is null */}
-        <p> Email: {user?.email} </p> {/* Use optional chaining to avoid errors if user is null */}
+        <p> Name: {renderedUser?.name} </p> {/* Use optional chaining to avoid errors if user is null */}
+        <p> Email: {renderedUser?.email} </p> {/* Use optional chaining to avoid errors if user is null */}
         <button onClick={() => handleEdit()}>Edit</button>
         {view==='Edit' && <EditView onClose={handleClose} />}     
       </div>

@@ -274,6 +274,8 @@ router.put('/edit', async function (req, res, next) {
   }
 
   const user = await userQueries.editUser(req.body);
+  console.log(user);
+
   return res.send(user);
 
 });
