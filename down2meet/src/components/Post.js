@@ -122,7 +122,8 @@ const Post = ({ post }) => {
 
     return (
       <div className="Post">
-        <img className="Post-UserInfo-Image" src={post.profilepic ? post.profilepic : blankpic} alt="" />
+       {/* <img className="Post-UserInfo-Image" src={post.profilepic ? post.profilepic : blankpic} alt="" /> */}
+       <img className="Post-UserInfo-Image" src={user.picture ? user.picture : blankpic} alt="" />
         <div className="Post-Container">
           <div key={post.id} className="Post-UserInfo">
             {user.availability ? 
