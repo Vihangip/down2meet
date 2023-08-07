@@ -9,10 +9,15 @@ export default function HangoutFeed() {
   const storedUser = JSON.parse(localStorage.getItem('user'));
   const hangoutList = useSelector((state) => (state.users.hangoutList));
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   
   useEffect(() => {
       const fetchPostsAndUsers = async () => {
         try {
+          if (!storedUser){
+            navigate('/');
+            return;
+          }
           await dispatch(getHangoutsAsync(storedUser.user_id));
         } catch (error) {
           console.error('Error fetching data:', error);

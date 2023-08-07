@@ -19,6 +19,7 @@ import { useSelector } from 'react-redux';
 function Home() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = useSelector((state)=> state.users.user);
 
   useEffect(() => {
     const fetchPostsAndUsers = async () => {
@@ -29,6 +30,10 @@ function Home() {
         } else {
           await dispatch(getSessionUserAsync()); // Fetch user data if it's not in local storage
           storedUser = JSON.parse(localStorage.getItem('user'));
+          if (!storedUser){
+            navigate('/');
+            return;
+          }
         }
         await dispatch(getPostsAsync());
         await dispatch(getFriendsPostsAsync(storedUser.user_id));
@@ -41,6 +46,10 @@ function Home() {
 
     fetchPostsAndUsers();
   }, [dispatch]);
+
+  if (!user){
+    return <div>Loading...</div>;
+  }
 
   const handleUserProfileClick = (userId) => {
     navigate(`/user/${userId}`); // Navigate to the UserProfile component with the selected userId

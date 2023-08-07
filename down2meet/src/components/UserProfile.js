@@ -110,9 +110,11 @@ export default function UserProfile() {
       <div className="UserProfile">
           <h1>{userProfile.name}</h1>
           <img src={userProfile.picture} alt={userProfile.name} />
+          <br></br>
           {currentUser && userFriends.includes(userProfile.user_id) && (
             <button className="addButton" onClick={() => handleProfileClick(userProfile)}>See Profile</button>
           )}
+          <br></br>
           {currentUser && userFriends.includes(userProfile.user_id)
               ? <button className="deleteButton" onClick={removeFriend}>Delete Friend</button>
               : <button className="addButton" onClick={addFriend}>Add Friend</button>

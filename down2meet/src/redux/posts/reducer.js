@@ -25,6 +25,7 @@ const postSlice = createSlice({
             })
             .addCase(addPostAsync.fulfilled, (state, action) => {
                 state.addPost = REQUEST_STATE.FULFILLED;
+                state.friendsPostList.push(action.payload);
                 state.postList.push(action.payload);
             })
             .addCase(deletePostAsync.fulfilled, (state, action) => {

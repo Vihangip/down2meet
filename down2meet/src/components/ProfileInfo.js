@@ -7,10 +7,12 @@ import { setUser } from '../redux/user/reducer';
 import { getSessionUserAsync } from '../redux/user/thunks';
 import { useSelector} from 'react-redux';
 import EditView from '../components/EditView';
+import { useNavigate } from 'react-router-dom';
 
 export default function ProfileInfo() {
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [view, setView] = useState(null);
   
   useEffect(() => {
@@ -35,6 +37,10 @@ export default function ProfileInfo() {
   const user = JSON.parse(localStorage.getItem('user'));
 
   useEffect (() => {
+    if (!user){
+      navigate('/');
+      return;
+    }
     dispatch(getEventAsync(user.user_id));          //////////////////////// 
   },[dispatch]);  
 

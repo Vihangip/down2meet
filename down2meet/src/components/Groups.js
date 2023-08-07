@@ -5,16 +5,22 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getUserGroupsAsync } from '../redux/user/thunks';
 import service from '../redux/user/service';
+import { useNavigate } from 'react-router-dom';
 
 export default function Groups(props) {
   const groupsList = useSelector(state => state.users.groupList);
   const currentUser = JSON.parse(localStorage.getItem('user'));
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(true);
   const [groupData, setGroupData] = useState([]);
 
   useEffect(() => {
+    if (!currentUser){
+      navigate('/');
+      return;
+    }
     dispatch(getUserGroupsAsync(currentUser.user_id))
       .then(() => setIsLoading(false))
       .catch((error) => {

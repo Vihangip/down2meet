@@ -11,19 +11,26 @@ import Search from '../components/Search';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../redux/user/reducer';
+import { useNavigate } from 'react-router-dom';
 
 function Group() {
   
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const storedUser = JSON.parse(localStorage.getItem('user'));
+        let storedUser = JSON.parse(localStorage.getItem('user'));
         if (storedUser) {
           dispatch(setUser(storedUser)); // Initialize the user state with the stored data
         } else {
         await dispatch(getSessionUserAsync());
+        storedUser = JSON.parse(localStorage.getItem('user'));
+        if (!storedUser){
+          navigate('/');
+          return;
+        }
         await dispatch(getFriendsAsync(JSON.parse(localStorage.getItem('user'))));
         // await dispatch(getPostsAsync());
         }

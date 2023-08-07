@@ -6,7 +6,7 @@ import Search from '../components/Search';
 import Event from '../components/Event';
 import { useDispatch } from 'react-redux';
 import { getEventAsync } from '../redux/event/thunks';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function FriendProfile() {
   const location = useLocation();
@@ -14,6 +14,8 @@ function FriendProfile() {
   const friendInfo = location?.state?.friendInfo;
   const [isApprovedFriend, setIsApprovedFriend] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  
 
   console.log(currentUser);
   const fetchFriendProfile = async (userId) => {
@@ -32,11 +34,20 @@ function FriendProfile() {
   };  
 
   useEffect(() => {
+    if (!currentUser){
+      navigate('/');
+      return;
+    }
     if (friendInfo?.user_id) {
       dispatch(getEventAsync(friendInfo.user_id));
       fetchFriendProfile(friendInfo.user_id);
     }
   }, [friendInfo, dispatch]);
+
+  if (!currentUser){
+    navigate('/');
+    return;
+  }
 
   return (
     <>
