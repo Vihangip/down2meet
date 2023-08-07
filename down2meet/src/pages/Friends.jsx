@@ -11,19 +11,26 @@ import ButtonAvailable from '../components/ButtonAvailable';
 import Search from '../components/Search';
 
 import Friend from '../components/Friend';
+import { useNavigate } from 'react-router-dom';
 
 
 function Friends() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const storedUser = JSON.parse(localStorage.getItem('user'));
+        let storedUser = JSON.parse(localStorage.getItem('user'));
         if (storedUser) {
           dispatch(setUser(storedUser)); // Initialize the user state with the stored data
         } else {
         await dispatch(getSessionUserAsync());
+        storedUser = JSON.parse(localStorage.getItem('user'));
+        if (!storedUser){
+          navigate('/');
+          return;
+        }
         }
         // await dispatch(getFriendsAsync(JSON.parse(localStorage.getItem('user')).user_id));
       }

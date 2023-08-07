@@ -37,6 +37,34 @@ router.get('/:user_id/friendsData', async(req, res, next) => {
   return res.send(friends);
 });
 
+router.get('/:user_id/approvedfriends', async (req, res, next) => {
+  console.log("Requested user ID:", req.params.user_id);
+  const foundUser = await User.findOne({ user_id: req.params.user_id });
+
+  if (!foundUser || foundUser === null) {
+    console.log("User not found");
+    return res.status(404).send({ message: 'Item not found' });
+  }
+
+  console.log("Found user:", foundUser);
+  console.log("Approved friends IDs:", foundUser.approvedFriends);
+
+  return res.send(foundUser.approvedFriends);
+});
+
+router.get('/:user_id', async (req, res) => {
+  try {
+    const user = await User.findOne({ user_id: req.params.user_id });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
 
 /* GET user by ID. */
 router.get('/:userId', async(req, res, next) => {
@@ -56,7 +84,8 @@ router.post('/', async(req, res, next) => {
       groups: req.body.groups,
       events: req.body.events,
       hangouts: req.body.hangouts,
-      availability: req.body.availability
+      availability: req.body.availability,
+      approvedFriends: req.body.approvedFriends
     })
   await user.save()
   res.status(201);
@@ -93,6 +122,32 @@ router.post('/:userId/removeFriend', async(req, res) => {
   await user.save();
   return res.send(user);
 });
+
+
+router.post('/:user_id/approvedfriends', async (req, res, next) => {
+  try {
+    const userId = req.params.user_id;
+    const approvedFriendsIds = req.body.friendsIds; // This should contain the user_id's
+    
+    // Find the user by user_id
+    const foundUser = await User.findOne({ user_id: userId });
+    if (!foundUser) {
+      return res.status(404).send({ message: 'User not found' });
+    }
+
+    // Update the approvedFriends field with the provided user_id's
+    foundUser.approvedFriends = approvedFriendsIds;
+    await foundUser.save();
+
+    return res.send({ message: 'Approved friends updated successfully' });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send({ message: 'An error occurred' });
+  }
+});
+
+
+
 
 router.get('/:userId/hangouts', async(req, res, next) => {
   const foundUser = await User.findOne({user_id: req.params.userId})
@@ -133,6 +188,18 @@ router.get('/:userID/addPost/:postID', async (req, res) => {
   }
 });
 
+router.get('/:user_id/availability', async(req, res, next) => {
+  console.log("hmm");
+  const foundUser = await User.findOne({user_id: req.params.user_id});
+  if(!foundUser) {
+    return res.status(404).send({message: 'User not found'});
+  } else {
+    console.log("availability from backend: " + foundUser.availability);
+    return res.send(foundUser.availability);
+  }
+  
+});
+
 
 router.put('/:userId/availability', async (req, res) => {
   try {
@@ -145,7 +212,8 @@ router.put('/:userId/availability', async (req, res) => {
     user.availability = req.body.availability;
     await user.save();
 
-    res.json({ message: 'User availability updated', user });
+    // res.json({ message: 'User availability updated', user });
+    return res.status(200).send(user.availability);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error' });

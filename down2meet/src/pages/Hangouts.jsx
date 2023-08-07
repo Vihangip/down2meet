@@ -10,20 +10,27 @@ import { getUsersAsync } from '../redux/user/thunks';
 import { getPostsAsync } from '../redux/posts/thunks';
 import { getSessionUserAsync } from '../redux/user/thunks';
 import { setUser } from '../redux/user/reducer';
+import { useNavigate } from 'react-router-dom';
 
 
 function Hangouts() {
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchPostsAndUsers = async () => {
       try {
         // Check if there is user data in local storage
-        const storedUser = JSON.parse(localStorage.getItem('user'));
+        let storedUser = JSON.parse(localStorage.getItem('user'));
         if (storedUser) {
           dispatch(setUser(storedUser)); // Initialize the user state with the stored data
         } else {
           await dispatch(getSessionUserAsync()); // Fetch user data if it's not in local storage
+          storedUser = JSON.parse(localStorage.getItem('user'));
+          if (!storedUser){
+            navigate('/');
+            return;
+          }
         }
         await dispatch(getUsersAsync());
         await dispatch(getPostsAsync());

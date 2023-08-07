@@ -1,11 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getUsersAsync, addUsersAsync, deleteUsersAsync, getOneUserAsync, addUserPostAsync, getSessionUserAsync, addUserEventAsync, getFriendsAsync, 
-    getUserGroupsAsync, addUserGroupsAsync, getHangoutsAsync, removeHangoutsForFriendsAsync, addParticipantToPost, removeParticipantFromPost, editUserAsync } from "./thunks";
+import { getUsersAsync, addUsersAsync, deleteUsersAsync, getOneUserAsync, addUserPostAsync, getSessionUserAsync, addUserEventAsync, 
+        getFriendsAsync, getUserGroupsAsync, addUserGroupsAsync, getHangoutsAsync, removeHangoutsForFriendsAsync, addParticipantToPost, 
+        removeParticipantFromPost, editUserAsync, getAvailabilityAsync, changeUserAvailabilityAsync } from "./thunks";
 import { addGroupsAsync } from "../groups/thunks";
 
 
 const INITIAL_STATE = {
     user: null,
+    availability: null,
     userList: [],
     friendsList: [],
     postList:[],
@@ -77,8 +79,16 @@ const userSlice = createSlice({
                   if (user.user_id === action.payload.user_id) {
                     return action.payload; // Replace the item with the updated one
                   }
-                  return user; // Keep the other items unchanged
-                });
+                  return user; // Keep the other items 
+                })
+            })
+            .addCase(getAvailabilityAsync.fulfilled,(state,action) => {
+                state.availability = action.payload;
+                console.log("state.availability for get" +state.availability);
+            })
+            .addCase(changeUserAvailabilityAsync.fulfilled,(state,action) => {
+                state.availability = action.payload;
+                console.log("state.availability for change" +state.availability);
             });
     },
 });
