@@ -6,6 +6,9 @@ const passport = require('passport');
 // Route to initiate Google OAuth login
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
+
+//router.get('calendar', passport.authenticate('google', { scope: ['profile', 'email','https://www.googleapis.com/auth/calenda'] }));
+
 // Callback route for Google OAuth login
 router.get(
   '/google/callback',

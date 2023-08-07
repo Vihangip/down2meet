@@ -8,7 +8,8 @@ const config = {
   clientId: "1011482531322-6d1dp35f941hr37vnn7cvjdstntunnru.apps.googleusercontent.com",
   apiKey: "AIzaSyDwUAUOzBUBdUB35If5Q5bgZHry2TiU05g",
   scope: 'https://www.googleapis.com/auth/calendar',
-  discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest']
+  discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'],
+  hosted_domain: `${process.env.REACT_APP_URL3000}/Events`
 };
 
 let newEvent = new Date();
@@ -91,6 +92,7 @@ const Calendar = () => {
 
   const handleItemClick = (event, name) => {
     if (name === 'sign-in') {
+      //window.location.href = `${process.env.REACT_APP_URL3001}/auth/google`;
       apiCalendar.handleAuthClick();
       dispatch(signInCalendar(true));
     } else if (name === 'sign-out') {
