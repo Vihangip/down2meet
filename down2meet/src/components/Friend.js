@@ -58,7 +58,9 @@ function Friends() {
           <div className="friend-container" 
               onClick={() => handleProfileClick({ user_id: friend.user_id, picture: friend.picture, name: friend.name, email: friend.email })}>
             <img className="friend-image" src={friend.picture} alt="pfp" />
-            <p className="friend-info">{friend.name}</p>
+            {friend.availability === "Available" ? 
+            <h2 className="UserViewNameActive">{friend.name}</h2> : 
+            <h2 className="UserViewNameInactive">{friend.name}</h2>}
           </div>
         </div>
       ))}

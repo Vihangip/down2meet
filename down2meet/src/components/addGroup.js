@@ -18,7 +18,7 @@ export function AddGroup() {
 
   const [selectedFriends, setSelectedFriends] = useState([]);
   const [friendNames, setFriendNames] = useState([]);
-  const [loading, setLoading] = useState(true); // Track the loading state
+  const [loading, setLoading] = useState(true);
    
   const groupsList = useSelector((state) => state.users.groupList);
   const currentUser = JSON.parse(localStorage.getItem('user'));
@@ -28,24 +28,22 @@ export function AddGroup() {
 
 
   useEffect(() => {
-    // Fetch friends asynchronously
     dispatch(getFriendsAsync(currentUser.user_id))
-      .then(() => setLoading(false)) // Set loading to false when friends are fetched
+      .then(() => setLoading(false))
       .catch(error => {
         console.error(error);
-        setLoading(false); // Handle error, set loading to false
+        setLoading(false);
       });
 
     if (!currentUser){
       navigate('/');
       return;
     }
-    // Fetch friends asynchronously
     dispatch(getFriendsAsync(currentUser.user_id))
-      .then(() => setLoading(false)) // Set loading to false when friends are fetched
+      .then(() => setLoading(false))
       .catch(error => {
         console.error(error);
-        setLoading(false); // Handle error, set loading to false
+        setLoading(false);
     });
       
     dispatch(getUserGroupsAsync(currentUser.user_id));
@@ -63,7 +61,6 @@ const getUserNameByID = async (userid) => {
 };
 
   useEffect(() => {
-    // Resolve friend names once friends are fetched
     if (!loading) {
       Promise.all(uniqueFriends.map(friend => getUserNameByID(friend)))
         .then(names => setFriendNames(names))
@@ -76,13 +73,11 @@ const getUserNameByID = async (userid) => {
     event.preventDefault();
 
     newGroupName = itemNameRef.current.value;
-
-    // Check if the group name already exists in groupsList
     const existingGroup = groupsList.find(group => group.name === newGroupName);
 
     if (existingGroup) {
       alert("A group with the same name already exists!");
-      return; // Do not add the group if it already exists
+      return;
     }
 
       dispatch(
@@ -95,13 +90,9 @@ const getUserNameByID = async (userid) => {
 
       dispatch(getUserGroupsAsync(currentUser.user_id));
     
-    // Clear the input field after successfully adding the group
     itemNameRef.current.value = "";
 
-    // Reset selectedFriends state
     setSelectedFriends([]);
-
-    // Uncheck the checkboxes
     const checkboxes = document.querySelectorAll('.add-events-checkbox');
     checkboxes.forEach(checkbox => {
       checkbox.checked = false;
@@ -111,25 +102,19 @@ const getUserNameByID = async (userid) => {
     
 
   const handleDeleteButton = () => {
-    // Check if the group name exists in groupsList
     const groupToDelete = groupsList.find(group => group.name === deleteGroupName);
     if (!groupToDelete) {
       alert("Group with the specified name does not exist!");
       return;
     }
-    // Dispatch the deleteGroupsAsync thunk with the group ID to delete the group
     dispatch(deleteUserGroupAsync(groupToDelete));
-      // Clear the deleteGroupName input
     setDeleteGroupName('');
   };
 
 const handleFormReset = () => {
-  itemNameRef.current.value = ""; // Clear group name input
-
-  // Reset selectedFriends state
+  itemNameRef.current.value = "";
   setSelectedFriends([]);
 
-  // Uncheck the checkboxes
   const checkboxes = document.querySelectorAll('.add-events-checkbox');
   checkboxes.forEach(checkbox => {
     checkbox.checked = false;
@@ -145,12 +130,9 @@ const handleFormReset = () => {
         <br />
         <input type="text" id="iTitle" name="iTitle" ref={itemNameRef} />
         <br />  <br />
-
-        {/* add checkboxes for selecting friends */}
         <div>
         <label>Select Group Members:</label>
         <br />
-        {/* ChatGPT helped with the checkboxes */}
         {uniqueFriends.map((friend, index) => (
           <label key={friend}>
             <input
@@ -165,21 +147,17 @@ const handleFormReset = () => {
               }
             }
             />
-            {/* Render the friend name directly if available, else show loading */}
             {friendNames[index] || 'Loading...'}
             <br />
           </label>
         ))}
       </div> <br/>
       <div style={{ justifyContent: "left" }}>
-          <input type="submit" id="submitButton" value="Add" />
-          {/* <input type="reset" id="resetButton" value="Clear Form" /> */}
+          <input className="AvailabilityButton3" type="submit" id="submitButton" value="Add" />
         </div>
         <br /> 
       <hr/> 
       <br /> 
-
-       {/* New input for typing the group name to delete */}
        <label htmlFor="deleteGroupName">Group Name to Delete:</label>
         <br />
         <input
@@ -192,7 +170,7 @@ const handleFormReset = () => {
         <br /><br /> 
 
         <div style={{ justifyContent: "left" }}>
-          <input type="button" id="deleteButton" value="Delete Group" onClick={handleDeleteButton} />
+          <input className="AvailabilityButton5" type="button" id="deleteButton" value="Delete Group" onClick={handleDeleteButton} />
         </div>
         
         <br />
