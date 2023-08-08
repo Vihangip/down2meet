@@ -1,5 +1,3 @@
-//require('dotenv').config();
-
 const getUsers = async () => {
     const res = await fetch(`${process.env.REACT_APP_URL3001}/users`,
     {
@@ -19,7 +17,7 @@ const getOneUser = async (userID) => {
     const data = await res.json();
 
     if (!res.ok) {
-        throw new Error("User not found."); // Throw an error if the response is not successful
+        throw new Error("User not found.");
       }
     
 
@@ -121,7 +119,6 @@ const addUserPost = async (userID, postID) => {
     });
     const data = await res.json();
     localStorage.setItem('user', JSON.stringify(data));
-    //TODO !!!!!!!!!!
     if (res.status >= 400) {
         throw new Error(data.errors);
     }
@@ -216,6 +213,70 @@ async function addFriend(userId, friendId) {
       
     };
 
+
+    const saveApprovedFriends = async (userId, approvedFriends) => {
+      try {
+        const res = await fetch(`${process.env.REACT_APP_URL3001}/users/${userId}/approvedFriends`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+          body: JSON.stringify({ friendsIds: approvedFriends }),
+        });
+        const data = await res.json();
+    
+        if (res.status >= 400) {
+          throw new Error(data.errors);
+        }
+    
+        return data;
+      } catch (error) {
+        console.error('Error calling saveApprovedFriends:', error);
+        throw error;
+      }
+    };
+
+    const getApprovedFriends = async (userId) => {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_URL3001}/users/${userId}/approvedfriends`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+        });
+        
+        if (response.status >= 400) {
+          throw new Error('Error fetching approved friends');
+        }
+        
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.error('Error fetching approved friends:', error);
+        throw error;
+      }
+};
+
+const getUserByUserId = async (user_id) => {
+  const res = await fetch(`${process.env.REACT_APP_URL3001}/users/${user_id}`, {
+      method: "GET",
+      credentials: 'include',
+  });
+  const data = await res.json();
+
+  if (!res.ok) {
+      throw new Error("User not found."); // Throw an error if the response is not successful
+  }
+
+  if (res.status >= 400) {
+      throw new Error(data.errors);
+  }
+  return data;
+};
+
+    
     const addParticipantToPost = async (postID, userID) => {
       const res = await fetch(`${process.env.REACT_APP_URL3001}/users/${postID}/addParticipant/${userID}`,
       {
@@ -235,9 +296,55 @@ async function addFriend(userId, friendId) {
       const data = await res.text();
       return data;
   }
+
+  const editUser = async (user) => {
+    const response = await fetch(`${process.env.REACT_APP_URL3001}/users/edit`, {
+      method: 'PUT',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    });
+  
+    const data = await response.json();
+    if (!response.ok) {
+      const errorMsg = data?.message;
+      throw new Error(errorMsg)
+    }
+    
+    return data; 
+  };
+  const getAvailability = async (userID) => {
+    const res = await fetch(`${process.env.REACT_APP_URL3001}/users/${userID}/availability`,
+    {
+        method: "GET",
+        credentials: 'include',
+    });
+    const data = await res.text();
+    return data;
+}
+
+const changeUserAvailability = async (userID, availability) => {
+  const res = await fetch(`${process.env.REACT_APP_URL3001}/users/${userID}/availability`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+    body: JSON.stringify({ availability }),
+  });
+  if (!res.ok) {
+    console.error('Error updating user availability');
+  } 
+  const data = await res.text();
+  return data;
+}
   
 
 export default {
-    getUsers, addUsers, deleteUsers, getOneUser, addUserPost, getSessionUser, addFriend, removeFriend, 
-    getUserGroup, addUserGroup, deleteUserGroup, getHangouts, addUserEvent, getFriends, removeHangoutsForFriends, addParticipantToPost, removeParticipantFromPost
+    getUsers, addUsers, deleteUsers, getOneUser, addUserPost, getSessionUser, addFriend, removeFriend,
+    getUserGroup, deleteUserGroup, getHangouts, addUserEvent, getFriends, removeHangoutsForFriends, addParticipantToPost, removeParticipantFromPost, editUser,
+    getAvailability, changeUserAvailability, saveApprovedFriends, getApprovedFriends, getUserByUserId
+
 }

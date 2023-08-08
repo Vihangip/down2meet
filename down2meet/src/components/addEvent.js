@@ -7,14 +7,12 @@ import { addEventAsync, getEventAsync, deleteEventAsync, updateEventAsync } from
 import moment from "moment";
 import { momentLocalizer } from 'react-big-calendar';
 
-
-import service from '../redux/user/service';
-
-// const localizer = momentLocalizer(moment);
+import { getSessionUserAsync } from "../redux/user/thunks";
+import { addEventAsync, getEventAsync, deleteEventAsync } from '../redux/event/thunks';
+import { setUser } from "../redux/user/reducer";
 
 const { v4: uuid } = require('uuid');
 
-//for adding to Google Calendar, does not need to be stored anywhere
 export const googleEvent = {
   title: '',
   description: '',
@@ -36,13 +34,25 @@ export function AddEvent() {
     //////////////////////// 
   },[dispatch]);                      //////////////////////
 
+  useEffect(() => {
+    const fetchPostsAndUsers = async () => {
+      try {
+        let storedUser = JSON.parse(localStorage.getItem('user'));
+        if (storedUser) {
+          dispatch(setUser(storedUser));
+        } else {
+        await dispatch(getSessionUserAsync());
+        storedUser = JSON.parse(localStorage.getItem('user'));
+        }
+      }
+      catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchPostsAndUsers();
+  }, []); 
 
- // const user = useSelector(state => state.users.user);
-  
   const user = JSON.parse(localStorage.getItem('user'));
-  const events = useSelector(state => state.event.eventList);
-  // Extract unique groups from the 'events' array
-  const uniqueGroups = Array.from(new Set(events.flatMap(event => event.groups)));
 
   const groupsList = useSelector((state) => state.users.groupList);
 
@@ -79,8 +89,6 @@ export function AddEvent() {
 //   }
 // };
 
-  
-  // Add selectedGroups state and setSelectedGroups function
   const [selectedGroups, setSelectedGroups] = useState([]);
   const [isWeekly, setIsWeekly] = useState(false); // New state to track weekly checkbox
 
@@ -89,7 +97,7 @@ export function AddEvent() {
   let formattedEndDate;
 
   const handleFormSubmit = (event) => {
-    event.preventDefault(); // Prevents the default form submission behavior
+    event.preventDefault();
 
   
     const options = {
@@ -117,7 +125,6 @@ export function AddEvent() {
     const endDate = new Date(vancouverEndDate);
 
 
-      // Your form submit logic here
       formattedStartDate = startDate;
       formattedEndDate = endDate;
       let repetitionRule = null;
@@ -155,12 +162,11 @@ export function AddEvent() {
       if (calendarSignedIn === true) {
         googleEvent.title = (itemNameRef.current.value);
         googleEvent.description = (itemDescRef.current.value);
-        googleEvent.startingDate = (startDate);//startDate);
-        googleEvent.endingDate = (endDate);//endDate);
-        handleCreateEvent(); //only add event to Google Calendar if user is signed in
+        googleEvent.startingDate = (startDate);
+        googleEvent.endingDate = (endDate);
+        handleCreateEvent({origin: "addEvent"});
       }
     };
-    
 
 
   const handleDeleteButton = () => {
@@ -169,7 +175,7 @@ export function AddEvent() {
 
   return (
     <div className="add-event-form-div">
-      <h1>Add your Availability</h1>
+      <h1>Set your Availability</h1>
       <form className="event-form" onSubmit={handleFormSubmit}>
         <hr /> <br />
         <label htmlFor="iTitle">Title:</label>
@@ -207,13 +213,12 @@ export function AddEvent() {
          <div>
           <label>Select Group:</label>
           <br />
-          {/* Map through groupsList and render checkboxes with group names */}
           {groupsList.map((group) => (
             <label key={group.id}>
               <input
                 className="add-events-checkbox"
                 type="checkbox"
-                value={group.name} // Use unique identifier (e.g., group ID) as the value
+                value={group.name}
                 onChange={(e) => {
                   const { checked, value } = e.target;
                   setSelectedGroups((prevSelectedGroups) =>
@@ -230,10 +235,10 @@ export function AddEvent() {
         </div>
         <br /><br />
 
-        <div style={{ justifyContent: "left" }}>
-          <input type="submit" id="submitButton" value="Add" />
-          <input type="button" id="deleteButton" value="Delete" onClick={handleDeleteButton} />
-          <input type="reset" id="resetButton" value="Clear Form" />
+        <div style={{ justifyContent: "left", display: "flex", gap: "5px" }}>
+          <input className='AvailabilityButton3' type="submit" id="submitButton" value="Add" />
+          <input className='AvailabilityButton3' type="button" id="deleteButton" value="Delete" onClick={handleDeleteButton} />
+          <input className='AvailabilityButton3' type="reset" id="resetButton" value="Clear Form" />
         </div>
         <br /> <br /> <br />
         <hr /> <br />

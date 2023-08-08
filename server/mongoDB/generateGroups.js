@@ -3,7 +3,6 @@ const { v4: uuid } = require('uuid');
 
 
 function generateGroups() {
-    // make a group
     const group1 = new Item({
       "id": "1",
       "name": "family",
@@ -20,7 +19,6 @@ function generateGroups() {
       "members":[uuid(), uuid(), uuid()]
     });
     
-    // Save a group to db
     group1.save();
     group2.save();
     group3.save();

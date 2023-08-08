@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-// create schema
 const postSchema = new mongoose.Schema({
     post_id: String,
     user_id:  String,
@@ -15,7 +14,6 @@ const postSchema = new mongoose.Schema({
     participants: [String],
 });
 
-// create model
 const Post = mongoose.model('Post', postSchema);
 
 module.exports = Post;

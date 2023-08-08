@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-//require('dotenv').config();
-
 
 export default function SearchBar({ onSearchResultClick }) {
   const [searchQuery, setSearchQuery] = useState('');

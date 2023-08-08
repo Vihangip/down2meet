@@ -1,5 +1,3 @@
-//require('dotenv').config();
-
 const getGroups = async () => {
     const res = await fetch(`${process.env.REACT_APP_URL3001}/groups`,
     {

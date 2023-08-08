@@ -1,5 +1,3 @@
-//require('dotenv').config();
-
 const getEvent = async (userID) => {
     const res = await fetch(`${process.env.REACT_APP_URL3001}/event/${userID}`,
     {
@@ -53,7 +51,6 @@ const removeEventParticipant = async (eventID, userID) => {
     return eventID;
 }
 
-// TODO: not part of standard requirements
 const updateEvent = async (event) => {
     const response = await fetch(`${process.env.REACT_APP_URL3001}/event/` + event.title, {
       method: 'PUT',

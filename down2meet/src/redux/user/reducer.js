@@ -1,14 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getUsersAsync, addUsersAsync, deleteUsersAsync, getOneUserAsync, addUserPostAsync, getSessionUserAsync, logoutUserAsync, addUserEventAsync, getFriendsAsync, getUserGroupsAsync, addUserGroupsAsync, deleteUserGroupAsync, getHangoutsAsync, removeHangoutsForFriendsAsync, addParticipantToPost, removeParticipantFromPost } from "./thunks";
 
+import { getUsersAsync, addUsersAsync, deleteUsersAsync, getOneUserAsync, addUserPostAsync, getSessionUserAsync, addUserEventAsync, 
+        getFriendsAsync, getUserGroupsAsync, addUserGroupsAsync, deleteUserGroupAsync, getHangoutsAsync, removeHangoutsForFriendsAsync, addParticipantToPost, 
+        removeParticipantFromPost, editUserAsync, getAvailabilityAsync, changeUserAvailabilityAsync } from "./thunks";
 
 const INITIAL_STATE = {
     user: null,
+    availability: null,
     userList: [],
     friendsList: [],
     postList:[],
     eventList:[],
-    hangoutList:[], // List of post IDs
+    hangoutList:[],
     groupList:[]
 };
 
@@ -30,7 +33,7 @@ const userSlice = createSlice({
             })
             .addCase(getOneUserAsync.rejected, (state, action) => {
                 state.error = action.error.message;
-              })
+            })
             .addCase(addUsersAsync.fulfilled, (state, action) => {
                 state.userList.push(action.payload);
             })
@@ -71,6 +74,20 @@ const userSlice = createSlice({
             })
             .addCase(removeParticipantFromPost.fulfilled, (state, action) => {
                 state.hangoutList = state.hangoutList.filter((hangout) => hangout !== action.payload);
+            })
+            .addCase(editUserAsync.fulfilled, (state, action) => {
+                state.userList = state.userList.map(user => {
+                  if (user.user_id === action.payload.user_id) {
+                    return action.payload;
+                  }
+                  return user;
+                })
+            })
+            .addCase(getAvailabilityAsync.fulfilled,(state,action) => {
+                state.availability = action.payload;
+            })
+            .addCase(changeUserAvailabilityAsync.fulfilled,(state,action) => {
+                state.availability = action.payload;
             });
     },
 });
