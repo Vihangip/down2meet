@@ -1,45 +1,41 @@
-  import React from "react";
-  import { useEffect, useState } from 'react';
-  import { useDispatch, useSelector} from 'react-redux';
-  import { getFriendsAsync, getUserGroupsAsync, addUserGroupsAsync } from '../redux/user/thunks';
-  import service from "../redux/user/service";
-  import { useNavigate } from "react-router-dom";
-
-  const { v4: uuid } = require('uuid');
-
-  export function AddGroup() {
-    let newGroupName;
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-
-    const itemNameRef = React.useRef(null);
-
-    const [selectedFriends, setSelectedFriends] = useState([]);
-    const [friendNames, setFriendNames] = useState([]);
-    const [loading, setLoading] = useState(true);
+import React from "react";
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector} from 'react-redux';
+import { getFriendsAsync, getUserGroupsAsync, addUserGroupsAsync, deleteUserGroupAsync} from '../redux/user/thunks';
+import service from "../redux/user/service";
+import { useNavigate } from "react-router-dom";
 
 
-    const groupsList = useSelector((state) => state.users.groupList);
-    const currentUser = JSON.parse(localStorage.getItem('user'));
-    const usersFriends = useSelector((state) => state.users.friendsList)
-    const uniqueFriends = Array.from(new Set(usersFriends));   
-    const [friends] = useState([]);
+const { v4: uuid } = require('uuid');
+
+export function AddGroup() {
+  let newGroupName;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [deleteGroupName, setDeleteGroupName] = useState('');
+
+  const itemNameRef = React.useRef(null);
+
+  const [selectedFriends, setSelectedFriends] = useState([]);
+  const [friendNames, setFriendNames] = useState([]);
+  const [loading, setLoading] = useState(true); // Track the loading state
+   
+  const groupsList = useSelector((state) => state.users.groupList);
+  const currentUser = JSON.parse(localStorage.getItem('user'));
+  const usersFriends = useSelector((state) => state.users.friendsList)
+  const uniqueFriends = Array.from(new Set(usersFriends));   
+  const [friends] = useState([]);
 
 
-
-    // useEffect(() => {
-    //   dispatch(getUserGroupsAsync(currentUser.user_id));
-    //   dispatch(getFriendsAsync(currentUser.user_id));
-    //   Promise.all(uniqueFriends.map(friend => getUserNameByID(friend)))
-    //     .then(names => setFriendNames(names))
-    //     .catch(error => console.error(error));
-        
-    // }, []);
-
-    // const [selectedFriends, setSelectedFriends] = useState([]);
-    // const [friendNames, setFriendNames] = useState([]);
-  
   useEffect(() => {
+    // Fetch friends asynchronously
+    dispatch(getFriendsAsync(currentUser.user_id))
+      .then(() => setLoading(false)) // Set loading to false when friends are fetched
+      .catch(error => {
+        console.error(error);
+        setLoading(false); // Handle error, set loading to false
+      });
+
     if (!currentUser){
       navigate('/');
       return;
@@ -50,11 +46,21 @@
       .catch(error => {
         console.error(error);
         setLoading(false); // Handle error, set loading to false
-      });
+    });
       
     dispatch(getUserGroupsAsync(currentUser.user_id));
-
+    
   }, []);
+
+const getUserNameByID = async (userid) => {
+  try {
+    const user = await service.getOneUser(userid);
+    friends.push(user);
+    return user.name;
+  } catch (error) {
+    return;
+  }
+};
 
   useEffect(() => {
     // Resolve friend names once friends are fetched
@@ -66,123 +72,132 @@
   }, [!loading]);
 
 
-    const getUserNameByID = async (userid) => {
-      try {
-        const user = await service.getOneUser(userid);
-        friends.push(user);
-        return user.name;
-      } catch (error) {
-        // Use rejectWithValue to include the error message in the action payload
-        return;
-      }
-    };
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
 
-    const handleFormSubmit = (event) => {
-      event.preventDefault();
-  
-      newGroupName = itemNameRef.current.value;
-  
-      // Check if the group name already exists in groupsList
-      const existingGroup = groupsList.find(group => group.name === newGroupName);
-  
-      if (existingGroup) {
-        alert("A group with the same name already exists!");
-        return; // Do not add the group if it already exists
-      }
-  
-      // dispatch(addGroupsAsync({
-        //   "id": uuid(),
-        //   "user_id": currentUser.user_id,
-        //   "name": newGroupName,
-        //   "members": selectedFriends
-        // });
+    newGroupName = itemNameRef.current.value;
 
-        dispatch(
-          addUserGroupsAsync({
-          "id": uuid(),
-          "user_id": currentUser.user_id,
-          "name": newGroupName,
-          "members": selectedFriends
-        }));
-        dispatch(getUserGroupsAsync(currentUser.user_id));
+    // Check if the group name already exists in groupsList
+    const existingGroup = groupsList.find(group => group.name === newGroupName);
 
+    if (existingGroup) {
+      alert("A group with the same name already exists!");
+      return; // Do not add the group if it already exists
+    }
 
-      
-      // // Clear the input field after successfully adding the group
-      itemNameRef.current.value = "";
-  
-      // Reset selectedFriends state
-      setSelectedFriends([]);
-      
-      // googleGroup.name = (itemNameRef.current.value);
-      // googleGroup.members= (itemMemRef.current.value);
-      // handleCreateEvent();
-    };
-      
+      dispatch(
+        addUserGroupsAsync({
+        "id": uuid(),
+        "user_id": currentUser.user_id,
+        "name": newGroupName,
+        "members": selectedFriends
+      }));
 
-    // const handleUpdateButton = () => {
-    //   // Your update button logic here
+      dispatch(getUserGroupsAsync(currentUser.user_id));
+    
+    // Clear the input field after successfully adding the group
+    itemNameRef.current.value = "";
 
-    //   // find a way to just update one of the items in the form not have to replace all the group's details
-    //   const updatedGroup =  { 
-    //     "id": uuid(), "title": itemNameRef.current.value, 
-    //     "members": itemMemRef.current.value};
+    // Reset selectedFriends state
+    setSelectedFriends([]);
 
+    // Uncheck the checkboxes
+    const checkboxes = document.querySelectorAll('.add-events-checkbox');
+    checkboxes.forEach(checkbox => {
+      checkbox.checked = false;
+    });
+    
+  };
+    
 
-    //   // dispatch(updateGroupsAsync(updatedGroup));
-    // };
+  const handleDeleteButton = () => {
+    // Check if the group name exists in groupsList
+    const groupToDelete = groupsList.find(group => group.name === deleteGroupName);
+    if (!groupToDelete) {
+      alert("Group with the specified name does not exist!");
+      return;
+    }
+    // Dispatch the deleteGroupsAsync thunk with the group ID to delete the group
+    dispatch(deleteUserGroupAsync(groupToDelete));
+      // Clear the deleteGroupName input
+    setDeleteGroupName('');
+  };
 
-    const handleDeleteButton = () => {
-      
-      //idea:
-      // todo:
-      // dispatch(deleteGroupsAsync(itemIDRef.current.value));
+const handleFormReset = () => {
+  itemNameRef.current.value = ""; // Clear group name input
 
-    };
+  // Reset selectedFriends state
+  setSelectedFriends([]);
 
+  // Uncheck the checkboxes
+  const checkboxes = document.querySelectorAll('.add-events-checkbox');
+  checkboxes.forEach(checkbox => {
+    checkbox.checked = false;
+  });
+};
 
-    return (
-      <div className="add-group-form-div">
-        <h1>Add your Group</h1>
-        <form className="group-form" onSubmit={handleFormSubmit}>
-          <hr /> <br />
-          <label htmlFor="iTitle">Group Name  (the name must be unique):</label>
-          <br />
-          <input type="text" id="iTitle" name="iTitle" ref={itemNameRef} />
-          <br />  <br />
+  return (
+    <div className="add-group-form-div">
+      <h1>Add your Group</h1>
+      <form className="group-form" onSubmit={handleFormSubmit}>
+        <hr /> <br />
+        <label htmlFor="iTitle">Group Name  (the name must be unique):</label>
+        <br />
+        <input type="text" id="iTitle" name="iTitle" ref={itemNameRef} />
+        <br />  <br />
 
-          <div>
-          <label>Select Group Members:</label>
-          <br />
-          {uniqueFriends.map((friend, index) => (
-            <label key={friend}>
-              <input
-                className="add-events-checkbox"
-                type="checkbox"
-                value={friend}
-                onChange={(e) => {
-                  const { checked, value } = e.target;
-                  setSelectedFriends(prevSelectedFriends => (
-                    checked ? [...prevSelectedFriends, value] : prevSelectedFriends.filter(friend => friend !== value)
-                  ));
-                }
+        {/* add checkboxes for selecting friends */}
+        <div>
+        <label>Select Group Members:</label>
+        <br />
+        {/* ChatGPT helped with the checkboxes */}
+        {uniqueFriends.map((friend, index) => (
+          <label key={friend}>
+            <input
+              className="add-events-checkbox"
+              type="checkbox"
+              value={friend}
+              onChange={(e) => {
+                const { checked, value } = e.target;
+                setSelectedFriends(prevSelectedFriends => (
+                  checked ? [...prevSelectedFriends, value] : prevSelectedFriends.filter(friend => friend !== value)
+                ));
               }
-              />
-              {friendNames[index] || 'Loading...'}
-              <br />
-            </label>
-          ))}
-        </div> <br/>
+            }
+            />
+            {/* Render the friend name directly if available, else show loading */}
+            {friendNames[index] || 'Loading...'}
+            <br />
+          </label>
+        ))}
+      </div> <br/>
+      <div style={{ justifyContent: "left" }}>
+          <input type="submit" id="submitButton" value="Add" />
+          {/* <input type="reset" id="resetButton" value="Clear Form" /> */}
+        </div>
+        <br /> 
+      <hr/> 
+      <br /> 
 
-          <div style={{ justifyContent: "left" }}>
-            <input className='AvailabilityButton3' type="submit" id="submitButton" value="Add" />
-            <input className='AvailabilityButton3' type="button" id="deleteButton" value="Delete" onClick={handleDeleteButton} />
-            <input className='AvailabilityButton3' type="reset" id="resetButton" value="Clear Form" />
-          </div>
-          
-          <br /> <br /> <br />
-          <hr /> <br />
-        </form>
-      </div>
-    );
-  }
+       {/* New input for typing the group name to delete */}
+       <label htmlFor="deleteGroupName">Group Name to Delete:</label>
+        <br />
+        <input
+          type="text"
+          id="deleteGroupName"
+          name="deleteGroupName"
+          value={deleteGroupName}
+          onChange={(e) => {setDeleteGroupName(e.target.value);}}
+        />
+        <br /><br /> 
+
+        <div style={{ justifyContent: "left" }}>
+          <input type="button" id="deleteButton" value="Delete Group" onClick={handleDeleteButton} />
+        </div>
+        
+        <br />
+        <hr /> <br />
+      </form>
+    </div>
+  );
+}

@@ -10,7 +10,8 @@ const eventSchema = new mongoose.Schema({
     end: Date,
     groups:[String],
     location: String,
-    participants: [String]
+    participants: [String],
+    repetitionRule: [Object]
 });
 
 const Event = mongoose.model('Event', eventSchema);

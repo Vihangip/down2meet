@@ -87,6 +87,13 @@ export const addUserGroupsAsync = createAsyncThunk(
   async (group) => {
       return await service.addUserGroup(group);
   });
+
+  export const deleteUserGroupAsync = createAsyncThunk(
+    'users/deleteUserGroupAsync',
+    async (group) => {
+        return await service.deleteUserGroup(group);
+    }
+  );
   
 export const getHangoutsAsync = createAsyncThunk(
   'users/getHangoutsAsync',

@@ -154,8 +154,8 @@ router.get('/:user_id/friends', async(req, res, next) => {
 
 router.delete('/:userId', function(req, res, next) {
   const userId = req.params.userId;
-  const userIndex = users.findIndex(user => user.id === userId);
-  users.splice(userIndex, 1);
+  const userIndex = User.findIndex(user => user.id === userId);
+  User.splice(userIndex, 1);
 
   if (userIndex === -1) {
     return res.status(404).send('User not found');
@@ -163,6 +163,35 @@ router.delete('/:userId', function(req, res, next) {
 
   res.status(200);
   return res.send(userId);
+});
+
+/* DELETE user group. */
+router.delete('/:userId/:groupId/deleteGroup', async function(req, res, next) {
+  try {
+  const groupId = req.params.groupId;
+  const userId = req.params.userId;
+  // find user
+  const userWithGroup = await User.findOne({ user_id: userId });
+  if (!userWithGroup) {
+    return res.status(404).send({message: 'User not found'});
+  }
+  // get user's group
+  const groups = userWithGroup.groups;
+  const groupIndex = groups.findIndex((group) => (group.id === groupId));
+  if (groupIndex === -1) {
+    return res.status(404).send('Group not found');
+  }
+  groups.splice(groupIndex, 1);
+
+  
+
+  await userWithGroup.save();
+  res.status(200).send(groupId);
+
+} catch (error) {
+  console.error(error);
+  return res.status(500).json({ message: 'Server Error' });
+}
 });
 
 router.get('/:userID/addPost/:postID', async (req, res) => {
