@@ -563,6 +563,12 @@ html, body, #Home, #Home>div {
     margin-top: 5px;
 }
 
+.Post-Username-Meactive {
+    color: var(--active-color);
+    margin: 0px;
+    margin-top: 5px;
+}
+
 .Post-Status {
     font-size: 20px;
     color: black;
@@ -588,6 +594,9 @@ html, body, #Home, #Home>div {
 .Post-Invite-InfoContainer-active i {
   color: var(--friend-active-color);
 }
+.Post-Invite-InfoContainer-Meactive i {
+  color: var(--active-color);
+}
 
 .Post-Invite-InfoContainer-active p {
   margin: 0;
@@ -604,6 +613,10 @@ html, body, #Home, #Home>div {
 
 .Post-Invite-InfoContainer-inactive i {
   color: var(--friend-inactive-color);
+}
+
+.Post-Invite-InfoContainer-Meinactive i {
+  color: var(--inactive-color);
 }
 
 .Post-Invite-InfoContainer-inactive p {

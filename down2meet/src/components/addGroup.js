@@ -22,7 +22,7 @@
     const groupsList = useSelector((state) => state.users.groupList);
     const currentUser = JSON.parse(localStorage.getItem('user'));
     const usersFriends = useSelector((state) => state.users.friendsList)
-    const uniqueFriends = Array.from(new Set(usersFriends));  
+    const uniqueFriends = Array.from(new Set(usersFriends));   
     const [friends] = useState([]);
 
 
