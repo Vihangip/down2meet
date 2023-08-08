@@ -343,7 +343,7 @@ const changeUserAvailability = async (userID, availability) => {
   
 
 export default {
-    getUsers, addUsers, deleteUsers, getOneUser, addUserPost, getSessionUser, addFriend, removeFriend,
+    getUsers, addUsers, deleteUsers, getOneUser, addUserPost, getSessionUser, addFriend, removeFriend, addUserGroup,
     getUserGroup, deleteUserGroup, getHangouts, addUserEvent, getFriends, removeHangoutsForFriends, addParticipantToPost, removeParticipantFromPost, editUser,
     getAvailability, changeUserAvailability, saveApprovedFriends, getApprovedFriends, getUserByUserId
 

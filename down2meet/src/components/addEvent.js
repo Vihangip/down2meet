@@ -3,11 +3,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { handleCreateEvent } from './Calendar'
 import { getSessionUserAsync, getUserGroupsAsync } from "../redux/user/thunks";
-import { addEventAsync, getEventAsync, deleteEventAsync, updateEventAsync } from '../redux/event/thunks';
 import moment from "moment";
-import { momentLocalizer } from 'react-big-calendar';
-
-import { getSessionUserAsync } from "../redux/user/thunks";
 import { addEventAsync, getEventAsync, deleteEventAsync } from '../redux/event/thunks';
 import { setUser } from "../redux/user/reducer";
 
