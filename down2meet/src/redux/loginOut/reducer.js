@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUserAsync, logoutUserAsync } from "./thunks";
+import { logoutUserAsync } from "./thunks";
 
 
 const INITIAL_STATE = {
@@ -13,9 +13,6 @@ const authenticationSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            // .addCase(loginUserAsync.fulfilled,(state,action)=>{
-            //     state.authenticated = true;
-            // })
             .addCase(logoutUserAsync.fulfilled,(state,action)=>{
                 state.authenticated = false;
             });

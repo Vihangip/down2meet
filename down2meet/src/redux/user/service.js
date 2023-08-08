@@ -1,5 +1,3 @@
-//require('dotenv').config();
-
 const getUsers = async () => {
     const res = await fetch(`${process.env.REACT_APP_URL3001}/users`,
     {
@@ -19,7 +17,7 @@ const getOneUser = async (userID) => {
     const data = await res.json();
 
     if (!res.ok) {
-        throw new Error("User not found."); // Throw an error if the response is not successful
+        throw new Error("User not found.");
       }
     
 
@@ -121,7 +119,6 @@ const addUserPost = async (userID, postID) => {
     });
     const data = await res.json();
     localStorage.setItem('user', JSON.stringify(data));
-    //TODO !!!!!!!!!!
     if (res.status >= 400) {
         throw new Error(data.errors);
     }
@@ -190,6 +187,15 @@ async function addFriend(userId, friendId) {
       return data;
     };
 
+    const deleteUserGroup = async (group) => {
+      const res = await fetch(`${process.env.REACT_APP_URL3001}/users/${group.user_id}/${group.id}/deleteGroup`,
+      {
+          method: "DELETE",
+          credentials: 'include',
+      });
+      const data = await res.text();
+      return data;
+  }
     const removeHangoutsForFriends = async (post_id) => {
         const res = await fetch(`${process.env.REACT_APP_URL3001}/users/${post_id}/remove-from-hangouts`, {
           method: "PUT",
@@ -217,7 +223,6 @@ async function addFriend(userId, friendId) {
           body: JSON.stringify({ friendsIds: approvedFriends }),
         });
         const data = await res.json();
-        console.log('Response:', data); // Log the response data
     
         if (res.status >= 400) {
           throw new Error(data.errors);
@@ -225,7 +230,7 @@ async function addFriend(userId, friendId) {
     
         return data;
       } catch (error) {
-        console.error('Error calling saveApprovedFriends:', error); // Log the error details
+        console.error('Error calling saveApprovedFriends:', error);
         throw error;
       }
     };
@@ -245,7 +250,7 @@ async function addFriend(userId, friendId) {
         }
         
         const data = await response.json();
-        return data; // Assuming data contains the approved friends
+        return data;
       } catch (error) {
         console.error('Error fetching approved friends:', error);
         throw error;
@@ -253,7 +258,6 @@ async function addFriend(userId, friendId) {
 };
 
 const getUserByUserId = async (user_id) => {
-  console.log(user_id);
   const res = await fetch(`${process.env.REACT_APP_URL3001}/users/${user_id}`, {
       method: "GET",
       credentials: 'include',
@@ -292,9 +296,6 @@ const getUserByUserId = async (user_id) => {
   }
 
   const editUser = async (user) => {
-    console.log("frontend service user editting ");
-    console.log(user);
-
     const response = await fetch(`${process.env.REACT_APP_URL3001}/users/edit`, {
       method: 'PUT',
       credentials: 'include',
@@ -332,18 +333,16 @@ const changeUserAvailability = async (userID, availability) => {
     body: JSON.stringify({ availability }),
   });
   if (!res.ok) {
-    // Handle error
     console.error('Error updating user availability');
   } 
   const data = await res.text();
-  console.log("server data : "+ data);
   return data;
 }
   
 
 export default {
     getUsers, addUsers, deleteUsers, getOneUser, addUserPost, getSessionUser, addFriend, removeFriend,
-    getUserGroup, addUserGroup, getHangouts, addUserEvent, getFriends, removeHangoutsForFriends, addParticipantToPost, removeParticipantFromPost, editUser,
+    getUserGroup, deleteUserGroup, getHangouts, addUserEvent, getFriends, removeHangoutsForFriends, addParticipantToPost, removeParticipantFromPost, editUser,
     getAvailability, changeUserAvailability, saveApprovedFriends, getApprovedFriends, getUserByUserId
 
 }

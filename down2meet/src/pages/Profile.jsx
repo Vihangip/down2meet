@@ -42,7 +42,6 @@ function Profile() {
             return;
           }
         }
-        console.log(storedUser);
         await dispatch(getUsersAsync());
       } catch (error) {
         console.error('Error fetching data:', error);

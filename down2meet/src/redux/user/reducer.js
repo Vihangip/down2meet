@@ -2,8 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import { getUsersAsync, addUsersAsync, deleteUsersAsync, getOneUserAsync, addUserPostAsync, getSessionUserAsync, addUserEventAsync, 
         getFriendsAsync, getUserGroupsAsync, addUserGroupsAsync, getHangoutsAsync, removeHangoutsForFriendsAsync, addParticipantToPost, 
         removeParticipantFromPost, editUserAsync, getAvailabilityAsync, changeUserAvailabilityAsync } from "./thunks";
-import { addGroupsAsync } from "../groups/thunks";
-
 
 const INITIAL_STATE = {
     user: null,
@@ -12,7 +10,7 @@ const INITIAL_STATE = {
     friendsList: [],
     postList:[],
     eventList:[],
-    hangoutList:[], // List of post IDs
+    hangoutList:[],
     groupList:[]
 };
 
@@ -51,8 +49,6 @@ const userSlice = createSlice({
                 state.user = action.payload;
             })
             .addCase(getFriendsAsync.fulfilled,(state,action)=>{
-                console.log('reducers payload');
-                console.log(action.payload);
                 state.friendsList = action.payload;
             })            
             .addCase(getHangoutsAsync.fulfilled,(state,action)=>{
@@ -77,18 +73,16 @@ const userSlice = createSlice({
             .addCase(editUserAsync.fulfilled, (state, action) => {
                 state.userList = state.userList.map(user => {
                   if (user.user_id === action.payload.user_id) {
-                    return action.payload; // Replace the item with the updated one
+                    return action.payload;
                   }
-                  return user; // Keep the other items 
+                  return user;
                 })
             })
             .addCase(getAvailabilityAsync.fulfilled,(state,action) => {
                 state.availability = action.payload;
-                console.log("state.availability for get" +state.availability);
             })
             .addCase(changeUserAvailabilityAsync.fulfilled,(state,action) => {
                 state.availability = action.payload;
-                console.log("state.availability for change" +state.availability);
             });
     },
 });

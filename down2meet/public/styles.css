@@ -15,8 +15,6 @@
 
 html, body, #Home, #Home>div {
     height: 100%;
-
-    /* background-color: #32CD32; */
 }
 
 #root {
@@ -167,6 +165,7 @@ html, body, #Home, #Home>div {
     margin: 0;
     margin-top: 0;
     margin-bottom: 0;
+    padding-left: 15px;
     gap: 20px;
     padding-right: 15px;
     border-left: 1px solid #dcdcdc;
@@ -206,8 +205,8 @@ html, body, #Home, #Home>div {
 }
 
 .logo-image {
-    width: 100%; /* Adjust the width as needed */
-    max-height: 100%; /* Adjust the height as needed */
+    width: 100%;
+    max-height: 100%;
     padding: 10px;
 }
 
@@ -508,8 +507,8 @@ html, body, #Home, #Home>div {
   }
   
   .PostBar-SmallTimeInput {
-    width: 80px; /* Adjust the width as per your preference */
-    font-size: 12px; /* Adjust the font size as per your preference */
+    width: 80px; 
+    font-size: 12px; 
 
   }
 

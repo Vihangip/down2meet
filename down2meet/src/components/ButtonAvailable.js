@@ -8,7 +8,7 @@ export default function Button() {
   const userAvailability = useSelector((state) => state.users.availability);
   const [isBusy, setIsBusy] = useState(false);
   const user = JSON.parse(localStorage.getItem('user'));
-  let buttonAvailable = isBusy ? 'button busy' : 'button available';
+  const [buttonAvailable, setButtonAvailable] = useState('button available');
 
   const colorSwitch = () => {
     const primaryColor = '#32CD32';
@@ -17,7 +17,7 @@ export default function Button() {
   };
 
   useEffect(() => {
-    buttonAvailable = isBusy ? 'button busy' : 'button available';
+    setButtonAvailable(isBusy ? 'button busy' : 'button available');
     if(userAvailability === "Availability"){
       setIsBusy(false);
     } else if ( userAvailability === "Busy"){
@@ -25,31 +25,15 @@ export default function Button() {
     }
     colorSwitch();
   }, [userAvailability])
-  console.log("user availabiity: " + userAvailability)
+  
+    const handleClick = async () => {
 
-  // if (!userAvailability) {
-  //   console.log("loading.....")
-  //   // Return a loading state if the availability data is not available yet
-  //   return <div>Loading...</div>;
-  // }
+    if(userAvailability) {
+      colorSwitch();
+    }
 
-  const handleClick = async () => {
-
-  if(userAvailability) {
-    colorSwitch();
-  }
-
-    // Update user's availability in the database
     const availability = isBusy ? 'Available' : 'Busy';
     dispatch(changeUserAvailabilityAsync({userID: user.user_id, availability: availability}));
-    // const response = await fetch(`${process.env.REACT_APP_URL3001}/users/${user.user_id}/availability`, {
-    //   method: 'PUT',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({ availability }),
-    // });
-      // Only change the button state after a successful server response
     setIsBusy(!isBusy);
   };
 

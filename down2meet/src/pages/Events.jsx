@@ -7,10 +7,7 @@ import Calendar from '../components/Calendar';
 import Navbar from '../components/Navbar';
 import ButtonAvailable from '../components/ButtonAvailable';
 import Search from '../components/Search';
-import { useDispatch, useSelector } from 'react-redux';
-import { setUser } from '../redux/user/reducer';
-import { getSessionUserAsync, getUsersAsync, getOneUserAsync } from '../redux/user/thunks';
-import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import UserView from '../components/UserView';
 
 function Events() {
@@ -20,8 +17,6 @@ function Events() {
   const [viewSettings, setViewSettings] = useState(0);
   const currentUser = JSON.parse(localStorage.getItem('user'));
   const userAvailability = useSelector((state) => state.users.availability);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const colorSwitch = () => {
     const primaryColor = '#32CD32';
@@ -37,12 +32,8 @@ function Events() {
     const fetchFriends = async () => {
       try {
         const friendIDs = await service.getFriends(currentUser.user_id);
-        console.log("Friend IDs:", friendIDs);
-    
         const friendsPromises = friendIDs.map((friendID) => service.getOneUser(friendID));
         const friendsListData = await Promise.all(friendsPromises);
-    
-        console.log("Friend Details:", friendsListData);
         setFriends(friendsListData);
       } catch (error) {
         console.error("Error fetching friends:", error.message);
@@ -54,27 +45,18 @@ function Events() {
   }, [currentUser.user_id]);
 
   const handleSelectFriend = (friend) => {
-    console.log('Selecting friend:', friend);
     if (!selectedApprovedFriends.includes(friend.user_id)) {
       setSelectedApprovedFriends([...selectedApprovedFriends, friend]);
     }
   };
 
   const handleUnselectFriend = (friend) => {
-    console.log('Unselecting friend:', friend);
     setSelectedApprovedFriends(selectedApprovedFriends.filter(f => f !== friend));
   };
 
   const handleSaveApprovedFriends = async () => {
     try {
-      console.log('Saving friends:', selectedApprovedFriends);
-      // Mapping selectedApprovedFriends to extract friend IDs
       const friendsIds = selectedApprovedFriends.map(friend => friend.user_id);
-
-      // Debugging output to see the IDs being sent
-      console.log("Saving approved friends with IDs:", friendsIds);
-
-      // Save the selected approved friends to the database
       await service.saveApprovedFriends(currentUser.user_id, friendsIds);
       loadApprovedFriends();
     } catch (error) {
@@ -88,15 +70,11 @@ function Events() {
       const friendsIds = await service.getApprovedFriends(currentUser.user_id);
       const friendsPromises = friendsIds.map((friendID) => service.getUserByUserId(friendID));
       const approvedFriendsNames = await Promise.all(friendsPromises);
-      console.log("approvedfriends", approvedFriendsNames);
       setApprovedFriends(approvedFriendsNames);
-      console.log("approved", approvedFriends);
     } catch (error) {
       console.error('Error saving approved friends:', error.message);
     }
   }
-
-  
 
   return (
     <>
@@ -154,7 +132,6 @@ function Events() {
       <div className="Body-Right">
         <ButtonAvailable />
         <Search />
-        {/* <ActiveUsers /> */}
       </div>
     </>
   );

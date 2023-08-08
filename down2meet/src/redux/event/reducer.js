@@ -22,7 +22,6 @@ const eventSlice = createSlice({
                 state.eventList = state.eventList.filter((event) => event.id !== action.payload);
             })
             .addCase(updateEventAsync.fulfilled, (state, action) => {
-                // we find the event by id and then 
                 const foundIndex = state.eventList.findIndex(event => event.id === action.payload.id);
                 state.eventList[foundIndex] = action.payload;
             })

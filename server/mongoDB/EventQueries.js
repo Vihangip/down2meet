@@ -22,17 +22,11 @@ const queries = {
         return event;
     },
     editEvent:  async function (eventName) {
-        // can edit the event's name if given the event's name
-        // given event id and the fact that update button is pressed, updated all the key value pairs that
-        // user entered a value for.
         const eventEdited = await Event.updateOne({event: eventName }, {event: "Event completed"});
         return eventEdited;
     },
     findEvents: async function (filter) {
-        // Convert the filter to a string
         const filterAsStr = filter.toString();
-      
-        // returns results where the price is less than $filter.
         const searchResults = await Event.find({ price: { $lt: filterAsStr } });
         return searchResults;
       }

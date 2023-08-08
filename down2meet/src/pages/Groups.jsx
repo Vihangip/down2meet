@@ -1,10 +1,8 @@
-
 import BodyHeader from '../components/BodyHeader';
 import React from 'react';
 import { AddGroup } from '../components/addGroup';
 import Groups from '../components/Groups';
-import { getFriendsAsync, getSessionUserAsync, getUsersAsync } from '../redux/user/thunks';
-
+import { getFriendsAsync, getSessionUserAsync } from '../redux/user/thunks';
 import Navbar from '../components/Navbar';
 import ButtonAvailable from '../components/ButtonAvailable';
 import Search from '../components/Search';
@@ -33,7 +31,7 @@ function Group() {
       try {
         let storedUser = JSON.parse(localStorage.getItem('user'));
         if (storedUser) {
-          dispatch(setUser(storedUser)); // Initialize the user state with the stored data
+          dispatch(setUser(storedUser));
         } else {
         await dispatch(getSessionUserAsync());
         storedUser = JSON.parse(localStorage.getItem('user'));
@@ -42,14 +40,12 @@ function Group() {
           return;
         }
         await dispatch(getFriendsAsync(JSON.parse(localStorage.getItem('user'))));
-        // await dispatch(getPostsAsync());
         }
       }
       catch (error) {
         console.error('Error fetching data:', error);
       }
     };
-
     fetchUsers();
   }, [dispatch]);
 
@@ -68,7 +64,6 @@ function Group() {
       <div className="Body-Right">
         <ButtonAvailable />
         <Search />
-        {/* <ActiveUsers /> */}
         </div>
       </>
   );

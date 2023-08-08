@@ -1,7 +1,6 @@
 const Item = require('./Event');
 
 function generateEvents() {
-    // make a event
     const event1 = new Item({
         "id": "1",
         "user_id": "karat.wannissorn@gmail.com",
@@ -33,7 +32,6 @@ function generateEvents() {
         "groups":["friends, family"]
       });
     
-    // Save a event to db
     event1.save();
     event2.save();
     event3.save();

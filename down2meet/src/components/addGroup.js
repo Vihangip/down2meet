@@ -1,11 +1,9 @@
   import React from "react";
   import { useEffect, useState } from 'react';
   import { useDispatch, useSelector} from 'react-redux';
-  import { addGroupsAsync, getGroupsAsync, deleteGroupsAsync} from '../redux/groups/thunks';
-  import { handleCreateEvent } from "./Calendar";
-  import { getFriendsAsync, getSessionUserAsync, getUserGroupsAsync, addUserGroupsAsync } from '../redux/user/thunks';
+  import { getFriendsAsync, getUserGroupsAsync, addUserGroupsAsync } from '../redux/user/thunks';
   import service from "../redux/user/service";
-import { useNavigate } from "react-router-dom";
+  import { useNavigate } from "react-router-dom";
 
   const { v4: uuid } = require('uuid');
 
@@ -18,14 +16,14 @@ import { useNavigate } from "react-router-dom";
 
     const [selectedFriends, setSelectedFriends] = useState([]);
     const [friendNames, setFriendNames] = useState([]);
-    const [loading, setLoading] = useState(true); // Track the loading state
+    const [loading, setLoading] = useState(true);
 
 
     const groupsList = useSelector((state) => state.users.groupList);
     const currentUser = JSON.parse(localStorage.getItem('user'));
     const usersFriends = useSelector((state) => state.users.friendsList)
     const uniqueFriends = Array.from(new Set(usersFriends));  
-    const [friends, setFriends] = useState([]);
+    const [friends] = useState([]);
 
 
 
@@ -153,11 +151,9 @@ import { useNavigate } from "react-router-dom";
           <input type="text" id="iTitle" name="iTitle" ref={itemNameRef} />
           <br />  <br />
 
-          {/* add checkboxes for selecting friends */}
           <div>
           <label>Select Group Members:</label>
           <br />
-          {/* ChatGPT helped with the checkboxes */}
           {uniqueFriends.map((friend, index) => (
             <label key={friend}>
               <input
@@ -172,8 +168,6 @@ import { useNavigate } from "react-router-dom";
                 }
               }
               />
-              {/* {getUserNameByID(friend)} */}
-              {/* Render the friend name directly if available, else show loading */}
               {friendNames[index] || 'Loading...'}
               <br />
             </label>
@@ -182,7 +176,6 @@ import { useNavigate } from "react-router-dom";
 
           <div style={{ justifyContent: "left" }}>
             <input className='AvailabilityButton3' type="submit" id="submitButton" value="Add" />
-            {/* <input type="button" id="updateButton" value="Update" onClick={handleUpdateButton} /> */}
             <input className='AvailabilityButton3' type="button" id="deleteButton" value="Delete" onClick={handleDeleteButton} />
             <input className='AvailabilityButton3' type="reset" id="resetButton" value="Clear Form" />
           </div>

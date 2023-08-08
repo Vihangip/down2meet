@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useEffect } from "react";
 import { setUser } from '../redux/user/reducer';
 import { getOneUserAsync, getSessionUserAsync } from '../redux/user/thunks';
-import { getUsersAsync, editUserAsync } from '../redux/user/thunks';
+import { editUserAsync } from '../redux/user/thunks';
 
 
 const EditView = ({ onClose, user_id }) => {
@@ -15,12 +15,11 @@ const EditView = ({ onClose, user_id }) => {
           try {
             let storedUser = JSON.parse(localStorage.getItem('user'));
             if (storedUser) {
-              dispatch(setUser(storedUser)); // Initialize the user state with the stored data
+              dispatch(setUser(storedUser));
             } else {
             await dispatch(getSessionUserAsync());
             storedUser = JSON.parse(localStorage.getItem('user'));
             }
-            // await dispatch(getFriendsAsync(JSON.parse(localStorage.getItem('user')).user_id));
           }
           catch (error) {
             console.error('Error fetching data:', error);
@@ -29,7 +28,7 @@ const EditView = ({ onClose, user_id }) => {
         fetchPostsAndUsers();
     }, []); 
     
-    const user = useSelector(state => state.users.user);//JSON.parse(localStorage.getItem('user'));
+    const user = useSelector(state => state.users.user);
 
     const [new_name, setName] = useState(user.name);
     const [new_picture, setPicture] = useState(user.picture);
@@ -48,7 +47,7 @@ const EditView = ({ onClose, user_id }) => {
                 availability: user.availability
             }
         dispatch(editUserAsync(editedUser));
-        dispatch(getOneUserAsync(user_id)); //edited view doesn't save changes properly without this line 
+        dispatch(getOneUserAsync(user_id)); 
         localStorage.setItem('user', JSON.stringify(editedUser));
         dispatch(setUser(editedUser));
     }

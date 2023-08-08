@@ -6,11 +6,9 @@ import blankpic from '../assets/blank_profile.jpeg';
 import { addParticipantToPost, removeParticipantFromPost } from '../redux/user/thunks';
 import { deletePostAsync } from '../redux/posts/thunks';
 import { removeHangoutsForFriendsAsync} from '../redux/user/thunks';
-import { v4 as uuidv4 } from 'uuid';
 import { addEventAsync, deleteEventAsync, getEventAsync, removeEventParticipant } from '../redux/event/thunks';
 import { handleCreateEvent } from './Calendar'
 
-//for adding to Google Calendar, does not need to be stored anywhere
 export const postEvent = {
   title: '',
   description: '',
@@ -22,14 +20,12 @@ export const Post = ({ post }) => {
   const [user, setUser] = useState(null);
   const useruser = JSON.parse(localStorage.getItem('user'));
   const hangoutList = useSelector((state) => state.users.hangoutList);
-  const events = useSelector(state => state.event.eventList);
   const dispatch = useDispatch();
   const [showuserPost, setuserPost] = useState(false);
-  const [hasJoinedHangout, setHasJoinedHangout] = useState(hangoutList.includes(post.post_id)); // State variable to track if the user has joined the hangout
+  const [hasJoinedHangout, setHasJoinedHangout] = useState(hangoutList.includes(post.post_id));
   const calendarSignedIn= useSelector(state => state.reducer.googleCalendar);
 
   useEffect(() => {
-    // Fetch user information when the component mounts
     const fetchUser = async () => {
       try {
         const userData = await service.getOneUser(post.user_id);
@@ -55,13 +51,12 @@ export const Post = ({ post }) => {
   }, [post.user_id]);
 
   useEffect (() => {
-    dispatch(getEventAsync(useruser.user_id));          //////////////////////// 
+    dispatch(getEventAsync(useruser.user_id));        
   },[dispatch]);
 
   const handleAccept = () => {
     dispatch(addParticipantToPost({ postID: post.post_id, userID: useruser.user_id }));
     setHasJoinedHangout(true);
-
     handleAddEvent();
   };
 
@@ -75,14 +70,10 @@ export const Post = ({ post }) => {
     dispatch(removeHangoutsForFriendsAsync(post.post_id));
     dispatch(deletePostAsync(post.post_id));
     setHasJoinedHangout(false);
-    dispatch(deleteEventAsync(post.post_id)); //associated event has same id as posts
-    //console.log(post.post_id);
+    dispatch(deleteEventAsync(post.post_id));
   };
 
-  const handleAddEvent = () => {
-
-    const randomUUID = uuidv4();
-    
+  const handleAddEvent = () => {    
     const options = {
       year: 'numeric',
       month: '2-digit',
@@ -92,16 +83,12 @@ export const Post = ({ post }) => {
       hour12: true,
       timeZone: 'America/Vancouver',
     };
-
-    console.log(post.date);
-    console.log(post.start);
     const unformattedStartDate = new Date(
       post.date + 'T' + post.start
     );
     const unformattedEndDate = new Date(
       post.date + 'T' + post.end
     );
-    console.log(unformattedEndDate);
 
     const vancouverStartDate = new Intl.DateTimeFormat('en-US', options).format(unformattedStartDate);
     const vancouverEndDate = new Intl.DateTimeFormat('en-US', options).format(unformattedEndDate);
@@ -120,7 +107,6 @@ export const Post = ({ post }) => {
       "end": formattedEndDate,
       "groups": post.participants
     };
-    console.log("Post new_event")
     dispatch(addEventAsync(new_event));
 
     if (calendarSignedIn === true) {
@@ -128,30 +114,23 @@ export const Post = ({ post }) => {
       postEvent.description = post.status;
       postEvent.startingDate = formattedStartDate;
       postEvent.endingDate = formattedEndDate;
-      handleCreateEvent({origin: "Post"}); //only add event to Google Calendar if user is signed in
-      console.log("created event from post");
-    }
-    else {
-      console.log("not signed into calendar");
+      handleCreateEvent({origin: "Post"});
     }
 
   }
 
     if (!user) {
-      // Render a loading state or return null while user data is being fetched
       return <div>Loading...</div>;
     }
 
     return (
       <div className="Post">
-       {/* <img className="Post-UserInfo-Image" src={post.profilepic ? post.profilepic : blankpic} alt="" /> */}
        <img className="Post-UserInfo-Image" src={user.picture ? user.picture : blankpic} alt="" />
         <div className="Post-Container">
           <div key={post.id} className="Post-UserInfo">
             {user.availability ? 
             <p className='Post-Username-active'>{user.name}</p> : 
             <p className='Post-Username-inactive'>{user.name}</p>}
-            {/* ADD THE TIME WHEN POST WAS POSTED */}
           </div>
           <p className='Post-Status'>{post.status ? post.status : " "}</p>
 
@@ -187,16 +166,6 @@ export const Post = ({ post }) => {
                   <i className="fa-solid fa-location-dot"></i>
                 </div>
               }
-              {/* { !showuserPost && (
-            <div className="Post-InviteButtons-active">
-              <button className="accept-button" onClick={handleAccept}>
-                Join
-              </button>
-              <button className="reject-button" onClick={handleReject}>
-                Leave
-              </button>
-            </div>
-            )} */}
               {!showuserPost ?(
                 <div className="Post-InviteButtons-active">
                   {!hasJoinedHangout && (
@@ -245,7 +214,6 @@ export const Post = ({ post }) => {
                     Leave
                   </button>
                   )}
-                  
                 </div>
               ):
               (

@@ -1,8 +1,4 @@
-
-
 const UserView = ({user}) => {
-
-
 
     return (
         <div className="UserView">
