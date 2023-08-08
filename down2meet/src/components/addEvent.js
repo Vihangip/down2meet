@@ -21,14 +21,11 @@ export function AddEvent() {
   const calendarSignedIn= useSelector(state => state.reducer.googleCalendar);
   const dispatch = useDispatch();
   const currentUser = JSON.parse(localStorage.getItem('user'));
-
-  //const user = useSelector(state => state.reducer.user);
   useEffect (() => {
     dispatch(getSessionUserAsync());
     dispatch(getEventAsync(user.user_id));    
     dispatch(getUserGroupsAsync(currentUser.user_id));
-    //////////////////////// 
-  },[dispatch]);                      //////////////////////
+  },[dispatch]);                      
 
   useEffect(() => {
     const fetchPostsAndUsers = async () => {

@@ -12,6 +12,7 @@ export function AddGroup() {
   let newGroupName;
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [deleteGroupName, setDeleteGroupName] = useState('');
 
   const itemNameRef = React.useRef(null);
 
@@ -34,22 +35,7 @@ export function AddGroup() {
         console.error(error);
         setLoading(false); // Handle error, set loading to false
       });
-      
-    
-  }, []);
 
-const getUserNameByID = async (userid) => {
-  try {
-    const user = await service.getOneUser(userid);
-    friends.push(user);
-    return user.name;
-  } catch (error) {
-    // Use rejectWithValue to include the error message in the action payload
-    return;
-  }
-};
-
-  useEffect(() => {
     if (!currentUser){
       navigate('/');
       return;
@@ -60,10 +46,21 @@ const getUserNameByID = async (userid) => {
       .catch(error => {
         console.error(error);
         setLoading(false); // Handle error, set loading to false
-      });
+    });
       
     dispatch(getUserGroupsAsync(currentUser.user_id));
+    
   }, []);
+
+const getUserNameByID = async (userid) => {
+  try {
+    const user = await service.getOneUser(userid);
+    friends.push(user);
+    return user.name;
+  } catch (error) {
+    return;
+  }
+};
 
   useEffect(() => {
     // Resolve friend names once friends are fetched
@@ -73,8 +70,6 @@ const getUserNameByID = async (userid) => {
         .catch(error => console.error(error));
     }
   }, [!loading]);
-
-
 
 
   const handleFormSubmit = (event) => {
@@ -97,6 +92,7 @@ const getUserNameByID = async (userid) => {
         "name": newGroupName,
         "members": selectedFriends
       }));
+
       dispatch(getUserGroupsAsync(currentUser.user_id));
     
     // Clear the input field after successfully adding the group
@@ -104,27 +100,41 @@ const getUserNameByID = async (userid) => {
 
     // Reset selectedFriends state
     setSelectedFriends([]);
+
+    // Uncheck the checkboxes
+    const checkboxes = document.querySelectorAll('.add-events-checkbox');
+    checkboxes.forEach(checkbox => {
+      checkbox.checked = false;
+    });
     
   };
     
-
-  // ChatGPT helped with this function
-  const [deleteGroupName, setDeleteGroupName] = useState('');
 
   const handleDeleteButton = () => {
     // Check if the group name exists in groupsList
     const groupToDelete = groupsList.find(group => group.name === deleteGroupName);
-
     if (!groupToDelete) {
       alert("Group with the specified name does not exist!");
       return;
     }
-
     // Dispatch the deleteGroupsAsync thunk with the group ID to delete the group
     dispatch(deleteUserGroupAsync(groupToDelete));
+      // Clear the deleteGroupName input
+    setDeleteGroupName('');
   };
 
+const handleFormReset = () => {
+  itemNameRef.current.value = ""; // Clear group name input
 
+  // Reset selectedFriends state
+  setSelectedFriends([]);
+
+  // Uncheck the checkboxes
+  const checkboxes = document.querySelectorAll('.add-events-checkbox');
+  checkboxes.forEach(checkbox => {
+    checkbox.checked = false;
+  });
+};
 
   return (
     <div className="add-group-form-div">
@@ -163,9 +173,8 @@ const getUserNameByID = async (userid) => {
       </div> <br/>
       <div style={{ justifyContent: "left" }}>
           <input type="submit" id="submitButton" value="Add" />
-          <input type="reset" id="resetButton" value="Clear Form" />
+          {/* <input type="reset" id="resetButton" value="Clear Form" /> */}
         </div>
-        
         <br /> 
       <hr/> 
       <br /> 
@@ -178,7 +187,7 @@ const getUserNameByID = async (userid) => {
           id="deleteGroupName"
           name="deleteGroupName"
           value={deleteGroupName}
-          onChange={(e) => setDeleteGroupName(e.target.value)}
+          onChange={(e) => {setDeleteGroupName(e.target.value);}}
         />
         <br /><br /> 
 
