@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { handleCreateEvent } from './Calendar'
 import { getSessionUserAsync, getUserGroupsAsync } from "../redux/user/thunks";
-import moment from "moment";
 import { addEventAsync, getEventAsync, deleteEventAsync } from '../redux/event/thunks';
 import { setUser } from "../redux/user/reducer";
 
@@ -58,33 +57,10 @@ export function AddEvent() {
   const itemEndTimeRef = React.useRef(null);
   
   useEffect (() => {
-    dispatch(getEventAsync(user.user_id));          //////////////////////// 
-  },[dispatch]);                      //////////////////////
-
-  // useEffect(() => {
-  //   // Fetch and resolve all user names asynchronously for each group's members
-  //   Promise.all(groupsList.map(group => getGroupData(group)))
-  //     .then(data => setGroupData(data))
-  //     .catch(error => console.error(error));
-  // }, [groupsList]);
-
-
-  // const [groupData, setGroupData] = useState([]);
-
- // Function to fetch data for each group (including member names) based on group object
-//  const getGroupData = async (group) => {
-//   try {
-//     // Fetch the member names based on their user IDs
-//     const memberNames = await Promise.all(group.members.map(userid => service.getOneUser(userid).then(user => user.name)));
-//     return { ...group, members: memberNames };
-//   } catch (error) {
-//     return group;
-//   }
-// };
+    dispatch(getEventAsync(user.user_id));         
+  },[dispatch]);                      
 
   const [selectedGroups, setSelectedGroups] = useState([]);
-  const [isWeekly, setIsWeekly] = useState(false); // New state to track weekly checkbox
-
 
   let formattedStartDate;
   let formattedEndDate;
@@ -121,22 +97,9 @@ export function AddEvent() {
       formattedStartDate = startDate;
       formattedEndDate = endDate;
       let repetitionRule = null;
-  
-      if (isWeekly) {
-        // If the 'weekly' checkbox is checked, set the repetitionRule to repeat every 7 days
-        repetitionRule = {
-          frequency: 'WEEKLY',
-          interval: 1,
-          endDate: moment(endDate).add(6, 'weeks').toDate(), // Set the end date of the repetition (after 6 weeks)
-        };
-      }
     
       console.log('rep rule' + repetitionRule);
       console.log(repetitionRule);
-      // const repetitionRule = isWeekly ? { frequency: 'WEEKLY', interval: 1 } : null;
-
-      // the id value here gets replaces in when the post request is made. 
-      // but it is used as a key? todo; check if it can just be a constant
 
       dispatch(addEventAsync({
           "id": uuid(), 
@@ -189,18 +152,6 @@ export function AddEvent() {
         <label htmlFor="iDes">Event end:</label><br />
         <input type="date" id="iDes" name="iDes" ref={itemEndRef} /><br />
         <input type="time" id="iEndTime" name="iEndTime" ref={itemEndTimeRef} /><br /><br />
-
-        {/* Add the "weekly" checkbox */}
-        {/* <div>
-          <label htmlFor="iWeekly">Weekly:</label>
-          <input
-            type="checkbox"
-            id="iWeekly"
-            name="iWeekly"
-            checked={isWeekly}
-            onChange={(e) => setIsWeekly(e.target.checked)}
-          />
-        </div> <br /> */}
 
          {/* Render the checkboxes with group names */}
          <div>

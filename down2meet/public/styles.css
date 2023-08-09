@@ -485,7 +485,6 @@ html, body, #Home, #Home>div {
   }
   
   .PostBar-InputBar {
-    /* width: 350px; */
     width: 100px;
     height: 40px;
     border: 1px solid #8f8f8f;
@@ -951,13 +950,6 @@ color: white;
 
   .SearchBar {
     position: relative; 
-    /* height: 10%;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    padding: 10px 20px;
-    border: 1px solid #f3f3f3;
-    border-radius: 25px;
-    background-color: #f3f3f3; */
   }
   
   .SearchBar h1 {
@@ -999,12 +991,7 @@ color: white;
   .dropdown div:focus {
     background-color: #f3f3f3;
   }
-  
-  
-  
-  
-  
-  
+   
 
 /* ActiveUsers */
 .ActiveUsers {
@@ -1108,7 +1095,6 @@ color: white;
 }
 
 .AvailabilityButton {
-  /* border: 1px solid black; */
   background-color: var(--active-color);
   color: white;
   font-size: 20px;
@@ -1122,7 +1108,6 @@ color: white;
 }
 
 .AvailabilityButton2 {
-  /* border: 1px solid black; */
   background-color: var(--active-color);
   color: white;
   font-size: 20px;
@@ -1135,7 +1120,6 @@ color: white;
 }
 
 .AvailabilityButton3 {
-  /* border: 1px solid black; */
   background-color: var(--active-color);
   color: white;
   font-size: 17px;
@@ -1149,7 +1133,6 @@ color: white;
 }
 
 .AvailabilityButton4 {
-  /* border: 1px solid black; */
   background-color: var(--active-color);
   color: white;
   font-size: 20px;
@@ -1162,7 +1145,6 @@ color: white;
 }
 
 .AvailabilityButton5 {
-  /* border: 1px solid black; */
   background-color: var(--active-color);
   color: white;
   font-size: 20px;
@@ -1374,25 +1356,11 @@ color: white;
     color: gray;
   }
 
-  /* SortingContainer */
-  .sorting-container {
-    flex: 0 0 200px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-start;
-    padding: 10px;
-  }
-
 
 /* EVENT STYLES */
 .calendar-page {
     margin-bottom: 5vh;
-    /* margin-top: 0; */
 }
-
-/* .availability-page.button {
-     background-color: blue; 
-} */
 
 .add-event-form-div {
     margin-bottom: 5vh;

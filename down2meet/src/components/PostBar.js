@@ -25,7 +25,7 @@ export function PostBar() {
   const [date, setDate] = useState('');
   const [location, setLocation] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
-  const [selectedOption] = useState("Everyone"); // Controls which group
+  const [selectedOption] = useState("Everyone");
   const user = JSON.parse(localStorage.getItem('user'));
   const navigate = useNavigate();
   const calendarSignedIn= useSelector(state => state.reducer.googleCalendar);

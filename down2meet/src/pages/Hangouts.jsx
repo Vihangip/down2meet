@@ -67,7 +67,6 @@ function Hangouts() {
       <div className="Body-Right">
         <ButtonAvailable />
         <Search />
-        {/* <ActiveUsers /> */}
         </div>
       </>
   );

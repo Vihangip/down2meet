@@ -59,11 +59,6 @@ function Home() {
     return <div>Loading...</div>;
   }
 
-
-  const handleUserProfileClick = (userId) => {
-    navigate(`/user/${userId}`); // Navigate to the UserProfile component with the selected userId
-  };
-
   return (
     <>
       <div className="Body-Left">
@@ -88,7 +83,6 @@ function Home() {
       <div className="Body-Right">
         <ButtonAvailable />
         <Search />
-        {/* <ActiveUsers />  */}
         </div>
       </>
     

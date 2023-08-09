@@ -76,7 +76,6 @@ function FriendProfile() {
       <div className="Body-Right">
         <ButtonAvailable />
         <Search />
-        {/* <ActiveUsers /> */}
       </div>
     </>
   );

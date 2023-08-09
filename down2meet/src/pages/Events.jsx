@@ -122,10 +122,7 @@ function Events() {
             <button className='AvailabilityButton2' onClick={() => setViewSettings(2)}>Set Availability</button>
           </>}
           </div>
-
-
-            <div className='middle-line'></div>
-
+          <div className='middle-line'></div>
           <div className="Calendar"> <Calendar /> </div>
           <div className="Calendar"> <Event /> </div>
         </div>

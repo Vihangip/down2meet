@@ -24,8 +24,6 @@ const session = require('express-session');
 const passport = require('passport');
 require('./passport');
 
-const { ensureAuthenticated } = require('./authMiddleware');
-
 var app = express();
 app.use(cors(
   {
@@ -74,7 +72,7 @@ app.use('/groups', groupsRouter);
 app.use('/session', sessionRouter);
 
 app.use('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../down2meet/build', 'index.html')); // any routes not picked up by your api or routes will be directed to your path
+  res.sendFile(path.join(__dirname, '../down2meet/build', 'index.html')); 
 });
 
 }
