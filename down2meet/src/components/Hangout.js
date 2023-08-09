@@ -1,9 +1,9 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import service from '../redux/user/service';
 import { useState, useEffect } from 'react';
 import blankpic from '../assets/blank_profile.jpeg';
-import { addParticipantToPost, removeParticipantFromPost  } from '../redux/user/thunks';
+import { removeParticipantFromPost  } from '../redux/user/thunks';
 import { deletePostAsync } from '../redux/posts/thunks';
 import { removeHangoutsForFriendsAsync} from '../redux/user/thunks';
 import HangoutParticipant from './HangoutParticipant';
@@ -17,7 +17,6 @@ const Hangout = ({ post }) => {
   const [showuserPost, setuserPost] = useState(false);
 
   useEffect(() => {
-    // Fetch user information when the component mounts
     const fetchUser = async () => {
       try {
         const userData = await service.getOneUser(post.user_id);
@@ -39,17 +38,12 @@ const Hangout = ({ post }) => {
   }, [post.user_id]);
 
   useEffect (() => {
-    dispatch(getEventAsync(useruser.user_id));          //////////////////////// 
+    dispatch(getEventAsync(useruser.user_id));          
   },[dispatch]);
 
-  // const handleAccept = () => {
-  //   dispatch(addParticipantToPost({ postID: post.post_id, userID: useruser.user_id }));
-  // };
-
   const handleReject = () => {
-    console.log("button press");
     dispatch(removeParticipantFromPost({ postID: post.post_id, userID: useruser.user_id }));
-    dispatch(removeEventParticipant({ eventID: post.post_id, userID: useruser.user_id })); //event and post have same IDs 
+    dispatch(removeEventParticipant({ eventID: post.post_id, userID: useruser.user_id }));
   };
 
   const handleDelete = () => {
@@ -59,13 +53,12 @@ const Hangout = ({ post }) => {
   };
 
     if (!user) {
-      // Render a loading state or return null while user data is being fetched
       return <div>Loading...</div>;
     }
 
     return (
       <div className="Post">
-        <img className="Post-UserInfo-Image" src={post.profilepic ? post.profilepic : blankpic} alt="" />
+       <img className="Post-UserInfo-Image" src={user.picture ? user.picture : blankpic} alt="" />
         <div className="Post-Container">
           <div className="Hangout-Top">
             <div className='Hangout-UserInfo'>
@@ -73,7 +66,6 @@ const Hangout = ({ post }) => {
                 {user.availability ? 
                 <p className='Post-Username-active'>{user.name}</p> : 
                 <p className='Post-Username-inactive'>{user.name}</p>}
-                {/* ADD THE TIME WHEN POST WAS POSTED */}
               </div>
               <p className='Post-Status'>{post.status ? post.status : " "}</p>
             </div>
@@ -122,12 +114,6 @@ const Hangout = ({ post }) => {
                 </div>
               }
             <div className="Hangouts-InviteButtons-active">
-              {/* <button className="accept-button" onClick={handleAccept}>
-                Join
-              </button>
-              <button className="hangout-reject-button" onClick={handleReject}>
-                Leave
-              </button> */}
               {!showuserPost ?(
                 <div className="Hangouts-InviteButtons-active">
                   <button className="reject-button" onClick={handleReject}>
@@ -158,13 +144,7 @@ const Hangout = ({ post }) => {
             <p>{post.location}</p>
           </div>
           <div className="Hangouts-InviteButtons-inactive">
-            {/* <button className="accept-button" onClick={handleAccept}>
-              Join
-            </button> */}
-            {/* <button className="hangout-reject-button" onClick={handleReject}>
-              Leave
-            </button> */}
-                          {!showuserPost ?(
+            {!showuserPost ?(
                 <div className="Hangouts-InviteButtons-inactive">
                   <button className="reject-button" onClick={handleReject}>
                     Leave

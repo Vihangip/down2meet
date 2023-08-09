@@ -11,8 +11,6 @@ var groupsRouter = require('./routes/groups');
 var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
 var sessionRouter = require('./routes/session');
-const generateEvent = require('./mongoDB/generateEvents');
-const generateGroups = require('./mongoDB/generateGroups');
 const crypto = require('crypto');
 
 function generateRandomString(length) {
@@ -26,18 +24,11 @@ const session = require('express-session');
 const passport = require('passport');
 require('./passport');
 
-const { ensureAuthenticated } = require('./authMiddleware');
-
 var app = express();
-
-//const URL = process.env.REACT_APP_URL3000;
-//console.log(URL)
-console.log(`${process.env.REACT_APP_URL3000}`);
-
 app.use(cors(
   {
-  origin: `${process.env.REACT_APP_URL3000}`, //automatically uses https://down2meet.onrender.com when running on render
-  credentials: true, // Allows cookies to be sent with the request
+  origin: `${process.env.REACT_APP_URL3000}`,
+  credentials: true,
 }
 ));
 
@@ -46,14 +37,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use(express.static(path.join(__dirname, '../down2meet/build'))); // assuming your React project's build directory is 'down2meet/build'
+app.use(express.static(path.join(__dirname, '../down2meet/build')));
 
 app.use(
   session({
     secret: secretKey,
     resave: false,
-    saveUninitialized: false,
-    // expires: new Date(Date.now() + 60 * 60 * 1000),
+    saveUninitialized: false
   })
 );
 
@@ -77,13 +67,12 @@ app.use('/auth', authRouter);
 app.use('/', indexRouter);
 app.use('/posts', postsRouter);
 app.use('/users', usersRouter);
-// app.use('/calendar', calendarRouter);
 app.use('/event', eventRouter);
 app.use('/groups', groupsRouter);
 app.use('/session', sessionRouter);
 
 app.use('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../down2meet/build', 'index.html')); // any routes not picked up by your api or routes will be directed to your path
+  res.sendFile(path.join(__dirname, '../down2meet/build', 'index.html')); 
 });
 
 }

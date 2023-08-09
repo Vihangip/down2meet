@@ -3,18 +3,11 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { handleCreateEvent } from './Calendar'
 import { getSessionUserAsync, getUserGroupsAsync } from "../redux/user/thunks";
-import { addEventAsync, getEventAsync, deleteEventAsync, updateEventAsync } from '../redux/event/thunks';
-import moment from "moment";
-import { momentLocalizer } from 'react-big-calendar';
-
-
-import service from '../redux/user/service';
-
-// const localizer = momentLocalizer(moment);
+import { addEventAsync, getEventAsync, deleteEventAsync } from '../redux/event/thunks';
+import { setUser } from "../redux/user/reducer";
 
 const { v4: uuid } = require('uuid');
 
-//for adding to Google Calendar, does not need to be stored anywhere
 export const googleEvent = {
   title: '',
   description: '',
@@ -27,22 +20,31 @@ export function AddEvent() {
   const calendarSignedIn= useSelector(state => state.reducer.googleCalendar);
   const dispatch = useDispatch();
   const currentUser = JSON.parse(localStorage.getItem('user'));
-
-  //const user = useSelector(state => state.reducer.user);
   useEffect (() => {
     dispatch(getSessionUserAsync());
     dispatch(getEventAsync(user.user_id));    
     dispatch(getUserGroupsAsync(currentUser.user_id));
-    //////////////////////// 
-  },[dispatch]);                      //////////////////////
+  },[dispatch]);                      
 
+  useEffect(() => {
+    const fetchPostsAndUsers = async () => {
+      try {
+        let storedUser = JSON.parse(localStorage.getItem('user'));
+        if (storedUser) {
+          dispatch(setUser(storedUser));
+        } else {
+        await dispatch(getSessionUserAsync());
+        storedUser = JSON.parse(localStorage.getItem('user'));
+        }
+      }
+      catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchPostsAndUsers();
+  }, []); 
 
- // const user = useSelector(state => state.users.user);
-  
   const user = JSON.parse(localStorage.getItem('user'));
-  const events = useSelector(state => state.event.eventList);
-  // Extract unique groups from the 'events' array
-  const uniqueGroups = Array.from(new Set(events.flatMap(event => event.groups)));
 
   const groupsList = useSelector((state) => state.users.groupList);
 
@@ -55,41 +57,16 @@ export function AddEvent() {
   const itemEndTimeRef = React.useRef(null);
   
   useEffect (() => {
-    dispatch(getEventAsync(user.user_id));          //////////////////////// 
-  },[dispatch]);                      //////////////////////
+    dispatch(getEventAsync(user.user_id));         
+  },[dispatch]);                      
 
-  // useEffect(() => {
-  //   // Fetch and resolve all user names asynchronously for each group's members
-  //   Promise.all(groupsList.map(group => getGroupData(group)))
-  //     .then(data => setGroupData(data))
-  //     .catch(error => console.error(error));
-  // }, [groupsList]);
-
-
-  // const [groupData, setGroupData] = useState([]);
-
- // Function to fetch data for each group (including member names) based on group object
-//  const getGroupData = async (group) => {
-//   try {
-//     // Fetch the member names based on their user IDs
-//     const memberNames = await Promise.all(group.members.map(userid => service.getOneUser(userid).then(user => user.name)));
-//     return { ...group, members: memberNames };
-//   } catch (error) {
-//     return group;
-//   }
-// };
-
-  
-  // Add selectedGroups state and setSelectedGroups function
   const [selectedGroups, setSelectedGroups] = useState([]);
-  const [isWeekly, setIsWeekly] = useState(false); // New state to track weekly checkbox
-
 
   let formattedStartDate;
   let formattedEndDate;
 
   const handleFormSubmit = (event) => {
-    event.preventDefault(); // Prevents the default form submission behavior
+    event.preventDefault();
 
   
     const options = {
@@ -117,26 +94,12 @@ export function AddEvent() {
     const endDate = new Date(vancouverEndDate);
 
 
-      // Your form submit logic here
       formattedStartDate = startDate;
       formattedEndDate = endDate;
       let repetitionRule = null;
-  
-      if (isWeekly) {
-        // If the 'weekly' checkbox is checked, set the repetitionRule to repeat every 7 days
-        repetitionRule = {
-          frequency: 'WEEKLY',
-          interval: 1,
-          endDate: moment(endDate).add(6, 'weeks').toDate(), // Set the end date of the repetition (after 6 weeks)
-        };
-      }
     
       console.log('rep rule' + repetitionRule);
       console.log(repetitionRule);
-      // const repetitionRule = isWeekly ? { frequency: 'WEEKLY', interval: 1 } : null;
-
-      // the id value here gets replaces in when the post request is made. 
-      // but it is used as a key? todo; check if it can just be a constant
 
       dispatch(addEventAsync({
           "id": uuid(), 
@@ -155,12 +118,11 @@ export function AddEvent() {
       if (calendarSignedIn === true) {
         googleEvent.title = (itemNameRef.current.value);
         googleEvent.description = (itemDescRef.current.value);
-        googleEvent.startingDate = (startDate);//startDate);
-        googleEvent.endingDate = (endDate);//endDate);
-        handleCreateEvent(); //only add event to Google Calendar if user is signed in
+        googleEvent.startingDate = (startDate);
+        googleEvent.endingDate = (endDate);
+        handleCreateEvent({origin: "addEvent"});
       }
     };
-    
 
 
   const handleDeleteButton = () => {
@@ -169,7 +131,7 @@ export function AddEvent() {
 
   return (
     <div className="add-event-form-div">
-      <h1>Add your Availability</h1>
+      <h1>Set your Availability</h1>
       <form className="event-form" onSubmit={handleFormSubmit}>
         <hr /> <br />
         <label htmlFor="iTitle">Title:</label>
@@ -191,29 +153,16 @@ export function AddEvent() {
         <input type="date" id="iDes" name="iDes" ref={itemEndRef} /><br />
         <input type="time" id="iEndTime" name="iEndTime" ref={itemEndTimeRef} /><br /><br />
 
-        {/* Add the "weekly" checkbox */}
-        {/* <div>
-          <label htmlFor="iWeekly">Weekly:</label>
-          <input
-            type="checkbox"
-            id="iWeekly"
-            name="iWeekly"
-            checked={isWeekly}
-            onChange={(e) => setIsWeekly(e.target.checked)}
-          />
-        </div> <br /> */}
-
          {/* Render the checkboxes with group names */}
          <div>
           <label>Select Group:</label>
           <br />
-          {/* Map through groupsList and render checkboxes with group names */}
           {groupsList.map((group) => (
             <label key={group.id}>
               <input
                 className="add-events-checkbox"
                 type="checkbox"
-                value={group.name} // Use unique identifier (e.g., group ID) as the value
+                value={group.name}
                 onChange={(e) => {
                   const { checked, value } = e.target;
                   setSelectedGroups((prevSelectedGroups) =>
@@ -230,10 +179,10 @@ export function AddEvent() {
         </div>
         <br /><br />
 
-        <div style={{ justifyContent: "left" }}>
-          <input type="submit" id="submitButton" value="Add" />
-          <input type="button" id="deleteButton" value="Delete" onClick={handleDeleteButton} />
-          <input type="reset" id="resetButton" value="Clear Form" />
+        <div style={{ justifyContent: "left", display: "flex", gap: "5px" }}>
+          <input className='AvailabilityButton3' type="submit" id="submitButton" value="Add" />
+          <input className='AvailabilityButton3' type="button" id="deleteButton" value="Delete" onClick={handleDeleteButton} />
+          <input className='AvailabilityButton3' type="reset" id="resetButton" value="Clear Form" />
         </div>
         <br /> <br /> <br />
         <hr /> <br />

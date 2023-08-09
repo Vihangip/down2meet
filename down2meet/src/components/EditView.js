@@ -2,40 +2,38 @@ import { useSelector, useDispatch } from "react-redux";
 import { useState } from 'react';
 import { useEffect } from "react";
 import { setUser } from '../redux/user/reducer';
-import { getSessionUserAsync } from '../redux/user/thunks';
-import { getUsersAsync } from '../redux/user/thunks';
-//import { editUserAsync } from '../reducers/items/thunks';
+import { getOneUserAsync, getSessionUserAsync } from '../redux/user/thunks';
+import { editUserAsync } from '../redux/user/thunks';
 
 
-const EditView = ({ onClose}) => {
+const EditView = ({ onClose, user_id }) => {
 
     const dispatch = useDispatch();
 
     useEffect(() => {
         const fetchPostsAndUsers = async () => {
           try {
-            // Check if there is user data in local storage
-            const storedUser = JSON.parse(localStorage.getItem('user'));
+            let storedUser = JSON.parse(localStorage.getItem('user'));
             if (storedUser) {
-              dispatch(setUser(storedUser)); // Initialize the user state with the stored data
+              dispatch(setUser(storedUser));
             } else {
-              await dispatch(getSessionUserAsync()); // Fetch user data if it's not in local storage
+            await dispatch(getSessionUserAsync());
+            storedUser = JSON.parse(localStorage.getItem('user'));
             }
-            await dispatch(getUsersAsync());
-          } catch (error) {
+          }
+          catch (error) {
             console.error('Error fetching data:', error);
           }
         };
-    
         fetchPostsAndUsers();
-    }, [dispatch]); 
+    }, []); 
     
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = useSelector(state => state.users.user);
 
     const [new_name, setName] = useState(user.name);
     const [new_picture, setPicture] = useState(user.picture);
 
-    const handleEdit = () => {
+    const handleSave = () => {
         const editedUser = 
             { 
                 user_id: user.user_id,
@@ -48,7 +46,10 @@ const EditView = ({ onClose}) => {
                 hangouts: user.hangouts,
                 availability: user.availability
             }
-        //dispatch(editUserAsync(editedUser));
+        dispatch(editUserAsync(editedUser));
+        dispatch(getOneUserAsync(user_id)); 
+        localStorage.setItem('user', JSON.stringify(editedUser));
+        dispatch(setUser(editedUser));
     }
 
     return (
@@ -64,7 +65,7 @@ const EditView = ({ onClose}) => {
                         </div>
 
                         <br />
-                        <button className="buttons" onClick={handleEdit}> Save </button>
+                        <button className="buttons" onClick={handleSave}> Save </button>
                     </div>
                 </div>
         

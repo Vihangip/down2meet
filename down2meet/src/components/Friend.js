@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setUser } from '../redux/user/reducer';
 import { useNavigate } from "react-router-dom";
-//require('dotenv').config();
 
 function Friends() {
   const dispatch = useDispatch();
-  // const { user } = useSelector((state) => state.users);
   const user = JSON.parse(localStorage.getItem('user'));
   const [friendsData, setFriendsData] = useState([]);
-  const [filterByAvailability, setFilterByAvailability] = useState('All');
-
+  const [activeFilter, setActiveFilter] = useState('All');
 
   useEffect(() => {
     if (user) {
+      // Fetch friendsData and set it in the component's state
       fetch(`${process.env.REACT_APP_URL3001}/users/${user.user_id}/friendsData`)
         .then((response) => {
           if (!response.ok) {
@@ -29,44 +27,41 @@ function Friends() {
           console.error('Error:', error);
         });
     }
-  }, []); // Empty dependency array, so the effect runs only once on mount
+  }, []);
 
   const handleAvailabilityFilter = (availability) => {
-    setFilterByAvailability(availability);
+    setActiveFilter(availability);
   };
 
   const navigate = useNavigate(); 
   const handleProfileClick = (friendInfo) => {
-    navigate('/FriendProfile', { state: { friendInfo } });   ///////
+    navigate('/FriendProfile', { state: { friendInfo } });
   };
 
-
   const filteredFriends = friendsData.filter((friend) => {
-    if (filterByAvailability === 'All') {
+    if (activeFilter === 'All') {
       return true;
     } else {
-      return friend.availability === filterByAvailability;
+      return friend.availability === activeFilter;
     }
   });
 
   return (
     <div>
-      <div>
-        <button onClick={() => handleAvailabilityFilter('All')}>All</button>
-        <button onClick={() => handleAvailabilityFilter('Available')}>Available</button>
-        <button onClick={() => handleAvailabilityFilter('Busy')}>Busy</button>
+      <div className='Friend-Button-Container'>
+        <button className={`Friend-Button${activeFilter === 'All' ? 'active' : ''}`} onClick={() => handleAvailabilityFilter('All')}>All</button>
+        <button className={`Friend-Button${activeFilter === 'Available' ? 'active' : ''}`} onClick={() => handleAvailabilityFilter('Available')}>Available</button>
+        <button className={`Friend-Button${activeFilter === 'Busy' ? 'active' : ''}`} onClick={() => handleAvailabilityFilter('Busy')}>Busy</button>
       </div>
       {filteredFriends.map((friend) => (
-        <div>
-        <div className="friend-container" key={friend.user_id}>
-          <img className="friend-image" src={friend.picture} alt="pfp" />
-          <p className="friend-info">{friend.name}</p>
-          <div className="friend-container-button">
-          <button className="friend-info" onClick={() => handleProfileClick({ user_id: friend.user_id, picture: friend.picture, name: friend.name, email: friend.email})}>See Profile</button>
-        </div>
-
-        </div>
-
+        <div key={friend.user_id}>
+          <div className="friend-container" 
+              onClick={() => handleProfileClick({ user_id: friend.user_id, picture: friend.picture, name: friend.name, email: friend.email })}>
+            <img className="friend-image" src={friend.picture} alt="pfp" />
+            {friend.availability === "Available" ? 
+            <h2 className="UserViewNameActive">{friend.name}</h2> : 
+            <h2 className="UserViewNameInactive">{friend.name}</h2>}
+          </div>
         </div>
       ))}
     </div>

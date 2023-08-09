@@ -9,10 +9,6 @@ const queries = {
         const posts = await Post.find(filter);
         return posts;
     },
-    // getOnePost: async function (filter) {
-    //     const post = await Post.findOne(filter);
-    //     return post;
-    // }
     deleteOnePost: async function (filter) {
         await Post.deleteOne(filter);
     }

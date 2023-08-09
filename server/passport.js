@@ -1,9 +1,6 @@
-//require('dotenv').config();
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const User = require('./mongoDB/User'); // Replace this with the path to your user model
-
-
+const User = require('./mongoDB/User'); 
 
 passport.serializeUser((user, done) => {
     done(null, user.id);
@@ -27,14 +24,11 @@ passport.use(
       },
       async (accessToken, refreshToken, profile, done) => {
         try {
-          // Check if the user already exists in the database
           const existingUser = await User.findOne({ user_id: profile.id });
   
           if (existingUser) {
-            // User already exists, return the user
             done(null, existingUser);
           } else {
-            // User does not exist, create a new user and save it to the database
             const newUser = new User({
               user_id: profile.id,
               email: profile.emails[0].value,

@@ -1,28 +1,28 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
-import ButtonAvailable from '../components/ButtonAvailable';
-import Search from '../components/Search';
 import landingimage from '../assets/landingimage.jpg';
 import logo from '../assets/D2MLogo.png';
-//require('dotenv').config();
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 
 export default function LoginPage() {
-
-  const URL = `${process.env.REACT_APP_URL3001}`;
+  const navigate = useNavigate();
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user !== null) {
+      navigate('/Home');
+    }
+  }, [navigate]);
 
   const handleLogin = () => {
-
     window.location.href = `${process.env.REACT_APP_URL3001}/auth/google`;
   }
 
   return (
     <div className='LoginPage'>
       <img src={landingimage} alt="landingimage" className="landingimage" />
-
       <img src={logo} alt="logo" className="login-logo" />
       <button onClick={handleLogin} className='google-login-button-front'>Login with Google</button>
-      
     </div>
         
   );

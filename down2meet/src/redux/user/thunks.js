@@ -16,7 +16,6 @@ export const getOneUserAsync = createAsyncThunk(
         const user = await service.getOneUser(userID);
         return user;
       } catch (error) {
-        // Use rejectWithValue to include the error message in the action payload
         return rejectWithValue(error.message);
       }
     }
@@ -96,13 +95,6 @@ export const addUserGroupsAsync = createAsyncThunk(
     }
   );
   
-//   export const getUserEventsAsync = createAsyncThunk(
-//     'users/getUserEventAsync',
-//     async (user_id) => {
-//         return await service.getFriends(user_id);
-//     }
-// );
-
 export const getHangoutsAsync = createAsyncThunk(
   'users/getHangoutsAsync',
   async (user_id) => {
@@ -127,7 +119,27 @@ export const addParticipantToPost = createAsyncThunk(
 export const removeParticipantFromPost = createAsyncThunk(   
     'users/removeParticipantFromPost',
     async ({postID, userID}) => {
-      console.log("user thunk for remove");
         return await service.removeParticipantFromPost(postID, userID);
     }
+);
+
+export const editUserAsync = createAsyncThunk(
+  'users/editUserAsync',
+  async (user) => {
+    return await service.editUser(user);
+  }
+);
+
+export const getAvailabilityAsync = createAsyncThunk(   
+  'users/getAvailabilityAsync',
+  async (userID) => {
+      return await service.getAvailability(userID);
+  }
+);
+
+export const changeUserAvailabilityAsync = createAsyncThunk(
+  'users/changeUserAvailabilityAsync',
+  async ({userID,availability}) => {
+    return await service.changeUserAvailability(userID, availability);
+  }
 );

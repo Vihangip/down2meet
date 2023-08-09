@@ -30,7 +30,7 @@ const HangoutParticipant = ({ participant }) => {
       }
 
     return (
-      <Link to={`/user/${user.user_id}`}> {/* Add the Link to navigate to the user's profile */}
+      <Link to={`/user/${user.user_id}`}>
       <img className="Hangouts-Participants-Image" src={user.picture ? user.picture : blankpic} alt="" />
     </Link>
     )

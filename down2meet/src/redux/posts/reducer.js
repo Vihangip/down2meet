@@ -25,10 +25,10 @@ const postSlice = createSlice({
             })
             .addCase(addPostAsync.fulfilled, (state, action) => {
                 state.addPost = REQUEST_STATE.FULFILLED;
+                state.friendsPostList.push(action.payload);
                 state.postList.push(action.payload);
             })
             .addCase(deletePostAsync.fulfilled, (state, action) => {
-                // state.postList = state.postList.filter((post) => post.id !== action.payload);
                  state.friendsPostList = state.friendsPostList.filter((post) => post.post_id !== action.payload);
             })
             .addCase(getFriendsPostsAsync.fulfilled, (state, action) => {
