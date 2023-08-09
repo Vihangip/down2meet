@@ -1,7 +1,6 @@
 const queries = require ('../mongoDB/EventQueries');
 const { v4: uuid } = require('uuid');
 
-
 var express = require('express');
 const User = require('../mongoDB/User');
 var router = express.Router();

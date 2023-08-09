@@ -47,14 +47,8 @@ export default function Event(props) {
     showGroups = true;
   }
 
-  // ChatGPT helped me learn to useState to hide and show content!
-  const [showPopUp, setShowPopUp] = useState(false);
-
   const dispatch = useDispatch();
 
-  const togglePopUpCard = () => {
-    setShowPopUp(!showPopUp);
-  };
 
   const handleDelete = () => {
     dispatch(deleteEventAsync(selectedEvent.id));
@@ -74,10 +68,6 @@ export default function Event(props) {
     };
     return { style };
   };
-
-  // const showReoccurence = (selectedEvent?.repetitionRule != null);
-  // console.log(selectedEvent.repetitionRule.frequency);
-  // console.log(selectedEvent);
 
   return (
     <div className="calendar-page">
@@ -102,9 +92,6 @@ export default function Event(props) {
                   <p>Start: {moment(selectedEvent.start).format('LLLL')}</p>
                   <p>End: {moment(selectedEvent.end).format('LLLL')}</p>
                   {showGroups && <p>Groups: {selectedEvent.groups.join(", ")}</p>}
-                  {/* {showReoccurence && <p>Re-occurrs: {selectedEvent?.repetitionRule?.frequency}</p>} */}
-
-
                   <button className="event-delete-button" onClick={handleDelete}>Delete</button>
                   <button className="minimize-button" onClick={removePopUp}>X</button>
                 </div>

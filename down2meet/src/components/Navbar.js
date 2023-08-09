@@ -1,14 +1,11 @@
-
 import { NavLink } from "react-router-dom";
 import React from 'react';
 import logo from '../assets/D2MLogo.png';
 import logo1265 from '../assets/logo-notext.png';
-import '../css/navigation.css';
 
 import Logout from "./Logout";
 
 export default function Navbar() {
-
     return (
         <nav className="Navbar">
             <div className="topnav">

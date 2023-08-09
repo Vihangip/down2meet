@@ -183,8 +183,6 @@ router.delete('/:userId/:groupId/deleteGroup', async function(req, res, next) {
   }
   groups.splice(groupIndex, 1);
 
-  
-
   await userWithGroup.save();
   res.status(200).send(groupId);
 
@@ -244,9 +242,7 @@ router.get('/:user_id/friends', async(req, res, next) => {
   } else {
     return res.send(foundUser.friends);
   }
-  
 });
-
 
 router.post('/:userId/addGroup', async(req, res) => {
   try {
@@ -260,7 +256,6 @@ router.post('/:userId/addGroup', async(req, res) => {
       user.groups.push(group);
       await user.save();
     }
-
     return res.send(group);
   } catch (error) {
     console.error(error);
@@ -275,7 +270,6 @@ router.get('/:user_id/groups', async(req, res, next) => {
   } else {
     return res.send(foundUser.groups);
   }
-  
 });
 
 router.put('/:post_id/remove-from-hangouts', async (req, res) => {
@@ -348,11 +342,9 @@ router.put('/edit', async function (req, res, next) {
   if (!req.body.user_id) {
     return res.status(400).send({ message: 'Require UserID!' });
   }
-
   const user = await userQueries.editUser(req.body);
 
   return res.send(user);
-
 });
 
 module.exports = router;
