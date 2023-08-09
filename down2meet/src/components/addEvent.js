@@ -48,7 +48,6 @@ export function AddEvent() {
 
   const groupsList = useSelector((state) => state.users.groupList);
 
-  const itemIDRef = React.useRef(null);
   const itemNameRef = React.useRef(null);
   const itemDescRef = React.useRef(null);
   const itemStartRef = React.useRef(null);
@@ -124,39 +123,42 @@ export function AddEvent() {
       }
     };
 
-
-  const handleDeleteButton = () => {
-    dispatch(deleteEventAsync(itemIDRef.current.value));
-  };
-
   return (
     <div className="add-event-form-div">
-      <h1>Set your Availability</h1>
+      <h2> Add to your schedule </h2>
       <form className="event-form" onSubmit={handleFormSubmit}>
-        <hr /> <br />
-        <label htmlFor="iTitle">Title:</label>
+
+      <div className="in-line addeventtitle">
+        <label htmlFor="iTitle">Title</label>
         <br />
         <input type="text" id="iTitle" name="iTitle" ref={itemNameRef} />
+        </div>
         <br />
-        <br />
-        <label htmlFor="iDes">Description (optional):</label>
-        <br />
-        <input type="text" id="iDes" name="iDes" ref={itemDescRef} />
-        <br />
+        <div className="addeventdesc">
+          <label htmlFor="iDes">Description</label>
+          <br />
+          <textarea id="iDes" name="iDes" ref={itemDescRef} />
+        </div>
         <br />
 
-        <label htmlFor="iName">Event start:</label><br />
-        <input type="date" id="iName" name="iName" ref={itemStartRef} /><br />
-        <input type="time" id="iStartTime" name="iStartTime" ref={itemStartTimeRef} /><br /><br />
+        <div className="in-line addeventform">
+          <label htmlFor="iName">Start </label><br />
+          <input type="date" id="iName" name="iName" ref={itemStartRef} /><br />
+          <input className="addeventsecond" type="time" id="iStartTime" name="iStartTime" ref={itemStartTimeRef} /><br /><br />
+        </div>
 
-        <label htmlFor="iDes">Event end:</label><br />
-        <input type="date" id="iDes" name="iDes" ref={itemEndRef} /><br />
-        <input type="time" id="iEndTime" name="iEndTime" ref={itemEndTimeRef} /><br /><br />
+        <div className="in-line addeventform">
+          <label htmlFor="iDes">End </label><br />
+          <input className="endtime" type="date" id="iDes" name="iDes" ref={itemEndRef} /><br />
+          <input className="addeventsecond" type="time" id="iEndTime" name="iEndTime" ref={itemEndTimeRef} /><br /><br />
+        </div>
+
 
          {/* Render the checkboxes with group names */}
-         <div>
-          <label>Select Group:</label>
+         <div className="in-line groupselect" >
+          <label>Group</label>
           <br />
+
           {groupsList.map((group) => (
             <label key={group.id}>
               <input
@@ -176,16 +178,14 @@ export function AddEvent() {
               <br />
             </label>
           ))}
+
         </div>
         <br /><br />
 
         <div style={{ justifyContent: "left", display: "flex", gap: "5px" }}>
           <input className='AvailabilityButton3' type="submit" id="submitButton" value="Add" />
-          <input className='AvailabilityButton3' type="button" id="deleteButton" value="Delete" onClick={handleDeleteButton} />
-          <input className='AvailabilityButton3' type="reset" id="resetButton" value="Clear Form" />
+          <input className='AvailabilityButton3' type="reset" id="resetButton" value="Clear" />
         </div>
-        <br /> <br /> <br />
-        <hr /> <br />
 
       </form>
     </div>

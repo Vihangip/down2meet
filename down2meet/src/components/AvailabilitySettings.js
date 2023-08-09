@@ -76,7 +76,7 @@ const AvailabilitySettings = ({onClose}) => {
         <div className="dialog-overlay">
             <div className="dialog-box">
               <span id="dialogClose" className="dialog-close" onClick={onClose}>&times;</span>
-                <h2>Choose who you want to share your availability with:</h2>
+                <h2>Choose who you want to share your availability with</h2>
                 {friends.map((friend) => (
                 <div key={friend.id}>
                     <label className='AvailabilityFriend'>
@@ -94,7 +94,7 @@ const AvailabilitySettings = ({onClose}) => {
                 </div>
                 ))}
                 <button className='AvailabilityButton' onClick={handleSaveApprovedFriends}>Save</button>
-                <h2>Friends that can see your availability:</h2>
+                <h2>Friends that can see your availability</h2>
                 <ul>
                     {approvedFriends.map((friend) => (
                     <UserView user={friend}/>
