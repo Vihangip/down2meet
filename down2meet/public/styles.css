@@ -1121,24 +1121,22 @@ input.addeventsecond {
 .AvailabilityButton {
   background-color: var(--active-color);
   color: white;
-  font-size: 17px;
-  width: 60px;
+  font-size: 20px;
+  width: 75px;
   height: 40px;
   cursor: pointer;
   margin-bottom: 10px;
   border: none;
   border-radius: 15px;
-  padding: 5px;
-  margin-right: 5px;
-  margin-left: 5px;
+  padding: 10px;
 }
 
 .AvailabilityButton2 {
   background-color: var(--active-color);
   color: white;
-  font-size: 18px;
+  font-size: 20px;
   width: 200px;
-  height: 55px;
+  height: 50px;
   cursor: pointer;
   border: none;
   border-radius: 15px;
@@ -1151,7 +1149,7 @@ input.addeventsecond {
   background-color: var(--active-color);
   color: white;
   font-size: 17px;
-  width: 60px;
+  width: 100px;
   height: 35px;
   align-content: center;
   cursor: pointer;
@@ -1164,15 +1162,14 @@ input.addeventsecond {
 .AvailabilityButton4 {
   background-color: var(--active-color);
   color: white;
-  font-size: 16px;
+  font-size: 15px;
   width: 200px;
-  height: 55px;
+  height: 50px;
   cursor: pointer;
   border: none;
   border-radius: 15px;
   padding: 10px;
-  margin-top: 25px;
-  margin-bottom: 25px;
+  margin-bottom: 60px;
 }
 
 .AvailabilityButton5 {
