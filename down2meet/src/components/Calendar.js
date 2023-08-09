@@ -121,7 +121,6 @@ const Calendar = () => {
 
   return (
     <div className='AvailabilityButtons'>
-
         <button className='AvailabilityButton4' onClick={(e) => handleItemClick(e, 'sign-in')}>Connect to Google Calendar</button>
       </div>
 
