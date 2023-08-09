@@ -936,6 +936,7 @@ color: white;
     cursor: pointer;
     color: white;
     font-size: 25px;
+    border: none;
   }
   
   .button.available {

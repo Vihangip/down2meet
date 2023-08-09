@@ -40,7 +40,6 @@ export default function SearchBar({ onSearchResultClick }) {
 
   return (
     <div className="SearchBar">
-      <h1>Search Bar</h1>
       <form onSubmit={(e) => e.preventDefault()}>
         <input
           type="text"
