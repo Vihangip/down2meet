@@ -141,8 +141,9 @@ function Events() {
 
             <div className='middle-line'></div>
 
-          <div className="Calendar"> <Calendar /> </div>
-          <div className="Calendar"> <Event /> </div>
+
+          <div > <Event /> </div>
+          <div> <Calendar /> </div>
         </div>
       </div>
       {view==='AvailabilitySettings' && <AvailabilitySettings onClose={handleClose} />}   
