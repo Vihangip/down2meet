@@ -39,7 +39,7 @@ What is some additional functionality you can add/remove based on time constrain
 
 ## Project task requirements
 3-5 minimal requirements (will definitely complete)
-> - Create account (set up profile)
+> - [x]  Create account (set up profile)
 > - Log into account
 > - Add/remove friend 
 > - Share availability 
