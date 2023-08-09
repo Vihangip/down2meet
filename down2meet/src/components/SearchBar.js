@@ -43,7 +43,7 @@ export default function SearchBar({ onSearchResultClick }) {
       <form onSubmit={(e) => e.preventDefault()}>
         <input
           type="text"
-          placeholder="Search users..."
+          placeholder="&#x1F50D;  Search users..."
           value={searchQuery}
           onChange={handleInputChange}
           onFocus={handleInputFocus}
