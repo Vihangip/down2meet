@@ -1,7 +1,28 @@
 # down2meet
 
-## High Level Description
-Down2meet is a solution for scheduling meetings with friends. It eliminates the hassle of back-and-forths and group chat confusion. Users can easily request and accept hangouts without having to automatically compare availability times.
+## Description
+Down2meet is a solution for scheduling hangouts with friends. It gives users the ability to effortlessly organize and plan meet-ups while also fostering an engaging social networking experience within the platform. It eliminates the hassle of back-and-forths of group chat confusion by easily being able to request and accept hangouts and view when your friends are free to hangout
+
+## Goals
+
+## Usage of Tech from Units 1-5
+
+- Unit 1: HTML/CSS/Javascript
+We used HTML/CSS to build the front end of our site. HTML for the structure of the site was often written in JSX code which enabled us to write in Javascript and 
+
+- Unit 2:  React & Redux
+We used React and Redux to create a dynamic and responsive user interface. By utilizing React's component-based architecture, we modularized our application and facilitated seamless updates. Redux centralized our state management, ensuring consistent data flow and enabling efficient communication between components. Together, React and Redux enabled us to build a scalable and organized frontend that enhances user experience and simplifies complex data interactions.
+
+- Unit 3: NodeJS & Express
+We used NodeJS and Express to build the server side and allow for communication between the client and server side. NodeJS allows writing Javascript on the server side, and Express simplifies the process of handling API requests, routing, and middleware. We used these technologies whenever we have to fetch or update data not directly stored in the front end.
+
+- Unit 4: NoSQL with MongoDB
+We used MongoDB, the NoSQL database, to store and manage all project-related data. The flexibility of NoSQL allowed us to model the data in a schema-less manner, making it easy to adapt and scale as the project evolved. MongoDB provided efficient storage of complex data structures and fast and reliable access to information, enhancing overall performance.
+
+- Unit 5: Deployment
+We used Render.com to deploy our site with seamless integration with Github. It allows access to the site on other devices.
+
+
 
 Group Name: 
 **down2meet**
