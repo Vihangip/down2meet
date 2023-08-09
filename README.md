@@ -4,6 +4,29 @@
 Down2meet is a solution for scheduling hangouts with friends. It gives users the ability to effortlessly organize and plan meet-ups while also fostering an engaging social networking experience within the platform. It eliminates the hassle of back-and-forths of group chat confusion by easily being able to request and accept hangouts and view when your friends are free to hangout
 
 ## Goals
+3-5 minimal requirements (will definitely complete)
+> - [x] Create an account (set up profile)
+> - [x] Log into the account
+> - [x] Add/remove friend 
+> - [x] Share availability 
+> - [x] View planned activities
+> - [x] Request/confirm a hangout
+
+3-7 "standard" requirements (will most likely complete) 
+> - [x] Filter friends based on availability
+> - [x] System saves the user’s default schedule times (fixed schedule ie. work hours) 
+> - [ ] System announcement of the availability and meet-up requests - Will not complete as it’s not fit for a website
+> - [x] Create a friend group
+> - [x] User can select who gets shown their availability
+
+2-3 stretch requirements (plan to complete at least 1!)
+> - [ ]  Allowing users to upload/update their schedule
+> - [ ] Using an API to upload their schedule from UBC, Google Calendar, etc. 
+> - [x] Sync events committed on the App to the user’s personal Google account (Google token for sign up may help with it); schedule changes made on the app would be reflected on their Google Calendar
+> - [ ]  Request meeting change -> WILL MEET (Can do so by chatting with the system and having it broadcast the request to the other members of the group)
+> - [ ]  Change language of the whole webapp (User can select the language of the webapp)
+> - [ ] Log into different accounts, Select which account(s) to display schedule from (ie. work account, personal account)
+
 
 ## Usage of Tech from Units 1-5
 
@@ -22,6 +45,32 @@ Down2meet is a solution for scheduling hangouts with friends. It gives users the
 - Unit 5: Deployment
 > We used Render.com to deploy our site with seamless integration with Github. It allows access to the site on other devices.
 
+## Above and Beyond Functionality
+The above and beyond functionality for our site was using external APIs and libraries. The login functionality uses Google OAuth. This feature allows users to log in using their Google accounts, making the registration and login process more convenient for them. We also integrated Google Calendar API so events created or joined through the website automatically get added to the user’s Google Calendar. This feature makes keeping track of events easier for the users, but they can also opt not to connect to their Google Calendar
+
+## Next steps
+To further improve the app, we wanted to add more functionality that would make our app be more practical in its use, such as improving on the privacy settings or creating a Notifications feature that many popular social media sites use at the moment. We also want a user to be able to restrict posts and their availability to a particular group and also be able to compare a groups common availability. As an extra stretch goal, turning this app into a mobile app would also make it much more practical for the concept of our project.
+
+## Contributions
+
+Johnny Lau
+Worked on all the styling of the site, as well as the overall project structure of the front-end, UI/UX design, and managed the redux. Handled the implementation of the Home page with the Social feed and Hangouts page, and worked on many of the bugs related to the back-end requests.
+__________________________________________________________________
+
+Lucy Li
+Worked on the login functionality and user authentication system. Implemented features such as displaying posts exclusively for friends and enabling post deletion by users. Handled and fixed bugs for backend requests for other functionalities across the site. Implemented the use of local storage enhanced user experience and streamlined data management.
+__________________________________________________________________
+
+Karat Wannissorn
+Worked on the profile page, and event synchronization. Events created or joined on the Home page get added to the calendar in the Profile page and Events page as well as Google Calendar. 
+__________________________________________________________________
+
+Vihangi Perera
+Worked on configuring Mongo DB and also deploying the website on Render and came up with initial project idea. Implemented features like the search bar, the ability to add and delete friends, and allowing users to show availability to selected friends. Also implemented availability status, as well as filtering friends based on their availability status. 
+__________________________________________________________________
+
+Chinenye Oluka
+Worked on populating the app’s calendar with events and designing a detailed view of the events when an event is clicked on the Availability page, but keeping the event details hidden profile viewers in the profile page Also implemented the ability to add friends to a group, display the friends in a group on the Groups page, and to display the existing groups on the Availability page.
 
 
 Group Name: 
