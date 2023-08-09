@@ -793,6 +793,64 @@ color: white;
     font-size: 17px;
 }
 
+.addeventtitle {
+  margin-bottom: 5px;
+}
+
+.addeventtitle label {
+  margin-right: 10px;
+}
+
+.addeventtitle input {
+  font: inherit;
+  margin-left: 60px;
+  width: 60%;
+}
+
+.addeventdesc {
+  margin-bottom: 5px;
+}
+
+.addeventdesc label {
+  margin-right: 10px;
+}
+
+.addeventdesc textarea {
+  margin-top: 10px;
+  margin-left: 100px;
+  width: 70%;
+  height: 60px;
+  resize: none;
+  font: inherit;
+}
+
+.addeventform {
+  margin-bottom: 20px;
+}
+
+.addeventform label {
+  margin-right: 10px;
+}
+
+.addeventform input {
+  font: inherit;
+  margin-left: 60px;
+}
+
+input.endtime {
+  margin-left: 65px;
+}
+
+.groupselect label {
+  margin-top: 20px;
+  margin-right: 50px;
+}
+
+input.addeventsecond {
+  margin-left: 30px;
+}
+
+
 .Profile-Edit-Button {
   color: white;
   background-color: var(--active-color);
@@ -801,6 +859,8 @@ color: white;
   border: none;
   border-radius: 15px;
   padding: 10px;
+  padding-right:15px;
+  padding-left:15px;
 }
 
 .ProfilePage .column {
@@ -1076,7 +1136,7 @@ color: white;
   color: white;
   font-size: 20px;
   width: 200px;
-  height: 45px;
+  height: 50px;
   cursor: pointer;
   border: none;
   border-radius: 15px;
@@ -1096,14 +1156,15 @@ color: white;
   border: none;
   border-radius: 15px;
   padding: 10px;
+  margin-right: 20px;
 }
 
 .AvailabilityButton4 {
   background-color: var(--active-color);
   color: white;
-  font-size: 20px;
-  width: 300px;
-  height: 45px;
+  font-size: 15px;
+  width: 200px;
+  height: 50px;
   cursor: pointer;
   border: none;
   border-radius: 15px;

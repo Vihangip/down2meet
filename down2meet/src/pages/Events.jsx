@@ -100,47 +100,15 @@ function Events() {
         <div className='Events'>
           <BodyHeader title={"Availability"} />
           <div className='AvailabilityButtons'>
-          {viewSettings === 1 ? 
-          <div className='AvailabilitySettings'>
-            <h2>Choose who you want to share your availability with:</h2>
-            {friends.map((friend) => (
-              <div key={friend.id}>
-                <label className='AvailabilityFriend'>
-                  <input
-                    type="checkbox"
-                    checked={selectedApprovedFriends.includes(friend)}
-                    onChange={() =>
-                      selectedApprovedFriends.includes(friend)
-                        ? handleUnselectFriend(friend)
-                        : handleSelectFriend(friend)
-                    }
-                  />
-                  <UserView user={friend} />
-                </label>
-              </div>
-            ))}
-            <button className='AvailabilityButton' onClick={handleSaveApprovedFriends}>Save</button>
-            <h2>Friends that can see your availability:</h2>
-              <ul>
-                {approvedFriends.map((friend) => (
-                  <UserView user={friend}/>
-                ))}
-              </ul>
-            <button className='AvailabilityButton' onClick={() => setViewSettings(0)}>Done</button>
-          </div> : 
-          viewSettings === 2 ?
-           <div><AddEvent /> 
-          <button className='AvailabilityButton' onClick={() => setViewSettings(0)}>Cancel</button>
-          </div> : 
-          <>
+
             <button className='AvailabilityButton2' onClick={() => handleAvailabilitySettings()}>Availability Settings</button>
             <button className='AvailabilityButton2' onClick={() => handleSetAvailability()}>Set Availability</button>
-          </>}
+            <div> <Calendar /> </div>
           </div>
             <div className='middle-line'></div>
 
           <div > <Event /> </div>
-          <div> <Calendar /> </div>
+
         </div>
       </div>
       {view==='AvailabilitySettings' && <AvailabilitySettings onClose={handleClose} />}   

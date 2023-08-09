@@ -64,8 +64,8 @@ const EditView = ({ onClose, user_id }) => {
                             <input type="text" value={new_picture} onChange={(e) => setPicture(e.target.value)}/>
                         </div>
 
-                        <br />
-                        <button className="buttons" onClick={handleSave}> Save </button>
+                        <br /> <br />
+                        <button className="buttons Profile-Edit-Button" onClick={handleSave}> Save </button>
                     </div>
                 </div>
         

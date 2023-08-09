@@ -61,7 +61,7 @@ To further improve the app, we wanted to add more functionality that would make 
 > Worked on the login functionality and user authentication system. Implemented features such as displaying posts exclusively for friends and enabling post deletion by users. Handled and fixed bugs for backend requests for other functionalities across the site. Implemented the use of local storage enhanced user experience and streamlined data management.
 
 - Karat Wannissorn
-> Worked on the profile page, and event synchronization. Events created or joined on the Home page get added to the calendar in the Profile page and Events page as well as Google Calendar 
+> Worked on the profile page, allowing users to edit their information, and some styling on the Availability page. Also worked on event synchronization so that events created/joined on the Home page gets added to the calendar in Profile page and Events page as well as Google Calendar, while events that are deleted get removed from the calendar.
 
 - Vihangi Perera
 > Worked on configuring Mongo DB and also deploying the website on Render and came up with initial project idea. Implemented features like the search bar, the ability to add and delete friends, and allowing users to show availability to selected friends. Also implemented availability status, as well as filtering friends based on their availability status. 
