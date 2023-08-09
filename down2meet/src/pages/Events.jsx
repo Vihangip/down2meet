@@ -9,6 +9,8 @@ import ButtonAvailable from '../components/ButtonAvailable';
 import Search from '../components/Search';
 import { useSelector } from 'react-redux';
 import UserView from '../components/UserView';
+import SetAvailability from '../components/SetAvailability';
+import AvailabilitySettings from '../components/AvailabilitySettings';
 
 function Events() {
   const [friends, setFriends] = useState([]);
@@ -17,6 +19,7 @@ function Events() {
   const [viewSettings, setViewSettings] = useState(0);
   const currentUser = JSON.parse(localStorage.getItem('user'));
   const userAvailability = useSelector((state) => state.users.availability);
+  const [view, setView] = useState(null);
 
   const colorSwitch = () => {
     const primaryColor = '#32CD32';
@@ -76,6 +79,18 @@ function Events() {
     }
   }
 
+  const handleAvailabilitySettings = () => {
+    setView("AvailabilitySettings");
+  };
+
+  const handleSetAvailability = (friends) => {
+    setView("SetAvailability");
+  };
+
+  const handleClose = async () => {
+    setView(null);
+  };
+
   return (
     <>
       <div className="Body-Left">
@@ -118,8 +133,8 @@ function Events() {
           <button className='AvailabilityButton' onClick={() => setViewSettings(0)}>Cancel</button>
           </div> : 
           <>
-            <button className='AvailabilityButton2' onClick={() => setViewSettings(1)}>Availability Settings</button>
-            <button className='AvailabilityButton2' onClick={() => setViewSettings(2)}>Set Availability</button>
+            <button className='AvailabilityButton2' onClick={() => handleAvailabilitySettings()}>Availability Settings</button>
+            <button className='AvailabilityButton2' onClick={() => handleSetAvailability()}>Set Availability</button>
           </>}
           </div>
 
@@ -130,6 +145,8 @@ function Events() {
           <div className="Calendar"> <Event /> </div>
         </div>
       </div>
+      {view==='AvailabilitySettings' && <AvailabilitySettings onClose={handleClose} />}   
+      {view==='SetAvailability' && <SetAvailability onClose={handleClose} />}   
       <div className="Body-Right">
         <ButtonAvailable />
         <Search />

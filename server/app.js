@@ -24,7 +24,6 @@ const session = require('express-session');
 const passport = require('passport');
 require('./passport');
 
-const { ensureAuthenticated } = require('./authMiddleware');
 
 var app = express();
 app.use(cors(

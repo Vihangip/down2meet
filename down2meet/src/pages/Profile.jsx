@@ -58,7 +58,7 @@ function Profile() {
       navigate('/');
       return;
     }
-    dispatch(getEventAsync(user.user_id));          //////////////////////// 
+    dispatch(getEventAsync(user.user_id));       
   },[dispatch]);  
 
   return (
@@ -77,7 +77,6 @@ function Profile() {
       <div className="Body-Right">
         <ButtonAvailable />
         <Search />
-        {/* <ActiveUsers /> */}
         </div>
       </>
   );
