@@ -53,24 +53,30 @@ To further improve the app, we wanted to add more functionality that would make 
 
 ## Contributions
 
-Johnny Lau
-Worked on all the styling of the site, as well as the overall project structure of the front-end, UI/UX design, and managed the redux. Handled the implementation of the Home page with the Social feed and Hangouts page, and worked on many of the bugs related to the back-end requests.
-__________________________________________________________________
+- Johnny Lau
+> Worked on all the styling of the site, as well as the overall project structure of the front-end, UI/UX design, and managed the redux. Handled the implementation of the Home page with the Social feed and Hangouts page, and worked on many of the bugs related to the back-end requests.
 
-Lucy Li
-Worked on the login functionality and user authentication system. Implemented features such as displaying posts exclusively for friends and enabling post deletion by users. Handled and fixed bugs for backend requests for other functionalities across the site. Implemented the use of local storage enhanced user experience and streamlined data management.
-__________________________________________________________________
+- Lucy Li
+> Worked on the login functionality and user authentication system. Implemented features such as displaying posts exclusively for friends and enabling post deletion by users. Handled and fixed bugs for backend requests for other functionalities across the site. Implemented the use of local storage enhanced user experience and streamlined data management.
 
-Karat Wannissorn
-Worked on the profile page, and event synchronization. Events created or joined on the Home page get added to the calendar in the Profile page and Events page as well as Google Calendar. 
-__________________________________________________________________
+- Karat Wannissorn
+> Worked on the profile page, and event synchronization. Events created or joined on the Home page get added to the calendar in the Profile page and Events page as well as Google Calendar 
 
-Vihangi Perera
-Worked on configuring Mongo DB and also deploying the website on Render and came up with initial project idea. Implemented features like the search bar, the ability to add and delete friends, and allowing users to show availability to selected friends. Also implemented availability status, as well as filtering friends based on their availability status. 
-__________________________________________________________________
+- Vihangi Perera
+> Worked on configuring Mongo DB and also deploying the website on Render and came up with initial project idea. Implemented features like the search bar, the ability to add and delete friends, and allowing users to show availability to selected friends. Also implemented availability status, as well as filtering friends based on their availability status. 
 
-Chinenye Oluka
-Worked on populating the app’s calendar with events and designing a detailed view of the events when an event is clicked on the Availability page, but keeping the event details hidden profile viewers in the profile page Also implemented the ability to add friends to a group, display the friends in a group on the Groups page, and to display the existing groups on the Availability page.
+
+- Chinenye Oluka
+> Worked on populating the app’s calendar with events and designing a detailed view of the events when an event is clicked on the Availability page, but keeping the event details hidden profile viewers in the profile page Also implemented the ability to add friends to a group, display the friends in a group on the Groups page, and to display the existing groups on the Availability page.
+
+
+
+
+
+
+
+
+
 
 
 Group Name: 
