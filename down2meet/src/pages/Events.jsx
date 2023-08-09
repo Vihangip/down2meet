@@ -116,11 +116,12 @@ function Events() {
           viewSettings === 2 ?
            <div><AddEvent /> 
           <button className='AvailabilityButton' onClick={() => setViewSettings(0)}>Cancel</button>
-          </div> : <>
+          </div> : 
+          <>
             <button className='AvailabilityButton2' onClick={() => setViewSettings(1)}>Availability Settings</button>
             <button className='AvailabilityButton2' onClick={() => setViewSettings(2)}>Set Availability</button>
-            </>}
-            </div>
+          </>}
+          </div>
 
 
             <div className='middle-line'></div>

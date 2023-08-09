@@ -7,6 +7,7 @@ import Event from '../components/Event';
 import { useDispatch } from 'react-redux';
 import { getEventAsync } from '../redux/event/thunks';
 import { useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function FriendProfile() {
   const location = useLocation();
@@ -14,8 +15,19 @@ function FriendProfile() {
   const friendInfo = location?.state?.friendInfo;
   const [isApprovedFriend, setIsApprovedFriend] = useState(false);
   const dispatch = useDispatch();
+  const userAvailability = useSelector((state) => state.users.availability);
 
-  console.log(currentUser);
+  const colorSwitch = () => {
+    const primaryColor = '#32CD32';
+    const secondaryColor = '#FF6347';
+    document.documentElement.style.setProperty('--active-color', userAvailability === 'Busy' ? secondaryColor : primaryColor);
+  };
+  
+  useEffect(() => {
+    colorSwitch();
+  }, [userAvailability]);
+
+
   const fetchFriendProfile = async (userId) => {
     try {
       const response = await fetch(`${process.env.REACT_APP_URL3001}/users/${userId}/approvedfriends`);
