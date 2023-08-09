@@ -858,6 +858,8 @@ input.addeventsecond {
   border: none;
   border-radius: 15px;
   padding: 10px;
+  padding-right:15px;
+  padding-left:15px;
 }
 
 .ProfilePage .column {
