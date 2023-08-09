@@ -1,5 +1,6 @@
 # down2meet
 
+
 ## Description
 Down2meet is a solution for scheduling hangouts with friends. It gives users the ability to effortlessly organize and plan meet-ups while also fostering an engaging social networking experience within the platform. It eliminates the hassle of back-and-forths of group chat confusion by easily being able to request and accept hangouts and view when your friends are free to hangout
 
@@ -114,7 +115,7 @@ What is some additional functionality you can add/remove based on time constrain
 
 ## Project task requirements
 3-5 minimal requirements (will definitely complete)
-> - Create account (set up profile)
+> - [x]  Create account (set up profile)
 > - Log into account
 > - Add/remove friend 
 > - Share availability 
