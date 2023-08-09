@@ -200,10 +200,8 @@ html, body, #Home, #Home>div {
     padding: 10px;
     padding-top: 15px;
     background-color: var(--active-color);
-    /* border: 1px solid grey; */
     margin: 0;
     border-radius: 10px;
-    /* padding-bottom: 10px; */
 }
 
 .logo-image {
@@ -223,10 +221,10 @@ html, body, #Home, #Home>div {
   padding: 0;
   padding: 7px;
   background-color: var(--active-color);
-  border: 1px solid grey;
   margin: 0;
   width: 100px;
   height: 60px;
+  border-radius: 10px;
 }
 
 .Navbar-line {
@@ -784,6 +782,7 @@ color: white;
     margin-right: 10%;
     border: 1px solid black;
     border-radius: 10px;
+    margin-top: 15px;
 }
 
 .in-line {
